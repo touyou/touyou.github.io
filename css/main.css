@@ -1,3 +1,38 @@
 /* CSS stylesheet created by touyou for touyou.github.io */
+
+#container { width: 100%;
+            margin: auto;}
+section { width: 100%;
+          float: right;
+          margin: 30px 0;
+          margin-left: -200px; }
+article { margin-left: 230px; }
+aside { width: 200px;
+        float: left;
+        margin: 30px; }
+footer { clear: both; }
+
 /* header */
-/* section */
+header { width: 100%;
+				height: 375px;
+        background-color: #000;}
+hgroup.title { padding: 0px; }
+header h1 { margin: 0;
+            float: center;
+            font-color: #fff; }
+#htitle { float: center; }
+nav.menu { margin-top: 11px;
+					width: auto;}
+/* content */
+article.post {width: auto; }
+
+/* footer */
+footer { width: 100%; 
+			  padding: 0;
+			  background-color: #000;
+			  overflow: hidden;}
+#foot { width: 50%;
+			float: left; }
+#copyright { width: 50%;
+					float: right;
+					text-align: right; }
