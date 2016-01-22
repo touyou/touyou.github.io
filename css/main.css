@@ -98,13 +98,13 @@ article.post h3 {
 .linktext li {
     list-style-type: none;
     float: center;
-    display: inline-block;
+    /* display: inline-block; */
 }
 .linktext li a {
     display: block;
     line-height: 25px;
     color: #000;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
 }
 .linktext li a:hover {
