@@ -1,0 +1,50 @@
+@fontface {
+    font-family: 'hiragino0';
+    src: url('../font/ヒラギノ角ゴシック W0.ttc');
+}
+@fontface {
+    font-family: 'hiragino1';
+    src: url('../font/ヒラギノ角ゴシック W1.ttc');
+}
+@fontface {
+    font-family: 'hiragino2';
+    src: url('../font/ヒラギノ角ゴシック W2.ttc');
+}
+@fontface {
+    font-family: 'hiragino3';
+    src: url('../font/ヒラギノ角ゴシック W3.ttc');
+}
+@fontface {
+    font-family: 'hiragino4';
+    src: url('../font/ヒラギノ角ゴシック W4.ttc');
+}
+@fontface {
+    font-family: 'hiragino5';
+    src: url('../font/ヒラギノ角ゴシック W5.ttc');
+}
+@fontface {
+    font-family: 'hiragino6';
+    src: url('../font/ヒラギノ角ゴシック W6.ttc');
+}
+@fontface {
+    font-family: 'hiragino7';
+    src: url('../font/ヒラギノ角ゴシック W7.ttc');
+}
+
+
+/* ------------------------------------------------ */
+#htitle h1 {
+    font-family: 'hiragino5';
+}
+#htitle li {
+    font-family: 'hiragino2';
+}
+section h1 {
+    font-family: 'hiragino4';
+}
+section h3 {
+    font-family: 'hiragino3';
+}
+article p {
+    font-family: 'hiragino0';
+}
