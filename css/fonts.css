@@ -1,41 +1,73 @@
 @fontface {
-    font-family: 'hiragino0';
-    src: url('../font/ヒラギノ角ゴシック W0.ttc');
+    font-family: 'hiragino00';
+    src: url('../font/ヒラギノ角ゴシック W0_0.ttf');
 }
 @fontface {
-    font-family: 'hiragino1';
-    src: url('../font/ヒラギノ角ゴシック W1.ttc');
+    font-family: 'hiragino01';
+    src: url('../font/ヒラギノ角ゴシック W0_1.ttf');
 }
 @fontface {
-    font-family: 'hiragino2';
-    src: url('../font/ヒラギノ角ゴシック W2.ttc');
+    font-family: 'hiragino10';
+    src: url('../font/ヒラギノ角ゴシック W1_0.ttf');
 }
 @fontface {
-    font-family: 'hiragino3';
-    src: url('../font/ヒラギノ角ゴシック W3.ttc');
+    font-family: 'hiragino11';
+    src: url('../font/ヒラギノ角ゴシック W1_1.ttf');
 }
 @fontface {
-    font-family: 'hiragino4';
-    src: url('../font/ヒラギノ角ゴシック W4.ttc');
+    font-family: 'hiragino20';
+    src: url('../font/ヒラギノ角ゴシック W2_0.ttf');
 }
 @fontface {
-    font-family: 'hiragino5';
-    src: url('../font/ヒラギノ角ゴシック W5.ttc');
+    font-family: 'hiragino21';
+    src: url('../font/ヒラギノ角ゴシック W2_1.ttf');
+}
+@fontface {
+    font-family: 'hiragino30';
+    src: url('../font/ヒラギノ角ゴシック W3_0.ttf');
+}
+@fontface {
+    font-family: 'hiragino31';
+    src: url('../font/ヒラギノ角ゴシック W3_1.ttf');
+}
+@fontface {
+    font-family: 'hiragino32';
+    src: url('../font/ヒラギノ角ゴシック W3_2.ttf');
+}
+@fontface {
+    font-family: 'hiragino33';
+    src: url('../font/ヒラギノ角ゴシック W3_3.ttf');
+}
+@fontface {
+    font-family: 'hiragino40';
+    src: url('../font/ヒラギノ角ゴシック W4_0.ttf');
+}
+@fontface {
+    font-family: 'hiragino41';
+    src: url('../font/ヒラギノ角ゴシック W4_1.ttf');
+}
+@fontface {
+    font-family: 'hiragino50';
+    src: url('../font/ヒラギノ角ゴシック W5_0.ttf');
+}
+@fontface {
+    font-family: 'hiragino51';
+    src: url('../font/ヒラギノ角ゴシック W5_1.ttf');
 }
 
 /* ------------------------------------------------ */
 #htitle h1 {
-    font-family: 'hiragino5';
+    font-family: 'hiragino50', 'hiragino51';
 }
 #htitle li {
-    font-family: 'hiragino2';
+    font-family: 'hiragino20', 'hiragino21';
 }
 section h1 {
-    font-family: 'hiragino4';
+    font-family: 'hiragino40', 'hiragino41';
 }
 section h3 {
-    font-family: 'hiragino3';
+    font-family: 'hiragino30', 'hiragino31', 'hiragino32', 'hiragino33';
 }
 article p {
-    font-family: 'hiragino0';
+    font-family: 'hiragino00', 'hiragino01';
 }
