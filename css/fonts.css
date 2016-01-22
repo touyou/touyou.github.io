@@ -22,15 +22,6 @@
     font-family: 'hiragino5';
     src: url('../font/ヒラギノ角ゴシック W5.ttc');
 }
-@fontface {
-    font-family: 'hiragino6';
-    src: url('../font/ヒラギノ角ゴシック W6.ttc');
-}
-@fontface {
-    font-family: 'hiragino7';
-    src: url('../font/ヒラギノ角ゴシック W7.ttc');
-}
-
 
 /* ------------------------------------------------ */
 #htitle h1 {
