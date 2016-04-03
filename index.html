@@ -2,7 +2,7 @@
 <html lang=ja-JP>
 
 <head>
-    <title>touyou</title>
+    <title>touyou.github.io/index</title>
 
     <!-- meta data -->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -14,10 +14,8 @@
     <!-- end -->
 
     <!--style -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Pacifico:400' rel='stylesheet' type='text/css'>
-    <link href='css/main.css' rel='stylesheet' type='text/css'>
-    <link href='css/fonts.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Orbitron:900,400,500,700' rel='stylesheet' type='text/css'>
     <!-- end -->
 
     <!-- javascript -->
@@ -36,61 +34,91 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="backimage">
-            <img src="res/logo.png" width="100%" />
-        </div>
-        <div class="wrapper">
-            <header>
-                <hgroup class="title">
-                    <div id="htitle">
-                        <h1>
-                            touyou
-                        </h1>
-                        <nav class="menu">
-                            <ul>
-                                <li class="first"><a href="index.html">home</a></li>
-                                <li><a href="about.html">about</a></li>
-                                <li><a href="links.html">links</a></li>
-                                <li><a href="http://touyoubuntu.hatenablog.com/" target="_blank">blog</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </hgroup>
-            </header>
-
-            <section>
-                <article>
-                    <h1>HOME</h1>
-                </article>
-                <article class="post">
-                    <div class="posttext">
-                        <h3><a name="#word">一言</a></h3>
-                        <p>
-                            デザイン本格的に組みたいなと思う今日このごろ。。。<br />
-                            オリジナルのスマホ壁紙を作ってみました。需要はおそらく僕自身しかないですがよかったらどうぞ。<br />
-                            <center><img src="res/iphone_wallpaper.png" alt="iphone" width="50%" /></center>
-                        </p>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="posttext">
-                        <h3><a name="#news">news</a></h3>
-                        <p>
-                            2016/01/22 デザイン一部変更<br />
-                            2015/03/26 twitter鍵垢作成に合わせて本格的にサイト作成開始
-                        </p>
-                    </div>
-                </article>
-            </section>
-
-            <footer>
-                <div id="copyright">
-                    <small>Copyright &copy; 2015- touyou. All Rights Reserved.</small>
+    <div class="key-visual">
+        <header>
+            <!-- navigation and title -->
+            <div class="container">
+                <div class="col-6 col-first">
+                    <h1><img src="res/title.png" alt="TITLE" height="50"></h1>
                 </div>
-            </footer>
+                <div class="col-6 col-last">
+                    <nav>
+                        <ul>
+                            <li><a href="index.html">home</a></li>
+                            <li><a href="about.html">about</a></li>
+                            <li><a href="creations.html">creations</a></li>
+                            <li><a href="links.html">links</a></li>
+                            <li><a href="http://touyoubuntu.hatenablog.com/" target="_blank">blog</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- title logo -->
+        <div class="container">
+            <div class="col-6 col-last">
+                <div class="title">
+                    <h1>touyou.github.io<br>home</h1>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="container">
+        <main>
+            <div class="contents">
+                <h2>- HOME</h2>
+                <p>
+                    touyouのホームページです。作品などの情報を公開します。<br>
+                    オリジナルのスマホ壁紙を作ってみました。需要はおそらく僕自身しかないですがよかったらどうぞ。<br>
+                    <center><img src="res/iphone_wallpaper.png" alt="iphone" width="50%"></center>
+                </p>
+                <h2>- NEWS</h2>
+                <p>
+                    <ul>
+                        <li>2016/04/03 デザイン更新（creationsのページは作成中）</li>
+                        <li>2016/01/22 デザイン一部変更</li>
+                        <li>2015/03/26 twitter鍵垢作成に合わせて本格的にサイト作成開始</li>
+                    </ul>
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h2>contacts</h2>
+            <li>
+                <div class="panel-item">
+                    <a href="https://twitter.com/touyoubuntu" target="_blank"><img src="res/twitter-button.png" alt="twitter"></a>
+                    twitter
+                </div>
+            </li>
+            <li>
+                <div class="panel-item">
+                    <a href="https://facebook.com/fujiyou" target="_blank"><img src="res/facebook-button.png" alt="facebook"></a>
+                    facebook
+                </div>
+            </li>
+            <li>
+                <div class="panel-item">
+                    <a href="https://github.com/touyou" target="_blank"><img src="res/github-button.png" alt="github"></a>
+                    github
+                </div>
+            </li>
+            <li>
+                <div class="panel-item">
+                    <a href="mailto:touyou.dev&#64;gmail.com" target="_blank"><img src="res/mail-button.png" alt="mail"></a>
+                    mail
+                </div>
+            </li>
+
+            <div class="copyright">
+                <small>Copyright &copy; 2015-2016 touyou. All Rights Reserved.</small>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
