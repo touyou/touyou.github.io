@@ -8,7 +8,6 @@
 body {
     font-family: YuGothic, Meiryo, sans-serif;
     font-size: 14px;
-    color: #eee;
     background-color: #222831;
 }
 
@@ -26,6 +25,21 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', sans-serif;
+}
+
+.itunes {
+    display:inline-block;
+    overflow:hidden;
+    background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;
+    width:165px;
+    height:40px;
+    -webkit-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    transition: 0.5s ease;
+}
+
+.itunes:hover {
+    opacity: 0.6;
 }
 
 /* layout and grid */
