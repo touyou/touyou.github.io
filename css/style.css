@@ -31,15 +31,16 @@ h1, h2, h3, h4, h5, h6 {
     display:inline-block;
     overflow:hidden;
     background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;
-    width:165px;
-    height:40px;
+    background-position: 50% 50%;
+    width: 300px;
+    height: 300px;
     -webkit-transition: 0.5s ease;
     -o-transition: 0.5s ease;
     transition: 0.5s ease;
 }
 
-.itunes:hover {
-    opacity: 0.6;
+.itunes:hover img {
+    opacity: 0.3;
 }
 
 /* layout and grid */
@@ -165,6 +166,23 @@ main p a {
 main p li a {
     color: #393e46;
     text-decoration: underline;
+}
+
+.links li {
+    list-style-type: square;
+}
+
+.links ul {
+    padding-left: 30px;
+}
+
+.ios table {
+    padding: 10px;
+    width: 90%;
+}
+
+.ios td {
+    paddin: 10px;
 }
 
 /* footer */
