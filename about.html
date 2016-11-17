@@ -103,55 +103,6 @@
                 <script>
                     GitHubCalendar(".calendar", "touyou");
                 </script>
-                <br>
-                <br>
-                <center><h3><a href="https://gitlab.com/u/touyou" target="_blank">Gitlab(Private)</a></h3></center>
-                <br>
-                <div id="cal-heatmap"></div>
-                <div id="example-heatmap"></div>
-                <script>
-                    jQuery(function ($) {
-                        var json;
-                            $.ajax({
-                            type: 'GET',
-                            url: 'https://gitlab.com/u/touyou/calendar',
-                            dataType: 'html',
-                            async: false,
-                            cache: false,
-                            success: function(data) {
-                            var content = $(data.responseText).filter('script').html();
-                            var tmp = content.replace("<![CDATA[", "").replace("]]>", "");
-                            var s = tmp.indexOf( "{" );
-                            var e = tmp.indexOf( "}" );
-                            json = tmp.substring( s, e+1 );
-                            $('#gitlab-calendar-activities').text(json);
-                            }
-                        });
-                        setTimeout( $('#example-heatmap').each(function () {
-                        //setTimeout( function() {
-                            if( json != null ){
-                            var obj = $.parseJSON(json);
-                            var now = new Date();
-                            new CalHeatMap().init({
-                              data: obj,
-                              domain: 'month',
-                              domainLabelFormat: '%Y-%m',
-                              itemSelector: '#example-heatmap',
-                              legend: [1, 3, 5, 7],
-                              legendColors: {
-                                min: "#efefef",
-                                max: "steelblue",
-                                empty: "#efefef"
-                              },
-                                  tooltip: true,
-                              start: new Date(now.getFullYear(), now.getMonth() - 9)
-                            });
-                            } else {
-                                setTimeout( arguments.callee, 100 );
-                            }
-                        }));
-                    });
-                    </script>
             </div>
         </main>
     </div>
