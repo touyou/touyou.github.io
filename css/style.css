@@ -169,6 +169,14 @@ main p li a {
     text-decoration: underline;
 }
 
+.calendar h2 {
+    font-family: YuGothic, Meiryo, sans-serif;
+    font-size: initial;
+    margin-top: initial;
+    margin-bottom: initial;
+    border-bottom: none;
+}
+
 .links li {
     list-style-type: square;
 }
