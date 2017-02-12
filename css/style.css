@@ -8,7 +8,7 @@
 body {
     font-family: YuGothic, Meiryo, sans-serif;
     font-size: 14px;
-    background-color: #222831;
+    background-color: #eee;
 }
 
 li {
@@ -24,7 +24,8 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', sans-serif;
+    /*font-family: 'Orbitron', sans-serif;*/
+    font-family: YuGothic, Meiryo, sans-serif;
 }
 
 .itunes {
@@ -40,6 +41,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .itunes:hover img {
+    opacity: 0.3;
+}
+
+.googleplay {
+    display:inline-block;
+    overflow:hidden;
+    background:url(../res/google-play-badge.png) no-repeat;
+    background-size: 50%;
+    background-position: 50% 50%;
+    width: 300px;
+    height: 300px;
+    -webkit-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    transition: 0.5s ease;
+}
+
+.googleplay:hover img {
     opacity: 0.3;
 }
 
@@ -97,7 +115,8 @@ header {
 }
 
 nav {
-    font-family: 'Orbitron', sans-serif;
+    /*font-family: 'Orbitron', sans-serif;*/
+    font-family: YuGothic, Meiryo, sans-serif;
     float: right;
     margin-top: 30px;
 }
@@ -122,17 +141,18 @@ nav li a {
 }
 
 .key-visual h1 {
+    font-family: 'Orbitron', sans-serif;
     font-size: 50px;
     color: #eee;
 }
 
 .key-visual .title {
-    background-color: rgba(57, 62, 70, 0.7);
+    /*background-color: rgba(57, 62, 70, 0.7);*/
     margin-top: 200px;
     padding: 10px;
     text-align: center;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+    /*border-radius: 15px;*/
+    /*border-bottom-left-radius: 15px;*/
 }
 
 /* main */
