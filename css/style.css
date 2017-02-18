@@ -33,8 +33,8 @@ h1, h2, h3, h4, h5, h6 {
     overflow:hidden;
     background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;
     background-position: 50% 50%;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     -webkit-transition: 0.5s ease;
     -o-transition: 0.5s ease;
     transition: 0.5s ease;
@@ -50,8 +50,8 @@ h1, h2, h3, h4, h5, h6 {
     background:url(../res/google-play-badge.png) no-repeat;
     background-size: 50%;
     background-position: 50% 50%;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     -webkit-transition: 0.5s ease;
     -o-transition: 0.5s ease;
     transition: 0.5s ease;
@@ -201,6 +201,14 @@ main p li a {
     list-style-type: square;
 }
 
+.links li a {
+    color: #393e46;
+}
+
+.links li a:hover {
+    color: #00adb5;
+}
+
 .links ul {
     padding-left: 30px;
 }
@@ -211,7 +219,7 @@ main p li a {
 }
 
 .ios td {
-    paddin: 10px;
+    padding: 10px;
 }
 
 /* footer */
