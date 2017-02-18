@@ -229,8 +229,8 @@ footer li {
 }
 
 .panel-item img {
-    width: 120px;
-    height: 120px;
+    width: 70px;
+    height: 70px;
     opacity: 0.5;
     -webkit-transition: 1.5s ease;
     -o-transition: 1.5s ease;
