@@ -1,29 +1,72 @@
+var interval;
+var grid = 40;
+var posX;
+var posY;
+var w = 15;
+var h =15;
+var colors = {
+    1: '#ffffff',
+    2: '#e3ecda',
+    3: '#b9c7a5',
+    4: '#db0006',
+    5: '#a70007',
+    6: '#feb325',
+    7: '#01000a',
+    8: '#000000',
+    9: '#e27b68'
+  };
+var pixelArt = [
+0,0,0,6,4,4,0,0,0,0,0,0,0,
+0,0,6,5,4,4,0,0,0,0,0,0,0,
+0,0,0,5,4,4,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,3,2,1,1,1,1,1,1,1,1,1,0,
+3,2,2,1,1,1,1,1,1,1,1,1,1,
+3,2,1,7,1,1,1,1,1,1,1,7,1,
+3,2,1,1,1,1,8,8,8,8,1,1,1,
+3,2,1,1,1,1,9,9,8,8,1,1,1,
+3,2,2,1,1,1,1,1,8,1,1,1,1,
+0,3,3,2,1,1,1,1,1,1,1,1,0,
+0,0,0,0,3,3,2,1,2,0,0,0,0,
+0,3,1,1,2,1,1,1,1,3,3,0,0,
+0,0,3,1,1,1,1,1,1,3,0,0,0,
+0,0,0,3,1,1,1,1,1,0,0,0,0,
+0,0,0,3,2,1,1,1,1,0,0,0,0,
+0,0,0,3,2,1,1,1,1,0,0,0,0,
+0,0,0,3,2,3,3,2,3,0,0,0,0,
+0,0,3,2,0,0,2,3,0,0,0,0,0];
+
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(450, 330);
+  strokeWeight(0);
+
+  interval = setInterval(function () {
+    if (grid > 13) {
+      grid--;
+    } else {
+      stopInterval();
+    }
+  }, 10);
+}
+
+function stopInterval() {
+  clearInterval(interval);
 }
 
 function draw() {
-  background(0);
-
-  /* ライトの設定 */
-  var locY = (mouseY / height - 0.5) * (-2);
-  var locX = (mouseX / width - 0.5) * 2;
-
-  ambientLight(100, 80, 80);
-  pointLight(200, 200, 200, locX, locY, 0);
-
-  rotateY(frameCount * 0.0001);
-  orbitControl();
-
-  for (var j=0; j<10; j++) {
-    push();
-    for (var i=0; i<100; i++) {
-      translate(sin(frameCount * 0.01 + j) * 200, sin(frameCount * 0.001 + j) * 300, i * 0.1);
-      rotateZ(frameCount * 0.002);
-      push();
-      sphere(2, 10, 100);
-      pop();
+  background('#67cdfd')
+  posX = 50;
+  posY = 0;
+  for (var i=0; i<=pixelArt.length; i++) {
+    posX += w;
+    if (i % grid == 0) {
+      posX = 50;
+      posY += h;
     }
-    pop();
+
+    if (pixelArt[i] > 0) {
+      fill(colors[pixelArt[i]]);
+      rect(posX, posY, w, h);
+    }
   }
 }
