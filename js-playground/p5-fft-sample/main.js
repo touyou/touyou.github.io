@@ -10,7 +10,7 @@ function preload() {
 
 function setup() {
   var cnv = createCanvas(800, 600);
-
+  cnv.mouseClicked(togglePlay);
   fft = new p5.FFT();
   sound.amp(0.2);
 }
@@ -36,5 +36,13 @@ function draw() {
 
     var w = map(i, 0, spectrum.length, 0, width);
     line(w, height, w, height - volume * 5);
+  }
+}
+
+function togglePlay() {
+  if (sound.isPlaying()) {
+    sound.pause();
+  } else {
+    sound.loop();
   }
 }
