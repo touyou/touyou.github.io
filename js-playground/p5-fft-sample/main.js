@@ -28,8 +28,8 @@ function draw() {
 
     if (h >= 0 && h <= 360 && ellipse_width >= 10) {
       var x = random(0, 800);
-      for (var w=ellipse_width; w > 0; w -= 2) {
-        fill(255, 1);
+      for (var w=ellipse_width / 10; w > 0; w -= 2) {
+        fill(255, 30);
         ellipse(x, h+510, w, w);
       }
     }
