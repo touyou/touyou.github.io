@@ -21,6 +21,7 @@ function draw() {
   image(img, 0, 0, width, height);
 
   var spectrum = fft.analyze();
+  noStroke();
   for (var i=0; i<spectrum.length; i++) {
     var h = map(i, 0, spectrum.length, 0, 360);
     volume = spectrum[i];
