@@ -11,7 +11,7 @@ function preload() {
 function setup() {
   var cnv = createCanvas(800, 600);
   cnv.mouseClicked(togglePlay);
-  fft = new p5.FFT();
+  fft = new p5.FFT(0.8, sound.sampleRate());
   sound.amp(0.2);
 }
 
