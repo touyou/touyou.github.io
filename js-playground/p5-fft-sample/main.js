@@ -11,7 +11,7 @@ function preload() {
 function setup() {
   var cnv = createCanvas(800, 600);
   cnv.mouseClicked(togglePlay);
-  fft = new p5.FFT(0.8, sound.sampleRate());
+  fft = new p5.FFT();
   sound.amp(0.2);
 }
 
@@ -29,7 +29,7 @@ function draw() {
     if (h >= 0 && h <= 360 && ellipse_width >= 10) {
       var x = random(0, 800);
       for (var w=ellipse_width; w > 0; w -= 2) {
-        fill(255, 30);
+        fill(255, 1);
         ellipse(x, h+510, w, w);
       }
     }
