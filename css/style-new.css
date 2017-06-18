@@ -47,18 +47,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #top .title {
-  width: 40%;
+  width: 100%;
   height: inherit;
-  float: left;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 #top .eye-catch {
-  width: 60%;
+  width: 100%;
   height: inherit;
-  float: left;
+  position: absolute;
+  z-index: 0;
+}
+
+#top .eye-catch img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 #about {
@@ -85,7 +94,7 @@ footer {
   bottom: 0;
   background-color: #f5f5f5;
   padding-top: 10px;
-  z-index: 1;
+  z-index: 100;
 }
 
 footer .links ul {
