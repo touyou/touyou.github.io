@@ -1,0 +1,122 @@
+/* paddingとmarginを0 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* common */
+body {
+    font-family: "Avenir Next", Verdana, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
+    font-size: 14px;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00adb5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Avenir Next", Verdana, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
+}
+
+/* layout and grid */
+/*ここはgridがつかえそう*/
+
+/* container */
+.container {
+  overflow: hidden;
+  height: 600px;
+  width: 100%;
+  z-index: 0;
+}
+
+/*top page*/
+
+#top {
+
+}
+
+#top .title {
+  width: 40%;
+  height: inherit;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#top .eye-catch {
+  width: 60%;
+  height: inherit;
+  float: left;
+}
+
+#about {
+  background-color: #049474;
+}
+
+#creations {
+  background-color: #ab41fa;
+}
+
+#link {
+  background-color: #d7221b;
+}
+
+#contact {
+  background-color: #a1dfc7;
+}
+
+/* footer */
+footer {
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #f5f5f5;
+  padding-top: 10px;
+  z-index: 1;
+}
+
+footer .links ul {
+  text-align: center;
+}
+
+footer .links li {
+  border-left: 1px solid #8e8e8e;
+  padding-left: 5px;
+  padding-right: 20px;
+  margin-right: -2px;
+  display: inline-block;
+  transition: all 0.7s ease;
+}
+
+footer .links li:hover {
+  background-color: #eee;
+}
+
+footer .links li a {
+  color: #696969;
+  transition: all 0.7s ease;
+}
+
+footer .links li a:hover {
+  color: #2fcbd5;
+}
+
+footer .copyright {
+  width: 300px;
+  float: right;
+  text-align: right;
+  margin: 10px 10px 10px 0;
+}
