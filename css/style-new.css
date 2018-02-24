@@ -1,10 +1,12 @@
 /* paddingとmarginを0 */
+
 * {
     margin: 0;
     padding: 0;
 }
 
 /* common */
+
 body {
     font-family: "Avenir Next", Verdana, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
     font-size: 14px;
@@ -25,107 +27,274 @@ a:hover {
     color: #00adb5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Avenir Next", Verdana, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
 }
 
+@font-face {
+    src: url(../res/URWDIN-Bold.ttf);
+    font-family: "URW-Bold";
+}
+
+@font-face {
+    src: url(../res/smartfont.otf);
+    font-family: "SmartFont";
+}
+
+@font-face {
+    src: url(../res/URWDIN-Light.ttf);
+    font-family: "URW-Light";
+}
+
 /* layout and grid */
+
 /*ここはgridがつかえそう*/
 
 /* container */
-.container {
-  overflow: hidden;
-  height: 600px;
-  width: 100%;
-  z-index: 0;
-}
 
-/*top page*/
+/* .container {
+    overflow: hidden;
+    height: 1000px;
+    width: 100%;
+    z-index: 0;
+} */
+
+/* top page */
 
 #top {
-
-}
-
-#top .title {
-  width: 100%;
-  height: inherit;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.5);
+    height: auto;
 }
 
 #top .eye-catch {
-  width: 100%;
-  height: inherit;
-  position: absolute;
-  z-index: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
 }
 
 #top .eye-catch img {
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
+
+/* top links */
+
+#top-links {
+    background-color: #F5F5F5;
+    margin-top: -5px;
+    padding: 5% 2%;
+    width: 96%;
+    height: auto;
+    text-align: center;
+}
+
+#top-links .links li {
+    border-bottom: 1px solid #111;
+    margin-left: 50px;
+    width: 8%;
+    display: inline-block;
+    transition: all 0.7s ease;
+}
+
+#top-links .links li:first-child {
+    margin-left: 0px;
+}
+
+#top-links .links li:hover {
+    border-color: #50E3C2;
+}
+
+#top-links .links li a {
+    color: #111111;
+    text-align: center;
+    transition: all 0.7s ease;
+}
+
+#top-links .links li a:hover {
+    color: #50E3C2;
+}
+
+/* about */
 
 #about {
-  background-color: #049474;
+    width: 100%;
+    background-image: url(../res/about_background.png);
+    background-size: 100% auto;
+    position: relative;
 }
+
+#about:before {
+    content: "";
+    display: block;
+    padding-top: 42%;
+}
+
+#about h1 {
+    position: absolute;
+    color: #fff;
+    top: 5%;
+    left: 2%;
+    font-size: 3em;
+    font-family: "URW-Bold";
+}
+
+#about .about-text {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    right: 20%;
+    color: #fff;
+    font-size: 1.3em;
+    font-family: "SmartFont";
+    line-height: 1.5em;
+}
+
+/* creations */
 
 #creations {
-  background-color: #ab41fa;
+    background-color: #fff;
 }
+
+#creations h1 {
+    padding-top: 2%;
+    padding-right: 2%;
+    text-align: right;
+    font-size: 3em;
+    font-family: "URW-Bold";
+}
+
+#creations .device-link {
+    display: grid;
+    width: 80%;
+    height: auto;
+    margin: 5% 5% 5% 15%;
+    transform: rotate(5deg);
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+}
+
+#creations .device-link img {
+    width: 100%;
+    height: auto;
+}
+
+#creations .device-link a:hover img {
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    -ms-filter: "alpha(opacity=70)";
+    transition: all 0.3s ease;
+}
+
+#creations .device-link p {
+    width: 100%;
+    margin: 0 auto;
+    opacity: 0;
+    color: #111;
+    font-family: "URW-Light";
+}
+
+#creations .device-link a:hover p {
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+#creations .device-link .macbook {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+#creations .device-link .pixel {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#creations .device-link .iphonex {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: 70%;
+}
+
+#creations #modal-container {
+    width: 50%;
+    margin: 0;
+    padding: 10px 20px;
+    background: #fff;
+    position: fixed;
+    display: none;
+    z-index: 10;
+}
+
+#creations #modal-overlay {
+    z-index: 3;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    widows: 100%;
+    height: 120%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* links */
 
 #link {
-  background-color: #d7221b;
-}
-
-#contact {
-  background-color: #a1dfc7;
+    background-color: #d7221b;
 }
 
 /* footer */
+
 footer {
-  overflow: hidden;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  background-color: #f5f5f5;
-  padding-top: 10px;
-  z-index: 100;
+    overflow: hidden;
+    width: 100%;
+    bottom: 0;
+    background-color: #f5f5f5;
+    padding-top: 10px;
 }
 
 footer .links ul {
-  text-align: center;
+    text-align: center;
 }
 
 footer .links li {
-  border-left: 1px solid #8e8e8e;
-  padding-left: 5px;
-  padding-right: 20px;
-  margin-right: -2px;
-  display: inline-block;
-  transition: all 0.7s ease;
+    border-bottom: 1px solid #111;
+    margin-left: 50px;
+    width: 8%;
+    display: inline-block;
+    transition: all 0.7s ease;
+}
+
+footer .links li:first-child {
+    margin-left: 0px;
 }
 
 footer .links li:hover {
-  background-color: #eee;
+    border-color: #50E3C2;
 }
 
 footer .links li a {
-  color: #696969;
-  transition: all 0.7s ease;
+    color: #111111;
+    text-align: center;
+    transition: all 0.7s ease;
 }
 
 footer .links li a:hover {
-  color: #2fcbd5;
+    color: #50E3C2;
 }
 
 footer .copyright {
-  width: 300px;
-  float: right;
-  text-align: right;
-  margin: 10px 10px 10px 0;
+    width: 300px;
+    float: right;
+    text-align: right;
+    margin: 10px 10px 10px 0;
 }
