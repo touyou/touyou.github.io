@@ -1,35 +1,26 @@
-touyou.github.io
-================
-This is my web page.
+# touyou.github.io
 
-It's under construction now, but it will be available soon.
+## About
 
-About
------
-This site introduces things about touyou(github.com/touyou).
+This is touyou's portfolio site.
 
-Some works, for example, Android applications, web services, songs, movies, and so on.
+## Environment
 
-You will know all about touyou after you see it.
+Refer to [GulpとFLOCSSで始めるモバイルファースト的なCSS設計](https://www.pc-weblog.com/gulp-flocss/)
 
-Please enjoy!
+### Setup
 
-Github
-------
-This is a public repository, so you can see all codes of this.
+```
+$ npm i npm -g
+$ npm init -y
+# for develop
+$ npm i -D gulp-autoprefixer browser-sync gulp-cssmin gulp-csslint gulp-coffee gulp-htmllint gul-imagemin gulp-slim gulp-uglify
+# for sass
+$ npm i -D gulp gulp-sass gulp-postcss gulp-sass-glob
+```
 
-Sometimes, this code will be ugly, but I'll try to keep them beautiful.
+## Licence
 
-Please take them to learn code.
-
-Appendix
---------
-No purpose, no benefit
-
-[![endorse](https://api.coderwall.com/touyou/endorsecount.png)](https://coderwall.com/touyou)
-
-[![misawa](http://jigokuno.img.jugem.jp/20091014_1517124.gif)]
-
-Licence
--------
+```
 Copyrights (c) touyou 2014- All rights reserved.
+```

@@ -1,0 +1,36 @@
+{
+  "name": "touyou.github.io",
+  "version": "1.0.0",
+  "description": "my-webpage",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.24.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-coffee": "^3.0.2",
+    "gulp-csslint": "^1.0.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-htmllint": "0.0.15",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-glob": "^1.0.9",
+    "gulp-slim": "^0.3.0",
+    "gulp-uglify": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touyou/touyou.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/touyou/touyou.github.io/issues"
+  },
+  "homepage": "https://github.com/touyou/touyou.github.io#readme"
+}
