@@ -6,6 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.24.4",
+    "css-mqpacker": "^6.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-coffee": "^3.0.2",
@@ -13,11 +14,15 @@
     "gulp-cssmin": "^0.2.0",
     "gulp-htmllint": "0.0.15",
     "gulp-imagemin": "^4.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.3",
     "gulp-sass": "^4.0.1",
     "gulp-sass-glob": "^1.0.9",
     "gulp-slim": "^0.3.0",
-    "gulp-uglify": "^3.0.0"
+    "gulp-uglify": "^3.0.0",
+    "pump": "^3.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,5 +37,9 @@
   "bugs": {
     "url": "https://github.com/touyou/touyou.github.io/issues"
   },
-  "homepage": "https://github.com/touyou/touyou.github.io#readme"
+  "homepage": "https://github.com/touyou/touyou.github.io#readme",
+  "browserlist": [
+    "last 2 versions",
+    "ie 9"
+  ]
 }
