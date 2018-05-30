@@ -1,0 +1,6 @@
+$mediaquery-opts: ('land': 'all and (orientation: landscape)', 'tablet': 'all and (min-width: 768px)', 'pc': 'all and (min-width: 1024px)') !default;
+@mixin mediaquery($mediaquery-opt: pc) {
+    @media #{map-get($mediaquery-opts, $mediaquery-opt)} {
+        @content;
+    }
+}

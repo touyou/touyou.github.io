@@ -1,0 +1,62 @@
+/* ==========================================================================
+ About
+============================================================================*/
+
+#about {
+    // スマホ
+    background: rgb(83, 83, 185);
+    @include mediaquery(land) {
+        // スマホ横
+    }
+    @include mediaquery(tablet) {
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+    @include mediaquery() {
+        // PC
+    }
+}
+
+/* ==========================================================================
+ Creations
+============================================================================*/
+
+#creations {
+    // スマホ
+    background: rgb(199, 56, 168);
+    @include mediaquery(land) {
+        // スマホ横
+    }
+    @include mediaquery(tablet) {
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+    @include mediaquery() {
+        // PC
+    }
+}
+
+/* ==========================================================================
+ Links
+============================================================================*/
+
+#link {
+    // スマホ
+    background: rgb(89, 182, 52);
+    @include mediaquery(land) {
+        // スマホ横
+    }
+    @include mediaquery(tablet) {
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+    @include mediaquery() {
+        // PC
+    }
+}

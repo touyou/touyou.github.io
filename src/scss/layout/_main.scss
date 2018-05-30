@@ -1,0 +1,20 @@
+/* ==========================================================================
+ Main
+============================================================================*/
+
+main {
+    // スマホ
+    background: blue;
+    @include mediaquery(land) {
+        // スマホ横
+    }
+    @include mediaquery(tablet) {
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+    @include mediaquery() {
+        // PC
+    }
+}

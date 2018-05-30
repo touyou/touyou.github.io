@@ -5,6 +5,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const sassGlob = require('gulp-sass-glob');
+const packageImporter = require('node-sass-package-importer');
 const autoprefixer = require('gulp-autoprefixer');
 const cssmin = require('gulp-cssmin');
 const csslint = require('gulp-csslint');
@@ -43,6 +44,9 @@ gulp.task('scss', () => {
       ]
     }))
     .pipe(sass({
+      importer: packageImporter({
+        extensions: ['.scss', '.css']
+      }),
       outputStyle: 'expanded'
     }))
     .pipe(postcss([require('css-mqpacker')]))
@@ -91,7 +95,7 @@ gulp.task('slim', () => {
 });
 // watch
 gulp.task('watch', () => {
-  gulp.watch([paths.sass + '**/*.scss'], ['scss']);
+  gulp.watch([paths.scss + '**/*.scss'], ['scss']);
   gulp.watch([paths.coffee + '**/*.coffee'], ['coffee']);
   gulp.watch([paths.slim + '**/*.slim'], ['slim']);
 });
