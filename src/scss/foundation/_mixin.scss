@@ -1,6 +1,30 @@
 $mediaquery-opts: ('land': 'all and (orientation: landscape)', 'tablet': 'all and (min-width: 768px)', 'pc': 'all and (min-width: 1024px)') !default;
+
 @mixin mediaquery($mediaquery-opt: pc) {
     @media #{map-get($mediaquery-opts, $mediaquery-opt)} {
         @content;
     }
+}
+
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($animation-name) {
+    -webkit-animation: $animation-name;
+    -moz-animation: $animation-name;
+    animation: $animation-name;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    animation-fill-mode: both;
 }

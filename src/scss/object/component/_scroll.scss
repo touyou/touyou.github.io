@@ -1,0 +1,27 @@
+/*
+    scroll component
+*/
+.c-scroll {
+    position: relative;
+    flex: 0 0 1 auto auto;
+    width: 30%;
+    margin: auto;
+}
+
+.c-scroll span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    transform: rotate(-45deg);
+    box-sizing: border-box;
+    @include animation(scrollDown 2s infinite);
+}
+
+.c-scroll a {
+    pos
+}
