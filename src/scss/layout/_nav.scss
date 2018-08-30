@@ -1,20 +1,48 @@
 /* ==========================================================================
  Navigation
 ============================================================================*/
-
 nav {
     // スマホ
-    background: rgb(255, 143, 108);
+    width: 100%;
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    background: rgba(10, 10, 10, 0.5);
+    padding-top: 1%;
+    display: flex;
+    justify-content: flex-end;
+
     @include mediaquery(land) {
         // スマホ横
     }
+
     @include mediaquery(tablet) {
+
         // タブレット
         @include mediaquery(land) {
             // タブレット横
         }
     }
+
     @include mediaquery() {
         // PC
     }
+}
+
+nav ul {
+    display: block;
+    list-style-type: disc;
+    flex: 0 1 auto;
+}
+
+nav li {
+    margin-right: 16px;
+    display: inline-block;
+    font-size: 1.2em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+nav li a {
+    color: #eee;
+    text-decoration: none;
 }

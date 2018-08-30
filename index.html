@@ -9,14 +9,29 @@
     <meta content="touyou, touyoubuntu, とうよう, とーよー" name="keywords" />
     <meta content="touyou Fujii Yosuke" name="description" />
     <link href="css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>touyou</title>
   </head>
   <body>
+    <script>
+      $(document).ready(function(){
+        $('a[href^="#"]').click(function() {
+          var speed = 400;
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top;
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+        });
+      });
+    </script>
     <header>
       <div class="p-logo">
         <a href="#about"><img id="logo" src="res/logo.svg" /></a><img id="title" src="res/logo_title.svg" />
       </div>
-      <a class="c-scroll" href="#about"><span></span></a>
+      <div class="c-scroll">
+        <span></span><a href="#about">scroll</a>
+      </div>
     </header>
     <nav>
       <ul>

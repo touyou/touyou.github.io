@@ -6,6 +6,9 @@
     flex: 0 0 1 auto auto;
     width: 30%;
     margin: auto;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 .c-scroll span {
@@ -23,5 +26,11 @@
 }
 
 .c-scroll a {
-    pos
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 1em;
+    margin-left: -1.1em;
+    text-decoration: none;
+    color: #eee;
 }

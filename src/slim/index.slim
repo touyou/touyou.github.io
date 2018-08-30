@@ -14,17 +14,33 @@ html
     /--- style
     link rel="stylesheet" href="css/style.css"
     /--- end
+    
+    /--- script
+    script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    /--- end
 
     title touyou
 
   body
+    javascript:
+      $(document).ready(function(){
+        $('a[href^="#"]').click(function() {
+          var speed = 400;
+          var href= $(this).attr("href");
+          var target = $(href == "#" || href == "" ? 'html' : href);
+          var position = target.offset().top;
+          $('body,html').animate({scrollTop:position}, speed, 'swing');
+          return false;
+        });
+      });
     header
       .p-logo
         a href="#about"
           img src="res/logo.svg" id="logo"
         img src="res/logo_title.svg" id="title"
-      a.c-scroll href="#about"
+      .c-scroll
         span
+        a href="#about" scroll
     nav
       ul
         li
