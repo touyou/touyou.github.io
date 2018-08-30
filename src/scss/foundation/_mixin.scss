@@ -28,3 +28,22 @@ $mediaquery-opts: ('land': 'all and (orientation: landscape)', 'tablet': 'all an
     -moz-animation-fill-mode: both;
     animation-fill-mode: both;
 }
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: otf ttf) {
+    $src: null;
+    $formats: (otf: "opentype",
+        ttf: "truetype"
+        );
+
+    @each $ext in $exts {
+        $format: map-get($formats, $ext);
+        $src: append($src, url(quote($path)) format(quote($format)), comma);
+    }
+
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}

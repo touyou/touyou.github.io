@@ -1,62 +1,82 @@
 /* ==========================================================================
  About
 ============================================================================*/
-
 #about {
     // スマホ
-    background: rgb(83, 83, 185);
+    background: #000;
+    color: #fff;
+    font-family: Georgia, 游明朝, "Yu Mincho", YuMincho, "Hiragino Mincho ProN", HGS明朝E, メイリオ, Meiryo, serif;
+
     @include mediaquery(land) {
         // スマホ横
+        height: 768px;
     }
+
     @include mediaquery(tablet) {
         // タブレット
+        height: 1024px;
+
         @include mediaquery(land) {
             // タブレット横
         }
     }
+
     @include mediaquery() {
         // PC
+        height: 1365px;
     }
 }
 
 /* ==========================================================================
  Creations
 ============================================================================*/
-
 #creations {
     // スマホ
     background: rgb(199, 56, 168);
+
     @include mediaquery(land) {
         // スマホ横
+        height: 768px;
     }
+
     @include mediaquery(tablet) {
         // タブレット
+        height: 1024px;
+
         @include mediaquery(land) {
             // タブレット横
         }
     }
+
     @include mediaquery() {
         // PC
+        height: 1365px;
     }
 }
 
 /* ==========================================================================
  Links
 ============================================================================*/
-
 #link {
     // スマホ
     background: rgb(89, 182, 52);
+
     @include mediaquery(land) {
         // スマホ横
+        height: 768px;
     }
+
     @include mediaquery(tablet) {
         // タブレット
+        height: 1024px;
+
         @include mediaquery(land) {
             // タブレット横
         }
     }
+
     @include mediaquery() {
         // PC
+        height: 1365px;
     }
 }
