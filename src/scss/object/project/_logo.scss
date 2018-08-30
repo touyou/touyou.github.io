@@ -1,0 +1,80 @@
+/*
+    logo layout
+*/
+.p-logo:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: -10%;
+}
+
+.p-logo {
+    position: relative;
+    flex: 0 0 1 auto auto;
+    width: 30%;
+    margin: auto;
+}
+
+.p-logo img {
+    position: absolute;
+}
+
+.p-logo img#logo {
+    top: calc(-576px / 4);
+    width: calc(576px / 2);
+    height: calc(576px / 2);
+    @include animation(logoRotation 10s ease infinite 0s);
+
+    @include mediaquery(land) {
+        // スマホ横
+        top: calc(-768px / 4);
+        width: calc(768px / 2);
+        height: calc(768px / 2);
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        top: calc(-1024px / 4);
+        width: calc(1024px / 2);
+        height: calc(1024px / 2);
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        top: calc(-1365px / 4);
+        width: calc(1365px / 2);
+        height: calc(1365px / 2);
+    }
+}
+
+.p-logo img#title {
+    top: calc(576px / 4);
+    width: calc(576px / 2);
+
+    @include mediaquery(land) {
+        // スマホ横
+        top: calc(768px / 4);
+        width: calc(768px / 2);
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        top: calc(1024px / 4);
+        width: calc(1024px / 2);
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        top: calc(1365px / 4);
+        width: calc(1365px / 2);
+    }
+}

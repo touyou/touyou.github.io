@@ -1,0 +1,24 @@
+/* ==========================================================================
+ Main
+============================================================================*/
+main {
+    // スマホ
+    display: block;
+    width: 100%;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+    }
+}
