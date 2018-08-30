@@ -1,0 +1,64 @@
+.p-link {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 2%;
+}
+
+.p-link__section {
+    display: block;
+    width: 25%;
+    height: 300px;
+    margin: 2%;
+    flex: 0 0 1 auto auto;
+}
+
+.p-link__section h1 {
+    text-align: center;
+    font-family: 'urwdin', sans-serif;
+    font-size: 2rem;
+    border-bottom: 1px #eee solid;
+}
+
+.p-link__section a {
+    display: block;
+    padding: 0.5em;
+    color: #eee;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 0.7rem;
+    text-decoration: none;
+    transition: 1s ease;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 1.0rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 1.0rem;
+    }
+}
+
+.p-link__section a:hover {
+    color: #111;
+    background: #eee;
+}
+
+.p-link__action {
+    display: block;
+    height: 10em;
+    position: relative;
+    padding: 2em;
+}

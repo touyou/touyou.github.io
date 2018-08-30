@@ -49,3 +49,17 @@
         transform: rotate(-45deg) translate(0, 0);
     }
 }
+
+@include keyframes(scrollUp) {
+    0% {
+        transform: rotate(45deg) translate(0, 0);
+    }
+
+    20% {
+        transform: rotate(45deg) translate(-10px, -10px);
+    }
+
+    40% {
+        transform: rotate(45deg) translate(0, 0);
+    }
+}

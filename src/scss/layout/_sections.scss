@@ -7,6 +7,8 @@
     color: #eee;
     font-family: Georgia, 游明朝, "Yu Mincho", YuMincho, "Hiragino Mincho ProN", HGS明朝E, メイリオ, Meiryo, serif;
     display: block;
+    padding-bottom: 5%;
+    width: 100%;
 
     @include mediaquery(land) {
         // スマホ横
@@ -33,6 +35,7 @@
     background: #111;
     color: #eee;
     display: block;
+    width: 100%;
 
     @include mediaquery(land) {
         // スマホ横
@@ -56,8 +59,10 @@
 ============================================================================*/
 #link {
     // スマホ
-    background: rgb(89, 182, 52);
+    background: #000;
     display: block;
+    color: #eee;
+    width: 100%;
 
     @include mediaquery(land) {
         // スマホ横

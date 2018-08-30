@@ -4,6 +4,7 @@
 main {
     // スマホ
     display: block;
+    width: 100%;
 
     @include mediaquery(land) {
         // スマホ横
