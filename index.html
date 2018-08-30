@@ -24,6 +24,30 @@
           return false;
         });
       });
+      $(function() {
+        $('#modal-open').click(function() {
+          console.log('clicked');
+          $('body').append('<div id="modal-bg"></div>');
+          modalResize();
+          $('#modal-bg,#modal-main').fadeIn('slow');
+          $('#modal-bg,#modal-main').click(function() {
+            $('#modal-main,#modal-bg').fadeOut('slow', function() {
+              $('#modal-bg').remove();
+            });
+          });
+          $(window).resize(modalResize);
+          function modalResize() {
+            var w = $(window).width();
+            var h = $(window).height();
+            var cw = $('#modal-main').outerWidth();
+            var ch = $('#modal-main').outerHeight();
+            $('#modal-main').css({
+              'left': ((w - cw) / 2) + 'px',
+              'top': ((h - ch) / 2) + 'px'
+            });
+          }
+        });
+      });
     </script>
     <header>
       <div class="c-flexwrapper">
@@ -71,6 +95,20 @@
           <p>
             好きなことは創ること。気の赴くままに数々の創作活動を続けている。
           </p>
+          <h2>
+            受賞歴
+          </h2>
+          <ul>
+            <li>
+              2011-2012 日本情報オリンピック本線Bランク
+            </li>
+            <li>
+              2013 パソコン甲子園プログラミング部門審査員特別賞
+            </li>
+            <li>
+              2018 Git Push Hackathon iOS部門最優秀賞
+            </li>
+          </ul>
           <p class="p-about__interest">
             interest: iOS / Android / Web / Guitar / Song / Poem / Compiler / Movie / Graphic / Puzzle<br />skill: Swift / Kotlin / Java / C/C++ / Python / HTML / CSS / JavaScript / OCaml / Scheme / Assembly / VerilogHDL / Sketch.app / illustrator / Photoshop / Premire / AfterEffects
           </p>
@@ -88,7 +126,7 @@
         <div class="p-creations__device">
           <img id="iphone" src="res/iphonex.png" /><img id="macbook" src="res/macbookpro.png" />
           <div class="p-creations__button">
-            <a href=""><span>OPEN</span></a>
+            <a id="modal-open"><span>OPEN</span></a>
           </div>
         </div>
       </section>
@@ -103,22 +141,22 @@
             </h1>
             <ul>
               <li>
-                <a href="http://twitter.com/touyoubuntu">Twitter/@touyoubuntu</a>
+                <a href="http://twitter.com/touyoubuntu" target="_blank">Twitter/@touyoubuntu</a>
               </li>
               <li>
-                <a href="http://twitter.com/touyou_lit">Twitter/@touyou_lit</a>
+                <a href="http://twitter.com/touyou_lit" target="_blank">Twitter/@touyou_lit</a>
               </li>
               <li>
-                <a href="http://twitter.com/touyou_dev">Twitter/@touyou_dev</a>
+                <a href="http://twitter.com/touyou_dev" target="_blank">Twitter/@touyou_dev</a>
               </li>
               <li>
-                <a href="http://www.facebook.com/fujiyou">Facebook/Fujii Yosuke</a>
+                <a href="http://www.facebook.com/fujiyou" target="_blank">Facebook/Fujii Yosuke</a>
               </li>
               <li>
-                <a href="http://plus.google.com/u/0/+YosukeFujii">Google+/Fujii Yosuke</a>
+                <a href="http://plus.google.com/u/0/+YosukeFujii" target="_blank">Google+/Fujii Yosuke</a>
               </li>
               <li>
-                <a href="https://en-jp.wantedly.com/users/47300">Wantedly/Fujii Yosuke</a>
+                <a href="https://en-jp.wantedly.com/users/47300" target="_blank">Wantedly/Fujii Yosuke</a>
               </li>
             </ul>
           </div>
@@ -128,16 +166,16 @@
             </h1>
             <ul>
               <li>
-                <a href="https://github.com/touyou">GitHub/touyou</a>
+                <a href="https://github.com/touyou" target="_blank">GitHub/touyou</a>
               </li>
               <li>
-                <a href="https://gitlab.com/touyou">GitLab/touyou</a>
+                <a href="https://gitlab.com/touyou" target="_blank">GitLab/touyou</a>
               </li>
               <li>
-                <a href="http://qiita.com/touyoubuntu">Qiita/touyoubuntu</a>
+                <a href="http://qiita.com/touyoubuntu" target="_blank">Qiita/touyoubuntu</a>
               </li>
               <li>
-                <a href="http://codepen.io/touyou/">CodePen/touyou</a>
+                <a href="http://codepen.io/touyou/" target="_blank">CodePen/touyou</a>
               </li>
             </ul>
           </div>
@@ -147,19 +185,19 @@
             </h1>
             <ul>
               <li>
-                <a href="http://www.youtube.com/user/grousefuji">YouTube</a>
+                <a href="http://www.youtube.com/user/grousefuji" target="_blank">YouTube</a>
               </li>
               <li>
-                <a href="http://www.slideshare.net/YosukeFujii">SlideShare</a>
+                <a href="http://www.slideshare.net/YosukeFujii" target="_blank">SlideShare</a>
               </li>
               <li>
-                <a href="https://speakerdeck.com/touyou">Speaker Deck</a>
+                <a href="https://speakerdeck.com/touyou" target="_blank">Speaker Deck</a>
               </li>
               <li>
-                <a href="https://pinterest.com/touyou">Pinterest</a>
+                <a href="https://pinterest.com/touyou" target="_blank">Pinterest</a>
               </li>
               <li>
-                <a href="http://www.flickr.com/photos/touyou">Flickr</a>
+                <a href="http://www.flickr.com/photos/touyou" target="_blank">Flickr</a>
               </li>
             </ul>
           </div>
@@ -169,13 +207,13 @@
             </h1>
             <ul>
               <li>
-                <a href="http://touyoubuntu.hatenablog.com/">夢追い人</a>
+                <a href="http://touyoubuntu.hatenablog.com/" target="_blank">夢追い人</a>
               </li>
               <li>
-                <a href="https://touyoubuntu.tumblr.com/">playing room</a>
+                <a href="https://touyoubuntu.tumblr.com/" target="_blank">playing room</a>
               </li>
               <li>
-                <a href="https://en-jp.wantedly.com/companies/lifeistech/post_articles/109109">【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい</a>
+                <a href="https://en-jp.wantedly.com/companies/lifeistech/post_articles/109109" target="_blank">【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい</a>
               </li>
             </ul>
           </div>
@@ -190,5 +228,8 @@
     <footer>
       <small>Copyrights &copy; 2015- touyou. All Rights Reserved.</small>
     </footer>
+    <div id="modal-main">
+      <iframe frameborder="0" src="creation.html"></iframe>
+    </div>
   </body>
 </html>

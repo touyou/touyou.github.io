@@ -1,0 +1,168 @@
+.p_createinfo {
+    display: block;
+    padding: 5% 3%;
+    width: 100%;
+    padding-bottom: 10%;
+}
+
+.p_createinfo picture {
+    width: 80%;
+}
+
+.p_createinfo h1 {
+    font-family: 'urwdin', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-bottom: 3%;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 1.6rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 2rem;
+    }
+}
+
+.p_createinfo p {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 0.8rem;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 0.8rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 1rem;
+    }
+}
+
+.p_createinfo ul {
+    float: left;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 0.8rem;
+    width: 45%;
+    margin-top: 3%;
+    margin-left: 5%;
+    list-style: dot;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 0.8rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 1rem;
+    }
+}
+
+.p_createinfo__download {
+    display: block;
+    position: relative;
+    float: left;
+    width: 50%;
+}
+
+.p_createinfo__download__imgs {
+    padding-top: 3%;
+    width: 40vw;
+    display: block;
+}
+
+.p_createinfo__download__imgs img {
+    float: right;
+    width: 20vw;
+}
+
+.p_createinfo__section_title {
+    display: block;
+    margin: 2%;
+    height: 5vh;
+    font-family: 'urwdin', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 2.8rem;
+    font-weight: bold;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 2.8rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 3rem;
+    }
+}
+
+.p_createinfo__section {
+    margin-top: 3%;
+    margin-left: 3%;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 0.8rem;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 0.8rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 1rem;
+    }
+}
+
+.p_createinfo__white {
+    background: #fff;
+}
+
+.p_createinfo__gray {
+    background: #eee;
+    display: block;
+}
