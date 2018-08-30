@@ -4,8 +4,8 @@ var volume;
 var img, sound;
 
 function preload() {
-  sound = loadSound("../../res/sample_bgm.mp3");
-  img = loadImage("../../res/illumination_img.png");
+  sound = loadSound("../../../res/sample_bgm.mp3");
+  img = loadImage("../../../res/illumination_img.png");
 }
 
 function setup() {
@@ -22,16 +22,16 @@ function draw() {
 
   var spectrum = fft.analyze();
   noStroke();
-  for (var i=0; i<spectrum.length; i++) {
+  for (var i = 0; i < spectrum.length; i++) {
     var h = map(i, 0, spectrum.length, 0, 360);
     volume = spectrum[i];
     var ellipse_width = volume * (h / 8);
 
     if (h >= 0 && h <= 360 && ellipse_width >= 10) {
       var x = random(0, 800);
-      for (var w=ellipse_width / 10; w > 0; w -= 2) {
+      for (var w = ellipse_width / 10; w > 0; w -= 2) {
         fill(255, 30);
-        ellipse(x, h+510, w, w);
+        ellipse(x, h + 510, w, w);
       }
     }
 

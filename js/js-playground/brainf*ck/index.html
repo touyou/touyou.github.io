@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BF</title>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <textarea id="code"></textarea>
-        <div>
-          <button id="load">Load Program</button>
-          <button id="translate">Load Translate</button>
-          <button id="step">Step</button>
-          <button id="run">Run</button>
-          <button id="reset">Reset</button>
-        </div>
-      </div>
-      <div id="result" class="hidden">
-        <h2>CODE</h2>
-        <div class="row source" id="ui_code">
-          <!-- <span class="current">+</span>
-          <span>+</span>
-          <span>+</span> -->
-        </div>
-        <h2>CELLS</h2>
-        <div class="row source" id="ui_cells">
-          <!-- <span class="current">0</span>
-          <span>0</span>
-          <span>0</span> -->
-        </div>
-        <h2>OUTPUT</h2>
-        <div class="row source" id="ui_output">
-          <!-- <span>a</span> -->
-        </div>
+
+<head>
+  <meta charset="utf-8">
+  <title>BF</title>
+  <!-- <link rel="stylesheet" href="../../../css/style.css"> -->
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <textarea id="code"></textarea>
+      <div>
+        <button id="load">Load Program</button>
+        <button id="translate">Load Translate</button>
+        <button id="step">Step</button>
+        <button id="run">Run</button>
+        <button id="reset">Reset</button>
       </div>
     </div>
-    <script src="js/main.js"></script>
-  </body>
+    <div id="result" class="hidden">
+      <h2>CODE</h2>
+      <div class="row source" id="ui_code">
+        <!-- <span class="current">+</span>
+          <span>+</span>
+          <span>+</span> -->
+      </div>
+      <h2>CELLS</h2>
+      <div class="row source" id="ui_cells">
+        <!-- <span class="current">0</span>
+          <span>0</span>
+          <span>0</span> -->
+      </div>
+      <h2>OUTPUT</h2>
+      <div class="row source" id="ui_output">
+        <!-- <span>a</span> -->
+      </div>
+    </div>
+  </div>
+  <a href="../../../creation.html">戻る</a>
+  <script src="js/main.js"></script>
+</body>
+
 </html>

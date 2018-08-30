@@ -67,6 +67,7 @@
     width: 45%;
     margin-top: 3%;
     margin-left: 5%;
+    margin-bottom: 3%;
     list-style: dot;
 
     @include mediaquery(land) {
@@ -165,4 +166,14 @@
 .p_createinfo__gray {
     background: #eee;
     display: block;
+}
+
+.p_createinfo__playground {
+    display: block;
+    position: relative;
+    height: 30vh;
+}
+
+.p_createinfo__playground ul {
+    position: absolute;
 }
