@@ -4,31 +4,5 @@
 header {
     // スマホ
     background: #111111;
-    display: flex;
-    height: 576px;
-    // flex
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-
-    @include mediaquery(land) {
-        // スマホ横
-        height: 768px;
-    }
-
-    @include mediaquery(tablet) {
-        // タブレット
-        height: 1024px;
-
-        @include mediaquery(land) {
-            // タブレット横
-        }
-    }
-
-    @include mediaquery() {
-        // PC
-        height: 1365px;
-    }
+    display: block;
 }

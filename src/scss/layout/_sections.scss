@@ -4,18 +4,17 @@
 #about {
     // スマホ
     background: #000;
-    color: #fff;
+    color: #eee;
     font-family: Georgia, 游明朝, "Yu Mincho", YuMincho, "Hiragino Mincho ProN", HGS明朝E, メイリオ, Meiryo, serif;
+    display: block;
 
     @include mediaquery(land) {
         // スマホ横
-        height: 768px;
     }
 
     @include mediaquery(tablet) {
-        // タブレット
-        height: 1024px;
 
+        // タブレット
         @include mediaquery(land) {
             // タブレット横
         }
@@ -23,7 +22,6 @@
 
     @include mediaquery() {
         // PC
-        height: 1365px;
     }
 }
 
@@ -32,17 +30,17 @@
 ============================================================================*/
 #creations {
     // スマホ
-    background: rgb(199, 56, 168);
+    background: #111;
+    color: #eee;
+    display: block;
 
     @include mediaquery(land) {
         // スマホ横
-        height: 768px;
     }
 
     @include mediaquery(tablet) {
-        // タブレット
-        height: 1024px;
 
+        // タブレット
         @include mediaquery(land) {
             // タブレット横
         }
@@ -50,7 +48,6 @@
 
     @include mediaquery() {
         // PC
-        height: 1365px;
     }
 }
 
@@ -60,16 +57,15 @@
 #link {
     // スマホ
     background: rgb(89, 182, 52);
+    display: block;
 
     @include mediaquery(land) {
         // スマホ横
-        height: 768px;
     }
 
     @include mediaquery(tablet) {
-        // タブレット
-        height: 1024px;
 
+        // タブレット
         @include mediaquery(land) {
             // タブレット横
         }
@@ -77,6 +73,5 @@
 
     @include mediaquery() {
         // PC
-        height: 1365px;
     }
 }

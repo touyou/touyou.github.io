@@ -1,19 +1,26 @@
 /* ==========================================================================
  Footer
 ============================================================================*/
-
 footer {
     // スマホ
     background: rgb(34, 4, 6);
+    color: #eee;
+    text-align: center;
+    font-family: 'urwdin', sans-serif;
+    padding: 10px;
+
     @include mediaquery(land) {
         // スマホ横
     }
+
     @include mediaquery(tablet) {
+
         // タブレット
         @include mediaquery(land) {
             // タブレット横
         }
     }
+
     @include mediaquery() {
         // PC
     }

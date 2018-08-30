@@ -34,13 +34,14 @@ html
         });
       });
     header
-      .p-logo
-        a href="#about"
-          img src="res/logo.svg" id="logo"
-        img src="res/logo_title.svg" id="title"
-      .c-scroll
-        span
-        a href="#about" scroll
+      .c-flexwrapper
+        .p-logo
+          a href="#about"
+            img src="res/logo.svg" id="logo"
+          img src="res/logo_title.svg" id="title"
+        .c-scroll
+          span
+          a href="#about" scroll
     nav
       ul
         li
@@ -80,14 +81,13 @@ html
           | Creations
         .p-creations__citation
           p
-            | - What one does is more important than what one says. -
+            | — What one does is more important than what one says. —
         .p-creations__device
-          .p-creations__device__mobile
-            h2 Mobile Apps
-            img src="res/iphonex.png"
-          .p-creations__device__mac
-            h2 Other Creations
-            img src="res/macbookpro.png"
+          img#iphone src="res/iphonex.png"
+          img#macbook src="res/macbookpro.png"
+          .p-creations__button
+            span
+              a OPEN
       section#link
         h1.c-header
           | Links

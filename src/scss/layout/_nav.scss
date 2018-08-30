@@ -11,22 +11,6 @@ nav {
     padding-top: 1%;
     display: flex;
     justify-content: flex-end;
-
-    @include mediaquery(land) {
-        // スマホ横
-    }
-
-    @include mediaquery(tablet) {
-
-        // タブレット
-        @include mediaquery(land) {
-            // タブレット横
-        }
-    }
-
-    @include mediaquery() {
-        // PC
-    }
 }
 
 nav ul {
@@ -38,8 +22,27 @@ nav ul {
 nav li {
     margin-right: 16px;
     display: inline-block;
-    font-size: 1.2em;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-size: 0.8rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    @include mediaquery(land) {
+        // スマホ横
+        font-size: 0.8rem;
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 0.8rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 1.2rem;
+    }
 }
 
 nav li a {
