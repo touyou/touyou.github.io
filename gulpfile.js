@@ -30,8 +30,7 @@ const paths = {
   'slim': './src/slim/',
   'html': './'
 };
-// default
-gulp.task('default', ['watch', 'browser-sync']);
+
 // Sass
 gulp.task('scss', () => {
   gulp.src(paths.scss + '**/*.scss')
@@ -95,9 +94,9 @@ gulp.task('slim', () => {
 });
 // watch
 gulp.task('watch', () => {
-  gulp.watch([paths.scss + '**/*.scss'], ['scss']);
-  gulp.watch([paths.coffee + '**/*.coffee'], ['coffee']);
-  gulp.watch([paths.slim + '**/*.slim'], ['slim']);
+  gulp.watch([paths.scss + '**/*.scss'], gulp.task('scss'));
+  gulp.watch([paths.coffee + '**/*.coffee'], gulp.task('coffee'));
+  gulp.watch([paths.slim + '**/*.slim'], gulp.task('slim'));
 });
 // browser-sync
 gulp.task('browser-sync', () => {
@@ -174,3 +173,5 @@ gulp.task('csslint', () => {
     .pipe(csslint.formatter('compact'))
 });
 /*--task--*/
+// default
+gulp.task('default', gulp.series(gulp.parallel('watch', 'browser-sync')));

@@ -20,6 +20,13 @@ $ npm i -D gulp-autoprefixer browser-sync gulp-cssmin gulp-csslint gulp-coffee g
 $ npm i -D gulp gulp-sass gulp-postcss gulp-sass-glob css-mqpacker
 ```
 
+### Build
+
+```
+$ npm i -g gulp-cli
+$ gulp
+```
+
 ## Licence
 
 ```

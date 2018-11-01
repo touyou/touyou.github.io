@@ -170,3 +170,73 @@
     background: #eee;
     display: block;
 }
+
+.p-createinfo__button {
+    display: block;
+    position: sticky;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    // background: rgba(0, 0, 0, 0.5);
+    font-family: 'urwdin', sans-serif;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+
+        // タブレット
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+    }
+}
+
+.p-createinfo__button a {
+    text-decoration: none;
+    color: #111;
+}
+
+.p-createinfo__button span {
+    float: right;
+    border: 1px solid #111;
+    padding: 0.5em 1em;
+    font-size: 0.4rem;
+    height: 2em;
+    width: 5em;
+    margin: 0.1em;
+    text-align: center;
+    transition: 1s ease;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 0.6em;
+        height: 2em;
+        width: 5em;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 0.6em;
+        height: 1.8em;
+        width: 5em;
+    }
+}
+
+.p-createinfo__button span:hover {
+    color: #eee;
+    background: #111;
+}
