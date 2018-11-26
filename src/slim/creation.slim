@@ -28,9 +28,23 @@ html
         for (const id of ids) {
           $(id).hide();
         }
+        $(document).click(function(e){
+          const target = $(e.target);
+          const idName = target.attr('id');
+          if (idName === 'open_mobile') {
+            $(ids[0], this).slideToggle(500);
+          } else if (idName === 'open_web') {
+            $(ids[1], this).slideToggle(500);
+          } else if (idName === 'open_chrome') {
+            $(ids[2], this).slideToggle(500);
+          } else if (idName === 'open_playground') {
+            $(ids[3], this).slideToggle(500);
+          }
+        });
       })
-    h1.p_createinfo__section_title
-      | Mobile Apps
+    .p_createinfo__gray style="overflow: hidden;"
+      h1.p_createinfo__section_title#open_mobile
+        | Mobile Apps
     #mobile_app
       p.p_createinfo__section
         | ※ リリース済みのもののみを紹介しています。その他は<a href="https://github.com/touyou" target="_blank">GitHub</a>などをご覧ください。
@@ -166,7 +180,7 @@ html
           .p_createinfo__download__imgs
             a href="https://itunes.apple.com/jp/developer/kunihiko-kasahara/id1399370318?mt=8"
               img src="http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg" alt="App Storeでダウンロード"
-    h1.p_createinfo__section_title
+    h1.p_createinfo__section_title#open_web
       | Web Page
     #web_page
       section.p_createinfo.p_createinfo__white
@@ -181,7 +195,7 @@ html
           li 制作期間 ... 2週間程度
           li 担当 ... デザインおよび実装
     .p_createinfo__gray
-      h1.p_createinfo__section_title style="padding-top: 2%;"
+      h1.p_createinfo__section_title#open_chrome style="padding-top: 2%;"
         | Chrome Extension
       #chrome_extension
         section.p_createinfo
@@ -195,10 +209,10 @@ html
           ul
             li 制作期間 ... 2週間程度
             li 担当 ... エンジニア
-    h1.p_createinfo__section_title style="padding-top: 2%;"
+    h1.p_createinfo__section_title#open_playground
       | Web Playgrounds
     #web_playground
-      section.p_createinfo
+      section.p_createinfo style="padding: 0;"
         ul
           li
             a href="js/js-playground/enchant-puyopuyo" ぷよぷよサンプル/enchant.js

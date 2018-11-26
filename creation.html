@@ -19,27 +19,26 @@
         for (const id of ids) {
           $(id).hide();
         }
-        $('.p_createinfo__section_title').click(function() {
-          $('#mobile_app').slideToggle(500);
-          / if ($('#mobile_app-open > span').text() == "OPEN") {
-          /   $('#mobile_app-open > span').text("CLOSE");
-          / } else {
-          /   $('#mobile_app-open > span').text("OPEN");
-          / }
-        })
-        / $('#mobile_app-open').click(function() {
-        /   $('#mobile_app').slideToggle(500);
-        /   if ($('#mobile_app-open > span').text() == "OPEN") {
-        /     $('#mobile_app-open > span').text("CLOSE");
-        /   } else {
-        /     $('#mobile_app-open > span').text("OPEN");
-        /   }
-        / })
+        $(document).click(function(e){
+          const target = $(e.target);
+          const idName = target.attr('id');
+          if (idName === 'open_mobile') {
+            $(ids[0], this).slideToggle(500);
+          } else if (idName === 'open_web') {
+            $(ids[1], this).slideToggle(500);
+          } else if (idName === 'open_chrome') {
+            $(ids[2], this).slideToggle(500);
+          } else if (idName === 'open_playground') {
+            $(ids[3], this).slideToggle(500);
+          }
+        });
       })
     </script>
-    <h1 class="p_createinfo__section_title">
-      Mobile Apps
-    </h1>
+    <div class="p_createinfo__gray" style="overflow: hidden;">
+      <h1 class="p_createinfo__section_title" id="open_mobile">
+        Mobile Apps
+      </h1>
+    </div>
     <div id="mobile_app">
       <p class="p_createinfo__section">
         ※ リリース済みのもののみを紹介しています。その他は<a href="https://github.com/touyou" target="_blank">GitHub</a>などをご覧ください。
@@ -221,7 +220,7 @@
         </div>
       </section>
     </div>
-    <h1 class="p_createinfo__section_title">
+    <h1 class="p_createinfo__section_title" id="open_web">
       Web Page
     </h1>
     <div id="web_page">
@@ -244,7 +243,7 @@
       </section>
     </div>
     <div class="p_createinfo__gray">
-      <h1 class="p_createinfo__section_title" style="padding-top: 2%;">
+      <h1 class="p_createinfo__section_title" id="open_chrome" style="padding-top: 2%;">
         Chrome Extension
       </h1>
       <div id="chrome_extension">
@@ -267,11 +266,11 @@
         </section>
       </div>
     </div>
-    <h1 class="p_createinfo__section_title" style="padding-top: 2%;">
+    <h1 class="p_createinfo__section_title" id="open_playground">
       Web Playgrounds
     </h1>
     <div id="web_playground">
-      <section class="p_createinfo">
+      <section class="p_createinfo" style="padding: 0;">
         <ul>
           <li>
             <a href="js/js-playground/enchant-puyopuyo">ぷよぷよサンプル/enchant.js</a>
