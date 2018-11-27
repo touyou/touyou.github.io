@@ -33,7 +33,7 @@ const paths = {
 
 // Sass
 gulp.task('scss', () => {
-  gulp.src(paths.scss + '**/*.scss')
+  return gulp.src(paths.scss + '**/*.scss')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -56,7 +56,7 @@ gulp.task('scss', () => {
 });
 // CoffeeScript
 gulp.task('coffee', () => {
-  gulp.src(paths.coffee + '**/*.coffee')
+  return gulp.src(paths.coffee + '**/*.coffee')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -68,7 +68,7 @@ gulp.task('coffee', () => {
 });
 // uglify
 gulp.task('jsmin', (cb) => {
-  pump(
+  return pump(
     [
       gulp.src(paths.js + '**/*.js'),
       uglify(),
@@ -82,7 +82,7 @@ gulp.task('jsmin', (cb) => {
 });
 // Slim
 gulp.task('slim', () => {
-  gulp.src(paths.slim + '**/*.slim')
+  return gulp.src(paths.slim + '**/*.slim')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -100,7 +100,7 @@ gulp.task('watch', () => {
 });
 // browser-sync
 gulp.task('browser-sync', () => {
-  browserSync({
+  return browserSync({
     server: {
       baseDir: './'
     }
@@ -108,7 +108,7 @@ gulp.task('browser-sync', () => {
 });
 // imagemin
 gulp.task('imagemin', () => {
-  gulp.src('src/img/**/*.{png,jpg,gif,svg}')
+  return gulp.src('src/img/**/*.{png,jpg,gif,svg}')
     .pipe(imagemin([
       imagemin.gifsicle({
         interlaced: true
@@ -129,13 +129,13 @@ gulp.task('imagemin', () => {
 });
 // htmlhint
 gulp.task('htmllint', () => {
-  gulp.src(paths.html + '**/*.html')
+  return gulp.src(paths.html + '**/*.html')
     .pipe(htmllint())
     .pipe(htmllint.reporter())
 });
 // csslint
 gulp.task('csslint', () => {
-  gulp.src(paths.css + '**/*.min.css')
+  return gulp.src(paths.css + '**/*.min.css')
     .pipe(cssv({
       'adjoining-classes': false,
       'box-model': false,

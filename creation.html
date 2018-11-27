@@ -24,19 +24,27 @@
           const idName = target.attr('id');
           if (idName === 'open_mobile') {
             $(ids[0], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_web') {
             $(ids[1], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_chrome') {
             $(ids[2], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_playground') {
             $(ids[3], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           }
         });
       })
     </script>
     <div class="p_createinfo__gray" style="overflow: hidden;">
       <h1 class="p_createinfo__section_title" id="open_mobile">
-        Mobile Apps
+        Mobile Apps<span class="p-createinfo__section_open"></span>
       </h1>
     </div>
     <div id="mobile_app">
@@ -221,7 +229,7 @@
       </section>
     </div>
     <h1 class="p_createinfo__section_title" id="open_web">
-      Web Page
+      Web Page<span class="p-createinfo__section_open"></span>
     </h1>
     <div id="web_page">
       <section class="p_createinfo p_createinfo__white">
@@ -242,9 +250,9 @@
         </ul>
       </section>
     </div>
-    <div class="p_createinfo__gray">
-      <h1 class="p_createinfo__section_title" id="open_chrome" style="padding-top: 2%;">
-        Chrome Extension
+    <div class="p_createinfo__gray" style="overflow: hidden;">
+      <h1 class="p_createinfo__section_title" id="open_chrome">
+        Chrome Extension<span class="p-createinfo__section_open"></span>
       </h1>
       <div id="chrome_extension">
         <section class="p_createinfo">
@@ -267,7 +275,7 @@
       </div>
     </div>
     <h1 class="p_createinfo__section_title" id="open_playground">
-      Web Playgrounds
+      Web Playgrounds<span class="p-createinfo__section_open"></span>
     </h1>
     <div id="web_playground">
       <section class="p_createinfo" style="padding: 0;">

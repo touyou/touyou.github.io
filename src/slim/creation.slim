@@ -33,18 +33,27 @@ html
           const idName = target.attr('id');
           if (idName === 'open_mobile') {
             $(ids[0], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_web') {
             $(ids[1], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_chrome') {
             $(ids[2], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_playground') {
             $(ids[3], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
           }
         });
       })
     .p_createinfo__gray style="overflow: hidden;"
       h1.p_createinfo__section_title#open_mobile
         | Mobile Apps
+        span.p-createinfo__section_open
     #mobile_app
       p.p_createinfo__section
         | ※ リリース済みのもののみを紹介しています。その他は<a href="https://github.com/touyou" target="_blank">GitHub</a>などをご覧ください。
@@ -182,6 +191,7 @@ html
               img src="http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg" alt="App Storeでダウンロード"
     h1.p_createinfo__section_title#open_web
       | Web Page
+      span.p-createinfo__section_open
     #web_page
       section.p_createinfo.p_createinfo__white
         a href="http://touyou.github.io/mentor-advent-calendar-2017" target="_blank"
@@ -194,9 +204,10 @@ html
         ul
           li 制作期間 ... 2週間程度
           li 担当 ... デザインおよび実装
-    .p_createinfo__gray
-      h1.p_createinfo__section_title#open_chrome style="padding-top: 2%;"
+    .p_createinfo__gray style="overflow: hidden;"
+      h1.p_createinfo__section_title#open_chrome
         | Chrome Extension
+        span.p-createinfo__section_open
       #chrome_extension
         section.p_createinfo
           a href="https://nippoly.github.io/" target="_blank"
@@ -211,6 +222,7 @@ html
             li 担当 ... エンジニア
     h1.p_createinfo__section_title#open_playground
       | Web Playgrounds
+      span.p-createinfo__section_open
     #web_playground
       section.p_createinfo style="padding: 0;"
         ul
