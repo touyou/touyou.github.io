@@ -142,28 +142,74 @@
     position: absolute;
     top: 0;
     right: 1%;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
     border-left: 2px solid #111;
     border-bottom: 2px solid #111;
     transform: rotate(-45deg);
     transition: transform .5s;
     box-sizing: border-box;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+
+        // タブレット
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+    }
 }
 
 .p-createinfo__section_close {
     position: absolute;
     bottom: 40%;
     right: 1%;
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
     border-left: 2px solid #111;
     border-bottom: 2px solid #111;
     transform: rotate(135deg);
     transition: transform .5s;
     box-sizing: border-box;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+
+        // タブレット
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        width: 24px;
+        height: 24px;
+        margin-left: -12px;
+    }
 }
 
 .p_createinfo__section {

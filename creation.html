@@ -19,7 +19,8 @@
         for (const id of ids) {
           $(id).hide();
         }
-        $(document).click(function(e){
+        $(document).on('touchstart click', function(e){
+          e.preventDefault();
           const target = $(e.target);
           const idName = target.attr('id');
           if (idName === 'open_mobile') {
