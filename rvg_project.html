@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <meta content="touyou" name="author" />
+    <meta content="index, follow" name="robots" />
+    <meta content="touyou, touyoubuntu, とうよう, とーよー" name="keywords" />
+    <meta content="touyou Fujii Yosuke" name="description" />
+    <link href="css/rvgproj_style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>RVG User Study</title>
+  </head>
+  <body>
+    <script>
+      $(function(){
+        $(window).scroll(function (){
+          $('.fadein').each(function() {
+            const elemPos = $(this).offset().top;
+            const scroll = $(window).scrollTop();
+            const windowHeight = $(window).height();
+            if (scroll > elemPos - windowHeight + 200){
+              $(this).addClass('scrollin');
+            }
+          });
+        });
+      });
+    </script>
+    <div class="rvg-header">
+      <r-img src="res/rvg_proj.rvg"></r-img>
+    </div>
+    <div class="rvg-content__designer">
+      <h2>
+        for Designer
+      </h2>
+      <div class="rvg-content__designer_step">
+        <h3 class="fadein">
+          step 1. Load Image
+        </h3>
+        <p class="fadein">
+          まずエディタページにアクセスします。そして右下のボタンから画像を読み込みましょう。
+        </p>
+        <video class="fadein" controls="controls" loop="loop" src="res/graduate_thesis/0_loading.mov" width="50%"></video>
+        <p class="fadein">
+          この時、Initial SeamをOnにしておくと最初からSeam Carvingが適用されたかたちになります。
+        </p>
+        <video class="fadein" controls="controls" loop="loop" src="res/graduate_thesis/1_initial_seam.mov" width="50%"></video>
+      </div>
+      <div class="rvg-content__designer_step">
+        <h3 class="fadein">
+          step 2. Edit
+        </h3>
+        <p class="fadein">
+          画像を読み込んだら自分の納得いくまで編集してみてください。以下はいくつかの機能の紹介です。
+        </p>
+        <div class="video-container">
+          <div class="video-title fadein">
+            <video controls="controls" loop="loop" src="res/graduate_thesis/2_mode_change.mov" width="90%"></video>
+            <p>
+              エディタには編集画面・プレビュー画面・分割表示の３つのモードが存在します。
+            </p>
+          </div>
+          <div class="video-title fadein">
+            <video controls="controls" loop="loop" src="res/graduate_thesis/3_parameter.mov" width="90%"></video>
+            <p>
+              パラメータ調節パネルは移動可能です。また画面端のボタンで調節するKeyを変えることができます
+            </p>
+          </div>
+          <div class="video-title fadein">
+            <video controls="controls" loop="loop" src="res/graduate_thesis/4_add_key.mov" width="90%"></video>
+            <p>
+              新しいKeyを追加するには画面端の＋ボタンを使うのが便利です。このときもSeam Carvingを予めするかを設定できます。
+            </p>
+          </div>
+          <div class="video-title fadein">
+            <video controls="controls" loop="loop" src="res/graduate_thesis/5_remove_key.mov" width="90%"></video>
+            <p>
+              Keyを削除するにはパネルのRemove this keyボタンを押してください。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="rvg-content__designer_step">
+        <h3 class="fadein">
+          step 3. Finish and Answer Questionnaire
+        </h3>
+        <p class="fadein">
+          終わる際は右上の三点ボタンから「テストを終了する」を選択してください。アンケートページに飛びます。また、この時作成して頂いたデータが自動でダウンロードされるのでそちらは別途送っていただければ幸いです。アンケートのお名前はこちらでデータを管理する時のみ使用するため、論文等で使用することはありません。
+        </p>
+        <video class="fadein" controls="controls" loop="loop" src="res/graduate_thesis/6_finish_test.mov" width="50%"></video>
+      </div>
+      <div class="rvg-content__designer_link">
+        <a href="./rvg-editor" target="_blank">Open Editor</a>
+      </div>
+    </div>
+    <script src="js/rvg-loader.js"></script>
+  </body>
+</html>
