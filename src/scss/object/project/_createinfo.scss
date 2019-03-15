@@ -35,6 +35,32 @@
     }
 }
 
+.p_createinfo h2 {
+    font-family: 'urwdin', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    font-size: 1.0rem;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-bottom: 3%;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+        font-size: 1.6rem;
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        font-size: 2rem;
+    }
+}
+
 .p_createinfo p {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
     font-size: 0.6rem;

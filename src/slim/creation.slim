@@ -24,14 +24,23 @@ html
   body
     javascript:
       $(function() {
-        const ids = ['#mobile_app','#web_page','#chrome_extension', '#web_playground']
+        const ids = ['#mobile_app','#web_page','#chrome_extension', '#web_playground', "#research"]
         for (const id of ids) {
           $(id).hide();
         }
         $(document).on('touchstart click', function(e){
-          e.preventDefault();
           const target = $(e.target);
           const idName = target.attr('id');
+          if (
+            idName !== 'open_mobile' &&
+            idName !== 'open_web' &&
+            idName !== 'open_chrome' &&
+            idName !== 'open_playground' &&
+            idName !== 'open_research'
+          ) {
+            return;
+          }
+          e.preventDefault();
           if (idName === 'open_mobile') {
             $(ids[0], this).slideToggle(500);
             target.children('span').toggleClass('p-createinfo__section_open');
@@ -46,6 +55,10 @@ html
             target.children('span').toggleClass('p-createinfo__section_close');
           } else if (idName === 'open_playground') {
             $(ids[3], this).slideToggle(500);
+            target.children('span').toggleClass('p-createinfo__section_open');
+            target.children('span').toggleClass('p-createinfo__section_close');
+          } else if (idName === 'open_research') {
+            $(ids[4], this).slideToggle(500);
             target.children('span').toggleClass('p-createinfo__section_open');
             target.children('span').toggleClass('p-createinfo__section_close');
           }
@@ -221,29 +234,39 @@ html
           ul
             li 制作期間 ... 2週間程度
             li 担当 ... エンジニア
-    h1.p_createinfo__section_title#open_playground
-      | Web Playgrounds
+    h1.p_createinfo__section_title#open_research
+      | Research
       span.p-createinfo__section_open
-    #web_playground
-      section.p_createinfo style="padding: 0;"
-        ul
-          li
-            a href="js/js-playground/enchant-puyopuyo" ぷよぷよサンプル/enchant.js
-          li
-            a href="js/js-playground/p5-sine-cosine" 三角関数アニメ/p5.js
-          li
-            a href="js/js-playground/p5-fez-jump" ドット絵FEZ Jump/p5.js
-          li
-            a href="js/js-playground/p5-three-art" モンテカルロっぽいアート/p5.js&three.js
-          li
-            a href="js/js-playground/p5-odd-eye-3d" 片目3D/p5.js
-          li
-            a href="js/js-playground/p5-fft-sample" FFTをつかったサンプル/p5.js
-          li
-            a href="js/js-playground/jquery-accordion" アコーディオン/jQuery
-          li
-            a href="js/js-playground/brainf*ck" Brainf*ckインタプリタ/dotinstall
-          li
-            a href="js/js-playground/float-prac" floatの練習/CSS
-          li
-            a href="touyou_introduction" VJ風自己紹介Web/p5.js
+    #research
+      section.p_createinfo.p_createinfo__white
+        h2
+          | 卒業研究: レスポンシブな可変サイズ画像について / Responsive Variable Size Graphics (2018-2019)
+        p
+          | Web制作の際のグラフィックデザイナとプログラマ間のコミュニケーションコストを減らすために、新しい画像形式とそれに関するツール群を開発しました。
+    .p_createinfo__gray style="overflow: hidden;"
+      h1.p_createinfo__section_title#open_playground
+        | Web Playgrounds
+        span.p-createinfo__section_open
+      #web_playground
+        section.p_createinfo style="padding: 0;"
+          ul
+            li
+              a href="js/js-playground/enchant-puyopuyo" ぷよぷよサンプル/enchant.js
+            li
+              a href="js/js-playground/p5-sine-cosine" 三角関数アニメ/p5.js
+            li
+              a href="js/js-playground/p5-fez-jump" ドット絵FEZ Jump/p5.js
+            li
+              a href="js/js-playground/p5-three-art" モンテカルロっぽいアート/p5.js&three.js
+            li
+              a href="js/js-playground/p5-odd-eye-3d" 片目3D/p5.js
+            li
+              a href="js/js-playground/p5-fft-sample" FFTをつかったサンプル/p5.js
+            li
+              a href="js/js-playground/jquery-accordion" アコーディオン/jQuery
+            li
+              a href="js/js-playground/brainf*ck" Brainf*ckインタプリタ/dotinstall
+            li
+              a href="js/js-playground/float-prac" floatの練習/CSS
+            li
+              a href="touyou_introduction" target="_blank" VJ風自己紹介Web/p5.js
