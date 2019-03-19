@@ -17,12 +17,20 @@ html
 
     /--- script
     script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    script{ async src="https://www.googletagmanager.com/gtag/js?id=UA-136500666-1" }
     /--- end
 
     title touyou creation
 
   body
     javascript:
+      // Global site tag (gtag.js) - Google Analytics
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-136500666-1');
+
+      // Animations
       $(function() {
         const ids = ['#mobile_app','#web_page','#chrome_extension', '#web_playground', "#research"]
         for (const id of ids) {

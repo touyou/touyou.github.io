@@ -10,10 +10,18 @@
     <meta content="touyou Fujii Yosuke" name="description" />
     <link href="css/create_style.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-136500666-1"></script>
     <title>touyou creation</title>
   </head>
   <body>
     <script>
+      // Global site tag (gtag.js) - Google Analytics
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-136500666-1');
+      
+      // Animations
       $(function() {
         const ids = ['#mobile_app','#web_page','#chrome_extension', '#web_playground', "#research"]
         for (const id of ids) {
