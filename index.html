@@ -28,11 +28,13 @@
     <link href="css/style.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-136500666-1"></script>
+    <script src="https://unpkg.com/glottologist"></script>
     <title>touyou</title>
   </head>
   <body>
     <script>
       // Global site tag (gtag.js) - Google Analytics
+      const glot = new Glottologist();
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
@@ -73,6 +75,10 @@
           }
         });
       });
+      // Translate
+      glot.import("res/index_lang.json").then(() => {
+        glot.render("en");
+      });
     </script>
     <header>
       <div class="c-flexwrapper">
@@ -111,7 +117,7 @@
           </p>
         </div>
         <div class="p-about__disc">
-          <p>
+          <p glot-model="about-1">
             転勤族の父のもと、日本の真ん中らへんを転々とし、現在埼玉に腰を落ち着けている東大生。<br />中二でドラマの影響からプログラミングを始め、中高を通した活動の中「ITでのモノづくり」にはまる。
           </p>
           <p>
@@ -123,40 +129,40 @@
           <p>
             好きなことは創ること。気の赴くままに数々の創作活動を続けている。
           </p>
-          <h2>
+          <h2 glot-model="intern-job">
             インターン・仕事
           </h2>
           <p>
             <ul>
-              <li>
+              <li glot-model="lit-job">
                 2016- Life is Tech ! iPhone/Androidメンター、iPhoneコースリーダー、iPhone Leaders講師
               </li>
-              <li>
+              <li glot-model="ca-tech-job">
                 2017 CyberAgent テクニカルクリエイターチャレンジ
               </li>
-              <li>
+              <li glot-model="juken7-job">
                 2018- juken7.net アプリ開発者、デザイナー
               </li>
             </ul>
           </p>
-          <h2>
+          <h2 glot-model="award">
             受賞歴
           </h2>
           <p>
             <ul>
-              <li>
+              <li glot-model="joi-award">
                 2011,2012 日本情報オリンピック本選Bランク
               </li>
-              <li>
+              <li glot-model="pk-award">
                 2013 パソコン甲子園プログラミング部門審査員特別賞
               </li>
-              <li>
+              <li glot-model="gph1-award">
                 2018 Git Push Hackathon vol.1 iOS部門最優秀賞
               </li>
-              <li>
+              <li glot-model="spajam19-pre-award">
                 2019 SPAJAM 東京A予選 優秀賞 (チームヤバミオブザイヤーiOSエンジニア)
               </li>
-              <li>
+              <li glot-model="spajam19-award">
                 2019 SPAJAM 決勝 審査員特別賞 (チームヤバミオブザイヤーiOSエンジニア)
               </li>
             </ul>

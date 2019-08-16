@@ -41,6 +41,7 @@ html
     /--- script
     script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
     script{ async src="https://www.googletagmanager.com/gtag/js?id=UA-136500666-1" }
+    script src="https://unpkg.com/glottologist"
     /--- end
 
     title touyou
@@ -48,6 +49,7 @@ html
   body
     javascript:
       // Global site tag (gtag.js) - Google Analytics
+      const glot = new Glottologist();
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
@@ -88,6 +90,10 @@ html
           }
         });
       });
+      // Translate
+      glot.import("res/index_lang.json").then(() => {
+        glot.render("en");
+      });
     header
       .c-flexwrapper
         .p-logo
@@ -119,36 +125,37 @@ html
             br
             | UTokyo CS M1
         .p-about__disc
-          p
+          p glot-model="about-1"
             | 転勤族の父のもと、日本の真ん中らへんを転々とし、現在埼玉に腰を落ち着けている東大生。
             br
             | 中二でドラマの影響からプログラミングを始め、中高を通した活動の中「ITでのモノづくり」にはまる。
-          p
+          p glot-model="about-2"
             | その流れで大学に入学してからLife is Tech !にiPhoneメンターとして携わり、アプリ・教材などはじめ多方面のモノづくりに触れる。
-          p
+          p glot-model="about-3"
             | 大学では理学部情報科学科に進学。Computer Scienceの基礎を学び2018年秋から五十嵐研究室に配属。
             br
             | 2019年春に東京大学大学院情報理工学系研究科コンピュータ科学専攻に進学。
             br
             | 同研究室で未熟ながらデザイナーとエンジニアの架け橋となるUIを研究中。
-          p
+          p glot-model="about-4"
             | 好きなことは創ること。気の赴くままに数々の創作活動を続けている。
-          h2
+          h2 glot-model="intern-job"
             | インターン・仕事
           p
             ul
-              li 2016- Life is Tech ! iPhone/Androidメンター、iPhoneコースリーダー、iPhone Leaders講師
-              li 2017 CyberAgent テクニカルクリエイターチャレンジ
-              li 2018- juken7.net アプリ開発者、デザイナー
-          h2
+              li glot-model="lit-job" 2016- Life is Tech ! iPhone/Androidメンター、iPhoneコースリーダー、iPhone Leaders講師
+              li glot-model="ca-tech-job" 2017 CyberAgent テクニカルクリエイターチャレンジ
+              li glot-model="juken7-job" 2018- juken7.net アプリ開発者、デザイナー
+              li glot-model="wantedly-job" 2019/8 Wantedly サマーインターン iOSコース
+          h2 glot-model="award"
             | 受賞歴
           p
             ul
-              li 2011,2012 日本情報オリンピック本選Bランク
-              li 2013 パソコン甲子園プログラミング部門審査員特別賞
-              li 2018 Git Push Hackathon vol.1 iOS部門最優秀賞
-              li 2019 SPAJAM 東京A予選 優秀賞 (チームヤバミオブザイヤーiOSエンジニア)
-              li 2019 SPAJAM 決勝 審査員特別賞 (チームヤバミオブザイヤーiOSエンジニア)
+              li glot-model="joi-award" 2011,2012 日本情報オリンピック本選Bランク
+              li glot-model="pk-award" 2013 パソコン甲子園プログラミング部門審査員特別賞
+              li glot-model="gph1-award" 2018 Git Push Hackathon vol.1 iOS部門最優秀賞
+              li glot-model="spajam19-pre-award" 2019 SPAJAM 東京A予選 優秀賞 (チームヤバミオブザイヤーiOSエンジニア)
+              li glot-model="spajam19-award" 2019 SPAJAM 決勝 審査員特別賞 (チームヤバミオブザイヤーiOSエンジニア)
           p.p-about__interest
             | interest: iOS / Android / Web / Guitar / Song / Poem / Compiler / Movie / Graphic / Puzzle
             br

@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "my-webpage",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "glottologist": "^1.0.10"
+  },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.26.7",
     "css-mqpacker": "^6.0.2",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^5.0.0",

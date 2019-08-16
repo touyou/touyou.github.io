@@ -1,0 +1,62 @@
+{
+  "intern-job": {
+    "ja": "インターン・仕事",
+    "en": "Intern / Job"
+  },
+  "lit-job": {
+    "ja": "2016- Life is Tech ! iPhone/Androidメンター、iPhoneコースリーダー、iPhone Leaders講師",
+    "en": "2016- Life is Tech ! Mentor of iPhone/Android, Cariculum Leader of iPhone, Instructor of iPhone Leaders"
+  },
+  "ca-tech-job": {
+    "ja": "2017 CyberAgent テクニカルクリエイターチャレンジ",
+    "en": "2017 CyberAgent Technical Creator Challenge"
+  },
+  "juken7-job": {
+    "ja": "2018- juken7.net アプリ開発者、デザイナー",
+    "en": "2018- juken7.net App Developer, Designer"
+  },
+  "wantedly-job": {
+    "ja": "2019/8 Wantedly サマーインターン iOSコース",
+    "en": "2019/8 Wantedly Summer Intern iOS Course"
+  },
+  "award": {
+    "ja": "受賞歴",
+    "en": "Award"
+  },
+  "joi-award": {
+    "ja": "2011,2012 日本情報オリンピック本選Bランク",
+    "en": "2011,2012 Japanese Olympiad in Informatics Final Choice B Rank"
+  },
+  "pk-award": {
+    "ja": "2013 パソコン甲子園プログラミング部門審査員特別賞",
+    "en": "2013 PC Koshien Programming Division Judge's Special Prize"
+  },
+  "gph1-award": {
+    "ja": "2018 Git Push Hackathon vol.1 iOS部門最優秀賞",
+    "en": "2018 Git Push Hackathon vol.1 iOS Division Grand Prize"
+  },
+  "spajam19-pre-award": {
+    "ja": "2019 SPAJAM 東京A予選 優秀賞 (チームヤバミオブザイヤーiOSエンジニア)",
+    "en": "2019 SPAJAM Tokyo A Qualifying First Place (iOS Engineer of team Yabami of the year)"
+  },
+  "spajam19-award": {
+    "ja": "2019 SPAJAM 決勝 審査員特別賞 (チームヤバミオブザイヤーiOSエンジニア)",
+    "en": "2019 SPAJAM Final Judge's Special Prize (iOS Engineer of team Yabami of the year)"
+  },
+  "about-1": {
+    "ja": "転勤族の父のもと、日本の真ん中らへんを転々とし、現在埼玉に腰を落ち着けている東大生。<br/>中二でドラマの影響からプログラミングを始め、中高を通した活動の中「ITでのモノづくり」にはまる。",
+    "en": "I'm a graduate student in University of Tokyo<br/>Started to learn prgramming because of the TV show since 14 years old, and interested in IT manufacturing."
+  },
+  "about-2": {
+    "ja": "その流れで大学に入学してからLife is Tech !にiPhoneメンターとして携わり、アプリ・教材などはじめ多方面のモノづくりに触れる。",
+    "en": "And I started to work as iOS mentor in Life is Tech !. I made a lot of creative like app and textbooks."
+  },
+  "about-3": {
+    "ja": "大学では理学部情報科学科に進学。Computer Scienceの基礎を学び2018年秋から五十嵐研究室に配属。<br/>2019年春に東京大学大学院情報理工学系研究科コンピュータ科学専攻に進学。<br/>同研究室で未熟ながらデザイナーとエンジニアの架け橋となるUIを研究中。",
+    "en": "In the university, I went to department of information science. I learned basics of computer science, and I"
+  },
+  "about-4": {
+    "ja": "好きなことは創ること。気の赴くままに数々の創作活動を続けている。",
+    "en": "I love creative."
+  }
+}
