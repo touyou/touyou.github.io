@@ -109,6 +109,57 @@
     justify-content: center;
 }
 
+.p-creations__container {
+    margin: 5% 10%;
+    font-family: 'urwdin', sans-serif;
+}
+
+.p-creations__container h1 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.c-creations__card_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    margin: 16px;
+}
+
+.c-creations__card {
+    background: #fff;
+    color: #111;
+    overflow: auto;
+    min-width: 0;
+    padding: 1em;
+    box-shadow: 0px 0px 8px 0 rgba(255, 255, 255, 0.8);
+}
+
+.c-creations__card h1 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.c-creations__card img {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 20vw;
+}
+
+.c-creations__card_download {
+    display: block;
+    position: relative;
+    width: 300px;
+}
+
+.c-creations__card_download img {
+    border-radius: 0px;
+    float: left;
+    width: 120px;
+}
+
 #iphone {
     height: 10em;
     margin-bottom: 10%;
