@@ -139,6 +139,7 @@
 
 .c-creations__card h1 {
     font-size: 1.2rem;
+    margin-top: 4px;
     margin-bottom: 4px;
 }
 
@@ -148,16 +149,16 @@
     width: 20vw;
 }
 
-.c-creations__card_download {
-    display: block;
-    position: relative;
-    width: 300px;
+.c-creations__card p {
+    margin: 8px;
 }
 
-.c-creations__card_download img {
-    border-radius: 0px;
-    float: left;
-    width: 120px;
+.c-creations__card i {
+    // float: left;
+    font-size: 1.2rem;
+    color: #111;
+    padding: 2px;
+    margin-left: 4px;
 }
 
 #iphone {
