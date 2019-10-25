@@ -36,6 +36,7 @@
     color: #eee;
     display: block;
     width: 100%;
+    padding-bottom: 10px;
 
     @include mediaquery(land) {
         // スマホ横

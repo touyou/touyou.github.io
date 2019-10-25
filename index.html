@@ -76,9 +76,15 @@
           }
         });
       });
+      $(function() {
+        const $header = $('#top-head');
+        $('#nav-toggle').click(function() {
+          $header.toggleClass('open');
+        });
+      });
       // Translate
       glot.import("res/index_lang.json").then(() => {
-        glot.render("en");
+        glot.render("ja");
       });
     </script>
     <header>
@@ -91,22 +97,31 @@
         </div>
       </div>
     </header>
-    <nav>
-      <ul>
-        <li>
-          <a href="#about">about</a>
-        </li>
-        <li>
-          <a href="#creations">creations</a>
-        </li>
-        <li>
-          <a href="#link">links</a>
-        </li>
-        <li>
-          <a href="http://touyoubuntu.hatenablog.com/">blog</a>
-        </li>
-      </ul>
-    </nav>
+    <div id="top-head">
+      <div id="mobile-head">
+        <div id="nav-toggle">
+          <div>
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="#about">about</a>
+          </li>
+          <li>
+            <a href="#creations">creations</a>
+          </li>
+          <li>
+            <a href="#link">links</a>
+          </li>
+          <li>
+            <a href="http://touyoubuntu.hatenablog.com/">blog</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <main>
       <section id="about">
         <h1 class="c-header">

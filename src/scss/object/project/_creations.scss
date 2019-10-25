@@ -117,6 +117,7 @@
 .p-creations__container h1 {
     font-size: 1.2rem;
     font-weight: bold;
+    margin-top: 16px;
 }
 
 .c-creations__card_container {
@@ -135,8 +136,16 @@
     overflow: auto;
     min-width: 0;
     padding: 1em;
-    box-shadow: 0px 0px 8px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 16px 0 rgba(0, 0, 0, 0.6);
     position: relative;
+    transition: .5s ease;
+    z-index: 0;
+    border-radius: 4px;
+}
+
+.c-creations__card:hover {
+    transform: scale(1.08);
+    z-index: 10;
 }
 
 .c-creations__card h1 {
@@ -163,6 +172,10 @@
     color: #111;
     padding: 2px;
     // margin-left: 4px;
+}
+
+.c-creations__card a:hover {
+    transition: .5s ease;
 }
 
 .c-creations__card a:hover {

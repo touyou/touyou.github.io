@@ -91,9 +91,15 @@ html
           }
         });
       });
+      $(function() {
+        const $header = $('#top-head');
+        $('#nav-toggle').click(function() {
+          $header.toggleClass('open');
+        });
+      });
       // Translate
       glot.import("res/index_lang.json").then(() => {
-        glot.render("en");
+        glot.render("ja");
       });
     header
       .c-flexwrapper
@@ -104,16 +110,23 @@ html
         .c-scroll
           span
           a href="#about" scroll
-    nav
-      ul
-        li
-          a href="#about" about
-        li
-          a href="#creations" creations
-        li
-          a href="#link" links
-        li
-          a href="http://touyoubuntu.hatenablog.com/" blog
+    #top-head
+      #mobile-head
+        #nav-toggle
+          div
+            span
+            span
+            span
+      nav
+        ul
+          li
+            a href="#about" about
+          li
+            a href="#creations" creations
+          li
+            a href="#link" links
+          li
+            a href="http://touyoubuntu.hatenablog.com/" blog
     main
       section#about
         h1.c-header
