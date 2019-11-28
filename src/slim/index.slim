@@ -55,6 +55,7 @@ html
       function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'UA-136500666-1');
+      let lang = "ja"
 
       // Animations
       $(document).ready(function(){
@@ -90,16 +91,14 @@ html
             });
           }
         });
-      });
-      $(function() {
-        const $header = $('#top-head');
-        $('#nav-toggle').click(function() {
-          $header.toggleClass('open');
+        $('#about').click(function() {
+          lang = lang == "ja" ? "en" : "ja"
+          glot.render(lang);
         });
       });
       // Translate
       glot.import("res/index_lang.json").then(() => {
-        glot.render("ja");
+        glot.render(lang);
       });
     header
       .c-flexwrapper
