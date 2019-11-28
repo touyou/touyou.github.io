@@ -7,32 +7,64 @@ nav {
     position: fixed;
     z-index: 50;
     top: 0;
+    display: none;
     background: rgba(10, 10, 10, 0.5);
-    padding-top: 1%;
-    display: flex;
     justify-content: flex-end;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        display: flex;
+        padding-top: 1%;
+    }
 }
 
 nav ul {
-    display: block;
+    display: none;
     list-style-type: disc;
     flex: 0 1 auto;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        display: block;
+    }
 }
 
 nav li {
+    display: none;
     margin-right: 16px;
-    display: inline-block;
     font-size: 0.8rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
     @include mediaquery(land) {
         // スマホ横
-        font-size: 0.8rem;
     }
 
     @include mediaquery(tablet) {
         // タブレット
-        font-size: 1.2rem;
 
         @include mediaquery(land) {
             // タブレット横
@@ -42,10 +74,64 @@ nav li {
     @include mediaquery() {
         // PC
         font-size: 1.2rem;
+        display: inline-block;
     }
 }
 
 nav li a {
     color: #eee;
     text-decoration: none;
+}
+
+#tab-nav {
+    // スマホ
+    display: block;
+    background: #444;
+    width: 80%;
+    height: 3em;
+    border-radius: 1.5em;
+    box-shadow: 0 0 10px;
+    margin: 0 10%;
+    position: fixed;
+    text-align: center;
+    bottom: 32px;
+    z-index: 100;
+
+    @include mediaquery(land) {
+        // スマホ横
+    }
+
+    @include mediaquery(tablet) {
+        // タブレット
+
+        @include mediaquery(land) {
+            // タブレット横
+        }
+    }
+
+    @include mediaquery() {
+        // PC
+        display: none;
+    }
+}
+
+#tab-nav a {
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    color: #eee;
+    text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.1em 0;
+}
+
+#tab-nav a svg {
+    font-size: 1.8rem;
+    padding: 0.1em;
+    vertical-align: middle;
+}
+
+#tab-nav a:hover {
+    color: #999;
 }
