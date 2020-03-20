@@ -7,7 +7,7 @@
     "glottologist": "^1.0.10"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.2",
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^6.0.2",
     "gulp": "^4.0.2",
