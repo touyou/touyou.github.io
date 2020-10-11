@@ -60,10 +60,14 @@
     "en": "And I started to work as iOS mentor in Life is Tech ! after entering university. I made a lot of creative like app and textbooks."
   },
   "about-3": {
-    "ja": "大学では理学部情報科学科に進学。Computer Scienceの基礎を学び2018年秋から五十嵐研究室に配属。<br/>2019年春に東京大学大学院情報理工学系研究科コンピュータ科学専攻に進学。<br/>同研究室で未熟ながらデザイナーとエンジニアの架け橋となるUIを研究中。",
-    "en": "In the university, I went to department of information science. I learned basics of computer science, and I was assigned to Igarashi Lab in the fall of 2018.<br/>In the spring of 2019, I entered the Department of Computer Science, Graduate School of Information Science and Technology, The University of Tokyo.<br/>I'm studying user interface which can help communication between designers and engineers."
+    "ja": "大学では理学部情報科学科に進学。Computer Scienceの基礎を学び2018年秋から五十嵐研究室に配属。<br/>2019年春に東京大学大学院情報理工学系研究科コンピュータ科学専攻に進学。<br/>同研究室でデザイナーとエンジニアの間やオンラインにおける発表者と聴衆の間などコミュニケーションのウィークポイントを支援するUIを研究中。",
+    "en": "In the university, I went to department of information science. I learned basics of computer science, and I was assigned to Igarashi Lab in the fall of 2018.<br/>In the spring of 2019, I entered the Department of Computer Science, Graduate School of Information Science and Technology, The University of Tokyo.<br/>I'm studying user interface which can help difficult communications."
   },
   "about-4": {
+    "ja": "2021年春からはデザイン会社でエンジニアとして就職予定。",
+    "en": "I will start to work as engineer of design company in the spring of 2020."
+  },
+  "about-5": {
     "ja": "好きなことは創ること。気の赴くままに数々の創作活動を続けている。",
     "en": "I love creative. I'm doing creative as I want."
   }
