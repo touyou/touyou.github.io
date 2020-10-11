@@ -7,8 +7,8 @@
     "glottologist": "^1.0.10"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
-    "browser-sync": "^2.26.7",
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "browser-sync": "^2.26.12",
     "css-mqpacker": "^6.0.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
@@ -21,7 +21,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-sass-glob": "^1.1.0",
     "gulp-slim": "^0.3.0",
     "gulp-uglify": "^3.0.2",
