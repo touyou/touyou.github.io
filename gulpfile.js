@@ -113,7 +113,7 @@ gulp.task('imagemin', () => {
       imagemin.gifsicle({
         interlaced: true
       }),
-      imagemin.jpegtran({
+      imagemin.mozjpeg({
         progressive: true
       }),
       imagemin.optipng({
