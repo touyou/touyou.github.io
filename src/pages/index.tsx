@@ -14,7 +14,8 @@ const Home: NextPage = () => {
         Under Construction...
         <br />
         <a href="https://touyou.github.io" target="_blank" rel="noreferrer">
-          <FontAwesomeIcon icon={faExternalLinkAlt} /> 大学時代のサイト
+          <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" />{" "}
+          大学時代のサイト
         </a>
       </Description>
       <Footer>Copyrights © 2015- touyou. All Rights Reserved.</Footer>
@@ -120,6 +121,13 @@ const Description = styled.p`
 
   a:hover {
     background-color: #666666;
+  }
+
+  svg {
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin: auto;
   }
 `;
 
