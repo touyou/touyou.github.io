@@ -14,8 +14,7 @@ const Home: NextPage = () => {
         Under Construction...
         <br />
         <a href="https://touyou.github.io" target="_blank" rel="noreferrer">
-          <FontAwesomeIcon icon={faExternalLinkAlt} size="xs" />{" "}
-          大学時代のサイト
+          <FontAwesomeIcon icon={faExternalLinkAlt} /> 大学時代のサイト
         </a>
       </Description>
       <Footer>Copyrights © 2015- touyou. All Rights Reserved.</Footer>
