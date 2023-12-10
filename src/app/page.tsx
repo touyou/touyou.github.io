@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className="relative w-full h-full flex overflow-hidden">
       <div className="w-full h-full overflow-y-auto">
-        <div className="w-full h-full flex flex-wrap justify-center items-center content-center p-12 gap-4">
+        <div className="w-full h-full flex flex-wrap justify-center items-center content-center px-12 py-16 gap-4">
           <Card className="p-4 w-80 h-80 bg-[#111111]">
             <CardContent className="p-0 w-full h-full flex flex-col items-center justify-center gap-3">
               <Image
