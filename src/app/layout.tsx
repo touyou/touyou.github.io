@@ -8,6 +8,7 @@ const description = "touyou (Fujii Yosuke) / Japanese Software Engineer";
 const siteUrl = "https://touyou.dev";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${siteName}`),
   authors: [{ name: "touyou" }],
   keywords: ["touyou", "touyoubuntu", "とうよう", "とーよー"],
   title: siteName,
