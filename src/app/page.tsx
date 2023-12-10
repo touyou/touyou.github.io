@@ -76,6 +76,7 @@ export default async function Home() {
                 <Badge variant="secondary">C/C++</Badge>
                 <Badge variant="secondary">Java</Badge>
                 <Badge variant="secondary">Kotlin</Badge>
+                <Badge variant="secondary">Dart</Badge>
                 <Badge variant="secondary">Haskell</Badge>
                 <Badge variant="secondary">Scheme</Badge>
               </div>
