@@ -1,9 +1,10 @@
-const withLinaria = require('next-linaria')
-
-/** @type {import('next').NextConfig} */
-module.exports = withLinaria({
-  reactStrictMode: true,
-  linaria: {
-    /* linaria options here */
+module.exports = (phase, { defaultConfig }) => {
+  /** @type {imoprt('next').NextConfig} */
+  const nextConfig = {
+    ...defaultConfig,
+    experimental: {
+      typedRoutes: true
+    }
   }
-})
+  return nextConfig;
+}

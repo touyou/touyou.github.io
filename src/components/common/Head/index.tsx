@@ -1,6 +1,7 @@
 import NextHead from "next/head";
+import { FC } from "react";
 
-export const Head = () => {
+export const Head: FC = () => {
   return (
     <NextHead>
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
