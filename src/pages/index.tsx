@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
 import { styled } from "@linaria/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Home: NextPage = () => {
   return (
@@ -14,7 +12,7 @@ const Home: NextPage = () => {
         Under Construction...
         <br />
         <a href="https://touyou.github.io" target="_blank" rel="noreferrer">
-          <FontAwesomeIcon icon={faExternalLinkAlt} /> 大学時代のサイト
+          大学時代のサイト
         </a>
       </Description>
       <Footer>Copyrights © 2015- touyou. All Rights Reserved.</Footer>

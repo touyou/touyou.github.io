@@ -1,6 +1,7 @@
 {
   "name": "touyou-portfolio",
   "private": true,
+  "packageManager": "pnpm@8.12.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
