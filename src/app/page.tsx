@@ -1,7 +1,6 @@
-import type { NextPage } from "next";
 import Image from "next/image";
 
-const Home: NextPage = () => {
+export default async function Home() {
   return (
     <main>
       <div style={{width: '100%', aspectRatio: 'auto'}}>
@@ -20,4 +19,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export const dynamic = 'force-dynamic'

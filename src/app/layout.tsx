@@ -2,7 +2,6 @@ import { randomBytes } from 'crypto'
 import './globals.css'
 
 import NextHead from 'next/head'
-import { Head } from 'components/common/Head'
 
 const siteName = 'touyou.dev'
 const description = 'touyou (Fujii Yosuke) / Japanese Software Engineer'
@@ -55,7 +54,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </NextHead>
       <body>
-        <Head />
         {children}
       </body>
     </html>
