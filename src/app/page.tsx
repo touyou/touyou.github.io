@@ -73,6 +73,7 @@ export default async function Home() {
                 <Badge variant="outline">SwiftUI/UIKit</Badge>
                 <Badge>TypeScript</Badge>
                 <Badge variant="outline">Next.js/Angular</Badge>
+                <Badge variant="outline">Flutter</Badge>
                 <Badge variant="secondary">C/C++</Badge>
                 <Badge variant="secondary">Java</Badge>
                 <Badge variant="secondary">Kotlin</Badge>
@@ -88,11 +89,13 @@ export default async function Home() {
               <div className="flex flex-wrap items-center justify-center gap-1">
                 <Badge>原神</Badge>
                 <Badge>崩壊: スターレイル</Badge>
+                <Badge>ゼンレスゾーンゼロ</Badge>
                 <Badge variant="secondary">Splatoon3</Badge>
                 <Badge variant="secondary">
                   ポケットモンスター バイオレット
                 </Badge>
                 <Badge variant="secondary">HOGWARTS LEGACY</Badge>
+                <Badge variant="secondary">モンスターハンターワイルズ</Badge>
                 <Badge variant="secondary">
                   モンスターハンターライズ：サンブレイク
                 </Badge>
