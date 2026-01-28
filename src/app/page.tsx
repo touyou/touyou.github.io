@@ -40,15 +40,13 @@ export default async function Home() {
             <CardContent className="p-0 h-full w-full flex flex-col items-center justify-center gap-3">
               <p className="text-9xl">🍱</p>
               <a
-                href="https://bento.me/touyou"
-                target="_blank"
-                rel="noreferrer"
+                href="/bento"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
                   "font-bold"
                 )}
               >
-                bento.me
+                Bento Profile
               </a>
             </CardContent>
           </Card>
