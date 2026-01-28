@@ -1,6 +1,6 @@
 // Bento page link data types
 
-export type CardType = "social" | "ogp" | "simple";
+export type CardType = "social" | "ogp" | "simple" | "image";
 
 export type SocialPlatform =
   | "twitter"
@@ -27,6 +27,8 @@ export interface BentoLink {
   cardType: CardType;
   platform?: SocialPlatform;
   username?: string; // for social cards
+  imageSrc?: string; // for image cards
+  span?: number; // grid column span (default: 1)
 }
 
 export interface BentoSection {

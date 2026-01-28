@@ -11,6 +11,15 @@
   },
   "sections": [
     {
+      "id": "gallery",
+      "title": "",
+      "links": [
+        { "url": "#", "title": "Portrait", "cardType": "image", "imageSrc": "/bento/portrait.jpeg", "span": 2 },
+        { "url": "#", "title": "Logo", "cardType": "image", "imageSrc": "/bento/logo_512.jpg" },
+        { "url": "#", "title": "Avatar", "cardType": "image", "imageSrc": "/bento/avatar_illust.png" }
+      ]
+    },
+    {
       "id": "main-social",
       "title": "",
       "links": [
@@ -29,7 +38,6 @@
         { "url": "https://twitter.com/touyoubuntu", "title": "Twitter [private]", "cardType": "social", "platform": "twitter", "username": "@touyoubuntu" },
         { "url": "https://twitter.com/touyou_game", "title": "Twitter [game]", "cardType": "social", "platform": "twitter", "username": "@touyou_game" },
         { "url": "https://www.wantedly.com/id/touyoubuntu", "title": "Wantedly", "cardType": "social", "platform": "wantedly" },
-        { "url": "http://touyou.dev", "title": "touyou.dev", "cardType": "simple" },
         { "url": "https://gitlab.com/touyou", "title": "touyou - GitLab", "cardType": "social", "platform": "gitlab" },
         { "url": "https://www.facebook.com/fujiyou/", "title": "Facebook", "cardType": "social", "platform": "facebook" },
         { "url": "https://developers.google.com/profile/u/touyou", "title": "Yosuke Fujii - Google Developers", "cardType": "social", "platform": "google" },
@@ -38,7 +46,8 @@
         { "url": "https://zenn.dev/touyou", "title": "とうよう", "cardType": "social", "platform": "zenn" },
         { "url": "https://fedibird.com/@touyou", "title": "とうよう (@touyou@fedibird.com)", "cardType": "social", "platform": "fedibird" },
         { "url": "http://qiita.com/touyou", "title": "@touyou", "cardType": "social", "platform": "qiita" },
-        { "url": "https://www.hoyolab.com/accountCenter/postList?id=123634712", "title": "touyou - HoYoLAB", "cardType": "social", "platform": "hoyolab" }
+        { "url": "https://www.hoyolab.com/accountCenter/postList?id=123634712", "title": "touyou - HoYoLAB", "cardType": "social", "platform": "hoyolab" },
+        { "url": "https://touyoubuntu.hatenablog.com/", "title": "夢追い人", "cardType": "social", "platform": "hatena" }
       ]
     },
     {
@@ -48,6 +57,15 @@
         { "url": "https://goodpatch.com/work/suntory", "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ", "cardType": "ogp" },
         { "url": "https://goodpatch.com/work/clinics", "title": "CLINICS｜Work｜Goodpatch グッドパッチ", "cardType": "ogp" },
         { "url": "https://za.theater/", "title": "オンライン劇場 ZA", "cardType": "ogp" }
+      ]
+    },
+    {
+      "id": "activities",
+      "title": "",
+      "links": [
+        { "url": "#", "title": "バイオリン", "cardType": "image", "imageSrc": "/bento/violin.png" },
+        { "url": "#", "title": "登壇", "cardType": "image", "imageSrc": "/bento/speaking.png", "span": 2 },
+        { "url": "#", "title": "DeNA Event", "cardType": "image", "imageSrc": "/bento/dena_event.png" }
       ]
     },
     {
@@ -63,12 +81,10 @@
         { "url": "https://www.wantedly.com/companies/lifeistech/post_articles/109109", "title": "【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい", "cardType": "ogp" },
         { "url": "https://github.com/touyou/NeumorphismTab", "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.", "cardType": "ogp" },
         { "url": "https://goodpatch-tech.hatenablog.com/entry/raindrop_with_ios17", "title": "iOS 17 天気アプリの雨粒演出を作ってみた", "cardType": "ogp" },
-        { "url": "https://touyoubuntu.hatenablog.com/", "title": "夢追い人", "cardType": "ogp" },
         { "url": "https://goodpatch-tech.hatenablog.com/entry/ai_super_basic_in_2023", "title": "大生成AI時代に学ぶAIのしくみ基礎の基礎", "cardType": "ogp" },
         { "url": "https://speakerdeck.com/touyou/sheng-cheng-aihuo-yong-purodakutogamu-zhi-sitehosiiwei-lai", "title": "生成AI活用プロダクトが目指してほしい未来", "cardType": "ogp" },
         { "url": "https://goodpatch.com/blog/2024-02-designcats", "title": "狙い通りのユーザー体験を\"ゼロ距離\"で実装する", "cardType": "ogp" },
         { "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE", "title": "UXデザイナー・エンジニアが考察するApple Vision Pro", "cardType": "ogp" },
-        { "url": "https://and-engineer.com/articles/ZotYQRIAACQA_uAO", "title": "日常のあらゆる営みがデザインにつながる。エンジニアならではの「デザインの視点」とは？", "cardType": "ogp" },
         { "url": "https://goodpatch-tech.hatenablog.com/entry/flutter-native", "title": "Flutterでもネイティブ体験を届けたい", "cardType": "ogp" },
         { "url": "https://goodpatch-tech.hatenablog.com/entry/figma-plugin-node-variable", "title": "Figmaプラグイン開発超入門〜バリアブルをノード型UIで編集してみたい〜", "cardType": "ogp" },
         { "url": "https://goodpatch-tech.hatenablog.com/entry/try_swift_tokyo_2025", "title": "try! Swift Tokyo 2025に参加してきました！", "cardType": "ogp" },

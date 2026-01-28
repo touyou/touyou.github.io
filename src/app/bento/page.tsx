@@ -129,25 +129,25 @@ const platformIcons: Record<SocialPlatform, React.ComponentType<{ className?: st
   hatena: LinkIcon,
 };
 
-// Platform hover colors
+// Platform hover colors (lighter versions for better readability)
 const platformColors: Record<SocialPlatform, string> = {
-  twitter: "hover:bg-black hover:text-white",
-  github: "hover:bg-[#333] hover:text-white",
-  youtube: "hover:bg-[#FF0000] hover:text-white",
-  linkedin: "hover:bg-[#0A66C2] hover:text-white",
-  instagram: "hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white",
-  facebook: "hover:bg-[#1877F2] hover:text-white",
-  threads: "hover:bg-black hover:text-white",
-  bluesky: "hover:bg-[#0085FF] hover:text-white",
-  fedibird: "hover:bg-[#6364FF] hover:text-white",
-  zenn: "hover:bg-[#3EA8FF] hover:text-white",
-  qiita: "hover:bg-[#55C500] hover:text-white",
-  speakerdeck: "hover:bg-[#009287] hover:text-white",
-  gitlab: "hover:bg-[#FC6D26] hover:text-white",
-  google: "hover:bg-[#4285F4] hover:text-white",
-  wantedly: "hover:bg-[#21BDDB] hover:text-white",
-  hoyolab: "hover:bg-[#1E90FF] hover:text-white",
-  hatena: "hover:bg-[#00A4DE] hover:text-white",
+  twitter: "hover:bg-gray-900",
+  github: "hover:bg-gray-800",
+  youtube: "hover:bg-red-500",
+  linkedin: "hover:bg-blue-600",
+  instagram: "hover:bg-gradient-to-tr hover:from-amber-400 hover:via-pink-500 hover:to-purple-600",
+  facebook: "hover:bg-blue-500",
+  threads: "hover:bg-gray-900",
+  bluesky: "hover:bg-sky-500",
+  fedibird: "hover:bg-indigo-500",
+  zenn: "hover:bg-sky-400",
+  qiita: "hover:bg-green-500",
+  speakerdeck: "hover:bg-teal-600",
+  gitlab: "hover:bg-orange-500",
+  google: "hover:bg-blue-500",
+  wantedly: "hover:bg-cyan-500",
+  hoyolab: "hover:bg-blue-400",
+  hatena: "hover:bg-sky-500",
 };
 
 // Base card styles
@@ -164,13 +164,13 @@ function SocialCard({ link }: { link: BentoLink }) {
       href={link.url}
       target="_blank"
       rel="noreferrer"
-      className={`${cardBase} flex items-center gap-3 p-4 ${hoverColor}`}
+      className={`${cardBase} flex items-center gap-3 p-4 group ${hoverColor}`}
     >
-      <Icon className="w-6 h-6 flex-shrink-0" />
+      <Icon className="w-6 h-6 flex-shrink-0 group-hover:text-white transition-colors" />
       <div className="min-w-0 flex-1">
-        <p className="font-medium text-gray-900 text-sm truncate">{link.title}</p>
+        <p className="font-medium text-gray-900 text-sm truncate group-hover:text-white transition-colors">{link.title}</p>
         {link.username && (
-          <p className="text-gray-500 text-xs truncate">{link.username}</p>
+          <p className="text-gray-500 text-xs truncate group-hover:text-white/80 transition-colors">{link.username}</p>
         )}
       </div>
     </a>
@@ -219,6 +219,27 @@ function SimpleLinkCard({ link }: { link: BentoLink }) {
       <LinkIcon className="w-5 h-5 text-gray-400 flex-shrink-0" />
       <p className="font-medium text-gray-900 text-sm truncate">{link.title}</p>
     </a>
+  );
+}
+
+// Image Card Component - decorative image display
+function ImageCard({ link }: { link: BentoLink }) {
+  const span = link.span || 1;
+  const spanClass = span === 2 ? "col-span-2" : "";
+
+  return (
+    <div className={`${cardBase} overflow-hidden ${spanClass}`}>
+      {link.imageSrc && (
+        <div className="relative aspect-[4/3] w-full">
+          <Image
+            src={link.imageSrc}
+            alt={link.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -289,6 +310,9 @@ export default async function BentoPage() {
                 if (link.cardType === "ogp") {
                   const ogpData = ogpDataMap.get(link.url);
                   return <OGPCard key={index} link={link} ogpData={ogpData} />;
+                }
+                if (link.cardType === "image") {
+                  return <ImageCard key={index} link={link} />;
                 }
                 return <SimpleLinkCard key={index} link={link} />;
               })}
