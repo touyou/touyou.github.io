@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import bentoData from "@/data/bento-links.json";
+import { fetchMultipleOGP } from "@/lib/ogp";
+import type { BentoData, BentoLink, OGPData, SocialPlatform } from "@/lib/bento-types";
 
 export const metadata: Metadata = {
   title: "Bento | touyou.dev",
@@ -8,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 // SVG Icons
-const XIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+const TwitterIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={`${className} fill-current`}>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
@@ -74,131 +77,172 @@ const QiitaIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-// Base card styles (bento.me style)
+const WantedlyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current`}>
+    <path d="M18.453 14.555c-.171-.111-.251-.311-.331-.48-.48-1.072-1.012-2.405-1.513-3.617-.611-1.483-1.112-2.825-1.503-3.828a.545.545 0 0 0-.501-.341h-1.644a.545.545 0 0 0-.501.341c-.351.912-.812 2.104-1.333 3.437-.521-1.333-.982-2.525-1.333-3.437a.545.545 0 0 0-.501-.341H7.649a.545.545 0 0 0-.501.341c-.391 1.003-.892 2.345-1.503 3.828-.501 1.212-1.033 2.545-1.513 3.617-.08.169-.16.369-.331.48-.14.089-.32.079-.5.079H2.18a.545.545 0 0 0-.54.62l.28 1.593a.545.545 0 0 0 .54.47h1.443c.572 0 1.023-.341 1.273-.872.481-1.032.952-2.224 1.423-3.437.471 1.213.942 2.405 1.423 3.437.25.531.701.872 1.273.872h.802c.572 0 1.023-.341 1.273-.872.481-1.032.952-2.224 1.423-3.437.471 1.213.942 2.405 1.423 3.437.25.531.701.872 1.273.872h.802c.572 0 1.023-.341 1.273-.872.481-1.032.952-2.224 1.423-3.437.471 1.213.942 2.405 1.423 3.437.25.531.701.872 1.273.872h1.443a.545.545 0 0 0 .54-.47l.28-1.593a.545.545 0 0 0-.54-.62h-1.122c-.18 0-.36.01-.5-.079z" />
+  </svg>
+);
+
+const GitLabIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current`}>
+    <path d="m23.6 9.593-.033-.086L20.3.98a.851.851 0 0 0-.336-.405.865.865 0 0 0-.996.053.857.857 0 0 0-.29.44l-2.212 6.78H7.534L5.322 1.068a.857.857 0 0 0-.29-.44.865.865 0 0 0-.996-.053.854.854 0 0 0-.336.405L.433 9.502l-.032.086a6.066 6.066 0 0 0 2.012 7.01l.01.009.03.02 4.98 3.73 2.463 1.865 1.5 1.133a1.008 1.008 0 0 0 1.22 0l1.5-1.133 2.462-1.865 5.012-3.754.013-.01a6.072 6.072 0 0 0 2.007-7z" />
+  </svg>
+);
+
+const GoogleIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current`}>
+    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+  </svg>
+);
+
+const HoYoLabIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current`}>
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6c-5.302 0-9.6-4.298-9.6-9.6S6.698 2.4 12 2.4s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6zm0-16.8a7.2 7.2 0 1 0 0 14.4 7.2 7.2 0 0 0 0-14.4z" />
+  </svg>
+);
+
+const LinkIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className}`} fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  </svg>
+);
+
+// Platform icon mapping
+const platformIcons: Record<SocialPlatform, React.ComponentType<{ className?: string }>> = {
+  twitter: TwitterIcon,
+  github: GitHubIcon,
+  youtube: YouTubeIcon,
+  linkedin: LinkedInIcon,
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  threads: ThreadsIcon,
+  bluesky: BlueskyIcon,
+  fedibird: FedibirdIcon,
+  zenn: ZennIcon,
+  qiita: QiitaIcon,
+  speakerdeck: LinkIcon,
+  gitlab: GitLabIcon,
+  google: GoogleIcon,
+  wantedly: WantedlyIcon,
+  hoyolab: HoYoLabIcon,
+  hatena: LinkIcon,
+};
+
+// Platform hover colors
+const platformColors: Record<SocialPlatform, string> = {
+  twitter: "hover:bg-black hover:text-white",
+  github: "hover:bg-[#333] hover:text-white",
+  youtube: "hover:bg-[#FF0000] hover:text-white",
+  linkedin: "hover:bg-[#0A66C2] hover:text-white",
+  instagram: "hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white",
+  facebook: "hover:bg-[#1877F2] hover:text-white",
+  threads: "hover:bg-black hover:text-white",
+  bluesky: "hover:bg-[#0085FF] hover:text-white",
+  fedibird: "hover:bg-[#6364FF] hover:text-white",
+  zenn: "hover:bg-[#3EA8FF] hover:text-white",
+  qiita: "hover:bg-[#55C500] hover:text-white",
+  speakerdeck: "hover:bg-[#009287] hover:text-white",
+  gitlab: "hover:bg-[#FC6D26] hover:text-white",
+  google: "hover:bg-[#4285F4] hover:text-white",
+  wantedly: "hover:bg-[#21BDDB] hover:text-white",
+  hoyolab: "hover:bg-[#1E90FF] hover:text-white",
+  hatena: "hover:bg-[#00A4DE] hover:text-white",
+};
+
+// Base card styles
 const cardBase = "bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden";
 
-// Social Card with Icon
-const SocialCard = ({
-  href,
-  icon: Icon,
-  title,
-  username,
-  buttonText,
-  buttonColor = "bg-gray-100 text-gray-700",
-}: {
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  username?: string;
-  buttonText?: string;
-  buttonColor?: string;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-    className={`${cardBase} flex flex-col items-center justify-center p-4 gap-2 group`}
-  >
-    <Icon className="w-8 h-8 text-gray-700 group-hover:scale-110 transition-transform" />
-    <div className="text-center">
-      <p className="font-semibold text-gray-900 text-sm">{title}</p>
-      {username && <p className="text-gray-500 text-xs">{username}</p>}
-    </div>
-    {buttonText && (
-      <span className={`text-xs px-3 py-1 rounded-full ${buttonColor}`}>
-        {buttonText}
-      </span>
-    )}
-  </a>
-);
+// Social Card Component
+function SocialCard({ link }: { link: BentoLink }) {
+  const platform = link.platform as SocialPlatform | undefined;
+  const Icon = platform ? platformIcons[platform] : LinkIcon;
+  const hoverColor = platform ? platformColors[platform] : "hover:bg-gray-100";
 
-// OGP Card with Image Preview
-const OGPCard = ({
-  href,
-  image,
-  title,
-  domain,
-  large = false,
-}: {
-  href: string;
-  image: string;
-  title: string;
-  domain: string;
-  large?: boolean;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-    className={`${cardBase} flex flex-col group ${large ? "col-span-2 row-span-2" : "col-span-2"}`}
-  >
-    <div className={`relative w-full ${large ? "flex-1 min-h-[160px]" : "h-32"} overflow-hidden bg-gray-100`}>
-      <Image
-        src={image}
-        alt={title}
-        fill
-        className="object-cover group-hover:scale-105 transition-transform duration-300"
-      />
-    </div>
-    <div className="p-3">
-      <p className="font-medium text-gray-900 text-sm line-clamp-2">{title}</p>
-      <p className="text-gray-400 text-xs mt-1">{domain}</p>
-    </div>
-  </a>
-);
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className={`${cardBase} flex items-center gap-3 p-4 ${hoverColor}`}
+    >
+      <Icon className="w-6 h-6 flex-shrink-0" />
+      <div className="min-w-0 flex-1">
+        <p className="font-medium text-gray-900 text-sm truncate">{link.title}</p>
+        {link.username && (
+          <p className="text-gray-500 text-xs truncate">{link.username}</p>
+        )}
+      </div>
+    </a>
+  );
+}
 
-// Simple Link Card
-const LinkCard = ({
-  href,
-  title,
-  domain,
-  icon,
-}: {
-  href: string;
-  title: string;
-  domain: string;
-  icon?: React.ReactNode;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-    className={`${cardBase} flex items-center gap-3 p-4 group`}
-  >
-    {icon && <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">{icon}</div>}
-    <div className="flex-1 min-w-0">
-      <p className="font-medium text-gray-900 text-sm truncate group-hover:text-blue-600 transition-colors">{title}</p>
-      <p className="text-gray-400 text-xs">{domain}</p>
-    </div>
-  </a>
-);
+// OGP Card Component - unified size, no URL display
+function OGPCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
+  const displayTitle = ogpData?.title || link.title;
+  const imageUrl = ogpData?.image;
 
-// Section Header
-const SectionHeader = ({ children }: { children: React.ReactNode }) => (
-  <p className="col-span-2 md:col-span-4 text-gray-500 text-sm font-medium mt-4 first:mt-0">{children}</p>
-);
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className={`${cardBase} flex flex-col group col-span-2`}
+    >
+      {imageUrl && (
+        <div className="relative w-full h-36 overflow-hidden bg-gray-100">
+          <Image
+            src={imageUrl}
+            alt={displayTitle}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            unoptimized
+          />
+        </div>
+      )}
+      <div className="p-4">
+        <p className="font-medium text-gray-900 text-sm line-clamp-2">{displayTitle}</p>
+      </div>
+    </a>
+  );
+}
 
-// Image Card (decorative)
-const ImageCard = ({
-  src,
-  alt,
-  span = 1,
-}: {
-  src: string;
-  alt: string;
-  span?: number;
-}) => (
-  <div className={`${cardBase} relative ${span === 2 ? "col-span-2 row-span-2" : ""}`}>
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className="object-cover"
-    />
-  </div>
-);
+// Simple Link Card Component
+function SimpleLinkCard({ link }: { link: BentoLink }) {
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className={`${cardBase} flex items-center gap-3 p-4 hover:bg-gray-50`}
+    >
+      <LinkIcon className="w-5 h-5 text-gray-400 flex-shrink-0" />
+      <p className="font-medium text-gray-900 text-sm truncate">{link.title}</p>
+    </a>
+  );
+}
 
-export default function BentoPage() {
+// Section Header Component
+function SectionHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="col-span-2 md:col-span-4 text-gray-600 text-sm font-semibold mt-6 first:mt-0 px-1">
+      {children}
+    </h2>
+  );
+}
+
+export default async function BentoPage() {
+  const data = bentoData as BentoData;
+
+  // Collect all OGP URLs
+  const ogpUrls = data.sections
+    .flatMap((section) => section.links)
+    .filter((link) => link.cardType === "ogp")
+    .map((link) => link.url);
+
+  // Fetch all OGP data in parallel
+  const ogpDataMap = await fetchMultipleOGP(ogpUrls);
+
   return (
     <main className="min-h-screen bg-[#f5f5f7]">
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
@@ -215,236 +259,41 @@ export default function BentoPage() {
 
         {/* Profile Header */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-28 h-28 rounded-full overflow-hidden shadow-lg mb-4">
+          <div className="w-28 h-28 rounded-full overflow-hidden shadow-lg mb-4 ring-4 ring-white">
             <Image
-              src="/avatar.jpg"
-              alt="Yosuke Fujii"
+              src={data.profile.avatar}
+              alt={data.profile.name}
               width={112}
               height={112}
               className="w-full h-full object-cover"
+              priority
             />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Yosuke Fujii</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{data.profile.name}</h1>
           <div className="text-gray-600 text-center mt-2 space-y-1">
-            <p>Design Engineer at Goodpatch Inc. 💙</p>
-            <p>オンライン劇場ZA UXエンジニア 🎭</p>
-            <p className="text-gray-400 text-sm">あだ名はtouyou（とうよう）です</p>
+            {data.profile.bio.map((line, i) => (
+              <p key={i} className={line === "" ? "h-2" : ""}>{line}</p>
+            ))}
           </div>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[100px]">
-
-          {/* SNS Row 1 */}
-          <SocialCard
-            href="https://x.com/touyou_dev"
-            icon={XIcon}
-            title="Twitter [dev]"
-            username="@touyou_dev"
-            buttonText="Follow"
-          />
-          <SocialCard
-            href="https://github.com/touyou"
-            icon={GitHubIcon}
-            title="touyou - GitHub"
-            buttonText="Follow"
-          />
-          <SocialCard
-            href="https://youtube.com/@touyoubuntu"
-            icon={YouTubeIcon}
-            title="touyou"
-            buttonText="Subscribe 10"
-            buttonColor="bg-red-100 text-red-600"
-          />
-          <SocialCard
-            href="https://linkedin.com/in/touyou"
-            icon={LinkedInIcon}
-            title="LinkedIn"
-            username="linkedin.com"
-          />
-
-          {/* Instagram with photos */}
-          <SocialCard
-            href="https://instagram.com/touyou_work"
-            icon={InstagramIcon}
-            title="@touyou_work"
-            buttonText="Follow 69"
-            buttonColor="bg-pink-100 text-pink-600"
-          />
-          <SocialCard
-            href="https://instagram.com/touyou1121"
-            icon={InstagramIcon}
-            title="@touyou1121"
-            buttonText="Follow 544"
-            buttonColor="bg-pink-100 text-pink-600"
-          />
-          <ImageCard src="/bento/insta-1.jpg" alt="Instagram post" />
-          <ImageCard src="/bento/insta-2.jpg" alt="Instagram post" />
-
-          {/* Private SNS */}
-          <SectionHeader>もっとプライベート</SectionHeader>
-
-          <SocialCard
-            href="https://x.com/touyoubuntu"
-            icon={XIcon}
-            title="Twitter [private]"
-            username="@touyoubuntu"
-            buttonText="Follow"
-          />
-          <SocialCard
-            href="https://x.com/touyou_game"
-            icon={XIcon}
-            title="Twitter [game]"
-            username="@touyou_game"
-            buttonText="Follow"
-          />
-
-          {/* Portfolio links */}
-          <LinkCard
-            href="https://www.wantedly.com/id/touyoubuntu"
-            title="Wantedly"
-            domain="wantedly.com"
-          />
-          <LinkCard
-            href="https://touyou.dev"
-            title="touyou.dev"
-            domain="touyou.dev"
-          />
-          <LinkCard
-            href="https://gitlab.com/touyou"
-            title="touyou · GitLab"
-            domain="gitlab.com"
-          />
-          <SocialCard
-            href="https://www.facebook.com/fujiyou/"
-            icon={FacebookIcon}
-            title="Facebook"
-            username="facebook.com"
-          />
-          <LinkCard
-            href="https://developers.google.com/profile/u/touyou"
-            title="Yosuke Fujii - Google Developers"
-            domain="developers.google.com"
-          />
-          <SocialCard
-            href="https://www.threads.net/@touyou1121"
-            icon={ThreadsIcon}
-            title="藤井 陽介"
-            username="threads.net"
-          />
-          <SocialCard
-            href="https://bsky.app/profile/touyou.bsky.social"
-            icon={BlueskyIcon}
-            title="とうよう"
-            username="bsky.app"
-          />
-          <SocialCard
-            href="https://zenn.dev/touyou"
-            icon={ZennIcon}
-            title="とうよう"
-            username="zenn.dev"
-          />
-
-          {/* Works Section */}
-          <SectionHeader>これまでやってきたこと</SectionHeader>
-
-          <OGPCard
-            href="https://goodpatch.com/work/suntory"
-            image="/bento/suntory.jpg"
-            title="SUNTORY＋｜Work｜Goodpatch グッドパッチ"
-            domain="goodpatch.com"
-            large
-          />
-          <OGPCard
-            href="https://goodpatch.com/work/clinics"
-            image="/bento/clinics.jpg"
-            title="CLINICS｜Work｜Goodpatch グッドパッチ"
-            domain="goodpatch.com"
-            large
-          />
-          <OGPCard
-            href="https://za.theater/"
-            image="/bento/za.jpg"
-            title="オンライン劇場 ZA"
-            domain="za.theater"
-            large
-          />
-
-          {/* Writing & Speaking Section */}
-          <SectionHeader>書く、発表する、しゃべる</SectionHeader>
-
-          <OGPCard
-            href="https://www.youtube.com/watch?v=4wC7tlLHyYw"
-            image="/bento/aws-devday.jpg"
-            title="AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場"
-            domain="youtube.com"
-            large
-          />
-          <OGPCard
-            href="https://speakerdeck.com/touyou/aws-dev-day-online-2021-c-5"
-            image="/bento/aws-speakerdeck.jpg"
-            title="AWSサーバーレスが支える劇団ノーミーツのオンライン劇場ZA"
-            domain="speakerdeck.com"
-          />
-          <OGPCard
-            href="https://github.com/touyou/NeumorphismTab"
-            image="/bento/neumorphism.jpg"
-            title="GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism."
-            domain="github.com"
-          />
-          <OGPCard
-            href="https://www.youtube.com/watch?v=wJpIZr7sqtE"
-            image="/bento/visionpro.jpg"
-            title="UXデザイナー・エンジニアが考察するApple Vision Pro"
-            domain="youtube.com"
-          />
-          <OGPCard
-            href="https://goodpatch.com/blog/2024-02-designcats"
-            image="/bento/design-cats.jpg"
-            title="狙い通りのユーザー体験を&quot;ゼロ距離&quot;で実装する──Goodpatch流「UXデザイナー×エンジニア」の協力体制とは"
-            domain="goodpatch.com"
-          />
-          <OGPCard
-            href="https://speakerdeck.com/touyou/sheng-cheng-aihuo-yong-purodakutogamu-zhi-sitehosiiwei-lai"
-            image="/bento/genai-product.jpg"
-            title="生成AI活用プロダクトが目指してほしい未来"
-            domain="speakerdeck.com"
-          />
-          <OGPCard
-            href="https://www.youtube.com/watch?v=07LIxk1ow1Q"
-            image="/bento/liquid-glass.jpg"
-            title="Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2"
-            domain="youtube.com"
-            large
-          />
-          <OGPCard
-            href="https://www.youtube.com/watch?v=mH51h_BoG4c"
-            image="/bento/flutterkaigi.jpg"
-            title="Add-to-appで真のLiquid Glass対応を目指してみた"
-            domain="youtube.com"
-          />
-
-          {/* More links */}
-          <SocialCard
-            href="https://fedibird.com/@touyou"
-            icon={FedibirdIcon}
-            title="とうよう"
-            username="fedibird.com"
-          />
-          <SocialCard
-            href="http://qiita.com/touyou"
-            icon={QiitaIcon}
-            title="@touyou"
-            username="qiita.com"
-          />
-
-          {/* Decorative images */}
-          <ImageCard src="/bento/insta-3.jpg" alt="Instagram post" />
-          <ImageCard src="/bento/insta-4.jpg" alt="Instagram post" />
-          <ImageCard src="/bento/nippo.jpg" alt="にっぽ" span={2} />
-          <ImageCard src="/bento/logo-touyou.jpg" alt="touyou logo" />
-          <ImageCard src="/bento/touyou-logo.png" alt="TOUYOU" />
-
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {data.sections.map((section) => (
+            <div key={section.id} className="contents">
+              {section.title && <SectionHeader>{section.title}</SectionHeader>}
+              {section.links.map((link, index) => {
+                if (link.cardType === "social") {
+                  return <SocialCard key={index} link={link} />;
+                }
+                if (link.cardType === "ogp") {
+                  const ogpData = ogpDataMap.get(link.url);
+                  return <OGPCard key={index} link={link} ogpData={ogpData} />;
+                }
+                return <SimpleLinkCard key={index} link={link} />;
+              })}
+            </div>
+          ))}
         </div>
 
         {/* Footer */}
