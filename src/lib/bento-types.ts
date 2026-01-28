@@ -29,6 +29,7 @@ export interface BentoLink {
   username?: string; // for social cards
   imageSrc?: string; // for image cards
   span?: number; // grid column span (default: 1)
+  aspectRatio?: string; // e.g., "1/1", "4/3", "16/9" for image cards
 }
 
 export interface BentoSection {

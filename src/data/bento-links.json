@@ -14,9 +14,9 @@
       "id": "gallery",
       "title": "",
       "links": [
-        { "url": "#", "title": "Portrait", "cardType": "image", "imageSrc": "/bento/portrait.jpeg", "span": 2 },
-        { "url": "#", "title": "Logo", "cardType": "image", "imageSrc": "/bento/logo_512.jpg" },
-        { "url": "#", "title": "Avatar", "cardType": "image", "imageSrc": "/bento/avatar_illust.png" }
+        { "url": "#", "title": "Portrait", "cardType": "image", "imageSrc": "/bento/portrait.jpeg", "span": 2, "aspectRatio": "3/2" },
+        { "url": "#", "title": "Logo", "cardType": "image", "imageSrc": "/bento/logo_512.jpg", "aspectRatio": "1/1" },
+        { "url": "#", "title": "Avatar", "cardType": "image", "imageSrc": "/bento/avatar_illust.png", "aspectRatio": "1/1" }
       ]
     },
     {
@@ -63,9 +63,9 @@
       "id": "activities",
       "title": "",
       "links": [
-        { "url": "#", "title": "バイオリン", "cardType": "image", "imageSrc": "/bento/violin.png" },
-        { "url": "#", "title": "登壇", "cardType": "image", "imageSrc": "/bento/speaking.png", "span": 2 },
-        { "url": "#", "title": "DeNA Event", "cardType": "image", "imageSrc": "/bento/dena_event.png" }
+        { "url": "#", "title": "バイオリン", "cardType": "image", "imageSrc": "/bento/violin.png", "aspectRatio": "3/2" },
+        { "url": "#", "title": "登壇", "cardType": "image", "imageSrc": "/bento/speaking.png", "span": 2, "aspectRatio": "3/2" },
+        { "url": "#", "title": "DeNA Event", "cardType": "image", "imageSrc": "/bento/dena_event.png", "aspectRatio": "2/1" }
       ]
     },
     {

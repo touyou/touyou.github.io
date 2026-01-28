@@ -1,0 +1,141 @@
+{
+  "https://goodpatch.com/work/suntory": {
+    "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2020/10/works_TOP1%402x.png?fit=2880%2C1780&ssl=1",
+    "description": "SUNTORY＋（サントリープラス）は、企業の「健康経営」のため、従業員の健康行動習慣化をサポートするサントリー食品インターナショナル（株）のヘルスケアサービスアプリです。未来の健康リスクチェック結果に基づきパーソナライズされた“超低..."
+  },
+  "https://goodpatch.com/work/clinics": {
+    "title": "CLINICS｜Work｜Goodpatch グッドパッチ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2022/03/main-1.jpg?fit=2880%2C1780&ssl=1",
+    "description": "テクノロジーを活用した事業やプロジェクトを通じて「納得できる医療」の実現を目指す株式会社メドレー。医療プラットフォーム事業では、日本最大級のオンライン診療システム「CLINICS オンライン診療」を中核として、スムーズなオンライン医療..."
+  },
+  "https://za.theater/": {
+    "title": "オンライン劇場 ZA",
+    "image": "https://za.theater/home/ogp.jpg",
+    "description": "ZAとは、2020年に生まれた「オンライン劇場」です。世界中どこからでも観劇でき、未来の演劇の可能性に挑戦します。劇団ノーミーツの「Meets」がプロデュース。"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/engineer_communication_elementary": {
+    "title": "新卒1年目が学んだエンジニアのコミュニケーション術 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/4a3f96734f1c1dc7d292ecf5f03b9a2d0c3acea2/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20211126%2F20211126163235.png",
+    "description": "iOSエンジニアの 藤井 です。デザインパートナー事業を担う Design Division に所属しています。この記事はGoodpatch Advent Calendar 2021の二日目の記事になります。 最近はSwiftUIを使うことも多く、それについて書くのもいいなと思ったのですが、今年しかない新卒一年目という身分をフル活用するのも今しかない！と思い、今回は「エンジニアのコミュニケーション術」について書いていこうと思います。 昨今、デジタルネイティブという言葉もある通り、中高生の年代から圧倒的な技術力を持っている人がいるのも珍しく無くなってきました。今ではネットを見れば、大抵の情報が転…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/observableobject_as_hooks": {
+    "title": "SwiftUIのObservableObjectをReact Hooksとして見る - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/cf38070c31a67f6c99cb0e8f1b5bfcdb66287e3a/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20220816%2F20220816112218.png",
+    "description": "こんにちは！暑すぎてインドアで夏の全てを済ませているエンジニアの藤井（@touyou_dev）です！ 毎年のWWDCでのアップデートから、次第に現実味をおびてきたプロダクションレベルでのAll SwiftUI採用アプリ。 昨年のiOS15でかなり安定してきて、今年リリース予定のiOS16では基本的なところはもちろんのこと、グラフなどもSwiftUI風に書けるようになっています。 これまではよほど小規模のアプリでない限り、あくまでUIKitをベースにすることが前提でなければいけないことも多く、アプリのアーキテクチャもUIKitでの慣習のまま。UI部分のみSwiftUIであるため、全体はMVVMで…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/design_principle_for_engineer": {
+    "title": "エンジニアのためのデザイン4大原則 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/3a06dda6bfc4e15c0fe25100d22e3e5b107cda7e/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20221125%2F20221125103035.png",
+    "description": "この記事はGoodpatch Advent Calendar 2022 の5日目の記事です。 こんにちは！エンジニアの藤井（@touyou_dev）です。先日宣言型UIフレームワークを比較してみたという記事を出したばかりですが、今年も昨年のアドベントカレンダー同様、2日目と5日目の二日間を担当しようと思いたち、今年ふたつ目となるこの記事を書いています。 今回扱うテーマはタイトルの通り「デザインの4大原則」です。 デザインをする人たちにとっては、UIであれグラフィックであれ基本中の基本となるこの原則。ですが、今年自分が参加したとある技術カンファレンスでの周りの反応を見て、これが世間一般のエンジニ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/chatgpt-article-refine": {
+    "title": "ChatGPTに書かせた技術記事に赤入れしてみた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/da8968021aa6d6690b0128f078ec3f6976ad794b/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20230316%2F20230316175058.png",
+    "description": "iOS 15で追加された新機能の中でも注目すべきは、Focus（集中）モードです。この機能を使うことで、自分がやるべきことに集中するために、通知やアプリアイコンの表示を制限できます。例えば、仕事中には仕事に関するアプリや連絡先からの通知だけを受け取り、プライベートな時間にはSNSやゲームからの通知を制限することができます。 Focusモードのデザイン Focusモードのデザインには、アプリのアイコンに新しいリングが追加されました。このリングは、Focusモードに設定されていることを視覚的に表していますは、基本的にできることが限られています。iOS15の段階では、コミュニケーションアプリの送受信…"
+  },
+  "https://www.youtube.com/watch?v=4wC7tlLHyYw": {
+    "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
+    "image": "https://i.ytimg.com/vi/4wC7tlLHyYw/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGGUgVChSMA8=&rs=AOn4CLDp07Y_MhA2Xx7uD7c2ZITRcLuD1w",
+    "description": "✨講師：土田 悠輝 氏 (劇団ノーミーツ/PARTY テクニカルマネージャー/エンジニア)藤井 陽介 氏 (オンライン劇場ZA UXエンジニア)✨セッション概要：劇団ノーミーツ(株式会社Meets)が運営するオンライン劇場ZAは、AWS Amplifyを中心としたサーバーレスアーキテクチャによって開発されている。..."
+  },
+  "https://speakerdeck.com/touyou/aws-dev-day-online-2021-c-5": {
+    "title": "AWSサーバーレスが支える劇団ノーミーツのオンライン劇場ZA / AWS Dev Day Online 2021 C-5",
+    "image": "https://files.speakerdeck.com/presentations/fc36774e00d44f55a4ca729a76af5397/slide_0.jpg?19142069",
+    "description": "AWS Dev Day 2021のブレイクアウトセッションで土田と二人で登壇させていただいた資料になります。（※ 一部公開用に改変しております。）\n\nAmplifyというAWSサーバーレス技術を用いて、いかに小さなチームで、短期間でオンライン劇場ZAを作り上げたのか、そしてそれによってどのような体験&hellip;"
+  },
+  "https://www.wantedly.com/companies/lifeistech/post_articles/109109": {
+    "title": "【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい | Life is Tech ! Leaders Blog",
+    "image": "https://www.wantedly.com/post_articles/109109/ogp_image",
+    "description": "Life is Tech ! では、春休みや夏休みなどの長期休暇に中高生向けのITキャンプを開催しています！アプリ開発、ゲーム開発、デザイン、映像制作、3DCG、音楽制作など、全17コースのデジ..."
+  },
+  "https://github.com/touyou/NeumorphismTab": {
+    "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
+    "image": "https://repository-images.githubusercontent.com/232614789/a868a380-3333-11ea-8079-96b405f645c4",
+    "description": "Custom TabBarController with Neumorphism. Contribute to touyou/NeumorphismTab development by creating an account on GitHub."
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/raindrop_with_ios17": {
+    "title": "iOS 17 天気アプリの雨粒演出を作ってみた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/f53b8dd1f4d1f75cc5b2b0575536f1645c79af0f/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20230920%2F20230920122316.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ ついに2023年9月19日、iOS 17がリリースされましたね🙌 連絡先がiPhoneを近づけるだけで交換できる機能など、コミュニケーション面でのアップデートが目立った今回のアップデートでしたが、みなさんは何に注目したでしょうか？ 弊社ではiOS/iPadOS 17の天気アプリに追加された、あるマイナーアップデートが注目を集めました。 それがこちらです。 かなりわかりにくいのですが、以前からあったパネルの上部に雨粒が上から当たって跳ねるアニメーションに加えて、パネルの裏側に水滴がついて滴るような演出が追加されています。 切り抜いて明るくしてみ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/ai_super_basic_in_2023": {
+    "title": "大生成AI時代に学ぶAIのしくみ基礎の基礎 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/fede85717ce19cf3e363a11b655e62365e022104/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20231120%2F20231120173000.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ この記事はGoodpatch Advent Calendar 2023の二日目の記事になります。 今回テーマにするのは昨年末のChatGPTリリースに始まり全世界を巻き込む社会現象となった「AI」についてのお話です。 ChatGPTの影響が大きかった一番の要因はチャット形式かつその性能の高さが今までAIに直接触ってなかった層を巻き込めるようになったから、というのはわりとメジャーな見方かと思いますが、一方でこれによってAIもとい機械学習がどういう仕組みで動いているのかという理解があまりないまま生成AIを触っている人も増えてきたのかなと思います。…"
+  },
+  "https://speakerdeck.com/touyou/sheng-cheng-aihuo-yong-purodakutogamu-zhi-sitehosiiwei-lai": {
+    "title": "生成AI活用プロダクトが目指してほしい未来",
+    "image": "https://files.speakerdeck.com/presentations/0506243e6551418f91e5a73fb866a31e/slide_0.jpg?28735791",
+    "description": "株式会社Algomatic主催 <a href=\"https://algomatic.connpass.com/event/306870/\">生成AI新年会2024</a>での株式会社グッドパッチ企業LTです\n\n・<a href=\"https://goodpatch.com/\">株式会社グッドパッチ&hellip;"
+  },
+  "https://goodpatch.com/blog/2024-02-designcats": {
+    "title": "狙い通りのユーザー体験を“ゼロ距離”で実装する──Goodpatch流「UXデザイナー×エンジニア」の協力体制とは【Design Cats in Goodpatch_Vol.02】｜Goodpatch Blog グッドパッチブログ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2024/02/DCv2_1920.png?fit=1920%2C1080&ssl=1",
+    "description": "UIデザイナー、UXデザイナー、エンジニア、デザインストラテジスト──グッドパッチのクライアントワークでは、さまざまな専門性を持ったデザイナーがチームとなって協力し、顧客の課題を解決していきます。時に手分けして、時に膝を突き合わせて。..."
+  },
+  "https://www.youtube.com/watch?v=wJpIZr7sqtE": {
+    "title": "UXデザイナー・エンジニアが考察するApple Vision Pro | 未来の体験がどう変わるか | Appleの歴史から紐解く | アイトラッキングとプライバシー",
+    "image": "https://i.ytimg.com/vi/wJpIZr7sqtE/hqdefault.jpg",
+    "description": "チャンネル登録よろしくお願いします！https://www.youtube.com/@goodpatch_yohaku?sub_confirmation=1 グッドパッチには以前からApple Vision Proの動向をウォッチし、日本での発売を待ちわびていたメンバーが多数在籍しています。今回はXR領域に精通し..."
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/flutter-native": {
+    "title": "Flutterでもネイティブ体験を届けたい - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/ebd3ddab3d83961321b3d4d53645f82fd064aece/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20241127%2F20241127144823.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ この記事はGoodpatch Advent Calendar 2024の二日目の記事になります。 さっそくですがみなさんはFlutterというものについてどのくらいご存知でしょうか？ Flutterは2017年ごろにGoogleのチームによって開発された、クロスプラットフォーム向けのオープンソースSDKです。 その中でも初期からコア機能として実装されていたiOSとAndroidのアプリを単一コードベースで開発するという機能は、今でもFlutterユーザーの大半のユースケースの中心となっています。 世の中には他にも多くのクロスプラットフォーム/…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/figma-plugin-node-variable": {
+    "title": "Figmaプラグイン開発超入門〜バリアブルをノード型UIで編集してみたい〜 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/5116e0e0c9cc1436866d8a0eb16ea93afd948c0e/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20241211%2F20241211093949.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ この記事はGoodpatch Advent Calendar 2024の12日目の記事になります。 みなさん、Figma、使ってますか？ 自分は現在、社内のデザインシステムチームにエンジニアとして参画して、デザインシステムの成長にエンジニア視点で貢献するということをサブプロジェクト的に取り組んでおり、デザイナーと一緒に有効性を検証するテストに参加したり、インタビューの分析をしたり、実際のドキュメント執筆に携わったりなど、職種の域を超えて活動しています。 その中でも直近力を入れて取り組んでいるのが「Figmaプラグイン開発」です。 実際のサブプ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/try_swift_tokyo_2025": {
+    "title": "try! Swift Tokyo 2025に参加してきました！ - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/088724339ad14163f48142ac3643979d44d07f1a/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20250417%2F20250417184812.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ 2025/4/9~4/11の三日間、立川で開催されたtry! Swift Tokyo 2025に参加してきたので、そのイベントレポートです。 自分は昨年も参加しており、イベントレポートを出しているのであわせてご覧ください。 goodpatch-tech.hatenablog.com 忙しい人向けのまとめ try! Swift Tokyoとは？ 今年の会場 推しブース 推しセッション 戦利品 公式アプリ イベント体験記 Day 1 Day 2 Day 3 参加してみて 忙しい人向けのまとめ 詳しい体験記は後半で書きますが、まずは忙しい人向けのざ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/flutter-color-emoji": {
+    "title": "色なし絵文字に色をつけよう - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/55eb4016834ef4968e090a9f233b024a4871fe5d/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20250206%2F20250206102557.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ 今回はFlutterのアプリ開発中に見つけた、ちょっとした小ネタの紹介になります。 現在、自分が携わっているFlutterアプリでは、個人的な裏テーマとしてiOSとAndroidをできる限りネイティブ志向で作り上げるということを大事にしており年末にもそれに関する記事を書きました。 goodpatch-tech.hatenablog.com 今回はそんな開発の中で出てきたフォントにまつわるお話をしていこうと思います。 何があったのか？ 前提 iOS側を直す Android側の作戦を考える 💡 コラム Android側を解決する Step 0. …"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/how_to_become_a_hacker_in_genai": {
+    "title": "大生成AI時代に読む「ハッカーになろう」 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/bcdc5ba0872ce6ca75787cc2a2080a8c85c60c9f/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20250604%2F20250604150100.png",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ 今回は自分のプログラミング人生の根幹になっているあるWeb文書について、今だからこその考察を加えていこうと思っています。 少し長いですがゆるい読み物としてお楽しみください。 そもそも「ハッカーになろう」とは？ 本編の章ごとに再解釈 「ハッカーって何？」について 「ハッカー的心構え」について 1. この世界は解決を待つ魅力的な問題でいっぱいだ 2. 同じ問題を二度解くような無駄はいやだ 3. 退屈と単純作業は悪 4. 自由は善 5. 心構えは技能の代用にはならない 「基本的なハッキング技術」について 1. プログラミングを身につけること 2. …"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/sparkle-design-02-plugin": {
+    "title": "技術の力でSparkle Designの可能性を広げるー専用プラグイン「Sparkle Design Theme Settings」の裏側 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/052d884cad367d0464bf779d3d46d50d09d9f545/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20250618%2F20250618114120.png",
+    "description": "技術の力でSparkle Designの可能性を広げる専用プラグイン「Sparkle Design Theme Settings」の制作の裏側に迫ります"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/liquid_glass_and_app_intents": {
+    "title": "extension DC 2025 Day2でLiquid GlassとApp Intentsの話をしてきた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/1f6af9e9010a8b5bee5b92a6bc75f1968dc23c3f/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20251003%2F20251003100618.jpg",
+    "description": "extension DC 2025 Day2の10分トークで話したLiquid GlassとApp Intentsにまつわる考察をイベントレポートとともにお届けします。"
+  },
+  "https://speakerdeck.com/touyou/liquid-glasstoapp-intents": {
+    "title": "Liquid GlassとApp Intents",
+    "image": "https://files.speakerdeck.com/presentations/7d33194ebde940b09ac5134952405e45/slide_0.jpg?36808804"
+  },
+  "https://www.youtube.com/watch?v=07LIxk1ow1Q": {
+    "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2",
+    "image": "https://i.ytimg.com/vi/07LIxk1ow1Q/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgYShSMA8=&rs=AOn4CLAhYXpKu9HVCpNjIPDUhCSrApe3qA",
+    "description": "extension DC #1 Day2 の発表内容です。extension DCはiOSなどAppleプラットフォーム向けの会社横断勉強会です。#iOS #勉強会 #extensionDC"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/flutterkaigi_2025": {
+    "title": "FlutterKaigi 2025でもLiquid Glass大好き人間してきた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/f322674114c0023841080e2dfed85414ffcfff27/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20251115%2F20251115221135.png",
+    "description": "FlutterKaigi 2025でLT登壇してきた参加記です。お気に入りセッションや、登壇テーマを決めるまでの経緯・発表でやってみた試みについてまとめています。"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/engineer_goal_2025": {
+    "title": "それでも僕は登壇を目指す - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/e55742d4bd54b6c63d0edcb60e0c6ab2c7b0d768/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20251124%2F20251124142408.png",
+    "description": "こんにちは！デザインエンジニアの藤井（touyou）です。 この記事はGoodpatch Advent Calendar 2025 2日目の記事になります。 さっそくですが、エンジニアのみなさんに質問です。 「強いエンジニア」とはなんでしょうか？ さまざまな定義があるかと思います。いわゆる技術力がある、どこかの会社のCTOやエンジニアリングマネージャーをしている、などなど。 今回はそんな強いエンジニア、すなわち自分のエンジニアとしての目標にまつわるお話です。 エンジニアとして何を目指せば良いのか？ どうやって「あこがれ」になるのか？ 登壇の効用 具体的になにをすればいいのか？ ところで自分はど…"
+  },
+  "https://www.youtube.com/watch?v=mH51h_BoG4c": {
+    "title": "FlutterKaigi 2025 | Add-to-appで真のLiquid Glass対応を目指してみた",
+    "image": "https://i.ytimg.com/vi/mH51h_BoG4c/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gEygxMA8=&rs=AOn4CLBGUaT_3ogW_9_8SmbaWYcfqeN5cg",
+    "description": "FlutterKaigi 2025 Skia"
+  }
+}

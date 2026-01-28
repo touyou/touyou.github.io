@@ -1,11 +1,20 @@
 import ogs from "open-graph-scraper";
 import type { OGPData } from "./bento-types";
 
-// Cache OGP results to avoid refetching
+// Import pre-built OGP cache as fallback
+let ogpCacheFile: Record<string, OGPData> = {};
+try {
+  // Dynamic import for the cached data (generated at build time)
+  ogpCacheFile = require("@/data/ogp-cache.json");
+} catch {
+  // Cache file may not exist yet
+}
+
+// Runtime cache for OGP results
 const ogpCache = new Map<string, OGPData>();
 
 export async function fetchOGP(url: string): Promise<OGPData> {
-  // Check cache first
+  // Check runtime cache first
   if (ogpCache.has(url)) {
     return ogpCache.get(url)!;
   }
@@ -17,7 +26,7 @@ export async function fetchOGP(url: string): Promise<OGPData> {
       fetchOptions: {
         headers: {
           "User-Agent":
-            "Mozilla/5.0 (compatible; OGPFetcher/1.0; +https://touyou.dev)",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         },
       },
     });
@@ -37,7 +46,14 @@ export async function fetchOGP(url: string): Promise<OGPData> {
     return ogpData;
   } catch (error) {
     console.error(`Failed to fetch OGP for ${url}:`, error);
-    // Return fallback data
+
+    // Use pre-built cache as fallback
+    if (ogpCacheFile[url]) {
+      console.log(`Using cached OGP data for ${url}`);
+      return ogpCacheFile[url];
+    }
+
+    // Return empty fallback data
     return {
       title: "",
       image: null,
