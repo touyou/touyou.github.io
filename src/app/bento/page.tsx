@@ -1,18 +1,20 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import bentoData from "@/data/bento-links.json";
-import { fetchMultipleOGP } from "@/lib/ogp";
-import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
 import type { BentoData, BentoLink } from "@/lib/bento-types";
 import { isYouTubeUrl } from "@/lib/bento-utils";
 import { ImageGallery } from "@/components/bento/ImageGallery";
-import { YouTubeEmbed } from "@/components/bento/YouTubeEmbed";
 import { SocialCard } from "@/components/bento/SocialCard";
-import { OGPCard } from "@/components/bento/OGPCard";
 import { SimpleLinkCard } from "@/components/bento/SimpleLinkCard";
 import { SectionHeader } from "@/components/bento/SectionHeader";
 import { ProfileHeader } from "@/components/bento/ProfileHeader";
-import { BlogSection } from "@/components/bento/BlogSection";
+import { AsyncOGPCard } from "@/components/bento/AsyncOGPCard";
+import { AsyncYouTubeEmbed } from "@/components/bento/AsyncYouTubeEmbed";
+import { AsyncBlogSection } from "@/components/bento/AsyncBlogSection";
+import { OGPCardSkeleton } from "@/components/bento/OGPCardSkeleton";
+import { YouTubeEmbedSkeleton } from "@/components/bento/YouTubeEmbedSkeleton";
+import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
 
 export const metadata: Metadata = {
   title: "Bento | touyou.dev",
@@ -24,20 +26,8 @@ function isImageSection(links: BentoLink[]): boolean {
   return links.every((link) => link.cardType === "image");
 }
 
-export default async function BentoPage() {
+export default function BentoPage() {
   const data = bentoData as BentoData;
-
-  // Collect all OGP URLs
-  const ogpUrls = data.sections
-    .flatMap((section) => section.links)
-    .filter((link) => link.cardType === "ogp")
-    .map((link) => link.url);
-
-  // Fetch all OGP data and blog posts in parallel
-  const [ogpDataMap, blogPosts] = await Promise.all([
-    fetchMultipleOGP(ogpUrls),
-    fetchHatenaBlogPosts(),
-  ]);
 
   return (
     <main className="min-h-dvh">
@@ -95,17 +85,21 @@ export default async function BentoPage() {
                     return <SocialCard key={index} link={link} />;
                   }
                   if (link.cardType === "ogp") {
-                    const ogpData = ogpDataMap.get(link.url);
                     if (isYouTubeUrl(link.url)) {
                       return (
-                        <YouTubeEmbed
-                          key={index}
-                          url={link.url}
-                          title={ogpData?.title || link.title}
-                        />
+                        <Suspense key={index} fallback={<YouTubeEmbedSkeleton />}>
+                          <AsyncYouTubeEmbed
+                            url={link.url}
+                            fallbackTitle={link.title}
+                          />
+                        </Suspense>
                       );
                     }
-                    return <OGPCard key={index} link={link} ogpData={ogpData} />;
+                    return (
+                      <Suspense key={index} fallback={<OGPCardSkeleton />}>
+                        <AsyncOGPCard link={link} />
+                      </Suspense>
+                    );
                   }
                   return <SimpleLinkCard key={index} link={link} />;
                 })}
@@ -114,7 +108,9 @@ export default async function BentoPage() {
           })}
 
           {/* Blog Section - Auto-collected from Hatena Blog */}
-          <BlogSection posts={blogPosts} title="Goodpatch Tech Blog" />
+          <Suspense fallback={<BlogSectionSkeleton />}>
+            <AsyncBlogSection title="Goodpatch Tech Blog" />
+          </Suspense>
         </div>
 
         {/* Footer */}
