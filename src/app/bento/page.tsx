@@ -4,6 +4,13 @@ import Link from "next/link";
 import bentoData from "@/data/bento-links.json";
 import { fetchMultipleOGP } from "@/lib/ogp";
 import type { BentoData, BentoLink, OGPData, SocialPlatform } from "@/lib/bento-types";
+import { ImageGallery } from "@/components/bento/ImageGallery";
+import { YouTubeEmbed } from "@/components/bento/YouTubeEmbed";
+
+// Check if URL is YouTube
+function isYouTubeUrl(url: string): boolean {
+  return url.includes("youtube.com") || url.includes("youtu.be");
+}
 
 export const metadata: Metadata = {
   title: "Bento | touyou.dev",
@@ -77,7 +84,7 @@ function SocialCard({ link }: { link: BentoLink }) {
   );
 }
 
-// OGP Card Component - unified size, no URL display
+// OGP Card Component - unified size, no URL display (non-YouTube)
 function OGPCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
   const displayTitle = ogpData?.title || link.title;
   const imageUrl = ogpData?.image;
@@ -107,6 +114,20 @@ function OGPCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
   );
 }
 
+// YouTube Card - renders either embed or OGP card
+function YouTubeCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
+  const displayTitle = ogpData?.title || link.title;
+  const imageUrl = ogpData?.image ?? null;
+
+  return (
+    <YouTubeEmbed
+      url={link.url}
+      title={displayTitle}
+      thumbnail={imageUrl}
+    />
+  );
+}
+
 // Simple Link Card Component
 function SimpleLinkCard({ link }: { link: BentoLink }) {
   const faviconUrl = getFaviconUrl(link.url);
@@ -133,26 +154,9 @@ function SimpleLinkCard({ link }: { link: BentoLink }) {
   );
 }
 
-// Image Card Component - decorative image display
-function ImageCard({ link }: { link: BentoLink }) {
-  const span = link.span || 1;
-  const spanClass = span === 2 ? "col-span-2" : "";
-  const aspectRatio = link.aspectRatio || "4/3";
-
-  return (
-    <div className={`${cardBase} overflow-hidden ${spanClass}`}>
-      {link.imageSrc && (
-        <div className="relative w-full" style={{ aspectRatio }}>
-          <Image
-            src={link.imageSrc}
-            alt={link.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
-    </div>
-  );
+// Check if section contains only images
+function isImageSection(links: BentoLink[]): boolean {
+  return links.every((link) => link.cardType === "image");
 }
 
 // Section Header Component
@@ -212,24 +216,42 @@ export default async function BentoPage() {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {data.sections.map((section) => (
-            <div key={section.id} className="contents">
-              {section.title && <SectionHeader>{section.title}</SectionHeader>}
-              {section.links.map((link, index) => {
-                if (link.cardType === "social") {
-                  return <SocialCard key={index} link={link} />;
-                }
-                if (link.cardType === "ogp") {
-                  const ogpData = ogpDataMap.get(link.url);
-                  return <OGPCard key={index} link={link} ogpData={ogpData} />;
-                }
-                if (link.cardType === "image") {
-                  return <ImageCard key={index} link={link} />;
-                }
-                return <SimpleLinkCard key={index} link={link} />;
-              })}
-            </div>
-          ))}
+          {data.sections.map((section) => {
+            // Handle image-only sections as galleries
+            if (isImageSection(section.links)) {
+              const images = section.links
+                .filter((link) => link.imageSrc)
+                .map((link) => ({
+                  imageSrc: link.imageSrc!,
+                  title: link.title,
+                }));
+
+              return (
+                <ImageGallery key={section.id} images={images} />
+              );
+            }
+
+            // Regular sections
+            return (
+              <div key={section.id} className="contents">
+                {section.title && <SectionHeader>{section.title}</SectionHeader>}
+                {section.links.map((link, index) => {
+                  if (link.cardType === "social") {
+                    return <SocialCard key={index} link={link} />;
+                  }
+                  if (link.cardType === "ogp") {
+                    const ogpData = ogpDataMap.get(link.url);
+                    // Use YouTube embed for YouTube URLs
+                    if (isYouTubeUrl(link.url)) {
+                      return <YouTubeCard key={index} link={link} ogpData={ogpData} />;
+                    }
+                    return <OGPCard key={index} link={link} ogpData={ogpData} />;
+                  }
+                  return <SimpleLinkCard key={index} link={link} />;
+                })}
+              </div>
+            );
+          })}
         </div>
 
         {/* Footer */}
