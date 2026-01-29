@@ -1,18 +1,23 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import bentoData from "@/data/bento-links.json";
-import { fetchMultipleOGP } from "@/lib/ogp";
-import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
 import type { BentoData, BentoLink } from "@/lib/bento-types";
-import { isYouTubeUrl } from "@/lib/bento-utils";
+import { isYouTubeUrl, extractYouTubeVideoId } from "@/lib/bento-utils";
+import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
+import { fetchSpeakerDeckTalks } from "@/lib/speakerdeck";
 import { ImageGallery } from "@/components/bento/ImageGallery";
-import { YouTubeEmbed } from "@/components/bento/YouTubeEmbed";
 import { SocialCard } from "@/components/bento/SocialCard";
-import { OGPCard } from "@/components/bento/OGPCard";
 import { SimpleLinkCard } from "@/components/bento/SimpleLinkCard";
 import { SectionHeader } from "@/components/bento/SectionHeader";
 import { ProfileHeader } from "@/components/bento/ProfileHeader";
-import { BlogSection } from "@/components/bento/BlogSection";
+import { AsyncOGPCard } from "@/components/bento/AsyncOGPCard";
+import { OGPCardSkeleton } from "@/components/bento/OGPCardSkeleton";
+import { SuspenseBlogSection } from "@/components/bento/SuspenseBlogSection";
+import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
+import { SuspenseSpeakerDeckSection } from "@/components/bento/SuspenseSpeakerDeckSection";
+import { SpeakerDeckSectionSkeleton } from "@/components/bento/SpeakerDeckSectionSkeleton";
+import { YouTubeSection, type YouTubeVideo } from "@/components/bento/YouTubeSection";
 
 export const metadata: Metadata = {
   title: "Bento | touyou.dev",
@@ -24,20 +29,31 @@ function isImageSection(links: BentoLink[]): boolean {
   return links.every((link) => link.cardType === "image");
 }
 
-export default async function BentoPage() {
+// Extract YouTube videos from links
+function extractYouTubeVideos(links: BentoLink[]): YouTubeVideo[] {
+  return links
+    .filter((link) => link.cardType === "ogp" && isYouTubeUrl(link.url))
+    .map((link) => ({
+      url: link.url,
+      title: link.title,
+      videoId: extractYouTubeVideoId(link.url) || "",
+    }))
+    .filter((video) => video.videoId !== "");
+}
+
+export default function BentoPage() {
   const data = bentoData as BentoData;
 
-  // Collect all OGP URLs
-  const ogpUrls = data.sections
-    .flatMap((section) => section.links)
-    .filter((link) => link.cardType === "ogp")
-    .map((link) => link.url);
+  // Start fetching promises (don't await - pass to Suspense children)
+  const blogPromise = fetchHatenaBlogPosts();
+  const speakerDeckPromise = fetchSpeakerDeckTalks();
 
-  // Fetch all OGP data and blog posts in parallel
-  const [ogpDataMap, blogPosts] = await Promise.all([
-    fetchMultipleOGP(ogpUrls),
-    fetchHatenaBlogPosts(),
-  ]);
+  // Collect all YouTube videos from all sections
+  const allYouTubeVideos: YouTubeVideo[] = [];
+  data.sections.forEach((section) => {
+    const videos = extractYouTubeVideos(section.links);
+    allYouTubeVideos.push(...videos);
+  });
 
   return (
     <main className="min-h-dvh">
@@ -86,26 +102,30 @@ export default async function BentoPage() {
               return <ImageGallery key={section.id} images={images} />;
             }
 
+            // Filter out YouTube links (will be shown in dedicated section)
+            const nonYouTubeLinks = section.links.filter(
+              (link) => !(link.cardType === "ogp" && isYouTubeUrl(link.url))
+            );
+
+            // Skip if no links remain after filtering
+            if (nonYouTubeLinks.length === 0) {
+              return null;
+            }
+
             // Regular sections
             return (
               <div key={section.id} className="contents">
                 {section.title && <SectionHeader>{section.title}</SectionHeader>}
-                {section.links.map((link, index) => {
+                {nonYouTubeLinks.map((link, index) => {
                   if (link.cardType === "social") {
                     return <SocialCard key={index} link={link} />;
                   }
                   if (link.cardType === "ogp") {
-                    const ogpData = ogpDataMap.get(link.url);
-                    if (isYouTubeUrl(link.url)) {
-                      return (
-                        <YouTubeEmbed
-                          key={index}
-                          url={link.url}
-                          title={ogpData?.title || link.title}
-                        />
-                      );
-                    }
-                    return <OGPCard key={index} link={link} ogpData={ogpData} />;
+                    return (
+                      <Suspense key={index} fallback={<OGPCardSkeleton />}>
+                        <AsyncOGPCard link={link} />
+                      </Suspense>
+                    );
                   }
                   return <SimpleLinkCard key={index} link={link} />;
                 })}
@@ -113,8 +133,26 @@ export default async function BentoPage() {
             );
           })}
 
+          {/* YouTube Section - Collected from all sections */}
+          {allYouTubeVideos.length > 0 && (
+            <YouTubeSection videos={allYouTubeVideos} title="YouTube" />
+          )}
+
+          {/* SpeakerDeck Section - Auto-collected from RSS */}
+          <Suspense fallback={<SpeakerDeckSectionSkeleton />}>
+            <SuspenseSpeakerDeckSection
+              talksPromise={speakerDeckPromise}
+              title="Speaker Deck"
+            />
+          </Suspense>
+
           {/* Blog Section - Auto-collected from Hatena Blog */}
-          <BlogSection posts={blogPosts} title="Goodpatch Tech Blog" />
+          <Suspense fallback={<BlogSectionSkeleton />}>
+            <SuspenseBlogSection
+              blogPromise={blogPromise}
+              title="Goodpatch Tech Blog"
+            />
+          </Suspense>
         </div>
 
         {/* Footer */}

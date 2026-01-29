@@ -5,6 +5,14 @@ export function isYouTubeUrl(url: string): boolean {
   return url.includes("youtube.com") || url.includes("youtu.be");
 }
 
+// Extract YouTube video ID from URL
+export function extractYouTubeVideoId(url: string): string | null {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?.*v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
+  return match?.[1] ?? null;
+}
+
 // Get favicon URL from domain using Google's favicon service
 export function getFaviconUrl(url: string): string {
   try {
