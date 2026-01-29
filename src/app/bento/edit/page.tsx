@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import type {
   BentoData,
   BentoSection,
@@ -11,7 +11,8 @@ import type {
   YouTubeVideoData,
 } from "@/lib/bento-types";
 import initialBentoData from "@/data/bento-links.json";
-import { BentoPreview } from "@/components/bento/BentoPreview";
+
+const PREVIEW_STORAGE_KEY = "bento-preview-data";
 
 // Preview mode type
 type PreviewMode = "pc" | "sp";
@@ -75,6 +76,7 @@ export default function BentoEditPage() {
     text: string;
   } | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Check access on mount
   useEffect(() => {
@@ -88,11 +90,22 @@ export default function BentoEditPage() {
     setAccessState(isLocalhost ? "allowed" : "denied");
   }, []);
 
-  // Track changes
+  // Track changes and sync to preview iframe
   useEffect(() => {
     const hasDataChanged =
       JSON.stringify(data) !== JSON.stringify(initialBentoData);
     setHasChanges(hasDataChanged);
+
+    // Save to sessionStorage for initial load
+    sessionStorage.setItem(PREVIEW_STORAGE_KEY, JSON.stringify(data));
+
+    // Send to iframe via postMessage
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        { type: "bento-preview-update", data },
+        "*"
+      );
+    }
   }, [data]);
 
   // Reset to file state
@@ -1230,19 +1243,12 @@ export default function BentoEditPage() {
                 height: previewMode === "sp" ? "667px" : "calc(100% - 16px)",
               }}
             >
-              {previewMode === "sp" ? (
-                // SP mode: Use iframe for accurate mobile viewport simulation
-                <iframe
-                  src="/bento"
-                  className="w-full h-full border-0"
-                  title="Bento Preview (Mobile)"
-                />
-              ) : (
-                // PC mode: Use BentoPreview for instant updates
-                <div className="w-full h-full overflow-y-auto">
-                  <BentoPreview data={data} />
-                </div>
-              )}
+              <iframe
+                ref={iframeRef}
+                src="/bento/preview"
+                className="w-full h-full border-0"
+                title="Bento Preview"
+              />
             </div>
           </div>
         </div>
