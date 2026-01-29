@@ -2,10 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import bentoData from "@/data/bento-links.json";
 import { fetchMultipleOGP } from "@/lib/ogp";
-import {
-  fetchHatenaBlogPosts,
-  getHatenaBlogUrls,
-} from "@/lib/hatena-blog";
+import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
 import type { BentoData, BentoLink } from "@/lib/bento-types";
 import { isYouTubeUrl } from "@/lib/bento-utils";
 import { ImageGallery } from "@/components/bento/ImageGallery";
@@ -28,21 +25,9 @@ function isImageSection(links: BentoLink[]): boolean {
 }
 
 export default async function BentoPage() {
-  const rawData = bentoData as BentoData;
+  const data = bentoData as BentoData;
 
-  // Get hatena blog URLs to filter from content section
-  const hatenaBlogUrls = getHatenaBlogUrls();
-
-  // Filter hatena blog posts from sections (they'll be shown in BlogSection)
-  const data: BentoData = {
-    ...rawData,
-    sections: rawData.sections.map((section) => ({
-      ...section,
-      links: section.links.filter((link) => !hatenaBlogUrls.has(link.url)),
-    })),
-  };
-
-  // Collect all OGP URLs (excluding hatena blog)
+  // Collect all OGP URLs
   const ogpUrls = data.sections
     .flatMap((section) => section.links)
     .filter((link) => link.cardType === "ogp")
