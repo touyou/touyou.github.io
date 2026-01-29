@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "cache:ogp": "tsx scripts/cache-ogp.ts",
+    "cache:blog": "tsx scripts/update-blog-posts.ts",
+    "cache:all": "pnpm cache:blog && pnpm cache:ogp",
     "preinstall": "typesync || :"
   },
   "dependencies": {
@@ -24,6 +26,7 @@
     "open-graph-scraper": "^6.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "rss-parser": "^3.13.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
