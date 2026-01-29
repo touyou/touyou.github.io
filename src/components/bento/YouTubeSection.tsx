@@ -41,14 +41,14 @@ export function YouTubeSection({
   videos,
   title = "YouTube",
 }: YouTubeSectionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   if (videos.length === 0) {
     return null;
   }
 
-  const visibleVideos = isExpanded ? videos : videos.slice(0, 2);
-  const hasMore = videos.length > 2;
+  const visibleVideos = isExpanded ? videos : videos.slice(0, 4);
+  const hasMore = videos.length > 4;
 
   return (
     <>

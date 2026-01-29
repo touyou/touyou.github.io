@@ -6,6 +6,13 @@ export interface SpeakerDeckTalk {
   pubDate: string;
   thumbnail?: string;
   embedId?: string;
+  embedUrl?: string;
+}
+
+interface OEmbedResponse {
+  html?: string;
+  title?: string;
+  thumbnail_url?: string;
 }
 
 type CustomItem = {
@@ -29,6 +36,28 @@ function extractEmbedId(url: string): string | undefined {
   // URL format: https://speakerdeck.com/touyou/talk-slug
   const match = url.match(/speakerdeck\.com\/[^/]+\/([^/?#]+)/);
   return match?.[1];
+}
+
+// Extract embed URL from oEmbed HTML response
+function extractEmbedUrlFromHtml(html: string): string | undefined {
+  // Extract src from iframe: <iframe ... src="https://speakerdeck.com/player/..." ...>
+  const match = html.match(/src="(https:\/\/speakerdeck\.com\/player\/[^"]+)"/);
+  return match?.[1];
+}
+
+// Fetch oEmbed data for a SpeakerDeck talk
+async function fetchOEmbed(url: string): Promise<OEmbedResponse | null> {
+  try {
+    const oembedUrl = `https://speakerdeck.com/oembed.json?url=${encodeURIComponent(url)}`;
+    const response = await fetch(oembedUrl, {
+      signal: AbortSignal.timeout(5000),
+      next: { revalidate: 86400 } // Cache for 24 hours
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch {
+    return null;
+  }
 }
 
 export async function fetchSpeakerDeckTalks(): Promise<SpeakerDeckTalk[]> {
@@ -64,7 +93,24 @@ export async function fetchSpeakerDeckTalks(): Promise<SpeakerDeckTalk[]> {
       (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
     );
 
-    return talks.length > 0 ? talks : getFallbackSpeakerDeckTalks();
+    // Fetch oEmbed data for first 4 talks to get embed URLs
+    const talksWithEmbed = await Promise.all(
+      talks.slice(0, 4).map(async (talk) => {
+        const oembed = await fetchOEmbed(talk.url);
+        if (oembed?.html) {
+          talk.embedUrl = extractEmbedUrlFromHtml(oembed.html);
+          if (oembed.thumbnail_url && !talk.thumbnail) {
+            talk.thumbnail = oembed.thumbnail_url;
+          }
+        }
+        return talk;
+      })
+    );
+
+    // Combine with remaining talks
+    const result = [...talksWithEmbed, ...talks.slice(4)];
+
+    return result.length > 0 ? result : getFallbackSpeakerDeckTalks();
   } catch (error) {
     console.error("Failed to fetch SpeakerDeck talks:", error);
     return getFallbackSpeakerDeckTalks();

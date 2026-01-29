@@ -19,6 +19,34 @@ function formatDate(dateStr: string): string {
   });
 }
 
+function SpeakerDeckEmbed({ talk }: { talk: SpeakerDeckTalk }) {
+  if (!talk.embedUrl) return null;
+
+  return (
+    <div className={`${cardBase} col-span-2 group`}>
+      <div className="relative w-full aspect-[560/315] bg-gray-100">
+        <iframe
+          src={talk.embedUrl}
+          title={talk.title}
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+        />
+      </div>
+      <a
+        href={talk.url}
+        target="_blank"
+        rel="noreferrer"
+        className="block p-4 hover:bg-gray-50 transition-colors"
+      >
+        <p className="font-medium text-gray-900 text-sm line-clamp-2">
+          {talk.title}
+        </p>
+        <p className="text-gray-400 text-xs mt-2">{formatDate(talk.pubDate)}</p>
+      </a>
+    </div>
+  );
+}
+
 function SpeakerDeckCard({ talk }: { talk: SpeakerDeckTalk }) {
   return (
     <a
@@ -116,9 +144,13 @@ export function SpeakerDeckSection({
 
       {/* Desktop Grid View */}
       <div className="hidden md:contents">
-        {visibleTalks.map((talk, index) => (
-          <SpeakerDeckCard key={index} talk={talk} />
-        ))}
+        {visibleTalks.map((talk, index) =>
+          talk.embedUrl ? (
+            <SpeakerDeckEmbed key={index} talk={talk} />
+          ) : (
+            <SpeakerDeckCard key={index} talk={talk} />
+          )
+        )}
       </div>
 
       {/* Mobile Horizontal Scroll Carousel */}
