@@ -1,4 +1,5 @@
 import { Viewport } from "next";
+import { BentoBackground } from "@/components/bento/BentoBackground";
 
 // Override theme color for iOS Safari overscroll areas
 export const viewport: Viewport = {
@@ -12,11 +13,8 @@ export default function BentoLayout({
 }) {
   return (
     <>
-      {/* Fixed background that covers entire viewport including overscroll */}
-      <div className="fixed inset-0 bg-[#f5f5f7] -z-10" aria-hidden="true" />
-      <div className="relative min-h-dvh">
-        {children}
-      </div>
+      <BentoBackground />
+      {children}
     </>
   );
 }
