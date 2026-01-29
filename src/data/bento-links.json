@@ -14,74 +14,251 @@
       "id": "gallery",
       "title": "",
       "links": [
-        { "url": "#", "title": "Portrait", "cardType": "image", "imageSrc": "/bento/portrait.jpeg", "span": 2, "aspectRatio": "3/2" },
-        { "url": "#", "title": "Logo", "cardType": "image", "imageSrc": "/bento/logo_512.jpg", "aspectRatio": "1/1" },
-        { "url": "#", "title": "Avatar", "cardType": "image", "imageSrc": "/bento/avatar_illust.png", "aspectRatio": "1/1" }
+        {
+          "url": "#",
+          "title": "Portrait",
+          "cardType": "image",
+          "imageSrc": "/bento/portrait.jpeg",
+          "span": 2,
+          "aspectRatio": "3/2"
+        },
+        {
+          "url": "#",
+          "title": "Logo",
+          "cardType": "image",
+          "imageSrc": "/bento/logo_512.jpg",
+          "aspectRatio": "1/1"
+        },
+        {
+          "url": "#",
+          "title": "Illustration",
+          "cardType": "image",
+          "imageSrc": "/bento/avatar_illust.png",
+          "aspectRatio": "1/1"
+        }
       ]
     },
     {
       "id": "main-social",
       "title": "",
       "links": [
-        { "url": "https://twitter.com/touyou_dev", "title": "Twitter [dev]", "cardType": "social", "platform": "twitter", "username": "@touyou_dev" },
-        { "url": "https://github.com/touyou", "title": "touyou - GitHub", "cardType": "social", "platform": "github", "username": "touyou" },
-        { "url": "https://youtube.com/@touyoubuntu", "title": "touyou", "cardType": "social", "platform": "youtube", "username": "@touyoubuntu" },
-        { "url": "https://linkedin.com/in/touyou", "title": "LinkedIn", "cardType": "social", "platform": "linkedin" },
-        { "url": "https://instagram.com/touyou_work", "title": "@touyou_work", "cardType": "social", "platform": "instagram", "username": "@touyou_work" },
-        { "url": "https://instagram.com/touyou1121", "title": "@touyou1121", "cardType": "social", "platform": "instagram", "username": "@touyou1121" }
+        {
+          "url": "https://twitter.com/touyou_dev",
+          "title": "Twitter [dev]",
+          "cardType": "social",
+          "platform": "twitter",
+          "username": "@touyou_dev"
+        },
+        {
+          "url": "https://github.com/touyou",
+          "title": "touyou - GitHub",
+          "cardType": "social",
+          "platform": "github",
+          "username": "touyou"
+        },
+        {
+          "url": "https://youtube.com/@touyoubuntu",
+          "title": "touyou",
+          "cardType": "social",
+          "platform": "youtube",
+          "username": "@touyoubuntu"
+        },
+        {
+          "url": "https://linkedin.com/in/touyou",
+          "title": "LinkedIn",
+          "cardType": "social",
+          "platform": "linkedin"
+        },
+        {
+          "url": "https://instagram.com/touyou_work",
+          "title": "@touyou_work",
+          "cardType": "social",
+          "platform": "instagram",
+          "username": "@touyou_work"
+        },
+        {
+          "url": "https://instagram.com/touyou1121",
+          "title": "@touyou1121",
+          "cardType": "social",
+          "platform": "instagram",
+          "username": "@touyou1121"
+        }
       ]
     },
     {
       "id": "private",
       "title": "もっとプライベート",
       "links": [
-        { "url": "https://twitter.com/touyoubuntu", "title": "Twitter [private]", "cardType": "social", "platform": "twitter", "username": "@touyoubuntu" },
-        { "url": "https://twitter.com/touyou_game", "title": "Twitter [game]", "cardType": "social", "platform": "twitter", "username": "@touyou_game" },
-        { "url": "https://www.wantedly.com/id/touyoubuntu", "title": "Wantedly", "cardType": "social", "platform": "wantedly" },
-        { "url": "https://gitlab.com/touyou", "title": "touyou - GitLab", "cardType": "social", "platform": "gitlab" },
-        { "url": "https://www.facebook.com/fujiyou/", "title": "Facebook", "cardType": "social", "platform": "facebook" },
-        { "url": "https://developers.google.com/profile/u/touyou", "title": "Yosuke Fujii - Google Developers", "cardType": "social", "platform": "google" },
-        { "url": "https://www.threads.net/@touyou1121", "title": "藤井 陽介 (@touyou1121) - Threads", "cardType": "social", "platform": "threads" },
-        { "url": "https://bsky.app/profile/touyou.bsky.social", "title": "とうよう (@touyou.bsky.social)", "cardType": "social", "platform": "bluesky" },
-        { "url": "https://zenn.dev/touyou", "title": "とうよう", "cardType": "social", "platform": "zenn" },
-        { "url": "https://fedibird.com/@touyou", "title": "とうよう (@touyou@fedibird.com)", "cardType": "social", "platform": "fedibird" },
-        { "url": "http://qiita.com/touyou", "title": "@touyou", "cardType": "social", "platform": "qiita" },
-        { "url": "https://www.hoyolab.com/accountCenter/postList?id=123634712", "title": "touyou - HoYoLAB", "cardType": "social", "platform": "hoyolab" },
-        { "url": "https://touyoubuntu.hatenablog.com/", "title": "夢追い人", "cardType": "social", "platform": "hatena" }
+        {
+          "url": "https://twitter.com/touyoubuntu",
+          "title": "Twitter [private]",
+          "cardType": "social",
+          "platform": "twitter",
+          "username": "@touyoubuntu"
+        },
+        {
+          "url": "https://twitter.com/touyou_game",
+          "title": "Twitter [game]",
+          "cardType": "social",
+          "platform": "twitter",
+          "username": "@touyou_game"
+        },
+        {
+          "url": "https://www.wantedly.com/id/touyoubuntu",
+          "title": "Wantedly",
+          "cardType": "social",
+          "platform": "wantedly"
+        },
+        {
+          "url": "https://gitlab.com/touyou",
+          "title": "touyou - GitLab",
+          "cardType": "social",
+          "platform": "gitlab"
+        },
+        {
+          "url": "https://www.facebook.com/fujiyou/",
+          "title": "Facebook",
+          "cardType": "social",
+          "platform": "facebook"
+        },
+        {
+          "url": "https://developers.google.com/profile/u/touyou",
+          "title": "Yosuke Fujii - Google Developers",
+          "cardType": "social",
+          "platform": "google"
+        },
+        {
+          "url": "https://www.threads.net/@touyou1121",
+          "title": "藤井 陽介 (@touyou1121) - Threads",
+          "cardType": "social",
+          "platform": "threads"
+        },
+        {
+          "url": "https://bsky.app/profile/touyou.bsky.social",
+          "title": "とうよう (@touyou.bsky.social)",
+          "cardType": "social",
+          "platform": "bluesky"
+        },
+        {
+          "url": "https://zenn.dev/touyou",
+          "title": "とうよう",
+          "cardType": "social",
+          "platform": "zenn"
+        },
+        {
+          "url": "https://fedibird.com/@touyou",
+          "title": "とうよう (@touyou@fedibird.com)",
+          "cardType": "social",
+          "platform": "fedibird"
+        },
+        {
+          "url": "http://qiita.com/touyou",
+          "title": "@touyou",
+          "cardType": "social",
+          "platform": "qiita"
+        },
+        {
+          "url": "https://www.hoyolab.com/accountCenter/postList?id=123634712",
+          "title": "touyou - HoYoLAB",
+          "cardType": "social",
+          "platform": "hoyolab"
+        },
+        {
+          "url": "https://touyoubuntu.hatenablog.com/",
+          "title": "夢追い人",
+          "cardType": "social",
+          "platform": "hatena"
+        }
       ]
     },
     {
       "id": "works",
       "title": "これまでやってきたこと",
       "links": [
-        { "url": "https://goodpatch.com/work/suntory", "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ", "cardType": "ogp" },
-        { "url": "https://goodpatch.com/work/clinics", "title": "CLINICS｜Work｜Goodpatch グッドパッチ", "cardType": "ogp" },
-        { "url": "https://za.theater/", "title": "オンライン劇場 ZA", "cardType": "ogp" }
+        {
+          "url": "https://goodpatch.com/work/suntory",
+          "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://goodpatch.com/work/clinics",
+          "title": "CLINICS｜Work｜Goodpatch グッドパッチ",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://za.theater/",
+          "title": "オンライン劇場 ZA",
+          "cardType": "ogp"
+        }
       ]
     },
     {
       "id": "activities",
       "title": "",
       "links": [
-        { "url": "#", "title": "バイオリン", "cardType": "image", "imageSrc": "/bento/violin.png", "aspectRatio": "3/2" },
-        { "url": "#", "title": "登壇", "cardType": "image", "imageSrc": "/bento/speaking.png", "span": 2, "aspectRatio": "3/2" },
-        { "url": "#", "title": "DeNA Event", "cardType": "image", "imageSrc": "/bento/dena_event.png", "aspectRatio": "2/1" }
+        {
+          "url": "#",
+          "title": "バイオリンは幼少期~高校時代まで習っていました",
+          "cardType": "image",
+          "imageSrc": "/bento/violin.png",
+          "aspectRatio": "3/2"
+        },
+        {
+          "url": "#",
+          "title": "extensionDC 2025にて",
+          "cardType": "image",
+          "imageSrc": "/bento/speaking.png",
+          "span": 2,
+          "aspectRatio": "3/2"
+        },
+        {
+          "url": "#",
+          "title": "SPAJAM2019 - 審査員特別賞",
+          "cardType": "image",
+          "imageSrc": "/bento/dena_event.png",
+          "aspectRatio": "2/1"
+        }
       ]
     },
     {
       "id": "content",
       "title": "書く、発表する、しゃべる",
       "links": [
-        { "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw", "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場", "cardType": "ogp" },
-        { "url": "https://speakerdeck.com/touyou/aws-dev-day-online-2021-c-5", "title": "AWSサーバーレスが支える劇団ノーミーツのオンライン劇場ZA", "cardType": "ogp" },
-        { "url": "https://www.wantedly.com/companies/lifeistech/post_articles/109109", "title": "【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい", "cardType": "ogp" },
-        { "url": "https://github.com/touyou/NeumorphismTab", "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.", "cardType": "ogp" },
-        { "url": "https://speakerdeck.com/touyou/sheng-cheng-aihuo-yong-purodakutogamu-zhi-sitehosiiwei-lai", "title": "生成AI活用プロダクトが目指してほしい未来", "cardType": "ogp" },
-        { "url": "https://goodpatch.com/blog/2024-02-designcats", "title": "狙い通りのユーザー体験を\"ゼロ距離\"で実装する", "cardType": "ogp" },
-        { "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE", "title": "UXデザイナー・エンジニアが考察するApple Vision Pro", "cardType": "ogp" },
-        { "url": "https://speakerdeck.com/touyou/liquid-glasstoapp-intents", "title": "Liquid GlassとApp Intents", "cardType": "ogp" },
-        { "url": "https://www.youtube.com/watch?v=07LIxk1ow1Q", "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2", "cardType": "ogp" },
-        { "url": "https://www.youtube.com/watch?v=mH51h_BoG4c", "title": "Add-to-appで真のLiquid Glass対応を目指してみた", "cardType": "ogp" }
+        {
+          "url": "https://www.wantedly.com/companies/lifeistech/post_articles/109109",
+          "title": "【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://github.com/touyou/NeumorphismTab",
+          "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw",
+          "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://goodpatch.com/blog/2024-02-designcats",
+          "title": "狙い通りのユーザー体験を\"ゼロ距離\"で実装する",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE",
+          "title": "UXデザイナー・エンジニアが考察するApple Vision Pro",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=07LIxk1ow1Q",
+          "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
+          "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
+          "cardType": "ogp"
+        }
       ]
     }
   ]
