@@ -61,6 +61,23 @@ src/
 - Prettier for formatting
 - TypeScript strict mode enabled
 
+## CSS/Tailwind Rules
+
+- **Use parent `gap` instead of child `margin` for spacing**: When laying out multiple elements (sections, cards, etc.), use `flex` or `grid` with `gap-*` on the parent container rather than adding `mt-*` or `mb-*` to each child element. This keeps spacing consistent and easier to maintain.
+  ```tsx
+  // Good: Parent controls spacing
+  <div className="flex flex-col gap-6">
+    <Section />
+    <Section />
+  </div>
+
+  // Avoid: Each child has its own margin
+  <div>
+    <Section className="mt-6" />
+    <Section className="mt-6" />
+  </div>
+  ```
+
 ## Path Aliases
 
 - `@/*` maps to `./src/*`
