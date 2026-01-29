@@ -25,7 +25,68 @@ interface BentoData {
   sections: { links: BentoLink[] }[];
 }
 
+// Extract YouTube video ID from various URL formats
+function extractYouTubeVideoId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) {
+      return match[1];
+    }
+  }
+  return null;
+}
+
+// Check if URL is YouTube
+function isYouTubeUrl(url: string): boolean {
+  return url.includes("youtube.com") || url.includes("youtu.be");
+}
+
+// Fetch YouTube data using oEmbed API (no API key required)
+async function fetchYouTubeOEmbed(url: string): Promise<OGPData> {
+  const videoId = extractYouTubeVideoId(url);
+  if (!videoId) {
+    return { title: "", image: null };
+  }
+
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
+    const response = await fetch(oembedUrl, {
+      headers: {
+        "Accept": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`oEmbed request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Use higher quality thumbnail by constructing URL directly
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+    return {
+      title: data.title || "",
+      image: thumbnailUrl,
+      description: data.author_name ? `by ${data.author_name}` : undefined,
+    };
+  } catch (error) {
+    console.error(`Failed to fetch YouTube oEmbed for ${url}:`, error);
+    return { title: "", image: null };
+  }
+}
+
 async function fetchOGP(url: string): Promise<OGPData> {
+  // Use YouTube oEmbed API for YouTube URLs
+  if (isYouTubeUrl(url)) {
+    return fetchYouTubeOEmbed(url);
+  }
+
   try {
     const { result } = await ogs({
       url,

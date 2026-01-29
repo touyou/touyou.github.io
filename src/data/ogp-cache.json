@@ -36,8 +36,8 @@
   },
   "https://www.youtube.com/watch?v=4wC7tlLHyYw": {
     "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
-    "image": "https://i.ytimg.com/vi/4wC7tlLHyYw/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGGUgVChSMA8=&rs=AOn4CLDp07Y_MhA2Xx7uD7c2ZITRcLuD1w",
-    "description": "✨講師：土田 悠輝 氏 (劇団ノーミーツ/PARTY テクニカルマネージャー/エンジニア)藤井 陽介 氏 (オンライン劇場ZA UXエンジニア)✨セッション概要：劇団ノーミーツ(株式会社Meets)が運営するオンライン劇場ZAは、AWS Amplifyを中心としたサーバーレスアーキテクチャによって開発されている。..."
+    "image": "https://img.youtube.com/vi/4wC7tlLHyYw/maxresdefault.jpg",
+    "description": "by Amazon Web Services Japan 公式"
   },
   "https://speakerdeck.com/touyou/aws-dev-day-online-2021-c-5": {
     "title": "AWSサーバーレスが支える劇団ノーミーツのオンライン劇場ZA / AWS Dev Day Online 2021 C-5",
@@ -76,8 +76,8 @@
   },
   "https://www.youtube.com/watch?v=wJpIZr7sqtE": {
     "title": "UXデザイナー・エンジニアが考察するApple Vision Pro | 未来の体験がどう変わるか | Appleの歴史から紐解く | アイトラッキングとプライバシー",
-    "image": "https://i.ytimg.com/vi/wJpIZr7sqtE/hqdefault.jpg",
-    "description": "チャンネル登録よろしくお願いします！https://www.youtube.com/@goodpatch_yohaku?sub_confirmation=1 グッドパッチには以前からApple Vision Proの動向をウォッチし、日本での発売を待ちわびていたメンバーが多数在籍しています。今回はXR領域に精通し..."
+    "image": "https://img.youtube.com/vi/wJpIZr7sqtE/maxresdefault.jpg",
+    "description": "by グッドパッチの「よはく」"
   },
   "https://goodpatch-tech.hatenablog.com/entry/flutter-native": {
     "title": "Flutterでもネイティブ体験を届けたい - Goodpatch Tech Blog",
@@ -120,8 +120,8 @@
   },
   "https://www.youtube.com/watch?v=07LIxk1ow1Q": {
     "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2",
-    "image": "https://i.ytimg.com/vi/07LIxk1ow1Q/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgYShSMA8=&rs=AOn4CLAhYXpKu9HVCpNjIPDUhCSrApe3qA",
-    "description": "extension DC #1 Day2 の発表内容です。extension DCはiOSなどAppleプラットフォーム向けの会社横断勉強会です。#iOS #勉強会 #extensionDC"
+    "image": "https://img.youtube.com/vi/07LIxk1ow1Q/maxresdefault.jpg",
+    "description": "by extension DC"
   },
   "https://goodpatch-tech.hatenablog.com/entry/flutterkaigi_2025": {
     "title": "FlutterKaigi 2025でもLiquid Glass大好き人間してきた - Goodpatch Tech Blog",
@@ -135,7 +135,7 @@
   },
   "https://www.youtube.com/watch?v=mH51h_BoG4c": {
     "title": "FlutterKaigi 2025 | Add-to-appで真のLiquid Glass対応を目指してみた",
-    "image": "https://i.ytimg.com/vi/mH51h_BoG4c/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gEygxMA8=&rs=AOn4CLBGUaT_3ogW_9_8SmbaWYcfqeN5cg",
-    "description": "FlutterKaigi 2025 Skia"
+    "image": "https://img.youtube.com/vi/mH51h_BoG4c/maxresdefault.jpg",
+    "description": "by FlutterKaigi"
   }
 }
