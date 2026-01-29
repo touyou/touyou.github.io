@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "cache:ogp": "tsx scripts/cache-ogp.ts",
+    "cache:blog": "tsx scripts/update-blog-posts.ts",
+    "cache:all": "pnpm cache:blog && pnpm cache:ogp",
     "preinstall": "typesync || :"
   },
   "dependencies": {

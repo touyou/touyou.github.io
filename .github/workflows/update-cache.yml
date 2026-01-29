@@ -1,0 +1,53 @@
+name: Update Blog Posts & OGP Cache
+
+on:
+  # Run daily at 9:00 AM JST (0:00 UTC)
+  schedule:
+    - cron: "0 0 * * *"
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-cache:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Update blog posts from RSS
+        run: pnpm tsx scripts/update-blog-posts.ts
+
+      - name: Update OGP cache
+        run: pnpm tsx scripts/cache-ogp.ts
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/data/hatena-blog-posts.json src/data/ogp-cache.json
+          git commit -m "chore: update blog posts and OGP cache [skip ci]"
+          git push

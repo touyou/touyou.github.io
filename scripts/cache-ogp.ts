@@ -1,8 +1,8 @@
 /**
  * OGP Cache Script
- * Run with: npx tsx scripts/cache-ogp.ts
+ * Run with: pnpm tsx scripts/cache-ogp.ts
  *
- * Pre-fetches OGP data for all URLs in bento-links.json
+ * Pre-fetches OGP data for all URLs in bento-links.json and hatena-blog-posts.json
  * and saves them to src/data/ogp-cache.json
  */
 
@@ -23,6 +23,10 @@ interface BentoLink {
 
 interface BentoData {
   sections: { links: BentoLink[] }[];
+}
+
+interface BlogPostsData {
+  posts: { url: string; pubDate: string }[];
 }
 
 // Extract YouTube video ID from various URL formats
@@ -57,7 +61,7 @@ async function fetchYouTubeOEmbed(url: string): Promise<OGPData> {
     const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
     const response = await fetch(oembedUrl, {
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
       },
     });
 
@@ -101,10 +105,7 @@ async function fetchOGP(url: string): Promise<OGPData> {
 
     return {
       title: result.ogTitle || result.twitterTitle || "",
-      image:
-        result.ogImage?.[0]?.url ||
-        result.twitterImage?.[0]?.url ||
-        null,
+      image: result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || null,
       description: result.ogDescription || result.twitterDescription,
     };
   } catch (error) {
@@ -118,36 +119,64 @@ async function fetchOGP(url: string): Promise<OGPData> {
 
 async function main() {
   const bentoDataPath = path.join(process.cwd(), "src/data/bento-links.json");
+  const blogPostsPath = path.join(
+    process.cwd(),
+    "src/data/hatena-blog-posts.json"
+  );
   const cachePath = path.join(process.cwd(), "src/data/ogp-cache.json");
 
-  const bentoData: BentoData = JSON.parse(fs.readFileSync(bentoDataPath, "utf-8"));
+  // Load existing cache to preserve entries
+  let existingCache: Record<string, OGPData> = {};
+  if (fs.existsSync(cachePath)) {
+    existingCache = JSON.parse(fs.readFileSync(cachePath, "utf-8"));
+  }
 
-  // Collect all OGP URLs
+  const bentoData: BentoData = JSON.parse(
+    fs.readFileSync(bentoDataPath, "utf-8")
+  );
+
+  // Collect all OGP URLs from bento-links.json
   const ogpUrls = bentoData.sections
     .flatMap((section) => section.links)
     .filter((link) => link.cardType === "ogp")
     .map((link) => link.url);
 
-  console.log(`Fetching OGP data for ${ogpUrls.length} URLs...`);
+  // Add blog post URLs from hatena-blog-posts.json
+  if (fs.existsSync(blogPostsPath)) {
+    const blogPosts: BlogPostsData = JSON.parse(
+      fs.readFileSync(blogPostsPath, "utf-8")
+    );
+    const blogUrls = blogPosts.posts.map((post) => post.url);
+    ogpUrls.push(...blogUrls);
+  }
 
-  const cache: Record<string, OGPData> = {};
+  // Remove duplicates
+  const uniqueUrls = [...new Set(ogpUrls)];
+
+  console.log(`Fetching OGP data for ${uniqueUrls.length} URLs...`);
+
+  const cache: Record<string, OGPData> = { ...existingCache };
 
   // Fetch with rate limiting
-  for (let i = 0; i < ogpUrls.length; i++) {
-    const url = ogpUrls[i];
-    console.log(`[${i + 1}/${ogpUrls.length}] Fetching: ${url}`);
+  for (let i = 0; i < uniqueUrls.length; i++) {
+    const url = uniqueUrls[i];
+    console.log(`[${i + 1}/${uniqueUrls.length}] Fetching: ${url}`);
 
     const ogpData = await fetchOGP(url);
-    cache[url] = ogpData;
+
+    // Only update if we got valid data or entry doesn't exist
+    if (ogpData.title || ogpData.image || !cache[url]) {
+      cache[url] = ogpData;
+    }
 
     // Rate limit: wait 500ms between requests
-    if (i < ogpUrls.length - 1) {
+    if (i < uniqueUrls.length - 1) {
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
   }
 
   // Write cache
-  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2) + "\n");
   console.log(`\nCache saved to ${cachePath}`);
   console.log(`Total entries: ${Object.keys(cache).length}`);
 }
