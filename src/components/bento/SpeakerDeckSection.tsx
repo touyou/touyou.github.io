@@ -23,7 +23,7 @@ function SpeakerDeckEmbed({ talk }: { talk: SpeakerDeckTalk }) {
   if (!talk.embedUrl) return null;
 
   return (
-    <div className={`${cardBase} col-span-2 group`}>
+    <div className={`${cardBase} group`}>
       <div className="relative w-full aspect-[560/315] bg-gray-100">
         <iframe
           src={talk.embedUrl}
@@ -53,7 +53,7 @@ function SpeakerDeckCard({ talk }: { talk: SpeakerDeckTalk }) {
       href={talk.url}
       target="_blank"
       rel="noreferrer"
-      className={`${cardBase} flex flex-col group min-w-[280px] md:min-w-0 md:col-span-2 snap-start`}
+      className={`${cardBase} flex flex-col group min-w-[280px] md:min-w-0 snap-start`}
     >
       <div className="relative w-full aspect-video overflow-hidden bg-gray-100">
         {talk.thumbnail ? (
@@ -94,9 +94,9 @@ export function SpeakerDeckSection({
   const hasMore = talks.length > 4;
 
   return (
-    <>
+    <section>
       {/* Section Header */}
-      <div className="col-span-2 md:col-span-4 flex items-center justify-between mt-6 px-1">
+      <div className="flex items-center justify-between px-1 mb-3">
         <h2 className="text-gray-600 text-sm font-semibold">{title}</h2>
         {hasMore && (
           <button
@@ -143,7 +143,7 @@ export function SpeakerDeckSection({
       </div>
 
       {/* Desktop Grid View */}
-      <div className="hidden md:contents">
+      <div className="hidden md:grid grid-cols-2 gap-3">
         {visibleTalks.map((talk, index) =>
           talk.embedUrl ? (
             <SpeakerDeckEmbed key={index} talk={talk} />
@@ -154,7 +154,7 @@ export function SpeakerDeckSection({
       </div>
 
       {/* Mobile Horizontal Scroll Carousel */}
-      <div className="col-span-2 md:hidden -mx-4">
+      <div className="md:hidden -mx-4">
         <div className="flex gap-3 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scroll-pl-4 scroll-pr-4 scrollbar-hide">
           {talks.map((talk, index) => (
             <SpeakerDeckCard key={index} talk={talk} />
@@ -163,6 +163,6 @@ export function SpeakerDeckSection({
           <div className="shrink-0 w-px" aria-hidden="true" />
         </div>
       </div>
-    </>
+    </section>
   );
 }

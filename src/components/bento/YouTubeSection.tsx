@@ -11,9 +11,7 @@ interface YouTubeSectionProps {
 
 function YouTubeCard({ video }: { video: YouTubeVideoData }) {
   return (
-    <div
-      className={`${cardBase} col-span-2 group`}
-    >
+    <div className={`${cardBase} group`}>
       <div className="relative w-full aspect-video bg-gray-900">
         <iframe
           src={`https://www.youtube.com/embed/${video.videoId}`}
@@ -46,9 +44,9 @@ export function YouTubeSection({
   const hasMore = videos.length > 4;
 
   return (
-    <>
+    <section>
       {/* Section Header */}
-      <div className="col-span-2 md:col-span-4 flex items-center justify-between mt-6 px-1">
+      <div className="flex items-center justify-between px-1 mb-3">
         <h2 className="text-gray-600 text-sm font-semibold">{title}</h2>
         {hasMore && (
           <button
@@ -95,14 +93,14 @@ export function YouTubeSection({
       </div>
 
       {/* Desktop Grid View */}
-      <div className="hidden md:contents">
+      <div className="hidden md:grid grid-cols-2 gap-3">
         {visibleVideos.map((video, index) => (
           <YouTubeCard key={index} video={video} />
         ))}
       </div>
 
       {/* Mobile Horizontal Scroll Carousel */}
-      <div className="col-span-2 md:hidden -mx-4">
+      <div className="md:hidden -mx-4">
         <div className="flex gap-3 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scroll-pl-4 scroll-pr-4 scrollbar-hide">
           {videos.map((video, index) => (
             <div key={index} className="min-w-[320px] snap-start">
@@ -113,6 +111,6 @@ export function YouTubeSection({
           <div className="shrink-0 w-px" aria-hidden="true" />
         </div>
       </div>
-    </>
+    </section>
   );
 }

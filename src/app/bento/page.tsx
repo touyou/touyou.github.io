@@ -37,33 +37,38 @@ export default function BentoPage() {
 
   return (
     <main className="min-h-dvh">
-      <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
-        {/* Back to home */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition mb-8"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      {/* Sticky Back to home */}
+      <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 py-3">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Back to Home
-        </Link>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to Home
+          </Link>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
 
         {/* Profile Header */}
         <ProfileHeader profile={data.profile} />
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {/* Bento Sections Container */}
+        <div className="flex flex-col gap-6">
           {data.sections.map((section) => {
             // Skip empty sections
             if (section.links.length === 0) {
@@ -79,27 +84,33 @@ export default function BentoPage() {
                   title: link.title,
                 }));
 
-              return <ImageGallery key={section.id} images={images} />;
+              return (
+                <div key={section.id} className="grid grid-cols-3 gap-3">
+                  <ImageGallery images={images} />
+                </div>
+              );
             }
 
             // Regular sections
             return (
-              <div key={section.id} className="contents">
+              <section key={section.id}>
                 {section.title && <SectionHeader>{section.title}</SectionHeader>}
-                {section.links.map((link, index) => {
-                  if (link.cardType === "social") {
-                    return <SocialCard key={index} link={link} />;
-                  }
-                  if (link.cardType === "ogp") {
-                    return (
-                      <Suspense key={index} fallback={<OGPCardSkeleton />}>
-                        <AsyncOGPCard link={link} />
-                      </Suspense>
-                    );
-                  }
-                  return <SimpleLinkCard key={index} link={link} />;
-                })}
-              </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {section.links.map((link, index) => {
+                    if (link.cardType === "social") {
+                      return <SocialCard key={index} link={link} />;
+                    }
+                    if (link.cardType === "ogp") {
+                      return (
+                        <Suspense key={index} fallback={<OGPCardSkeleton />}>
+                          <AsyncOGPCard link={link} />
+                        </Suspense>
+                      );
+                    }
+                    return <SimpleLinkCard key={index} link={link} />;
+                  })}
+                </div>
+              </section>
             );
           })}
 
