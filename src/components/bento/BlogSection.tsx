@@ -59,8 +59,8 @@ export function BlogSection({ posts, title = "Tech Blog" }: BlogSectionProps) {
     return null;
   }
 
-  const visiblePosts = isExpanded ? posts : posts.slice(0, 3);
-  const hasMore = posts.length > 3;
+  const visiblePosts = isExpanded ? posts : posts.slice(0, 4);
+  const hasMore = posts.length > 4;
 
   return (
     <>
