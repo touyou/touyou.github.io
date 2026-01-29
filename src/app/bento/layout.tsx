@@ -1,3 +1,10 @@
+import { Viewport } from "next";
+
+// Override theme color for iOS Safari overscroll areas
+export const viewport: Viewport = {
+  themeColor: "#f5f5f7",
+};
+
 export default function BentoLayout({
   children,
 }: {
