@@ -11,6 +11,7 @@ import type {
   YouTubeVideoData,
 } from "@/lib/bento-types";
 import initialBentoData from "@/data/bento-links.json";
+import { BentoPreview } from "@/components/bento/BentoPreview";
 
 // Preview mode type
 type PreviewMode = "pc" | "sp";
@@ -73,7 +74,7 @@ export default function BentoEditPage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
-  const [previewKey, setPreviewKey] = useState(0);
+  const [hasChanges, setHasChanges] = useState(false);
 
   // Check access on mount
   useEffect(() => {
@@ -85,6 +86,21 @@ export default function BentoEditPage() {
       hostname === "[::1]";
 
     setAccessState(isLocalhost ? "allowed" : "denied");
+  }, []);
+
+  // Track changes
+  useEffect(() => {
+    const hasDataChanged =
+      JSON.stringify(data) !== JSON.stringify(initialBentoData);
+    setHasChanges(hasDataChanged);
+  }, [data]);
+
+  // Reset to file state
+  const handleReset = useCallback(() => {
+    setData(initialBentoData as BentoData);
+    setEditingState(null);
+    setSaveMessage({ type: "success", text: "Reset to saved state" });
+    setTimeout(() => setSaveMessage(null), 2000);
   }, []);
 
   // Save to file
@@ -101,8 +117,7 @@ export default function BentoEditPage() {
 
       if (response.ok) {
         setSaveMessage({ type: "success", text: "Saved successfully!" });
-        // Reload preview after save
-        setPreviewKey((prev) => prev + 1);
+        setHasChanges(false);
         setTimeout(() => setSaveMessage(null), 3000);
       } else {
         const errorData = await response.json();
@@ -612,13 +627,18 @@ export default function BentoEditPage() {
                 SP
               </button>
             </div>
-            {/* Refresh Preview button */}
+            {/* Reset button */}
             <button
-              onClick={() => setPreviewKey((prev) => prev + 1)}
-              className="px-3 py-1.5 text-sm bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+              onClick={handleReset}
+              disabled={!hasChanges}
+              className="px-3 py-1.5 text-sm bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Refresh
+              Reset
             </button>
+            {/* Unsaved changes indicator */}
+            {hasChanges && (
+              <span className="text-xs text-orange-500">Unsaved changes</span>
+            )}
             {/* Save button */}
             <button
               onClick={handleSave}
@@ -1210,12 +1230,7 @@ export default function BentoEditPage() {
                 height: previewMode === "sp" ? "667px" : "calc(100% - 16px)",
               }}
             >
-              <iframe
-                key={previewKey}
-                src="/bento"
-                className="w-full h-full border-0"
-                title="Bento Preview"
-              />
+              <BentoPreview data={data} mode={previewMode} />
             </div>
           </div>
         </div>
