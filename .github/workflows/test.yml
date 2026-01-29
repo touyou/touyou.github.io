@@ -29,9 +29,31 @@ jobs:
       - name: Run tests with coverage
         run: pnpm test:coverage
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage/coverage-final.json
-          fail_ci_if_error: false
-          verbose: true
+      - name: Generate coverage badge
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          COVERAGE=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
+
+          # Determine badge color based on coverage
+          if (( $(echo "$COVERAGE >= 80" | bc -l) )); then
+            COLOR="brightgreen"
+          elif (( $(echo "$COVERAGE >= 60" | bc -l) )); then
+            COLOR="yellow"
+          else
+            COLOR="red"
+          fi
+
+          # Create badge directory if not exists
+          mkdir -p .github/badges
+
+          # Download badge SVG from shields.io
+          curl -s "https://img.shields.io/badge/coverage-${COVERAGE}%25-${COLOR}" > .github/badges/coverage.svg
+
+      - name: Commit coverage badge
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/badges/coverage.svg
+          git diff --staged --quiet || git commit -m "chore: Update coverage badge [skip ci]"
+          git push
