@@ -173,7 +173,7 @@ export default async function BentoPage() {
   const ogpDataMap = await fetchMultipleOGP(ogpUrls);
 
   return (
-    <main className="min-h-screen bg-[#f5f5f7]">
+    <main className="min-h-dvh">
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
         {/* Back to home */}
         <Link
