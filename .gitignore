@@ -35,3 +35,12 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# claude code
+.claude/
+
+# playwright mcp
+.playwright-mcp/
+
+# firebase
+firebase-debug.log
