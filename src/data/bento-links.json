@@ -9,6 +9,34 @@
       "あだ名はtouyou（とうよう）です"
     ]
   },
+  "youtubeSections": [
+    {
+      "id": "youtube-talks",
+      "title": "YouTube",
+      "videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw",
+          "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
+          "videoId": "4wC7tlLHyYw"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE",
+          "title": "UXデザイナー・エンジニアが考察するApple Vision Pro",
+          "videoId": "wJpIZr7sqtE"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=07LIxk1ow1Q",
+          "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2",
+          "videoId": "07LIxk1ow1Q"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
+          "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
+          "videoId": "mH51h_BoG4c"
+        }
+      ]
+    }
+  ],
   "sections": [
     {
       "id": "gallery",
@@ -258,28 +286,8 @@
           "cardType": "ogp"
         },
         {
-          "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw",
-          "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
-          "cardType": "ogp"
-        },
-        {
           "url": "https://goodpatch.com/blog/2024-02-designcats",
           "title": "狙い通りのユーザー体験を\"ゼロ距離\"で実装する",
-          "cardType": "ogp"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE",
-          "title": "UXデザイナー・エンジニアが考察するApple Vision Pro",
-          "cardType": "ogp"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=07LIxk1ow1Q",
-          "title": "Liquid GlassとAppIntentsについての考察 @touyou_dev #1 day2",
-          "cardType": "ogp"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
-          "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
           "cardType": "ogp"
         },
         {

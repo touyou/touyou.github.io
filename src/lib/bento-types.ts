@@ -45,9 +45,24 @@ export interface BentoProfile {
   bio: string[];
 }
 
+// YouTube video in dedicated section
+export interface YouTubeVideoData {
+  url: string;
+  title: string;
+  videoId: string;
+}
+
+// YouTube section definition
+export interface YouTubeSectionData {
+  id: string;
+  title: string;
+  videos: YouTubeVideoData[];
+}
+
 export interface BentoData {
   profile: BentoProfile;
   sections: BentoSection[];
+  youtubeSections?: YouTubeSectionData[];
 }
 
 // OGP data fetched dynamically

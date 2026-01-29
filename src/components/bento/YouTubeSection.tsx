@@ -2,19 +2,14 @@
 
 import { useState } from "react";
 import { cardBase } from "@/lib/bento-utils";
-
-export interface YouTubeVideo {
-  url: string;
-  title: string;
-  videoId: string;
-}
+import type { YouTubeVideoData } from "@/lib/bento-types";
 
 interface YouTubeSectionProps {
-  videos: YouTubeVideo[];
+  videos: YouTubeVideoData[];
   title?: string;
 }
 
-function YouTubeCard({ video }: { video: YouTubeVideo }) {
+function YouTubeCard({ video }: { video: YouTubeVideoData }) {
   return (
     <div
       className={`${cardBase} col-span-2 group`}
