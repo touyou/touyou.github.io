@@ -18,7 +18,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
   return (
     <>
       {/* 3-column grid for images */}
-      <div className="col-span-2 md:col-span-4 grid grid-cols-3 gap-3">
+      <div className="contents">
         {images.map((image, index) => (
           <button
             key={index}

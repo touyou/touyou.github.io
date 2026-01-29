@@ -1,49 +1,77 @@
-import { Suspense } from "react";
-import { Metadata } from "next";
-import Link from "next/link";
-import bentoData from "@/data/bento-links.json";
+"use client";
+
+import { useState, useEffect } from "react";
 import type { BentoData, BentoLink } from "@/lib/bento-types";
-import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
-import { fetchSpeakerDeckTalks } from "@/lib/speakerdeck";
+import initialBentoData from "@/data/bento-links.json";
 import { ImageGallery } from "@/components/bento/ImageGallery";
 import { SocialCard } from "@/components/bento/SocialCard";
 import { SimpleLinkCard } from "@/components/bento/SimpleLinkCard";
 import { SectionHeader } from "@/components/bento/SectionHeader";
 import { ProfileHeader } from "@/components/bento/ProfileHeader";
-import { AsyncOGPCard } from "@/components/bento/AsyncOGPCard";
-import { OGPCardSkeleton } from "@/components/bento/OGPCardSkeleton";
-import { SuspenseBlogSection } from "@/components/bento/SuspenseBlogSection";
-import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
-import { SuspenseSpeakerDeckSection } from "@/components/bento/SuspenseSpeakerDeckSection";
-import { SpeakerDeckSectionSkeleton } from "@/components/bento/SpeakerDeckSectionSkeleton";
 import { YouTubeSection } from "@/components/bento/YouTubeSection";
+import { SpeakerDeckSectionSkeleton } from "@/components/bento/SpeakerDeckSectionSkeleton";
+import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
 
-export const metadata: Metadata = {
-  title: "Bento | touyou.dev",
-  description: "Yosuke Fujii - Design Engineer at Goodpatch Inc.",
-};
+const PREVIEW_STORAGE_KEY = "bento-preview-data";
 
 // Check if section contains only images
 function isImageSection(links: BentoLink[]): boolean {
   return links.every((link) => link.cardType === "image");
 }
 
-export default function BentoPage() {
-  const data = bentoData as BentoData;
+// Simple OGP card for preview (no async fetching)
+function OGPCardPreview({ link }: { link: BentoLink }) {
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className="col-span-2 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300"
+    >
+      <div className="aspect-video bg-gray-100 flex items-center justify-center">
+        <span className="text-gray-400 text-sm">OGP Preview</span>
+      </div>
+      <div className="p-4">
+        <p className="font-medium text-gray-900 text-sm line-clamp-2">
+          {link.title}
+        </p>
+        <p className="text-gray-400 text-xs mt-1 truncate">{link.url}</p>
+      </div>
+    </a>
+  );
+}
 
-  // Start fetching promises (don't await - pass to Suspense children)
-  const blogPromise = fetchHatenaBlogPosts();
-  const speakerDeckPromise = fetchSpeakerDeckTalks();
+export default function BentoPreviewPage() {
+  const [data, setData] = useState<BentoData>(initialBentoData as BentoData);
+
+  useEffect(() => {
+    // Load initial data from sessionStorage
+    const stored = sessionStorage.getItem(PREVIEW_STORAGE_KEY);
+    if (stored) {
+      try {
+        setData(JSON.parse(stored));
+      } catch {
+        // Ignore parse errors
+      }
+    }
+
+    // Listen for updates from parent window
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === "bento-preview-update" && event.data?.data) {
+        setData(event.data.data);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   return (
-    <main className="min-h-dvh">
-      {/* Sticky Back to home */}
+    <main className="min-h-dvh bg-white">
+      {/* Sticky Back to home (visual only) */}
       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition"
-          >
+          <span className="inline-flex items-center gap-2 text-gray-500">
             <svg
               className="w-4 h-4"
               fill="none"
@@ -58,12 +86,11 @@ export default function BentoPage() {
               />
             </svg>
             Back to Home
-          </Link>
+          </span>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
-
         {/* Profile Header */}
         <ProfileHeader profile={data.profile} />
 
@@ -101,11 +128,7 @@ export default function BentoPage() {
                       return <SocialCard key={index} link={link} />;
                     }
                     if (link.cardType === "ogp") {
-                      return (
-                        <Suspense key={index} fallback={<OGPCardSkeleton />}>
-                          <AsyncOGPCard link={link} />
-                        </Suspense>
-                      );
+                      return <OGPCardPreview key={index} link={link} />;
                     }
                     return <SimpleLinkCard key={index} link={link} />;
                   })}
@@ -123,21 +146,11 @@ export default function BentoPage() {
             />
           ))}
 
-          {/* SpeakerDeck Section - Auto-collected from RSS */}
-          <Suspense fallback={<SpeakerDeckSectionSkeleton />}>
-            <SuspenseSpeakerDeckSection
-              talksPromise={speakerDeckPromise}
-              title="Speaker Deck"
-            />
-          </Suspense>
+          {/* SpeakerDeck Section - Skeleton in preview */}
+          <SpeakerDeckSectionSkeleton />
 
-          {/* Blog Section - Auto-collected from Hatena Blog */}
-          <Suspense fallback={<BlogSectionSkeleton />}>
-            <SuspenseBlogSection
-              blogPromise={blogPromise}
-              title="Goodpatch Tech Blog"
-            />
-          </Suspense>
+          {/* Blog Section - Skeleton in preview */}
+          <BlogSectionSkeleton />
         </div>
 
         {/* Footer */}

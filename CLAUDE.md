@@ -31,6 +31,15 @@ pnpm start
 
 # Run linting
 pnpm lint
+
+# Run tests (watch mode)
+pnpm test
+
+# Run tests once
+pnpm test:run
+
+# Run tests with coverage
+pnpm test:coverage
 ```
 
 ## Project Structure
@@ -60,6 +69,36 @@ src/
 - ESLint 9 with flat config (`eslint.config.mjs`)
 - Prettier for formatting
 - TypeScript strict mode enabled
+
+## CSS/Tailwind Rules
+
+- **Use parent `gap` instead of child `margin` for spacing**: When laying out multiple elements (sections, cards, etc.), use `flex` or `grid` with `gap-*` on the parent container rather than adding `mt-*` or `mb-*` to each child element. This keeps spacing consistent and easier to maintain.
+  ```tsx
+  // Good: Parent controls spacing
+  <div className="flex flex-col gap-6">
+    <Section />
+    <Section />
+  </div>
+
+  // Avoid: Each child has its own margin
+  <div>
+    <Section className="mt-6" />
+    <Section className="mt-6" />
+  </div>
+  ```
+
+## Testing
+
+- **Framework**: Vitest with jsdom environment
+- **Testing Library**: React Testing Library
+- **Test files**: Located alongside source files as `*.test.ts` or `*.test.tsx`
+- **Coverage**: Configured for `src/lib/**/*.ts`
+
+When adding new utility functions or logic-heavy code, write tests following TDD principles:
+1. Write the test first
+2. Run the test to see it fail
+3. Implement the minimum code to pass
+4. Refactor if needed
 
 ## Path Aliases
 
