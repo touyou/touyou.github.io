@@ -1,0 +1,97 @@
+{
+  "cards": [
+    {
+      "id": "logo",
+      "type": "logo",
+      "image": "logo.svg",
+      "alt": "logo",
+      "rotation": 11.21
+    },
+    {
+      "id": "portfolio",
+      "type": "link",
+      "emoji": "📚",
+      "title": "大学時代のポートフォリオ",
+      "url": "https://touyou.github.io",
+      "external": true
+    },
+    {
+      "id": "bento",
+      "type": "link",
+      "emoji": "🍱",
+      "title": "Bento Profile",
+      "url": "/bento",
+      "external": false
+    },
+    {
+      "id": "work",
+      "type": "badges",
+      "emoji": "🏢",
+      "items": [
+        { "label": "Goodpatch Inc.", "variant": "default" },
+        { "label": "Engineer", "variant": "outline" },
+        { "label": "オンライン劇場 ZA", "variant": "default" },
+        { "label": "UX Engineer", "variant": "outline" },
+        { "label": "NOTHING NEW", "variant": "secondary" },
+        { "label": "Life is Tech !", "variant": "secondary" }
+      ]
+    },
+    {
+      "id": "tech",
+      "type": "badges",
+      "emoji": "💻",
+      "items": [
+        { "label": "Swift", "variant": "default" },
+        { "label": "SwiftUI/UIKit", "variant": "outline" },
+        { "label": "TypeScript", "variant": "default" },
+        { "label": "Next.js/Angular", "variant": "outline" },
+        { "label": "Flutter", "variant": "outline" },
+        { "label": "C/C++", "variant": "secondary" },
+        { "label": "Java", "variant": "secondary" },
+        { "label": "Kotlin", "variant": "secondary" },
+        { "label": "Dart", "variant": "secondary" },
+        { "label": "Haskell", "variant": "secondary" },
+        { "label": "Scheme", "variant": "secondary" }
+      ]
+    },
+    {
+      "id": "games",
+      "type": "badges",
+      "emoji": "🎮",
+      "items": [
+        { "label": "原神", "variant": "default" },
+        { "label": "崩壊: スターレイル", "variant": "default" },
+        { "label": "ゼンレスゾーンゼロ", "variant": "default" },
+        { "label": "Splatoon3", "variant": "secondary" },
+        { "label": "ポケットモンスター バイオレット", "variant": "secondary" },
+        { "label": "HOGWARTS LEGACY", "variant": "secondary" },
+        { "label": "モンスターハンターワイルズ", "variant": "secondary" },
+        { "label": "モンスターハンターライズ：サンブレイク", "variant": "secondary" }
+      ]
+    },
+    {
+      "id": "hobbies",
+      "type": "badges",
+      "emoji": "🧸",
+      "items": [
+        { "label": "フットサル", "variant": "default" },
+        { "label": "ギター", "variant": "default" },
+        { "label": "歌", "variant": "default" },
+        { "label": "バイオリン", "variant": "secondary" },
+        { "label": "謎解き", "variant": "secondary" },
+        { "label": "漫画", "variant": "secondary" },
+        { "label": "アニメ", "variant": "secondary" },
+        { "label": "映画", "variant": "secondary" },
+        { "label": "ドラマ", "variant": "secondary" }
+      ]
+    },
+    {
+      "id": "title",
+      "type": "logo",
+      "image": "logo_title.svg",
+      "alt": "touyou",
+      "width": 150,
+      "height": 80
+    }
+  ]
+}
