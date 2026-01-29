@@ -31,6 +31,15 @@ pnpm start
 
 # Run linting
 pnpm lint
+
+# Run tests (watch mode)
+pnpm test
+
+# Run tests once
+pnpm test:run
+
+# Run tests with coverage
+pnpm test:coverage
 ```
 
 ## Project Structure
@@ -77,6 +86,19 @@ src/
     <Section className="mt-6" />
   </div>
   ```
+
+## Testing
+
+- **Framework**: Vitest with jsdom environment
+- **Testing Library**: React Testing Library
+- **Test files**: Located alongside source files as `*.test.ts` or `*.test.tsx`
+- **Coverage**: Configured for `src/lib/**/*.ts`
+
+When adding new utility functions or logic-heavy code, write tests following TDD principles:
+1. Write the test first
+2. Run the test to see it fail
+3. Implement the minimum code to pass
+4. Refactor if needed
 
 ## Path Aliases
 
