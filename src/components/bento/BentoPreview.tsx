@@ -13,7 +13,6 @@ import { BlogSectionSkeleton } from "./BlogSectionSkeleton";
 
 interface BentoPreviewProps {
   data: BentoData;
-  mode?: "pc" | "sp";
 }
 
 // Check if section contains only images
@@ -43,13 +42,9 @@ function OGPCardPreview({ link }: { link: BentoLink }) {
   );
 }
 
-export function BentoPreview({ data, mode = "pc" }: BentoPreviewProps) {
+export function BentoPreview({ data }: BentoPreviewProps) {
   return (
-    <div
-      className={`bg-white min-h-full overflow-auto ${
-        mode === "sp" ? "text-sm" : ""
-      }`}
-    >
+    <div className="bg-white">
       {/* Sticky Back to home (visual only) */}
       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-3">

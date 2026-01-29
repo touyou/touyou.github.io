@@ -1230,7 +1230,19 @@ export default function BentoEditPage() {
                 height: previewMode === "sp" ? "667px" : "calc(100% - 16px)",
               }}
             >
-              <BentoPreview data={data} mode={previewMode} />
+              {previewMode === "sp" ? (
+                // SP mode: Use iframe for accurate mobile viewport simulation
+                <iframe
+                  src="/bento"
+                  className="w-full h-full border-0"
+                  title="Bento Preview (Mobile)"
+                />
+              ) : (
+                // PC mode: Use BentoPreview for instant updates
+                <div className="w-full h-full overflow-y-auto">
+                  <BentoPreview data={data} />
+                </div>
+              )}
             </div>
           </div>
         </div>
