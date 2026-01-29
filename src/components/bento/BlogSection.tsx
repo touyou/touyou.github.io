@@ -119,11 +119,13 @@ export function BlogSection({ posts, title = "Tech Blog" }: BlogSectionProps) {
       </div>
 
       {/* Mobile Horizontal Scroll Carousel */}
-      <div className="col-span-2 md:hidden -mx-4 px-4">
-        <div className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+      <div className="col-span-2 md:hidden -mx-4">
+        <div className="flex gap-3 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scrollbar-hide">
           {posts.map((post, index) => (
             <BlogCard key={index} post={post} />
           ))}
+          {/* Spacer for last card visibility */}
+          <div className="shrink-0 w-1" aria-hidden="true" />
         </div>
       </div>
     </>
