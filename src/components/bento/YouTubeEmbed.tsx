@@ -1,5 +1,6 @@
 interface YouTubeEmbedProps {
   url: string;
+  title: string;
 }
 
 // Extract YouTube video ID from URL
@@ -18,7 +19,7 @@ function extractVideoId(url: string): string | null {
   return null;
 }
 
-export function YouTubeEmbed({ url }: YouTubeEmbedProps) {
+export function YouTubeEmbed({ url, title }: YouTubeEmbedProps) {
   const videoId = extractVideoId(url);
 
   if (!videoId) {
@@ -30,11 +31,14 @@ export function YouTubeEmbed({ url }: YouTubeEmbedProps) {
       <div className="relative w-full aspect-video bg-gray-900">
         <iframe
           src={`https://www.youtube.com/embed/${videoId}`}
-          title="YouTube video"
+          title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
         />
+      </div>
+      <div className="p-4">
+        <p className="font-medium text-gray-900 text-sm line-clamp-2">{title}</p>
       </div>
     </div>
   );

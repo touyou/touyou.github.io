@@ -120,9 +120,10 @@ function OGPCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
   );
 }
 
-// YouTube Card - renders embed directly
-function YouTubeCard({ link }: { link: BentoLink }) {
-  return <YouTubeEmbed url={link.url} />;
+// YouTube Card - renders embed with title
+function YouTubeCard({ link, ogpData }: { link: BentoLink; ogpData?: OGPData }) {
+  const displayTitle = ogpData?.title || link.title;
+  return <YouTubeEmbed url={link.url} title={displayTitle} />;
 }
 
 // Simple Link Card Component
@@ -237,11 +238,11 @@ export default async function BentoPage() {
                     return <SocialCard key={index} link={link} />;
                   }
                   if (link.cardType === "ogp") {
+                    const ogpData = ogpDataMap.get(link.url);
                     // Use YouTube embed for YouTube URLs
                     if (isYouTubeUrl(link.url)) {
-                      return <YouTubeCard key={index} link={link} />;
+                      return <YouTubeCard key={index} link={link} ogpData={ogpData} />;
                     }
-                    const ogpData = ogpDataMap.get(link.url);
                     return <OGPCard key={index} link={link} ogpData={ogpData} />;
                   }
                   return <SimpleLinkCard key={index} link={link} />;
