@@ -43,6 +43,7 @@ export const platformColors: Record<SocialPlatform, string> = {
   wantedly: "hover:bg-cyan-500",
   hoyolab: "hover:bg-blue-400",
   hatena: "hover:bg-sky-500",
+  lapras: "hover:bg-blue-700",
 };
 
 // Base card styles

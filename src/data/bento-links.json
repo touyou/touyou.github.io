@@ -51,14 +51,14 @@
         },
         {
           "url": "https://github.com/touyou",
-          "title": "touyou - GitHub",
+          "title": "GitHub",
           "cardType": "social",
           "platform": "github",
           "username": "touyou"
         },
         {
           "url": "https://youtube.com/@touyoubuntu",
-          "title": "touyou",
+          "title": "YouTube",
           "cardType": "social",
           "platform": "youtube",
           "username": "@touyoubuntu"
@@ -67,21 +67,29 @@
           "url": "https://linkedin.com/in/touyou",
           "title": "LinkedIn",
           "cardType": "social",
-          "platform": "linkedin"
+          "platform": "linkedin",
+          "username": "touyou"
         },
         {
           "url": "https://instagram.com/touyou_work",
-          "title": "@touyou_work",
+          "title": "Instagram [work]",
           "cardType": "social",
           "platform": "instagram",
           "username": "@touyou_work"
         },
         {
           "url": "https://instagram.com/touyou1121",
-          "title": "@touyou1121",
+          "title": "Instagram",
           "cardType": "social",
           "platform": "instagram",
           "username": "@touyou1121"
+        },
+        {
+          "url": "https://lapras.com/public/touyou",
+          "title": "Lapras",
+          "cardType": "social",
+          "platform": "lapras",
+          "username": "touyou"
         }
       ]
     },
@@ -107,61 +115,71 @@
           "url": "https://www.wantedly.com/id/touyoubuntu",
           "title": "Wantedly",
           "cardType": "social",
-          "platform": "wantedly"
+          "platform": "wantedly",
+          "username": "touyoubuntu"
         },
         {
           "url": "https://gitlab.com/touyou",
-          "title": "touyou - GitLab",
+          "title": "GitLab",
           "cardType": "social",
-          "platform": "gitlab"
+          "platform": "gitlab",
+          "username": "touyou"
         },
         {
           "url": "https://www.facebook.com/fujiyou/",
           "title": "Facebook",
           "cardType": "social",
-          "platform": "facebook"
+          "platform": "facebook",
+          "username": "fujiyou"
         },
         {
           "url": "https://developers.google.com/profile/u/touyou",
-          "title": "Yosuke Fujii - Google Developers",
+          "title": "Google Developers",
           "cardType": "social",
-          "platform": "google"
+          "platform": "google",
+          "username": "touyou"
         },
         {
           "url": "https://www.threads.net/@touyou1121",
-          "title": "藤井 陽介 (@touyou1121) - Threads",
+          "title": "Threads",
           "cardType": "social",
-          "platform": "threads"
+          "platform": "threads",
+          "username": "@touyou1121"
         },
         {
           "url": "https://bsky.app/profile/touyou.bsky.social",
-          "title": "とうよう (@touyou.bsky.social)",
+          "title": "Bluesky",
           "cardType": "social",
-          "platform": "bluesky"
+          "platform": "bluesky",
+          "username": "@touyou.bsky.social"
         },
         {
           "url": "https://zenn.dev/touyou",
-          "title": "とうよう",
+          "title": "Zenn",
           "cardType": "social",
-          "platform": "zenn"
+          "platform": "zenn",
+          "username": "touyou"
         },
         {
           "url": "https://fedibird.com/@touyou",
-          "title": "とうよう (@touyou@fedibird.com)",
+          "title": "Fedibird",
           "cardType": "social",
-          "platform": "fedibird"
+          "platform": "fedibird",
+          "username": "@touyou@fedibird.com"
         },
         {
           "url": "http://qiita.com/touyou",
-          "title": "@touyou",
+          "title": "Qiita",
           "cardType": "social",
-          "platform": "qiita"
+          "platform": "qiita",
+          "username": "@touyou"
         },
         {
           "url": "https://www.hoyolab.com/accountCenter/postList?id=123634712",
-          "title": "touyou - HoYoLAB",
+          "title": "HoYoLAB",
           "cardType": "social",
-          "platform": "hoyolab"
+          "platform": "hoyolab",
+          "username": "touyou"
         },
         {
           "url": "https://touyoubuntu.hatenablog.com/",
@@ -188,6 +206,11 @@
         {
           "url": "https://za.theater/",
           "title": "オンライン劇場 ZA",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://goodpatch.com/work/sakuma-nobuyuki",
+          "title": "佐久間さんHP",
           "cardType": "ogp"
         }
       ]
@@ -257,6 +280,11 @@
         {
           "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
           "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://goodpatch.com/blog/2025-05-habee",
+          "title": "Habeeインタビュー",
           "cardType": "ogp"
         }
       ]

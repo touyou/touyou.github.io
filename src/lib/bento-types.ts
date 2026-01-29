@@ -19,7 +19,8 @@ export type SocialPlatform =
   | "google"
   | "wantedly"
   | "hoyolab"
-  | "hatena";
+  | "hatena"
+  | "lapras";
 
 export interface BentoLink {
   url: string;
