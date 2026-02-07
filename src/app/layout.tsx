@@ -61,6 +61,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className="bg-background">
+      <head>
+        <link rel="me" href="https://fedibird.com/@touyou" />
+      </head>
       <body className="bg-background">{children}</body>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}

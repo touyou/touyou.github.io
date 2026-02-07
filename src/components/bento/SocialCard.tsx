@@ -15,7 +15,7 @@ export function SocialCard({ link }: SocialCardProps) {
     <a
       href={link.url}
       target="_blank"
-      rel="noreferrer"
+      rel={platform === "fedibird" ? "me noreferrer" : "noreferrer"}
       className={`${cardBase} flex items-center gap-3 p-4 group ${hoverColor}`}
     >
       {faviconUrl && (
