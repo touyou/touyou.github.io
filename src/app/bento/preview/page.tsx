@@ -42,20 +42,21 @@ function OGPCardPreview({ link }: { link: BentoLink }) {
 }
 
 export default function BentoPreviewPage() {
-  const [data, setData] = useState<BentoData>(initialBentoData as BentoData);
-
-  useEffect(() => {
-    // Load initial data from sessionStorage
-    const stored = sessionStorage.getItem(PREVIEW_STORAGE_KEY);
-    if (stored) {
-      try {
-        setData(JSON.parse(stored));
-      } catch {
-        // Ignore parse errors
+  const [data, setData] = useState<BentoData>(() => {
+    if (typeof window !== "undefined") {
+      const stored = sessionStorage.getItem(PREVIEW_STORAGE_KEY);
+      if (stored) {
+        try {
+          return JSON.parse(stored) as BentoData;
+        } catch {
+          // Ignore parse errors
+        }
       }
     }
+    return initialBentoData as BentoData;
+  });
 
-    // Listen for updates from parent window
+  useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.type === "bento-preview-update" && event.data?.data) {
         setData(event.data.data);
