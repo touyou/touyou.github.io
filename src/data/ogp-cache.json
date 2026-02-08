@@ -137,5 +137,75 @@
     "title": "FlutterKaigi 2025 | Add-to-appで真のLiquid Glass対応を目指してみた",
     "image": "https://img.youtube.com/vi/mH51h_BoG4c/maxresdefault.jpg",
     "description": "by FlutterKaigi"
+  },
+  "https://goodpatch.com/work/sakuma-nobuyuki": {
+    "title": "佐久間宣行事務所｜Work｜Goodpatch グッドパッチ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2026/01/works-sakuma-nobuyuki-02.png?fit=1440%2C890&ssl=1",
+    "description": "テレビ東京コミュニケーションズ企画のYouTube番組『佐久間さん、HP作らせてください』と連動し、「佐久間宣行事務所オフィシャルHP」の企画・デザイン・実装を担当しました。佐久間氏がどのような姿勢で仕事に向き合い、なぜ多くの人の心を..."
+  },
+  "https://goodpatch.com/blog/2025-05-habee": {
+    "title": "JTの新たな挑戦、目標達成・習慣化アプリ「Habee」はどう生まれた？　開発プロジェクトの裏側に迫る｜Goodpatch Blog グッドパッチブログ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2025/05/IMGP0840.jpg?fit=1920%2C1080&ssl=1",
+    "description": "たばこ事業を中核に多角的に事業展開を進めてきた日本たばこ産業（JT）。そんな同社が目標達成・習慣化を支援するスマートフォンアプリ「Habee（ハビー）」をリリースしたのをご存じでしょうか。主力の事業とは一風変わった新規サービスとして立..."
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/apple_creator_studio_why": {
+    "title": "Apple Creator Studioが生まれた意味を考える - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/a7266f1f6c91a5947d4e1d486f56bd8e519b6f49/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260114%2F20260114164624.png",
+    "description": "みなさん明けましておめでとうございます！デザインエンジニアの藤井（touyou）です。 年末年始、みなさんはいかがお過ごしでしたでしょうか？ 自分は年末それでも僕はコードを書くという記事を出していたにも関わらず、その後Claude Codeを触る機会が増えた結果、今年に入ってからほとんどコードを書かない生活が続いています。このAI時代、人生何があるか分かりませんね（もちろんコードを書くことは依然として好きです。） さて、そんな激動の時代の中突如AppleがApple Creator Studioというものを発表しました。 www.apple.com ざっくり概要をまとめると次のような形です。 …"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/why_code_2025": {
+    "title": "それでも僕はコードを書く - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/685f1d7427b78f238f825e2d2e8076a04a32fef1/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20251124%2F20251124160659.png",
+    "description": "こんにちは！デザインエンジニアの藤井（touyou）です。 この記事はGoodpatch Advent Calendar 2025 21日目の記事になります。 弊社のアドベントカレンダーを熱心に追っていただいている方はもうお気づきかもしれませんが、この記事は20日のうっちゃんの記事とは対となるタイトルを冠した記事となります。 ある意味真逆の主張が書かれるかもしれませんが、決して仲が悪いとかではなく、むしろ一緒にエンジニアのAI活用向上施策をゴリゴリと進めている同僚なのでそこは安心して読み進めていただければと思います。 昨日の記事と対比しながら読んでいただくと、生成AIとの付き合い方についてのも…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/ai_productivity_2025": {
+    "title": "大生成AI時代の生産性解体新書 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/3394ca1682d0f16339c75e0ee2926b8c3fa1cfb2/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20251128%2F20251128092646.png",
+    "description": "こんにちは！デザインエンジニアの藤井（touyou）です。 この記事はGoodpatch Advent Calendar 2025 10日目の記事になります。 今回は、生成AIの文脈でよく語られる「生産性」という言葉を、あらためて分解して考えてみる話です。 社内でAI活用を進める中で、「生産性を上げよう」と簡単に言ってしまうと、むしろ議論がややこしくなるな......と感じる場面が増えてきました。 そこから見えてきた、自分なりの「生産性」のとらえ方を共有できればと思います。 個人的に感じていた課題感 AIと生産性を考える上での軸の提案 三つの軸で世の中の認識を整理する AI活用を進める価値の再…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/workation_2025_summer": {
+    "title": "食の探究、真夏のエンジニアワーケーションレポート - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/5949bdb882b4f1ba6667068522bcddb955dd43d0/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20250829%2F20250829181442.png",
+    "description": "2025年夏に開催したエンジニアのワーケーションの様子をお届けします"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/try_swift_tokyo_2024": {
+    "title": "try! Swift Tokyo 2024に参加してきました！ - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/adca90f14e7da2527d8d9f649e8da86530d21d4e/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20240405%2F20240405102953.png",
+    "description": "はじめに try! Swift Tokyo とは？ トークの紹介 SwiftでvisionOSのアプリをつくろう 塵も積もればアプリとなる Enhancing Applications with Accessibility API 良いアプリケーションをデザインするための感覚の持ち方 会場の様子 素晴らしかった点 豪華なグッズの数々 スポンサーブースラリー オープンソースの公式アプリ ワークショップにも参加してきました さいごに はじめに 2024年3月に開催されたtry! Swift Tokyo 2024に参加したので、ひと足遅れてのレポートです。 本記事は、iOSエンジニアの田中と藤井（と…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/sd_gp_engineer_202401": {
+    "title": "STUDIO DETAILS × Goodpatchエンジニア交流会レポート - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/338e3243a59a68bddb896e0ef0c936b0c9825cf9/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20240220%2F20240220133449.png",
+    "description": "みなさんこんにちは！エンジニアの藤井（touyou）です。 今回は2024年1月18日に開催されたグループ会社であるスタジオディテイルズとグッドパッチのエンジニア交流会の様子についてご紹介します。 普段ブランディングのためのWebサイト制作を得意とするスタジオディテイルズと、サービス作りを得意とするグッドパッチでそれぞれの知見を共有しました。お互いの共通点や違いがわかり、交流はもちろん学びの多い会となったのでぜひ最後までお楽しみください！ グッドパッチオフィスに集合！ 会はグッドパッチオフィスとオンラインのハイブリット形式で開催されました。 オフライン組にはお酒とピザが用意され、ゆったりした雰…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/workation2023_summer": {
+    "title": "エンジニアのワーケーションで奥多摩の学校に泊まってみた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/854fe9f9678b0d2ada7c71f6d6ea383ec4535244/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20230728%2F20230728131755.jpg",
+    "description": "こんにちは！エンジニアの藤井（touyou）です！ 先日、普段クライアントワークを担当しているエンジニアで集まり、1泊2日のワーケーションを奥多摩で実施しました！ 実は昨年もレポートが出ているので興味のある方はこちらもご覧ください💁‍♂️ goodpatch-tech.hatenablog.com さてそんな二度目となるワーケーションですが、今年はもっと組織のことを話す時間にしてもいいよねという話もあり、Webフロントエンドエンジニアとモバイルアプリのエンジニア合同で行うことになりました。 有意義な議論がたくさん飛び交ったワークはもちろん、バケーションの部分をしっかり堪能してきたのでその様子を…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/rotation_by_spreadsheet": {
+    "title": "スプレッドシートでお手軽輪番シートを作ってみた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/f4c23b936e354256c4ea4c6fd2aa3f2529ec3129/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20230428%2F20230428163428.png",
+    "description": "みなさんこんにちは！エンジニアの藤井（ @touyou_dev ）です！ 今回は現在実際に使っている、スプレッドシートで作った輪番シートの作り方についてご紹介します。 実際得られる結果はこちら この画像だけだと何のことやらという感じかもしれませんが、これは毎日自動で更新されるシートになっており、以下のような場面で使えます。 朝会の司会を全員で順番に回したい時 掃除当番を家族全員で回したい時 某ラジオ番組のパーソナリティを一週間で割り切れない人数で一日ずつ回したい時 そして今回作ったものは以下のような性質があります。 毎日自動で更新される 人数が変わっても人リストを更新するだけ Google A…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/compare_declarative_ui": {
+    "title": "宣言型UIフレームワークを比較してみた - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/012b2cdb96530c3241be3defab2fd6fa4c242977/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20221125%2F20221125144300.png",
+    "description": "この記事はGoodpatch Advent Calendar 2022の2日目の記事です。 こんにちは！エンジニアの藤井（@touyou_dev）です。今年もアドベントカレンダーの季節がやってきましたね🙌 今年は特に気温が極端かつ変則的で、季節感が迷子な一年でしたが、それに負けず劣らず自分も実は従事する領域を反復横跳びのような形でいったりきたりしていました。 メインはiOS開発ですが、副業ではNext.jsでの開発をやっていたり、最近だとWebの案件に関わることもあってAngularを触ることになるなど...... 専門領域を深掘りにくいというデメリットもあるように思えるこういった働き方ですが…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/goodpatch_member_desk_01": {
+    "title": "グッドパッチメンバーのデスク周りを紹介してみた vol. 1 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/157f8e7a7e46545ca70313fe0129894aaf45ad0a/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20220617%2F20220617164014.jpg",
+    "description": "エンジニアの藤井（@touyou_dev）です！ エンジニアのようなデスクワーカーにとってデスク周りって大事ですよね。 会社に自分の席がある方は、会社のデスクすら自分にとって好きなようにカスタマイズしているよって人も多いのではないでしょうか？ Goodpatchではコロナ以降、リモートワークを導入しています。出社も可能ですが、まだまだ自宅で働いているメンバーも多いです。 オフラインで会う機会も少なくなり、一緒に働いているメンバーがどのような環境で働いているか気になることありますよね。 そこでこのシリーズでは、各々のデスク周りを紹介していこうと思っています。 記念すべき第一弾は、最近一人暮らしを…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/dev_training_2022_02": {
+    "title": "若手エンジニア二人で新卒の全職種向けエンジニアリング研修をリデザインした話 実施編 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/ef8a45a2bf50d8e17f752be30d8d3dddfe7dcb7a/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20220516%2F20220516111841.png",
+    "description": "エンジニアの鈴木（@zookeeper08）と藤井（@touyou_dev）です。今回は新卒3年目と2年目となる私たち2人が、今年入社した新卒向けに全職種向けエンジニアリング研修をリデザインした話について、前編・後編の二部にわたって紹介します。 後編となるこの記事では、研修を実際に実施した様子や、その際に工夫したこと・新卒の声などをご紹介します。 前編はこちら👇 若手エンジニア二人で新卒の全職種向けエンジニアリング研修をリデザインした話 設計編 前編の振り返り まずは前編の振り返りから。今までのエンジニアリング研修に対する違和感を言語化した上で、グッドパッチにとっては切っても切り離せないデザイ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/2021/08/24/102845": {
+    "title": "iOSでデザイントークンを使ったカラーを運用する方法を模索する - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/2f5e4c0a629f294a83e07086f90689462a25bb32/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20210806%2F20210806171014.png",
+    "description": "Design Division所属 iOSエンジニアの 藤井 です。弊社はあだ名文化があるため、実は高校時代から使い続けているハンドルネームでもある、「とうよう」というあだ名で普段は呼ばれています。 デザインに理解のあるエンジニアをこの世にもっと増やしていくという理想のもと、普段は日々デザイナーと一丸になっていいデザインをかたちにする仕事をしています。 今回は弊社社内のエンジニア勉強会で知ったデザイントークンという概念から、自分なりに考え研究してみた結果を紹介したいと思います。 デザイナーと共創しているiOSエンジニアの役に立てれば幸いです。 デザイントークンとは 今回考えたいこと カラーアセ…"
   }
 }

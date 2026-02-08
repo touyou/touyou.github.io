@@ -1,20 +1,36 @@
 {
   "posts": [
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/apple_creator_studio_why",
+      "pubDate": "2026-01-15"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/why_code_2025",
+      "pubDate": "2025-12-21"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/ai_productivity_2025",
+      "pubDate": "2025-12-10"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/engineer_goal_2025",
       "pubDate": "2025-12-02"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/flutterkaigi_2025",
-      "pubDate": "2025-11-15"
+      "pubDate": "2025-11-17"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/liquid_glass_and_app_intents",
       "pubDate": "2025-10-03"
     },
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/workation_2025_summer",
+      "pubDate": "2025-09-01"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/sparkle-design-02-plugin",
-      "pubDate": "2025-06-18"
+      "pubDate": "2025-06-23"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/how_to_become_a_hacker_in_genai",
@@ -26,23 +42,39 @@
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/flutter-color-emoji",
-      "pubDate": "2025-02-06"
+      "pubDate": "2025-02-07"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/figma-plugin-node-variable",
-      "pubDate": "2024-12-12"
+      "pubDate": "2024-12-11"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/flutter-native",
       "pubDate": "2024-12-02"
     },
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/try_swift_tokyo_2024",
+      "pubDate": "2024-04-11"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/sd_gp_engineer_202401",
+      "pubDate": "2024-02-27"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/ai_super_basic_in_2023",
-      "pubDate": "2023-12-02"
+      "pubDate": "2023-12-01"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/raindrop_with_ios17",
       "pubDate": "2023-09-20"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/workation2023_summer",
+      "pubDate": "2023-08-10"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/rotation_by_spreadsheet",
+      "pubDate": "2023-04-28"
     },
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/chatgpt-article-refine",
@@ -53,12 +85,28 @@
       "pubDate": "2022-12-05"
     },
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/compare_declarative_ui",
+      "pubDate": "2022-12-02"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/observableobject_as_hooks",
       "pubDate": "2022-08-16"
     },
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/goodpatch_member_desk_01",
+      "pubDate": "2022-06-24"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/dev_training_2022_02",
+      "pubDate": "2022-05-18"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/engineer_communication_elementary",
       "pubDate": "2021-12-02"
+    },
+    {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/2021/08/24/102845",
+      "pubDate": "2021-08-24"
     }
   ]
 }
