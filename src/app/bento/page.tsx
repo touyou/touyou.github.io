@@ -17,6 +17,10 @@ import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
 import { SuspenseSpeakerDeckSection } from "@/components/bento/SuspenseSpeakerDeckSection";
 import { SpeakerDeckSectionSkeleton } from "@/components/bento/SpeakerDeckSectionSkeleton";
 import { YouTubeSection } from "@/components/bento/YouTubeSection";
+import { XTimelineEmbed } from "@/components/bento/XTimelineEmbed";
+import { SuspenseMastodonSection } from "@/components/bento/SuspenseMastodonSection";
+import { MastodonSectionSkeleton } from "@/components/bento/MastodonSectionSkeleton";
+import { fetchMastodonPosts } from "@/lib/mastodon";
 
 export const metadata: Metadata = {
   title: "Bento | touyou.dev",
@@ -34,6 +38,7 @@ export default function BentoPage() {
   // Start fetching promises (don't await - pass to Suspense children)
   const blogPromise = fetchHatenaBlogPosts();
   const speakerDeckPromise = fetchSpeakerDeckTalks();
+  const mastodonPromise = fetchMastodonPosts(5);
 
   return (
     <main className="min-h-dvh">
@@ -138,6 +143,17 @@ export default function BentoPage() {
               title="Goodpatch Tech Blog"
             />
           </Suspense>
+
+          {/* SNS Embed Section - X and Mastodon side by side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <XTimelineEmbed />
+            <Suspense fallback={<MastodonSectionSkeleton />}>
+              <SuspenseMastodonSection
+                postsPromise={mastodonPromise}
+                title="Mastodon (Fedibird)"
+              />
+            </Suspense>
+          </div>
         </div>
 
         {/* Footer */}
