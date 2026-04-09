@@ -212,5 +212,10 @@
     "title": "iOSでデザイントークンを使ったカラーを運用する方法を模索する - Goodpatch Tech Blog",
     "image": "https://cdn.image.st-hatena.com/image/scale/2f5e4c0a629f294a83e07086f90689462a25bb32/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20210806%2F20210806171014.png",
     "description": "Design Division所属 iOSエンジニアの 藤井 です。弊社はあだ名文化があるため、実は高校時代から使い続けているハンドルネームでもある、「とうよう」というあだ名で普段は呼ばれています。 デザインに理解のあるエンジニアをこの世にもっと増やしていくという理想のもと、普段は日々デザイナーと一丸になっていいデザインをかたちにする仕事をしています。 今回は弊社社内のエンジニア勉強会で知ったデザイントークンという概念から、自分なりに考え研究してみた結果を紹介したいと思います。 デザイナーと共創しているiOSエンジニアの役に立てれば幸いです。 デザイントークンとは 今回考えたいこと カラーアセ…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/why_claude_code_2026": {
+    "title": "「それでも僕はコードを書く」自分がClaude Codeヘビーユーザーになった数ヶ月 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/32e14660f293be1e9dc1178f161fb5dda31fe850/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260407%2F20260407170213.png",
+    "description": "みなさんこんにちは！デザインエンジニアの藤井（touyou）です。 突然ですが、自分の社内でのAI活用に関する立場について紹介します。 かつては社内のAIタスクフォースに参加してあらゆる取り組みを推進したり、Tech Blogには機械学習の基礎を投稿してみたり、GitHub Copilotの新モデル利用申請を誰に頼まれるわけでもなくやり続けたり... そして今年に入るとAI活用の研修で講師の一人になったりもしていて、どちらかというと社内では「親AI派」というイメージを持たれていることが多いのかなぁとなんとなく思っています。 一方で年末に自分がAdvent Calendarとして出したこちらの記…"
   }
 }
