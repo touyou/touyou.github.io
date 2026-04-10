@@ -11,15 +11,21 @@ interface MastodonSectionProps {
   layout?: "sidebar" | "carousel";
 }
 
+// Format a date deterministically in Asia/Tokyo so server-side rendering
+// (Vercel is UTC) and client-side hydration produce identical strings.
+// Using toLocaleDateString here caused React hydration mismatch (#418)
+// because the server and browser disagreed on the rendered time zone.
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // Shift to JST (UTC+9) by adding 9 hours to the UTC timestamp, then read
+  // the UTC fields of the shifted date to avoid runtime time zone differences.
+  const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  const year = jst.getUTCFullYear();
+  const month = jst.getUTCMonth() + 1;
+  const day = jst.getUTCDate();
+  const hour = String(jst.getUTCHours()).padStart(2, "0");
+  const minute = String(jst.getUTCMinutes()).padStart(2, "0");
+  return `${year}年${month}月${day}日 ${hour}:${minute}`;
 }
 
 function decodeEntities(text: string): string {
