@@ -1,11 +1,28 @@
 // Mastodon/Fedibird API integration
 
+export interface MastodonAccount {
+  displayName: string;
+  acct: string; // e.g. "touyou@fedibird.com"
+  avatarStatic: string;
+  url: string;
+}
+
+export interface MastodonCard {
+  url: string;
+  title: string;
+  description: string;
+  image: string | null;
+  type: string; // "link" | "photo" | "video" | "rich"
+}
+
 export interface MastodonPost {
   id: string;
   url: string;
   content: string; // HTML content
   createdAt: string;
   reblog: boolean;
+  account: MastodonAccount;
+  card: MastodonCard | null;
   mediaAttachments: {
     type: string;
     url: string;
@@ -21,12 +38,29 @@ interface MastodonApiMediaAttachment {
   description?: string;
 }
 
+interface MastodonApiCard {
+  url: string;
+  title: string;
+  description: string;
+  image?: string | null;
+  type: string;
+}
+
+interface MastodonApiAccount {
+  display_name: string;
+  acct: string;
+  avatar_static: string;
+  url: string;
+}
+
 interface MastodonApiStatus {
   id: string;
   url: string;
   content: string;
   created_at: string;
   reblog: unknown;
+  account: MastodonApiAccount;
+  card?: MastodonApiCard | null;
   media_attachments?: MastodonApiMediaAttachment[];
 }
 
@@ -62,6 +96,23 @@ export async function fetchMastodonPosts(
       content: s.content,
       createdAt: s.created_at,
       reblog: !!s.reblog,
+      account: {
+        displayName: s.account.display_name || s.account.acct,
+        acct: s.account.acct.includes("@")
+          ? s.account.acct
+          : `${s.account.acct}@fedibird.com`,
+        avatarStatic: s.account.avatar_static,
+        url: s.account.url,
+      },
+      card: s.card
+        ? {
+            url: s.card.url,
+            title: s.card.title,
+            description: s.card.description,
+            image: s.card.image ?? null,
+            type: s.card.type,
+          }
+        : null,
       mediaAttachments: (s.media_attachments ?? []).map(
         (m) => ({
           type: m.type,

@@ -57,7 +57,7 @@ export function XTimelineEmbed() {
       </div>
       <Script
         src="https://platform.twitter.com/widgets.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={() => loadTwitterWidgets(containerRef.current)}
       />
     </section>
