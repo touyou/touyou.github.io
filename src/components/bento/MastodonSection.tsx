@@ -107,12 +107,7 @@ function MastodonCard({ post }: { post: MastodonPost }) {
   );
 
   return (
-    <a
-      href={post.url}
-      target="_blank"
-      rel="noreferrer"
-      className="block min-w-[300px] md:min-w-0 snap-start bg-[#1f2b3e] hover:bg-[#252e3d] rounded-xl border border-[#2e3a4e] transition-colors overflow-hidden"
-    >
+    <div className="min-w-[300px] md:min-w-0 snap-start bg-[#1f2b3e] rounded-xl border border-[#2e3a4e] overflow-hidden">
       <div className="p-4">
         {/* Account header */}
         <div className="flex items-center gap-3 mb-3">
@@ -167,12 +162,17 @@ function MastodonCard({ post }: { post: MastodonPost }) {
         {/* OGP link preview */}
         {post.card && <LinkPreviewCard card={post.card} />}
 
-        {/* Timestamp */}
-        <p className="text-[#606984] text-xs mt-3">
+        {/* Timestamp — link to original post on Mastodon */}
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noreferrer"
+          className="block text-[#606984] hover:text-[#9baec8] text-xs mt-3 transition-colors"
+        >
           {formatDate(post.createdAt)}
-        </p>
+        </a>
       </div>
-    </a>
+    </div>
   );
 }
 
