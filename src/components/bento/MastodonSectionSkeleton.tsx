@@ -1,49 +1,53 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-function MastodonCardSkeleton() {
+function MastodonCardSkeleton({ compact }: { compact?: boolean }) {
   return (
-    <div className="min-w-[300px] md:min-w-0 bg-[#1f2b3e] rounded-xl border border-[#2e3a4e] overflow-hidden">
-      <div className="p-4 flex flex-col gap-3">
-        {/* Account header skeleton */}
+    <div className={compact
+      ? "bg-white overflow-hidden"
+      : "min-w-[300px] bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden"
+    }>
+      <div className={`flex flex-col gap-3 ${compact ? "p-3" : "p-4"}`}>
         <div className="flex items-center gap-3">
-          <Skeleton className="w-10 h-10 rounded-full flex-shrink-0 bg-[#2e3a4e]" />
+          <Skeleton className={`rounded-full flex-shrink-0 ${compact ? "w-8 h-8" : "w-10 h-10"}`} />
           <div className="flex flex-col gap-1.5 flex-1">
-            <Skeleton className="h-3.5 w-28 bg-[#2e3a4e]" />
-            <Skeleton className="h-3 w-36 bg-[#2e3a4e]" />
+            <Skeleton className="h-3.5 w-28" />
+            <Skeleton className="h-3 w-36" />
           </div>
         </div>
-        {/* Post content skeleton */}
         <div className="flex flex-col gap-2">
-          <Skeleton className="h-3.5 w-full bg-[#2e3a4e]" />
-          <Skeleton className="h-3.5 w-5/6 bg-[#2e3a4e]" />
-          <Skeleton className="h-3.5 w-4/6 bg-[#2e3a4e]" />
+          <Skeleton className="h-3.5 w-full" />
+          <Skeleton className="h-3.5 w-5/6" />
+          <Skeleton className="h-3.5 w-4/6" />
         </div>
-        {/* Timestamp skeleton */}
-        <Skeleton className="h-3 w-24 bg-[#2e3a4e]" />
+        <Skeleton className="h-3 w-24" />
       </div>
     </div>
   );
 }
 
-export function MastodonSectionSkeleton() {
+export function MastodonSectionSkeleton({ layout = "carousel" }: { layout?: "sidebar" | "carousel" }) {
+  if (layout === "sidebar") {
+    return (
+      <div className="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden flex flex-col h-full">
+        <div className="px-4 py-3 border-b border-gray-100">
+          <Skeleton className="h-4 w-28" />
+        </div>
+        <div className="flex-1 flex flex-col divide-y divide-gray-100">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <MastodonCardSkeleton key={index} compact />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section>
-      {/* Section Header Skeleton */}
-      <div className="flex items-center gap-2 px-1 mb-3">
-        <Skeleton className="h-4 w-4 rounded bg-gray-200" />
-        <Skeleton className="h-4 w-28 bg-gray-200" />
+      <div className="px-1 mb-3">
+        <Skeleton className="h-4 w-28" />
       </div>
-
-      {/* Desktop: stacked column */}
-      <div className="hidden md:flex flex-col gap-3">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <MastodonCardSkeleton key={index} />
-        ))}
-      </div>
-
-      {/* Mobile: horizontal scroll */}
-      <div className="md:hidden -mx-4">
-        <div className="flex gap-3 overflow-x-auto pb-4 px-4 snap-x snap-mandatory scroll-pl-4 scroll-pr-4 scrollbar-hide">
+      <div className="-mx-4">
+        <div className="flex gap-3 overflow-x-auto pb-4 px-4 no-scrollbar">
           {Array.from({ length: 3 }).map((_, index) => (
             <MastodonCardSkeleton key={index} />
           ))}
