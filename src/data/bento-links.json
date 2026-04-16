@@ -245,6 +245,11 @@
           "url": "https://goodpatch.com/work/jt_habee",
           "title": "Habee｜Work｜Goodpatch グッドパッチ",
           "cardType": "ogp"
+        },
+        {
+          "url": "https://github.com/goodpatch/sparkle-design",
+          "title": "GitHub - goodpatch/sparkle-design",
+          "cardType": "ogp"
         }
       ]
     },
