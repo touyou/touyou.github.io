@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { MastodonPost, MastodonCard as MastodonCardType } from "@/lib/mastodon";
 import { fetchMastodonPostsClient } from "@/lib/mastodon-client";
 import { MastodonSectionSkeleton } from "./MastodonSectionSkeleton";
+import { MastodonEmptyState } from "./MastodonEmptyState";
 
 interface MastodonSectionProps {
   posts: MastodonPost[];
@@ -270,6 +271,7 @@ export function MastodonSection({
   const [posts, setPosts] = useState(initialPosts);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [reloadFailed, setReloadFailed] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const scrollRestoreRef = useRef<number | null>(null);
 
@@ -311,6 +313,25 @@ export function MastodonSection({
     };
   }, [posts]);
 
+  const reload = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
+    setReloadFailed(false);
+    try {
+      const fresh = await fetchMastodonPostsClient(10);
+      if (fresh.length === 0) {
+        setReloadFailed(true);
+      } else {
+        setPosts(fresh);
+        setHasMore(true);
+      }
+    } catch {
+      setReloadFailed(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading]);
+
   const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
     setLoading(true);
@@ -339,7 +360,35 @@ export function MastodonSection({
   }
 
   if (posts.length === 0) {
-    return null;
+    if (layout === "sidebar") {
+      return (
+        <div className="bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden flex flex-col h-full">
+          <div className="px-4 py-3 border-b border-gray-100">
+            <MastodonHeader title={title} />
+          </div>
+          <div className="flex-1 overflow-y-auto overscroll-contain no-scrollbar">
+            <MastodonEmptyState
+              onReload={reload}
+              loading={loading}
+              failed={reloadFailed}
+              compact
+            />
+          </div>
+        </div>
+      );
+    }
+    return (
+      <section>
+        <div className="px-1 mb-3">
+          <MastodonHeader title={title} />
+        </div>
+        <MastodonEmptyState
+          onReload={reload}
+          loading={loading}
+          failed={reloadFailed}
+        />
+      </section>
+    );
   }
 
   if (layout === "sidebar") {
