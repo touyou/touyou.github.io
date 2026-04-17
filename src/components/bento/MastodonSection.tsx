@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useLayoutEffect } from "react";
+import { useState, useCallback, useRef, useLayoutEffect, useEffect } from "react";
 import Image from "next/image";
 import type { MastodonPost, MastodonCard as MastodonCardType } from "@/lib/mastodon";
 import { fetchMastodonPostsClient } from "@/lib/mastodon-client";
@@ -265,11 +265,16 @@ export function MastodonSection({
   title = "Mastodon",
   layout = "carousel",
 }: MastodonSectionProps) {
+  const [mounted, setMounted] = useState(false);
   const [posts, setPosts] = useState(initialPosts);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
   const scrollRestoreRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Restore scroll position after posts are appended.
   // Uses ResizeObserver to keep restoring while images load and scrollWidth
@@ -328,7 +333,7 @@ export function MastodonSection({
     }
   }, [loading, hasMore, posts, layout]);
 
-  if (posts.length === 0) {
+  if (!mounted || posts.length === 0) {
     return null;
   }
 
