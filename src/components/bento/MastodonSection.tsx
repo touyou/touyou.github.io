@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useCallback, useRef, useLayoutEffect, useEffect } from "react";
+import { useState, useCallback, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import type { MastodonPost, MastodonCard as MastodonCardType } from "@/lib/mastodon";
 import { fetchMastodonPostsClient } from "@/lib/mastodon-client";
-import { MastodonSectionSkeleton } from "./MastodonSectionSkeleton";
 import { MastodonEmptyState } from "./MastodonEmptyState";
 
 interface MastodonSectionProps {
@@ -267,17 +266,12 @@ export function MastodonSection({
   title = "Mastodon",
   layout = "carousel",
 }: MastodonSectionProps) {
-  const [mounted, setMounted] = useState(false);
   const [posts, setPosts] = useState(initialPosts);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [reloadFailed, setReloadFailed] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const scrollRestoreRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Restore scroll position after posts are appended.
   // Uses ResizeObserver to keep restoring while images load and scrollWidth
@@ -349,15 +343,13 @@ export function MastodonSection({
         setPosts((prev) => [...prev, ...newPosts]);
       }
     } catch {
-      setHasMore(false);
+      // Transient network error — keep hasMore=true so the user can retry
+      // via the same button. A hard `hasMore=false` here would silently
+      // hide the affordance after one flaky Fedibird response.
     } finally {
       setLoading(false);
     }
   }, [loading, hasMore, posts, layout]);
-
-  if (!mounted) {
-    return <MastodonSectionSkeleton layout={layout} />;
-  }
 
   if (posts.length === 0) {
     if (layout === "sidebar") {

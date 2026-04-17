@@ -1,5 +1,6 @@
 "use client";
 
+import { notFound } from "next/navigation";
 import { MastodonEmptyState } from "@/components/bento/MastodonEmptyState";
 
 // Dev-only visual preview of Mastodon section states.
@@ -54,6 +55,10 @@ function Cell({
 const noop = () => {};
 
 export default function MastodonStatesPreview() {
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
+
   return (
     <main className="min-h-dvh bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto flex flex-col gap-8">
