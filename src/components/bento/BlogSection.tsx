@@ -12,11 +12,12 @@ interface BlogSectionProps {
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  // Shift to JST (UTC+9) to produce identical strings on server (UTC) and client.
+  const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  const year = jst.getUTCFullYear();
+  const month = jst.getUTCMonth() + 1;
+  const day = jst.getUTCDate();
+  return `${year}年${month}月${day}日`;
 }
 
 function BlogCard({ post }: { post: BlogPost }) {
