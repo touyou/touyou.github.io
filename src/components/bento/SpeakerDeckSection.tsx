@@ -12,39 +12,12 @@ interface SpeakerDeckSectionProps {
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function SpeakerDeckEmbed({ talk }: { talk: SpeakerDeckTalk }) {
-  if (!talk.embedUrl) return null;
-
-  return (
-    <div className={`${cardBase} group`}>
-      <div className="relative w-full aspect-[560/315] bg-gray-100">
-        <iframe
-          src={talk.embedUrl}
-          title={talk.title}
-          allowFullScreen
-          className="absolute inset-0 w-full h-full border-0"
-        />
-      </div>
-      <a
-        href={talk.url}
-        target="_blank"
-        rel="noreferrer"
-        className="block p-4 hover:bg-gray-50 transition-colors"
-      >
-        <p className="font-medium text-gray-900 text-sm line-clamp-2">
-          {talk.title}
-        </p>
-        <p className="text-gray-400 text-xs mt-2">{formatDate(talk.pubDate)}</p>
-      </a>
-    </div>
-  );
+  // Shift to JST (UTC+9) to produce identical strings on server (UTC) and client.
+  const jst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  const year = jst.getUTCFullYear();
+  const month = jst.getUTCMonth() + 1;
+  const day = jst.getUTCDate();
+  return `${year}年${month}月${day}日`;
 }
 
 function SpeakerDeckCard({ talk }: { talk: SpeakerDeckTalk }) {
@@ -144,13 +117,9 @@ export function SpeakerDeckSection({
 
       {/* Desktop Grid View */}
       <div className="hidden md:grid grid-cols-2 gap-3">
-        {visibleTalks.map((talk, index) =>
-          talk.embedUrl ? (
-            <SpeakerDeckEmbed key={index} talk={talk} />
-          ) : (
-            <SpeakerDeckCard key={index} talk={talk} />
-          )
-        )}
+        {visibleTalks.map((talk, index) => (
+          <SpeakerDeckCard key={index} talk={talk} />
+        ))}
       </div>
 
       {/* Mobile Horizontal Scroll Carousel */}

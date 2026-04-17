@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-function MastodonCardSkeleton({ compact }: { compact?: boolean }) {
+export function MastodonCardSkeleton({ compact }: { compact?: boolean }) {
   return (
     <div className={compact
       ? "bg-white overflow-hidden"
-      : "min-w-[300px] bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden"
+      : "min-w-[300px] min-h-[240px] bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden"
     }>
       <div className={`flex flex-col gap-3 ${compact ? "p-3" : "p-4"}`}>
         <div className="flex items-center gap-3">
