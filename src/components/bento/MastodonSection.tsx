@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useLayoutEffect, useEffect } from "react
 import Image from "next/image";
 import type { MastodonPost, MastodonCard as MastodonCardType } from "@/lib/mastodon";
 import { fetchMastodonPostsClient } from "@/lib/mastodon-client";
+import { MastodonSectionSkeleton } from "./MastodonSectionSkeleton";
 
 interface MastodonSectionProps {
   posts: MastodonPost[];
@@ -333,7 +334,11 @@ export function MastodonSection({
     }
   }, [loading, hasMore, posts, layout]);
 
-  if (!mounted || posts.length === 0) {
+  if (!mounted) {
+    return <MastodonSectionSkeleton layout={layout} />;
+  }
+
+  if (posts.length === 0) {
     return null;
   }
 
