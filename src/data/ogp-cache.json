@@ -217,5 +217,10 @@
     "title": "「それでも僕はコードを書く」自分がClaude Codeヘビーユーザーになった数ヶ月 - Goodpatch Tech Blog",
     "image": "https://cdn.image.st-hatena.com/image/scale/32e14660f293be1e9dc1178f161fb5dda31fe850/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260407%2F20260407170213.png",
     "description": "みなさんこんにちは！デザインエンジニアの藤井（touyou）です。 突然ですが、自分の社内でのAI活用に関する立場について紹介します。 かつては社内のAIタスクフォースに参加してあらゆる取り組みを推進したり、Tech Blogには機械学習の基礎を投稿してみたり、GitHub Copilotの新モデル利用申請を誰に頼まれるわけでもなくやり続けたり... そして今年に入るとAI活用の研修で講師の一人になったりもしていて、どちらかというと社内では「親AI派」というイメージを持たれていることが多いのかなぁとなんとなく思っています。 一方で年末に自分がAdvent Calendarとして出したこちらの記…"
+  },
+  "https://github.com/goodpatch/sparkle-design": {
+    "title": "GitHub - goodpatch/sparkle-design: Sparkle DesignのReact実装",
+    "image": "https://opengraph.githubassets.com/27c6ef67daa4ded217126f611bff383543eafa55e74b8d2b4430ea17bd544fad/goodpatch/sparkle-design",
+    "description": "Sparkle DesignのReact実装. Contribute to goodpatch/sparkle-design development by creating an account on GitHub."
   }
 }
