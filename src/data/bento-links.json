@@ -15,14 +15,9 @@
       "title": "YouTube",
       "videos": [
         {
-          "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw",
-          "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
-          "videoId": "4wC7tlLHyYw"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE",
-          "title": "UXデザイナー・エンジニアが考察するApple Vision Pro",
-          "videoId": "wJpIZr7sqtE"
+          "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
+          "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
+          "videoId": "mH51h_BoG4c"
         },
         {
           "url": "https://www.youtube.com/watch?v=07LIxk1ow1Q",
@@ -30,9 +25,14 @@
           "videoId": "07LIxk1ow1Q"
         },
         {
-          "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
-          "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
-          "videoId": "mH51h_BoG4c"
+          "url": "https://www.youtube.com/watch?v=wJpIZr7sqtE",
+          "title": "UXデザイナー・エンジニアが考察するApple Vision Pro",
+          "videoId": "wJpIZr7sqtE"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=4wC7tlLHyYw",
+          "title": "AWS Dev Day Online Japan C-5 : AWSサーバレスが支える劇団ノーミーツのオンライン劇場",
+          "videoId": "4wC7tlLHyYw"
         }
       ]
     }
@@ -303,6 +303,11 @@
         {
           "url": "https://goodpatch.com/blog/2025-05-habee",
           "title": "Habeeインタビュー",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://goodpatch.com/blog/2026-04-ai_component_sparkle_design",
+          "title": "AI時代のコンポーネントライブラリ制作──Sparkle Design for Reactで考えたこと",
           "cardType": "ogp"
         }
       ]
