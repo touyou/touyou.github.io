@@ -249,7 +249,8 @@
         {
           "url": "https://github.com/goodpatch/sparkle-design",
           "title": "GitHub - goodpatch/sparkle-design",
-          "cardType": "ogp"
+          "cardType": "ogp",
+          "thumbnailOverride": "/images/ogp/sparkle-design.png"
         }
       ]
     },

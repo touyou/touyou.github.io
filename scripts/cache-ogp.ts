@@ -118,6 +118,15 @@ async function fetchOGP(url: string): Promise<OGPData> {
 }
 
 async function main() {
+  // CLI args for manual/forced refresh:
+  //   pnpm cache:ogp                      → refresh every URL (default, safe merge)
+  //   pnpm cache:ogp <url> [url...]       → refresh only the given URLs
+  //   pnpm cache:ogp --force <url>        → also overwrite even if scrape is empty
+  //                                         (use to reset a corrupted entry)
+  const args = process.argv.slice(2);
+  const force = args.includes("--force");
+  const urlArgs = args.filter((arg) => arg.startsWith("http"));
+
   const bentoDataPath = path.join(process.cwd(), "src/data/bento-links.json");
   const blogPostsPath = path.join(
     process.cwd(),
@@ -150,10 +159,16 @@ async function main() {
     ogpUrls.push(...blogUrls);
   }
 
-  // Remove duplicates
-  const uniqueUrls = [...new Set(ogpUrls)];
+  // When specific URLs are passed on the CLI, refresh only those; otherwise
+  // refresh every URL referenced by the site.
+  const uniqueUrls =
+    urlArgs.length > 0 ? [...new Set(urlArgs)] : [...new Set(ogpUrls)];
 
-  console.log(`Fetching OGP data for ${uniqueUrls.length} URLs...`);
+  console.log(
+    `Fetching OGP data for ${uniqueUrls.length} URL(s)${
+      urlArgs.length > 0 ? " (targeted)" : ""
+    }${force ? " [--force overwrite]" : ""}...`
+  );
 
   const cache: Record<string, OGPData> = { ...existingCache };
 
@@ -164,8 +179,9 @@ async function main() {
 
     const ogpData = await fetchOGP(url);
 
-    // Only update if we got valid data or entry doesn't exist
-    if (ogpData.title || ogpData.image || !cache[url]) {
+    // Update when forced, when we got valid data, or when the entry is new.
+    // Without --force, an empty scrape never overwrites a good cached entry.
+    if (force || ogpData.title || ogpData.image || !cache[url]) {
       cache[url] = ogpData;
     }
 

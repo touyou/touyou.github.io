@@ -220,7 +220,12 @@
   },
   "https://github.com/goodpatch/sparkle-design": {
     "title": "GitHub - goodpatch/sparkle-design: Sparkle DesignのReact実装",
-    "image": "https://opengraph.githubassets.com/9c0d4deda3a045363a9204da94f294f5f6103e0b62e375cd6c13e6692dbc090e/goodpatch/sparkle-design",
+    "image": "https://opengraph.githubassets.com/4f43dd1772daeffa7f31fbbe7b3808f369ca41ab8d66c4fbfc26c8c704e408e3/goodpatch/sparkle-design",
     "description": "Sparkle DesignのReact実装. Contribute to goodpatch/sparkle-design development by creating an account on GitHub."
+  },
+  "https://goodpatch.com/blog/2026-04-ai_component_sparkle_design": {
+    "title": "AI時代のコンポーネントライブラリ制作──Sparkle Design for Reactで考えたこと｜Goodpatch Blog グッドパッチブログ",
+    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2026/04/vol.5.png?fit=1920%2C1080&ssl=1",
+    "description": "先日ついにガイドラインサイトとReactコンポーネントライブラリを公開した「Sparkle Design」。グッドパッチ公式としては、上場以来初となるOSS（オープンソースソフトウェア）を実現する中で、考え続けたSparkle Des..."
   }
 }
