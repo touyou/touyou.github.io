@@ -68,10 +68,42 @@ function isYouTubeUrl(url: string): boolean {
   return url.includes("youtube.com") || url.includes("youtu.be");
 }
 
+// OGP image hosts whose URLs rotate or expire (e.g. GitHub's hash-based
+// opengraph URLs change whenever the repo updates, so a previously cached URL
+// 404s). These must NOT be served from the cache-first path — freezing a stale
+// URL is exactly what breaks the thumbnail. Always re-fetch a fresh URL.
+function isVolatileImageHost(imageUrl: string | null): boolean {
+  if (!imageUrl) return false;
+  return imageUrl.includes("opengraph.githubassets.com");
+}
+
 export async function fetchOGP(url: string): Promise<OGPData> {
   // Check runtime cache first
   if (ogpCache.has(url)) {
     return ogpCache.get(url)!;
+  }
+
+  // Cache-first for non-YouTube URLs: if the pre-built cache already has a
+  // usable image, return it without hitting the live scrape. This is the main
+  // fix for intermittent broken thumbnails — rendering no longer depends on an
+  // external WordPress/OGP scrape succeeding on every request. The daily
+  // update-cache workflow (or a manual run, see scripts/cache-ogp.ts) keeps
+  // this file fresh, so staleness is bounded.
+  //
+  // YouTube is intentionally excluded: its thumbnail URL is built
+  // deterministically from the video ID via oEmbed below, so we let it fall
+  // through rather than freeze it here. An entry with `image: null` (a past
+  // failure) also falls through, giving the live scrape a chance to self-heal.
+  // Volatile hosts (GitHub opengraph, whose hash rotates) are excluded too:
+  // their cached URL goes stale, so we always re-fetch a fresh one.
+  const cached = ogpCacheFile[url];
+  if (
+    !isYouTubeUrl(url) &&
+    cached?.image &&
+    !isVolatileImageHost(cached.image)
+  ) {
+    ogpCache.set(url, cached);
+    return cached;
   }
 
   // Use YouTube oEmbed API for YouTube URLs
