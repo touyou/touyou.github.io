@@ -15,6 +15,11 @@
       "title": "YouTube",
       "videos": [
         {
+          "url": "https://www.youtube.com/watch?v=3v7OPdfb2R8",
+          "title": "ノーコードツール・Studioでつくった「佐久間宣行事務所オフィシャルサイト」デザインと開発の裏側を聞いた｜CGWORLD Web Design Week",
+          "videoId": "3v7OPdfb2R8"
+        },
+        {
           "url": "https://www.youtube.com/watch?v=mH51h_BoG4c",
           "title": "Add-to-appで真のLiquid Glass対応を目指してみた",
           "videoId": "mH51h_BoG4c"
