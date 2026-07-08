@@ -227,5 +227,20 @@
     "title": "AI時代のコンポーネントライブラリ制作──Sparkle Design for Reactで考えたこと｜Goodpatch Blog グッドパッチブログ",
     "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2026/04/vol.5.png?fit=1920%2C1080&ssl=1",
     "description": "先日ついにガイドラインサイトとReactコンポーネントライブラリを公開した「Sparkle Design」。グッドパッチ公式としては、上場以来初となるOSS（オープンソースソフトウェア）を実現する中で、考え続けたSparkle Des..."
+  },
+  "https://github.com/touyou/flutter_intents": {
+    "title": "GitHub - touyou/flutter_intents: App Intents and AppFunctions framework for Flutter",
+    "image": "https://opengraph.githubassets.com/3ff76d69791cc7b686c111903be603a71ed25430da2cc599559d715b2e24e74e/touyou/flutter_intents",
+    "description": "App Intents and AppFunctions framework for Flutter - touyou/flutter_intents"
+  },
+  "https://github.com/touyou/IntentTodo": {
+    "title": "GitHub - touyou/IntentTodo: App Intents中心設計で作るToDoアプリ",
+    "image": "https://opengraph.githubassets.com/91ba63b66ab4db022ea8712454ffbad92452e48546f5bd25fa4a082ace089cb8/touyou/IntentTodo",
+    "description": "App Intents中心設計で作るToDoアプリ. Contribute to touyou/IntentTodo development by creating an account on GitHub."
+  },
+  "https://github.com/touyou/skills": {
+    "title": "GitHub - touyou/skills: touyou's personal collection of Claude Code skills (Agent Skills marketplace)",
+    "image": "https://opengraph.githubassets.com/772297d37bc9166adedb7b7545176c5f7c9c0744f73f8be954e89107237f8e8b/touyou/skills",
+    "description": "touyou's personal collection of Claude Code skills (Agent Skills marketplace) - touyou/skills"
   }
 }
