@@ -227,6 +227,16 @@
       "title": "これまでやってきたこと",
       "links": [
         {
+          "url": "https://github.com/touyou/NeumorphismTab",
+          "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://za.theater/",
+          "title": "オンライン劇場 ZA",
+          "cardType": "ogp"
+        },
+        {
           "url": "https://goodpatch.com/work/suntory",
           "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ",
           "cardType": "ogp"
@@ -237,8 +247,8 @@
           "cardType": "ogp"
         },
         {
-          "url": "https://za.theater/",
-          "title": "オンライン劇場 ZA",
+          "url": "https://goodpatch.com/work/jt_habee",
+          "title": "Habee｜Work｜Goodpatch グッドパッチ",
           "cardType": "ogp"
         },
         {
@@ -247,15 +257,25 @@
           "cardType": "ogp"
         },
         {
-          "url": "https://goodpatch.com/work/jt_habee",
-          "title": "Habee｜Work｜Goodpatch グッドパッチ",
-          "cardType": "ogp"
-        },
-        {
           "url": "https://github.com/goodpatch/sparkle-design",
           "title": "GitHub - goodpatch/sparkle-design",
           "cardType": "ogp",
           "thumbnailOverride": "/images/ogp/sparkle-design.png"
+        },
+        {
+          "url": "https://github.com/touyou/flutter_intents",
+          "title": "GitHub - touyou/flutter_intents: App Intents and AppFunctions framework for Flutter",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://github.com/touyou/IntentTodo",
+          "title": "GitHub - touyou/IntentTodo: App Intents中心設計で作るToDoアプリ",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://github.com/touyou/skills",
+          "title": "GitHub - touyou/skills: touyou's personal collection of Claude Code skills (Agent Skills marketplace)",
+          "cardType": "ogp"
         }
       ]
     },
@@ -294,11 +314,6 @@
         {
           "url": "https://www.wantedly.com/companies/lifeistech/post_articles/109109",
           "title": "【メンターインタビュー全文 Vol.11】常にここで成長して、還元し続けたい",
-          "cardType": "ogp"
-        },
-        {
-          "url": "https://github.com/touyou/NeumorphismTab",
-          "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
           "cardType": "ogp"
         },
         {
