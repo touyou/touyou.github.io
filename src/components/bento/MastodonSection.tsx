@@ -148,12 +148,46 @@ function LinkPreviewCard({ card }: { card: MastodonCardType }) {
   );
 }
 
+function MediaThumbnail({
+  media,
+}: {
+  media: MastodonPost["mediaAttachments"][number];
+}) {
+  const isVideo = media.type === "video" || media.type === "gifv";
+  return (
+    <div className="relative w-full aspect-video bg-gray-100">
+      <Image
+        src={media.previewUrl}
+        alt={media.description ?? ""}
+        fill
+        className="object-cover"
+        unoptimized
+      />
+      {isVideo && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div className="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center">
+            <svg
+              className="w-5 h-5 text-white ml-0.5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MastodonPostCard({ post, compact, "data-post": dataPost }: { post: MastodonPost; compact?: boolean; "data-post"?: boolean }) {
   const { segments, plainText } = parseContent(post.content);
-  const imageAttachments = post.mediaAttachments.filter(
-    (m) => m.type === "image"
+  const thumbnailAttachments = post.mediaAttachments.filter(
+    (m) =>
+      (m.type === "image" || m.type === "video" || m.type === "gifv") &&
+      m.previewUrl
   );
-  const hasBottomContent = imageAttachments.length > 0 || post.card;
+  const hasBottomContent = thumbnailAttachments.length > 0 || post.card;
 
   return (
     <div
@@ -198,22 +232,14 @@ function MastodonPostCard({ post, compact, "data-post": dataPost }: { post: Mast
         {/* Bottom section: media, OGP, timestamp */}
         <div className={compact ? "mt-2" : "mt-auto pt-2"}>
           {/* Media attachments */}
-          {imageAttachments.length > 0 && (
+          {thumbnailAttachments.length > 0 && (
             <div
               className={`grid gap-1 rounded-lg overflow-hidden ${
-                imageAttachments.length === 1 ? "grid-cols-1" : "grid-cols-2"
+                thumbnailAttachments.length === 1 ? "grid-cols-1" : "grid-cols-2"
               }`}
             >
-              {imageAttachments.slice(0, 4).map((img, i) => (
-                <div key={i} className="relative w-full aspect-video bg-gray-100">
-                  <Image
-                    src={img.previewUrl}
-                    alt={img.description ?? ""}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
-                </div>
+              {thumbnailAttachments.slice(0, 4).map((media, i) => (
+                <MediaThumbnail key={i} media={media} />
               ))}
             </div>
           )}
