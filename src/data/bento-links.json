@@ -237,11 +237,6 @@
           "cardType": "ogp"
         },
         {
-          "url": "https://graphica.touyou.dev",
-          "title": "GRAPHICA - ことばから生まれるジェネラティブアート",
-          "cardType": "ogp"
-        },
-        {
           "url": "https://goodpatch.com/work/suntory",
           "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ",
           "cardType": "ogp"
@@ -280,6 +275,11 @@
         {
           "url": "https://github.com/touyou/skills",
           "title": "GitHub - touyou/skills: touyou's personal collection of Claude Code skills (Agent Skills marketplace)",
+          "cardType": "ogp"
+        },
+        {
+          "url": "https://graphica.touyou.dev",
+          "title": "GRAPHICA - ことばから生まれるジェネラティブアート",
           "cardType": "ogp"
         }
       ]
