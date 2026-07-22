@@ -281,6 +281,11 @@
           "url": "https://graphica.touyou.dev",
           "title": "GRAPHICA - ことばから生まれるジェネラティブアート",
           "cardType": "ogp"
+        },
+        {
+          "url": "https://white-box.work",
+          "title": "WHITEBOX — DX・AI活用の羅針盤",
+          "cardType": "ogp"
         }
       ]
     },
