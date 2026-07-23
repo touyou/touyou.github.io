@@ -154,7 +154,7 @@ function MediaThumbnail({
   media: MastodonPost["mediaAttachments"][number];
 }) {
   const isVideo = media.type === "video" || media.type === "gifv";
-  return (
+  const thumbnail = (
     <div className="relative w-full aspect-video bg-gray-100">
       <Image
         src={media.previewUrl}
@@ -178,6 +178,21 @@ function MediaThumbnail({
       )}
     </div>
   );
+
+  if (isVideo && media.url) {
+    return (
+      <a
+        href={media.url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={media.description ?? "動画を再生"}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {thumbnail}
+      </a>
+    );
+  }
+  return thumbnail;
 }
 
 function MastodonPostCard({ post, compact, "data-post": dataPost }: { post: MastodonPost; compact?: boolean; "data-post"?: boolean }) {
