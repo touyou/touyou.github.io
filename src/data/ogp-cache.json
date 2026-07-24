@@ -240,12 +240,17 @@
   },
   "https://github.com/touyou/skills": {
     "title": "GitHub - touyou/skills: touyou's personal collection of Claude Code skills (Agent Skills marketplace)",
-    "image": "https://opengraph.githubassets.com/b4066b3290a09c199cdcd54ec19e4c57f195713c5966e98fa2cd3bc34cf09e78/touyou/skills",
+    "image": "https://opengraph.githubassets.com/3e9e9d7e6c41349dccc07fd5c81548b14ae8078d08f671c01afe14b0bd45847b/touyou/skills",
     "description": "touyou's personal collection of Claude Code skills (Agent Skills marketplace) - touyou/skills"
   },
   "https://graphica.touyou.dev": {
     "title": "GRAPHICA — ことばから生まれるジェネラティブアート",
     "image": "https://graphica.touyou.dev/opengraph-image.png",
     "description": "コードは書かない。ことばを置くだけ。あなたの一文を AI が WebGL のジェネラティブアートに変換して共有するギャラリー。"
+  },
+  "https://white-box.work": {
+    "title": "WHITEBOX — DX・AI活用の羅針盤",
+    "image": "https://white-box.work/wp-content/themes/WHITEBOX_LP_Theme/img/WhiteBox_Logo.png",
+    "description": "WHITEBOXは散在する現場資料をAIが構造化し、業務プロセスとROIを可視化。 AIが導く5つの成果物が「何を・なぜ・どの順で変えるべきか」を指し示す―― WHITEBOXは、企業のDX・AI活用の羅針盤です。"
   }
 }
