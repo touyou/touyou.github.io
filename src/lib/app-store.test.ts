@@ -41,6 +41,7 @@ describe("fetchAppStoreApps", () => {
         iconUrl: "https://example.com/icon1.png",
         version: "2.0.0",
         releaseDate: "2026-07-06T18:49:14Z",
+        platform: "ios",
       },
     ]);
   });

@@ -31,6 +31,10 @@ export function AppStoreSection({ apps, title }: AppStoreSectionProps) {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               unoptimized
             />
+            {/* Same app can ship on both stores (e.g. チェケラ), so label the platform */}
+            <span className="absolute top-1.5 right-1.5 rounded-full bg-black/50 backdrop-blur-sm px-1.5 py-0.5 text-[10px] font-medium text-white">
+              {app.platform === "android" ? "Android" : "iOS"}
+            </span>
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-2 px-2">
               <p className="text-white text-xs font-medium text-center line-clamp-2 drop-shadow">
                 {app.name}

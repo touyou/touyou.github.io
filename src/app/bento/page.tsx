@@ -6,6 +6,7 @@ import type { BentoData, BentoLink } from "@/lib/bento-types";
 import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
 import { fetchSpeakerDeckTalks } from "@/lib/speakerdeck";
 import { fetchAppStoreApps } from "@/lib/app-store";
+import { fetchGooglePlayApps } from "@/lib/google-play";
 import { ImageGallery } from "@/components/bento/ImageGallery";
 import { SocialCard } from "@/components/bento/SocialCard";
 import { SimpleLinkCard } from "@/components/bento/SimpleLinkCard";
@@ -41,7 +42,15 @@ export default function BentoPage() {
   const blogPromise = fetchHatenaBlogPosts();
   const speakerDeckPromise = fetchSpeakerDeckTalks();
   const mastodonPromise = fetchMastodonPosts(10);
-  const appStorePromise = fetchAppStoreApps();
+  // App Store + Google Play merged into one grid, newest release first
+  const appStorePromise = Promise.all([
+    fetchAppStoreApps(),
+    fetchGooglePlayApps(),
+  ]).then(([iosApps, androidApps]) =>
+    [...iosApps, ...androidApps].sort((a, b) =>
+      b.releaseDate.localeCompare(a.releaseDate)
+    )
+  );
 
   return (
     <main className="min-h-dvh">
