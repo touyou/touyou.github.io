@@ -6,6 +6,7 @@ export interface AppStoreApp {
   iconUrl: string;
   version: string;
   releaseDate: string;
+  platform: "ios" | "android";
 }
 
 const APPLE_DEVELOPER_ID = "1089595725";
@@ -52,6 +53,7 @@ export async function fetchAppStoreApps(): Promise<AppStoreApp[]> {
         iconUrl: r.artworkUrl512 ?? "",
         version: r.version ?? "",
         releaseDate: r.currentVersionReleaseDate ?? "",
+        platform: "ios" as const,
       }))
       .filter((app) => app.name && app.url && app.iconUrl)
       .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
