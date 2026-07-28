@@ -220,7 +220,7 @@
   },
   "https://github.com/goodpatch/sparkle-design": {
     "title": "GitHub - goodpatch/sparkle-design: Sparkle DesignのReact実装",
-    "image": "https://opengraph.githubassets.com/b89a707adcb8cd39f599fabb1c035dbcb40758eb7a5c04dd338e2d8195fd8382/goodpatch/sparkle-design",
+    "image": "https://opengraph.githubassets.com/6e2574cece84172a26d4b8110be9f1080be9899ec737f12b3047f8f463acf307/goodpatch/sparkle-design",
     "description": "Sparkle DesignのReact実装. Contribute to goodpatch/sparkle-design development by creating an account on GitHub."
   },
   "https://goodpatch.com/blog/2026-04-ai_component_sparkle_design": {
@@ -252,5 +252,10 @@
     "title": "WHITEBOX — DX・AI活用の羅針盤",
     "image": "https://white-box.work/wp-content/themes/WHITEBOX_LP_Theme/img/WhiteBox_Logo.png",
     "description": "WHITEBOXは散在する現場資料をAIが構造化し、業務プロセスとROIを可視化。 AIが導く5つの成果物が「何を・なぜ・どの順で変えるべきか」を指し示す―― WHITEBOXは、企業のDX・AI活用の羅針盤です。"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/let_team_go_beyond": {
+    "title": "チームをGo BeyondさせるSparkle Designの開発 - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/cd3e077b0e8f602d716229bb4a5af5ae550f4cdb/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260727%2F20260727141707.png",
+    "description": "こんにちは！デザインエンジニアの藤井（touyou）です。 みなさんはSparkle Designという弊社のデザインシステムをご存知でしょうか？「デザインシステムのデザインシステム」というコンセプトで昨年公開されたもので、今年に入ってガイドラインサイトとReactのコンポーネントライブラリを追加で公開しています。 自分はチームのエンジニアとしてFigmaプラグインやReactコンポーネントの実装に主に携わっており、今までにも次のような記事を公開していました。 goodpatch-tech.hatenablog.com goodpatch.com これらの記事を見るとわかるように、Reactの…"
   }
 }
