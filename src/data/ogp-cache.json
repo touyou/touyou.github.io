@@ -51,7 +51,7 @@
   },
   "https://github.com/touyou/NeumorphismTab": {
     "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
-    "image": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/232614789/a868a380-3333-11ea-8079-96b405f645c4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260805%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260805T013948Z&X-Amz-Expires=300&X-Amz-Signature=eb826b0163ca37098e922b70103d498334106b328aa7cf8317a9e06a7d6d1c2a&X-Amz-SignedHeaders=host&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTg5NDI4OCwibmJmIjoxNzg1ODkzOTg4LCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.ALHYUZpA3MFwdA3Nl4XqmzUcPhveaQPjfSCZvOsLhko",
+    "image": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/232614789/a868a380-3333-11ea-8079-96b405f645c4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260806%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260806T012813Z&X-Amz-Expires=300&X-Amz-Signature=5d3702871bb80fcf2944cdb922aaa575d8eb1c51f3ac3baac546886ae294854f&X-Amz-SignedHeaders=host&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTk3OTk5MywibmJmIjoxNzg1OTc5NjkzLCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.NOVMOIA3qW3TABmJfISlndCV5yKGAU7pitQfezid5Uw",
     "description": "Custom TabBarController with Neumorphism. Contribute to touyou/NeumorphismTab development by creating an account on GitHub."
   },
   "https://goodpatch-tech.hatenablog.com/entry/raindrop_with_ios17": {
@@ -257,5 +257,10 @@
     "title": "チームをGo BeyondさせるSparkle Designの開発 - Goodpatch Tech Blog",
     "image": "https://cdn.image.st-hatena.com/image/scale/cd3e077b0e8f602d716229bb4a5af5ae550f4cdb/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260727%2F20260727141707.png",
     "description": "こんにちは！デザインエンジニアの藤井（touyou）です。 みなさんはSparkle Designという弊社のデザインシステムをご存知でしょうか？「デザインシステムのデザインシステム」というコンセプトで昨年公開されたもので、今年に入ってガイドラインサイトとReactのコンポーネントライブラリを追加で公開しています。 自分はチームのエンジニアとしてFigmaプラグインやReactコンポーネントの実装に主に携わっており、今までにも次のような記事を公開していました。 goodpatch-tech.hatenablog.com goodpatch.com これらの記事を見るとわかるように、Reactの…"
+  },
+  "https://goodpatch-tech.hatenablog.com/entry/loop_engineering_proc": {
+    "title": "実践ループエンジニアリング - Goodpatch Tech Blog",
+    "image": "https://cdn.image.st-hatena.com/image/scale/2aee291cd9d2c2dae6c157e37c179d0fb690277e/backend=imagemagick;version=1;width=1300/https%3A%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Ft%2Ftouyou_Gp%2F20260729%2F20260729150716.png",
+    "description": "こんにちは、デザインエンジニアの藤井（touyou）です。 みなさん、AIはどの程度活用していますか？自分はこれらの記事のように年末年始でコロっと手のひら返したわけですが、それぐらいOpus 4.5/4.6以降の世界は変わったのかなと思っています。 goodpatch-tech.hatenablog.com goodpatch-tech.hatenablog.com モデルの性能が理想に追いついてくると今度はハーネスエンジニアリング（CLAUDE.mdやスキルといった、エージェントに渡す足場を整えていく考え方です）、さらにはループエンジニアリングといった概念が出てきました。 自分は新概念が出て…"
   }
 }
