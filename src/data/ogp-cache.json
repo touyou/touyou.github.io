@@ -1,13 +1,13 @@
 {
   "https://goodpatch.com/work/suntory": {
-    "title": "SUNTORY＋｜Work｜Goodpatch グッドパッチ",
-    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2020/10/works_TOP1%402x.png?fit=2880%2C1780&ssl=1",
-    "description": "SUNTORY＋（サントリープラス）は、企業の「健康経営」のため、従業員の健康行動習慣化をサポートするサントリー食品インターナショナル（株）のヘルスケアサービスアプリです。未来の健康リスクチェック結果に基づきパーソナライズされた“超低..."
+    "title": "SUNTORY＋｜実績｜Goodpatch グッドパッチ",
+    "image": "https://images.microcms-assets.io/assets/47b939a755f34108b120fd73e7983484/93a594d47a7f40a39d388881ab9e1c56/202010-works_TOP1%402x.png",
+    "description": "小さな「できた」が楽しく続く健康アプリ。"
   },
   "https://goodpatch.com/work/clinics": {
-    "title": "CLINICS｜Work｜Goodpatch グッドパッチ",
-    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2022/03/main-1.jpg?fit=2880%2C1780&ssl=1",
-    "description": "テクノロジーを活用した事業やプロジェクトを通じて「納得できる医療」の実現を目指す株式会社メドレー。医療プラットフォーム事業では、日本最大級のオンライン診療システム「CLINICS オンライン診療」を中核として、スムーズなオンライン医療..."
+    "title": "CLINICS｜実績｜Goodpatch グッドパッチ",
+    "image": "https://images.microcms-assets.io/assets/47b939a755f34108b120fd73e7983484/3498bca021134cdb9ca4c0063c65fbba/202203-main-1.jpg",
+    "description": "事業の拡張性を踏まえたアプリのUIリニューアル"
   },
   "https://za.theater/": {
     "title": "オンライン劇場 ZA",
@@ -139,14 +139,14 @@
     "description": "by FlutterKaigi"
   },
   "https://goodpatch.com/work/sakuma-nobuyuki": {
-    "title": "佐久間宣行事務所｜Work｜Goodpatch グッドパッチ",
-    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2026/01/works-sakuma-nobuyuki-02.png?fit=1440%2C890&ssl=1",
-    "description": "テレビ東京コミュニケーションズ企画のYouTube番組『佐久間さん、HP作らせてください』と連動し、「佐久間宣行事務所オフィシャルHP」の企画・デザイン・実装を担当しました。佐久間氏がどのような姿勢で仕事に向き合い、なぜ多くの人の心を..."
+    "title": "佐久間宣行事務所｜実績｜Goodpatch グッドパッチ",
+    "image": "https://images.microcms-assets.io/assets/47b939a755f34108b120fd73e7983484/288ab00c3e854ee1b569737a6ab4fd04/202601-works-sakuma-nobuyuki-02.png",
+    "description": "仕事観や温度感と人物ブランドを可視化する「ハートを揺さぶるHP」"
   },
   "https://goodpatch.com/work/jt_habee": {
-    "title": "Habee｜Work｜Goodpatch グッドパッチ",
-    "image": "https://i0.wp.com/cms.goodpatch.com/wp-content/uploads/2026/12/%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F-e1774855348968.png?fit=1440%2C890&ssl=1",
-    "description": "2023年に「心の豊かさを、もっと。」というグループパーパスを発表した日本たばこ産業（JT）。同社が提供する目標達成・習慣化支援アプリ「Habee（ハビー）」は、友人や家族、同僚などとチームを組み、楽しみながら目標達成や習慣化にチャレ..."
+    "title": "Habee｜実績｜Goodpatch グッドパッチ",
+    "image": "https://images.microcms-assets.io/assets/47b939a755f34108b120fd73e7983484/d5d4a26b754d4070b0a4f396e4523f4e/202612-%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F-e1774855348968.png",
+    "description": "目標達成・習慣化アプリの新規開発およびグロース支援"
   },
   "https://goodpatch.com/blog/2025-05-habee": {
     "title": "JTの新たな挑戦、目標達成・習慣化アプリ「Habee」はどう生まれた？　開発プロジェクトの裏側に迫る｜Goodpatch Blog グッドパッチブログ",
@@ -235,7 +235,7 @@
   },
   "https://github.com/touyou/IntentTodo": {
     "title": "GitHub - touyou/IntentTodo: App Intents中心設計で作るToDoアプリ",
-    "image": "https://opengraph.githubassets.com/2fe22172229c94e40f1cb565907f4dfe6dc12ca03779c9a0d0b73b6564400fe8/touyou/IntentTodo",
+    "image": "https://opengraph.githubassets.com/3d245a9977a04205961975565da3a21df34e1c885e3d06b5a79d55e853f82115/touyou/IntentTodo",
     "description": "App Intents中心設計で作るToDoアプリ. Contribute to touyou/IntentTodo development by creating an account on GitHub."
   },
   "https://github.com/touyou/skills": {
