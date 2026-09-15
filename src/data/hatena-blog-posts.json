@@ -1,6 +1,10 @@
 {
   "posts": [
     {
+      "url": "https://goodpatch-tech.hatenablog.com/entry/iosdc2026_speaker_blog",
+      "pubDate": "2026-09-14"
+    },
+    {
       "url": "https://goodpatch-tech.hatenablog.com/entry/loop_engineering_proc",
       "pubDate": "2026-08-05"
     },
@@ -115,10 +119,6 @@
     {
       "url": "https://goodpatch-tech.hatenablog.com/entry/engineer_communication_elementary",
       "pubDate": "2021-12-02"
-    },
-    {
-      "url": "https://goodpatch-tech.hatenablog.com/entry/2021/08/24/102845",
-      "pubDate": "2021-08-24"
     }
   ]
 }
