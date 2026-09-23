@@ -12,7 +12,7 @@ This is a personal portfolio website for touyou (Fujii Yosuke), built with Next.
 - **Language**: TypeScript 5.9
 - **UI**: React 19, Tailwind CSS 3.4
 - **Package Manager**: pnpm 9.15
-- **Node.js**: 22.13 (LTS)
+- **Node.js**: 24 (LTS)
 
 ## Development Commands
 
