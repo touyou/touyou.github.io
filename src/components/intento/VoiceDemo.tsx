@@ -123,7 +123,8 @@ export function VoiceDemo() {
   return (
     <div className="flex flex-col items-center gap-8">
       {/* 話しかけた言葉 */}
-      <div className="flex min-h-[64px] w-full max-w-md items-center justify-center" aria-hidden={!reduced}>
+      {/* 吹き出しが 1 行でも 2 行でも下の iPhone が上下に動かないよう、高さを固定する */}
+      <div className="flex h-24 w-full max-w-md items-center justify-center" aria-hidden={!reduced}>
         {reduced ? (
           <ul className="flex flex-col items-center gap-2 text-sm text-neutral-600">
             {STEPS.map((step) => (
@@ -133,12 +134,12 @@ export function VoiceDemo() {
         ) : (
           <div
             className={cn(
-              "relative rounded-full p-[2px] transition-opacity duration-300",
+              "relative rounded-[30px] p-[2px] transition-opacity duration-300",
               spoken || reply ? "opacity-100" : "opacity-0",
             )}
             style={{ background: "conic-gradient(from 180deg, #5AC8FA, #AF52DE, #FF2D55, #FF9500, #5AC8FA)" }}
           >
-            <div className="rounded-full bg-white px-5 py-3 text-[15px] font-medium text-neutral-900 shadow-lg">
+            <div className="line-clamp-2 rounded-[28px] bg-white px-5 py-3 text-[15px] font-medium leading-snug text-neutral-900 shadow-lg">
               {reply ? <span className="text-neutral-500">{reply}</span> : <>「{spoken}」</>}
             </div>
           </div>
@@ -147,7 +148,7 @@ export function VoiceDemo() {
 
       {/* iPhone */}
       <div
-        className="relative aspect-[9/19.5] w-full max-w-[300px] rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
+        className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
         role="img"
         aria-label="Intento の一覧画面。話しかけると、やることが追加されたり完了したりする"
       >
