@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const ISSUES_URL = "https://github.com/touyou/IntentTodo/issues";
+const CONTACT_EMAIL = "contact@touyou.dev";
 
 /** Intento のサポート。操作の説明は App Store の説明文と、アプリの日本語表記に合わせる */
 export const metadata: Metadata = {
@@ -18,8 +18,7 @@ export default function IntentoSupportPage() {
 
       <h2>お問い合わせ</h2>
       <p>
-        <a href={ISSUES_URL}>GitHub の Issues</a>
-        からご連絡ください。アプリのバージョン（「設定」に表示されます）、端末の機種、OS のバージョン、起きたことと手順を書いていただけると助かります。
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> までご連絡ください。アプリのバージョン（「設定」に表示されます）、端末の機種、OS のバージョン、起きたことと手順を書いていただけると助かります。
       </p>
 
       <h2>よくある質問</h2>

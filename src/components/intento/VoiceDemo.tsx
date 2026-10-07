@@ -188,7 +188,8 @@ export function VoiceDemo() {
               </li>
             ))}
           </ul>
-          <div className="mt-auto px-5 pb-6">
+          {/* 実機と同じく、ホームインジケータの分だけ下を空ける */}
+          <div className="mt-auto px-4 pb-9">
             <div className="rounded-full bg-white/80 px-4 py-2.5 text-[12px] text-neutral-400 shadow-sm ring-1 ring-black/5">やることを検索</div>
           </div>
         </div>

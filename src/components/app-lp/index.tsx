@@ -68,7 +68,7 @@ export function Heading({ title, children }: { title: string[]; children?: React
   );
 }
 
-/** 角の大きいタイル。中身の見本（children）を下に置く */
+/** 角の大きいタイル。中身の見本（children）は下端にそろえ、本文の長さが違っても並びの中で位置がずれないようにする */
 export function Tile({
   title,
   body,
@@ -88,7 +88,7 @@ export function Tile({
         <h3 className="text-xl font-bold tracking-tight">{title}</h3>
         <p className={cn("text-[15px] leading-[1.8]", dark ? "text-neutral-400" : "text-neutral-600")}>{body}</p>
       </div>
-      {children && <div className="flex flex-1 items-center justify-center">{children}</div>}
+      {children && <div className="mt-auto flex w-full justify-center">{children}</div>}
     </div>
   );
 }

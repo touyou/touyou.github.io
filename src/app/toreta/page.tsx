@@ -111,6 +111,22 @@ const features: { title: string; body: string; visual?: ReactNode }[] = [
   {
     title: "デッキを組む",
     body: "持っているカードからデッキを作り、必要な枚数と足りない枚数を確かめられます。",
+    visual: (
+      <div className="flex w-44 flex-col gap-1.5 text-[11px]">
+        {[
+          [dummyCards[0].name, 2, 2],
+          [dummyCards[4].name, 1, 3],
+          [dummyCards[7].name, 2, 2],
+        ].map(([name, owned, need]) => (
+          <div key={String(name)} className="flex items-center justify-between gap-2 rounded-lg bg-white px-2.5 py-1.5 ring-1 ring-black/5">
+            <span className="truncate">{name}</span>
+            <span className={Number(owned) < Number(need) ? "font-bold text-[#D93636]" : "text-neutral-500"}>
+              {owned}/{need}
+            </span>
+          </div>
+        ))}
+      </div>
+    ),
   },
   {
     title: "そろい具合を見る",
@@ -138,6 +154,12 @@ const features: { title: string; body: string; visual?: ReactNode }[] = [
   {
     title: "公式サイトに負担をかけない",
     body: "読み込みは少しずつ行い、画像は端末に一時保存します。同じシリーズの更新は 10 分に 1 回までです。",
+    visual: (
+      <div className="flex items-baseline gap-1 text-neutral-900">
+        <span className="text-5xl font-bold tracking-tight">10</span>
+        <span className="text-sm font-semibold text-neutral-500">分に 1 回まで</span>
+      </div>
+    ),
   },
 ];
 
@@ -232,7 +254,8 @@ export default function ToretaPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <Tile key={feature.title} title={feature.title} body={feature.body}>
-                {feature.visual}
+                {/* 図の高さをそろえて、並びの中で上下にずれないようにする */}
+                <div className="flex h-28 items-center justify-center">{feature.visual}</div>
               </Tile>
             ))}
           </div>

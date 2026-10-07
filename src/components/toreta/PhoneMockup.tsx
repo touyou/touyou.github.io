@@ -72,7 +72,7 @@ export function PhoneMockup({ className }: { className?: string }) {
           ))}
         </div>
 
-        <div className="mt-auto flex justify-center gap-2 px-4 pb-6">
+        <div className="mt-auto flex justify-center gap-2 px-4 pb-8">
           {["絞り込み", "クイック追加", "カメラ"].map((label, i) => (
             <span
               key={label}

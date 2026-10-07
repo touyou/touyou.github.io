@@ -20,7 +20,7 @@ function WidgetTile() {
   const [done, setDone] = useState<boolean[]>([false, false, false]);
   const left = done.filter((d) => !d).length;
   return (
-    <Tile title="ウィジェット" body="今日のやることをホーム画面に。チェックはその場でつけられます。" className="md:col-span-2">
+    <Tile title="ウィジェット" body="ホーム画面に今日のやることを表示します。チェックはその場でつけられます。" className="md:col-span-2">
       <div className="flex flex-col items-center gap-3">
         <div className="w-full max-w-[320px] rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.2)]">
           <div className="mb-2 flex items-baseline justify-between">
@@ -54,7 +54,7 @@ function WidgetTile() {
 function ControlTile() {
   const [count, setCount] = useState(3);
   return (
-    <Tile title="コントロールセンター" body="ワンタップで追加。残りの数も、いちばん急ぎのものの完了も。" dark>
+    <Tile title="コントロールセンター" body="ワンタップで追加したり、未完了の数を見たり、いちばん急ぎのものを完了にしたりできます。" dark>
       <div className="flex flex-col items-center gap-3">
         <div className="grid grid-cols-2 gap-3">
           <button
@@ -199,7 +199,7 @@ function FocusTile() {
 
 function WatchTile() {
   return (
-    <Tile title="Apple Watch" body="文字盤のコンプリケーションに、残りの数と次の期限。手首の上で追加も完了も。">
+    <Tile title="Apple Watch" body="文字盤のコンプリケーションに、残りの数と次の期限を表示します。手首の上で追加や完了もできます。">
       {/* 画面の外周は黒い余白にして、角丸で右上の「＋」ボタンが欠けないようにする */}
       <div className="rounded-[46px] bg-[#1d1d1f] p-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)]">
         <div className="rounded-[38px] bg-black px-3 py-4">
@@ -232,7 +232,7 @@ function ShortcutsTile() {
   return (
     <Tile
       title="ショートカット"
-      body="25 種類のアクションを公開しています。ほかのアプリと組み合わせて、自分だけの自動化に。"
+      body="25 種類のアクションを公開しています。ほかのアプリと組み合わせた自動化に、そのまま使えます。"
       className="md:col-span-2"
     >
       <div className="flex w-full flex-col items-center gap-6">
