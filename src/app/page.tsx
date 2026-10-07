@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import homeContent from "@/data/home-content.json";
+import { AppCarousel } from "@/components/home/AppCarousel";
 
 type BadgeVariant = "default" | "secondary" | "destructive" | "outline";
 
@@ -98,13 +99,12 @@ export default async function Home() {
   const cards = homeContent.cards as HomeCard[];
 
   return (
-    <main className="relative w-full min-h-dvh flex">
-      <div className="w-full min-h-dvh overflow-y-auto">
-        <div className="w-full min-h-dvh flex flex-wrap justify-center items-center content-center px-12 py-16 gap-4">
-          {cards.map((card) => renderCard(card))}
-        </div>
+    <main className="flex min-h-dvh w-full flex-col items-center gap-16 pb-8">
+      <div className="flex w-full flex-wrap content-center items-center justify-center gap-4 px-12 pt-16">
+        {cards.map((card) => renderCard(card))}
       </div>
-      <footer className="absolute bottom-2 text-center w-full text-sm text-muted hover:text-primary transition cursor-default">
+      <AppCarousel />
+      <footer className="mt-auto w-full cursor-default text-center text-sm text-muted transition hover:text-primary">
         Copyrights © 2015- touyou. All Rights Reserved.
       </footer>
     </main>
