@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "トレーディングカードゲームの公式カードリストの URL を貼るだけで、持っているカードとほしいカードを記録できる iPhone アプリ。",
   openGraph: {
     title: "Toreta",
-    description: "公式カードリストを、そのままコレクション帳に。トレカの所持枚数を記録する iPhone アプリ。",
+    description: "公式カードリストを、そのままコレクション帳に。トレーディングカードの所持枚数を記録する iPhone アプリ。",
     url: "https://touyou.dev/toreta",
   },
 };
@@ -77,7 +77,7 @@ const features = [
   },
   {
     title: "ほしいカードに「ねらい」の印",
-    body: "印を付けたカードだけを一覧にできます。足りないカードをまとめて「ねらい」に入れることもできます。",
+    body: "印を付けたカードだけを一覧で見られます。足りないカードをまとめて「ねらい」に入れることもできます。",
   },
   {
     title: "カメラで番号を読み取る",
@@ -100,14 +100,14 @@ const features = [
 const privacyPoints = [
   ["アカウントはありません", "ログインも、開発者のサーバーもありません。記録は端末に保存され、開発者に送られることはありません。"],
   ["トラッキングはしません", "広告やアクセス解析の SDK は入っていません。"],
-  ["公式サイトから直接読み込みます", "カードの情報と画像は、あなたの端末が公式サイトから直接読み込みます。開発者のサーバーは経由しません。"],
+  ["公式サイトから直接読み込みます", "カードの情報と画像は、あなたの端末が読み込みます。開発者のサーバーは経由しません。"],
 ];
 
 const plusFeatures = [
   ["好きな色を使う", "用意された色のほかに、自由な色をアクセントにできます。"],
   ["カードの絵から色を作る", "シリーズのカードの絵から、そのカードゲームに合う色を提案します。"],
   ["デッキをいくつでも", "無料では 3 個まで。Plus ならデッキを好きなだけ作れます。"],
-  ["所持リストの書き出し", "所持枚数とねらいを CSV で書き出して、表計算アプリなどで使えます。"],
+  ["所持リストの書き出し", "所持枚数と「ねらい」を CSV で書き出して、表計算アプリなどで使えます。"],
 ];
 
 export default function ToretaPage() {
@@ -135,7 +135,7 @@ export default function ToretaPage() {
           <div className="flex flex-col items-start gap-6">
             <ToretaIcon className="h-16 w-16 shadow-md" />
             {/* 狭い画面でも語の途中で折り返さないよう、まとまりごとに inline-block にする */}
-            <h1 className="text-[32px] font-bold leading-[1.3] tracking-tight [font-feature-settings:'palt'] sm:text-5xl sm:leading-[1.25]">
+            <h1 className="text-[clamp(24px,8vw,32px)] font-bold leading-[1.3] tracking-tight [font-feature-settings:'palt'] sm:text-5xl sm:leading-[1.25]">
               <span className="inline-block">公式カードリストを、</span>
               <br />
               <span className="inline-block">そのまま</span>
@@ -147,10 +147,10 @@ export default function ToretaPage() {
             <p className="text-sm leading-relaxed text-neutral-500">
               <span className="font-semibold text-neutral-900">App Store で近日公開</span>
               <br />
-              無料（アプリ内課金あり）・ iOS 27 以降
+              無料（アプリ内課金あり）・iOS 27 以降
             </p>
           </div>
-          <div className="relative mx-auto">
+          <div className="relative mx-auto w-full max-w-[280px]">
             {/* アイコンと同じく、2 枚のカードを傾けて重ねる */}
             <TradingCard
               card={dummyCards[5]}
@@ -164,7 +164,7 @@ export default function ToretaPage() {
               decorative
               className="absolute -right-16 bottom-20 hidden w-40 rotate-[9deg] shadow-lg md:flex"
             />
-            <PhoneMockup className="relative" />
+            <PhoneMockup className="relative w-full" />
           </div>
         </section>
 

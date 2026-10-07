@@ -9,7 +9,7 @@ export function PhoneMockup({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative aspect-[9/19.5] w-[280px] rounded-[48px] border-[10px] border-neutral-900 bg-neutral-900 shadow-2xl shadow-blue-900/20",
+        "relative aspect-[9/19.5] w-full max-w-[280px] rounded-[48px] border-[10px] border-neutral-900 bg-neutral-900 shadow-2xl shadow-blue-900/20",
         className,
       )}
       role="img"
