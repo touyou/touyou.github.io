@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 
+import { AppNav, AppPage, Band, Heading, Phrases, PillLink } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { Surfaces } from "@/components/intento/Surfaces";
 import { VoiceDemo } from "@/components/intento/VoiceDemo";
@@ -10,47 +10,38 @@ import { VoiceDemo } from "@/components/intento/VoiceDemo";
 /**
  * Intento（IntentTodo リポジトリの iOS / iPadOS / macOS / watchOS / visionOS アプリ）の紹介ページ。
  * 文言は App Store の説明文（IntentTodo/metadata/ios/version/<バージョン>/ja.json）とアプリのローカライズに合わせる。
- * ネイティブの見た目を大事にしているアプリなので、ページも Apple の製品ページに近い書体・余白・色にそろえる。
+ * 見出しも説明文の小見出し（声で操作する・開かずに済ませる など）をそのまま使う。
  */
 
 const APP_STORE_URL = "https://apps.apple.com/jp/app/intento/id6788623037";
-const SUPPORT_URL = "https://github.com/touyou/IntentTodo/issues";
-const PRIVACY_URL = "https://github.com/touyou/IntentTodo/blob/main/PRIVACY.md";
+const SUPPORT_URL = "/intento/support";
+const PRIVACY_URL = "/intento/privacy";
 
 export const metadata: Metadata = {
-  title: "Intento — 開かなくても、片づくやることリスト",
+  title: "Intento — アプリを開かなくても使えるやることリスト",
   description:
-    "Siri、ウィジェット、コントロールセンター、ロック画面、Apple Watch、Spotlight から使えるやることリスト。iPhone、iPad、Mac、Apple Watch、Apple Vision Pro に対応。",
+    "やることの追加も、完了も、あと回しも、Siri に話しかければ終わります。ウィジェット、コントロールセンター、ロック画面、Apple Watch、Spotlight からも使えるやることリスト。",
   openGraph: {
     title: "Intento",
-    description: "開かなくても、片づく。どこからでも使えるやることリスト。",
+    description: "アプリを開かなくても使える、やることリスト。",
     url: "https://touyou.dev/intento",
   },
 };
 
 export default function IntentoPage() {
   return (
-    <div className="min-h-screen bg-white font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [word-break:auto-phrase]">
-      {/* ナビゲーション */}
-      <header className="sticky top-0 z-20 border-b border-black/5 bg-white/75 backdrop-blur-xl">
-        <div className="mx-auto flex h-12 w-full max-w-5xl items-center justify-between px-6">
-          <Link href="/intento" className="flex items-center gap-2 text-[15px] font-semibold">
-            <IntentoIcon className="h-6 w-6 shadow-none" />
-            Intento
-          </Link>
-          <nav className="flex items-center gap-5 text-[13px] text-neutral-600">
-            <a href={SUPPORT_URL} className="hidden hover:text-neutral-900 sm:inline">
-              サポート
-            </a>
-            <a href={PRIVACY_URL} className="hidden hover:text-neutral-900 sm:inline">
-              プライバシー
-            </a>
-            <a href={APP_STORE_URL} className="rounded-full bg-[#0071E3] px-3 py-1 text-[12px] font-medium text-white hover:bg-[#0077ED]">
-              入手
-            </a>
-          </nav>
-        </div>
-      </header>
+    <AppPage>
+      <AppNav icon={<IntentoIcon className="h-6 w-6 shadow-none" />} name="Intento" home="/intento">
+        <a href={SUPPORT_URL} className="hidden hover:text-neutral-900 sm:inline">
+          サポート
+        </a>
+        <a href={PRIVACY_URL} className="hidden hover:text-neutral-900 sm:inline">
+          プライバシー
+        </a>
+        <PillLink href={APP_STORE_URL} size="sm">
+          入手
+        </PillLink>
+      </AppNav>
 
       <main className="flex flex-col">
         {/* ヒーロー */}
@@ -59,31 +50,26 @@ export default function IntentoPage() {
             <IntentoIcon className="h-24 w-24 sm:h-28 sm:w-28" />
             <div className="flex flex-col items-center gap-4">
               <p className="text-xl font-semibold text-neutral-500">Intento</p>
-              <h1 className="text-[clamp(40px,11vw,80px)] font-bold leading-[1.1] tracking-[-0.02em] [font-feature-settings:'palt']">
-                <span className="inline-block">開かなくても、</span>
-                <span className="inline-block">片づく。</span>
+              <h1 className="text-[clamp(32px,7vw,60px)] font-bold leading-[1.2] tracking-[-0.02em] [font-feature-settings:'palt']">
+                <Phrases phrases={["アプリを開かなくても", "使える、"]} />
+                <br />
+                やることリスト。
               </h1>
-              <p className="max-w-2xl text-balance text-[clamp(17px,2.2vw,21px)] leading-[1.7] text-neutral-600">
-                Siri に話しかけても、ウィジェットを押しても、Apple Watch を見ても。どこから触っても同じように動く、やることリストです。
+              <p className="max-w-2xl text-[clamp(17px,2.2vw,21px)] leading-[1.7] text-neutral-600">
+                やることの追加も、完了も、あと回しも、Siri に話しかければ終わります。アプリを開くのは、じっくり見直したいときだけで構いません。
               </p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <a
-                href={APP_STORE_URL}
-                className="rounded-full bg-[#0071E3] px-7 py-3 text-[17px] font-medium text-white transition hover:bg-[#0077ED]"
-              >
-                App Store で入手
-              </a>
+              <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
               <span className="text-[13px] text-neutral-500">無料・アプリ内課金なし</span>
             </div>
           </div>
           <VoiceDemo />
         </section>
 
-        {/* 声 */}
         <Band tone="gray">
-          <Heading title={["Siri に話しかければ、", "それで終わり。"]}>
-            「Intento でやることを追加」「Intento で〇〇を完了」。やることの名前をそのまま文に混ぜられるので、あとから選び直す手間がありません。
+          <Heading title={["声で操作する"]}>
+            「Intento でやることを追加」「Intento で〇〇を完了」のように話しかけるだけ。やることの名前をそのまま文に混ぜられるので、選び直す手間がありません。
           </Heading>
           <ul className="flex flex-wrap justify-center gap-3">
             {[
@@ -100,39 +86,35 @@ export default function IntentoPage() {
           </ul>
         </Band>
 
-        {/* どこからでも */}
-        <section className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-24 sm:py-32">
-          <Heading title={["アプリを開くのは、", "見直したいときだけ。"]}>
-            ホーム画面からも、ロック画面からも、手首の上からも。どこから触っても、同じ操作が同じように動きます。
+        <Band>
+          <Heading title={["開かずに済ませる"]}>
+            ホーム画面のウィジェット、コントロールセンター、ロック画面、Apple Watch の文字盤、Spotlight の検索結果。どこから触っても、同じ操作が同じように動きます。
           </Heading>
           <Surfaces />
-        </section>
+        </Band>
 
-        {/* すべてのデバイス */}
         <Band tone="gray">
-          <Heading title={["iPhone でも、", "iPad でも、", "Mac でも。"]}>
-            iPhone、iPad、Mac、Apple Watch、Apple Vision Pro に対応しています。iCloud で同期するので、どこで足しても、どこでも見えます。
+          <Heading title={["すべての", "Apple デバイスで"]}>
+            iPhone、iPad、Mac、Apple Watch、Apple Vision Pro。iCloud で同期するので、どこで足してもどこでも見えます。
           </Heading>
           <div className="relative mx-auto w-full max-w-[440px]">
-            <div className="overflow-hidden rounded-[36px] border-[12px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)]">
-              <Image src="/intento/ipad-list.jpg" alt="iPad の Intento の一覧画面" width={750} height={1000} className="w-full rounded-[24px]" />
+            {/* 画面の角丸は実機に近い小さめの値にして、ステータスバーが欠けないようにする */}
+            <div className="rounded-[26px] bg-[#1d1d1f] p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)]">
+              <Image src="/intento/ipad-list.jpg" alt="iPad の Intento の一覧画面" width={750} height={1000} className="w-full rounded-[12px]" />
             </div>
-            <div className="absolute -bottom-6 -left-4 w-[38%] overflow-hidden rounded-[30px] border-[7px] border-[#1d1d1f] bg-[#1d1d1f] shadow-2xl sm:-left-20">
-              <Image src="/intento/iphone-list.jpg" alt="iPhone の Intento の一覧画面" width={460} height={1000} className="w-full rounded-[23px]" />
+            <div className="absolute -bottom-6 -left-4 w-[38%] rounded-[28px] bg-[#1d1d1f] p-[6px] shadow-2xl sm:-left-20">
+              <Image src="/intento/iphone-list.jpg" alt="iPhone の Intento の一覧画面" width={460} height={1000} className="w-full rounded-[22px]" />
             </div>
           </div>
         </Band>
 
-        {/* プライバシー */}
-        <section className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-24 sm:py-32">
-          <Heading title={["データは、", "あなたの iCloud の", "中だけに。"]}>
-            開発者がやることの中身を受け取ることはありません。
-          </Heading>
+        <Band>
+          <Heading title={["データは、", "あなたの iCloud の", "中だけに。"]}>アカウント登録はありません。広告もトラッキングもありません。</Heading>
           <ul className="grid gap-4 sm:grid-cols-3">
             {[
               ["アカウント登録なし", "サインインも、メールアドレスの入力もいりません。"],
               ["広告もトラッキングもなし", "広告やアクセス解析の仕組みは入っていません。"],
-              ["自分の iCloud で同期", "やることは端末と、あなた自身の iCloud にだけ保存されます。"],
+              ["自分の iCloud で同期", "やることは端末と、あなた自身の iCloud にだけ保存されます。開発者が中身を受け取ることはありません。"],
             ].map(([title, body]) => (
               <li key={title} className="flex flex-col gap-2 rounded-[28px] bg-[#F5F5F7] p-7">
                 <h3 className="text-lg font-bold">{title}</h3>
@@ -143,15 +125,12 @@ export default function IntentoPage() {
           <a href={PRIVACY_URL} className="self-center text-[15px] text-[#0066CC] hover:underline">
             プライバシーポリシー ›
           </a>
-        </section>
+        </Band>
 
-        {/* 最後の入手 */}
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <IntentoIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Intento を、どこからでも。</h2>
-          <a href={APP_STORE_URL} className="rounded-full bg-[#0071E3] px-7 py-3 text-[17px] font-medium text-white transition hover:bg-[#0077ED]">
-            App Store で入手
-          </a>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Intento は無料で使えます</h2>
+          <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <span className="text-[13px] text-neutral-500">iOS 27・iPadOS 27・macOS 27・watchOS 27・visionOS 27 以降</span>
         </section>
       </main>
@@ -176,30 +155,6 @@ export default function IntentoPage() {
           <p>© 2026 touyou</p>
         </div>
       </footer>
-    </div>
-  );
-}
-
-function Band({ tone, children }: { tone: "gray"; children: ReactNode }) {
-  return (
-    <section className={tone === "gray" ? "bg-[#F5F5F7]" : undefined}>
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 px-6 py-24 sm:py-32">{children}</div>
-    </section>
-  );
-}
-
-/** 見出しは文節ごとに渡し、まとまりの途中で折り返さないようにする */
-function Heading({ title, children }: { title: string[]; children?: ReactNode }) {
-  return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-      <h2 className="text-[clamp(28px,5vw,48px)] font-bold leading-[1.2] tracking-[-0.015em] [font-feature-settings:'palt']">
-        {title.map((phrase) => (
-          <span key={phrase} className="inline-block">
-            {phrase}
-          </span>
-        ))}
-      </h2>
-      {children && <p className="text-[clamp(16px,2vw,19px)] leading-[1.8] text-neutral-600">{children}</p>}
-    </div>
+    </AppPage>
   );
 }

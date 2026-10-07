@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
+
+import { TapHint, Tile } from "@/components/app-lp";
 
 import { cn } from "@/lib/utils";
 
@@ -11,22 +13,6 @@ import { CheckCircle, Star, SYSTEM_BLUE } from "./todo-ui";
  * アプリの外の「触れる場所」をタイルで並べる。ウィジェット・コントロール・ライブアクティビティ・集中モードは押して試せる。
  * どれも実機の画面写真ではなく、雰囲気を HTML で描き直したもの。
  */
-
-function Tile({ title, body, className, children, dark = false }: { title: string; body: string; className?: string; children: ReactNode; dark?: boolean }) {
-  return (
-    <div className={cn("flex flex-col gap-6 overflow-hidden rounded-[28px] p-7", dark ? "bg-[#1d1d1f] text-white" : "bg-[#F5F5F7]", className)}>
-      <div className="flex flex-col gap-1.5">
-        <h3 className="text-xl font-bold tracking-tight">{title}</h3>
-        <p className={cn("text-[15px] leading-[1.8]", dark ? "text-neutral-400" : "text-neutral-600")}>{body}</p>
-      </div>
-      <div className="flex flex-1 items-center justify-center">{children}</div>
-    </div>
-  );
-}
-
-function TapHint({ dark = false }: { dark?: boolean }) {
-  return <span className={cn("text-xs", dark ? "text-neutral-500" : "text-neutral-400")}>押して試せます</span>;
-}
 
 const WIDGET_TODOS = ["登壇のリハーサルをする", "1.0 のビルドを提出する", "歯医者を予約する"];
 
@@ -214,9 +200,12 @@ function FocusTile() {
 function WatchTile() {
   return (
     <Tile title="Apple Watch" body="文字盤のコンプリケーションに、残りの数と次の期限。手首の上で追加も完了も。">
+      {/* 画面の外周は黒い余白にして、角丸で右上の「＋」ボタンが欠けないようにする */}
       <div className="rounded-[46px] bg-[#1d1d1f] p-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)]">
-        <div className="relative h-[214px] w-[176px] overflow-hidden rounded-[38px] bg-black">
-          <Image src="/intento/watch-list.jpg" alt="Apple Watch の Intento の一覧画面" fill sizes="176px" className="object-cover" />
+        <div className="rounded-[38px] bg-black px-3 py-4">
+          <div className="relative h-[190px] w-[156px] overflow-hidden rounded-[18px]">
+            <Image src="/intento/watch-list.jpg" alt="Apple Watch の Intento の一覧画面" fill sizes="156px" className="object-cover object-top" />
+          </div>
         </div>
       </div>
     </Tile>
