@@ -83,13 +83,13 @@ export function ColorBars({ className }: { className?: string }) {
 }
 
 /**
- * タイル。上の縁をパッドの色で光らせる。
+ * タイル。色はタイルの中の図（パッドなど）にだけ使い、縁は全周同じ細い線にする。
+ * 一辺だけ色を付ける装飾は使わない。
  * 図（children）は高さを固定して下端に置き、本文の長さが違っても同じ行のタイルで図の位置がそろうようにする。
  */
 export function CkTile({
   title,
   body,
-  color,
   visualHeight = "h-40",
   className,
   children,
@@ -97,15 +97,16 @@ export function CkTile({
   /** 折り返す位置を決めたいときは文節ごとの配列で渡す */
   title: string | string[];
   body: ReactNode;
-  color: PadColor;
+  /** 図の色合いの目安。縁には使わない */
+  color?: PadColor;
   visualHeight?: string;
   className?: string;
   children?: ReactNode;
 }) {
   return (
     <div
-      className={cn("flex w-full flex-col gap-6 overflow-hidden rounded-[24px] border-t-[3px] p-7 ring-1 ring-white/[0.08]", className)}
-      style={{ background: RAISED, borderTopColor: PAD_COLORS[color], boxShadow: `0 -6px 18px -10px ${PAD_COLORS[color]}` }}
+      className={cn("flex w-full flex-col gap-6 overflow-hidden rounded-[24px] p-7 ring-1 ring-inset ring-white/[0.08]", className)}
+      style={{ background: RAISED }}
     >
       <div className="flex flex-col gap-1.5">
         <h3 className="text-xl font-bold tracking-tight">{Array.isArray(title) ? <Phrases phrases={title} /> : title}</h3>
