@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 
 import { answerOf, HEX_DIGITS, hexDigit } from "./hex";
+import { HEADING_FONT } from "./lp";
 import { SevenSeg } from "./SevenSeg";
 
 /**
@@ -9,16 +10,19 @@ import { SevenSeg } from "./SevenSeg";
  * ランキングの名前と点数は架空のもの。
  */
 
-/** F の段（F × 0 〜 F × F）の一覧 */
+/** F の段（F × 0 〜 F × F）の一覧。答えはゲーム画面と同じく黒地に緑の 7 セグメントで見せる */
 export function FTable() {
   return (
     <ol className="grid w-full max-w-3xl grid-cols-2 gap-2 sm:grid-cols-4" aria-label="F の段">
-      {HEX_DIGITS.map((_, right) => (
-        <li key={right} className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-black/5">
-          <span className="font-mono text-[15px] tabular-nums text-neutral-500">F × {hexDigit(right)}</span>
-          <span className="font-mono text-[19px] font-bold tabular-nums">{answerOf({ left: 15, right })}</span>
-        </li>
-      ))}
+      {HEX_DIGITS.map((_, right) => {
+        const answer = answerOf({ left: 15, right });
+        return (
+          <li key={right} className="flex min-w-0 items-center justify-between gap-2 rounded-xl bg-[#111111] px-4 py-3">
+            <span className={cn("whitespace-nowrap text-[15px] text-[#F9F8F5]/70", HEADING_FONT)}>F × {hexDigit(right)}</span>
+            <SevenSeg text={answer} ghost={false} label={answer} className="text-[24px] text-[#85BF5D]" />
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -44,7 +48,7 @@ export function LocalScoreScreen() {
     [4, 290, "2026/10/01"],
   ] as const;
   return (
-    <div className="flex w-full max-w-[280px] flex-col overflow-hidden rounded-[22px] bg-[#B97C50] text-[#F9F8F5] shadow-lg" role="img" aria-label="Local Score 画面の例。自分の点数が日付と一緒に高い順に並ぶ">
+    <div className={cn("flex w-full max-w-[280px] flex-col overflow-hidden rounded-[22px] bg-[#B97C50] text-[#F9F8F5] shadow-lg", HEADING_FONT)} role="img" aria-label="Local Score 画面の例。自分の点数が日付と一緒に高い順に並ぶ">
       <div className="py-3 text-center text-[14px] font-bold">Local Score</div>
       <ul className="flex flex-col pb-3" aria-hidden>
         {rows.map(([rank, score, date]) => (
@@ -70,7 +74,7 @@ export function OnlineRankingScreen() {
   ] as const;
   return (
     <div
-      className="flex w-full max-w-[280px] flex-col overflow-hidden rounded-[22px] bg-[#85BF5D] text-[#F9F8F5] shadow-lg"
+      className={cn("flex w-full max-w-[280px] flex-col overflow-hidden rounded-[22px] bg-[#85BF5D] text-[#F9F8F5] shadow-lg", HEADING_FONT)}
       role="img"
       aria-label="Online Ranking 画面の例。上位 50 人か、自分の前後の順位を切り替えて見られる"
     >
@@ -100,7 +104,7 @@ export function OnlineRankingScreen() {
 export function ResultCard() {
   return (
     <div
-      className="flex w-full max-w-[280px] flex-col items-center gap-4 rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] ring-1 ring-black/5"
+      className={cn("flex w-full max-w-[280px] flex-col items-center gap-4 rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] ring-1 ring-black/5", HEADING_FONT)}
       role="img"
       aria-label="Result 画面の例。点数と High Score の印、SHARE と EXIT のボタンが並ぶ"
     >

@@ -144,7 +144,7 @@ export function GameDemo() {
   return (
     <div className="flex w-full flex-col items-center gap-5" onKeyDown={onKeyDown}>
       {/* iPhone。中身が増えても枠からはみ出さないよう overflow-hidden にする */}
-      <div className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
+      <div className="relative aspect-[9/19.5] w-full max-w-[300px] shrink-0 overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
         <div
           ref={screenRef}
           tabIndex={-1}
@@ -153,15 +153,16 @@ export function GameDemo() {
           className="relative flex h-full flex-col overflow-hidden rounded-[41px] bg-[#111111] text-[#F9F8F5] outline-none"
         >
           {/* 上: 閉じる（飾り）と残り時間 */}
-          <div className="relative flex h-14 shrink-0 items-end justify-center pb-1">
-            <span className="absolute bottom-1 left-6 text-[22px] leading-none text-[#F9F8F5]/80" aria-hidden>
+          {/* ステータスバーは出さない（アプリのゲーム画面と同じ）。✕ は画面の角丸の内側に収まる位置に置く */}
+          <div className="relative flex h-16 shrink-0 items-end justify-center pb-1.5">
+            <span className="absolute bottom-1.5 left-8 text-[22px] leading-none text-[#F9F8F5]/80" aria-hidden>
               ✕
             </span>
             <SevenSeg text={String(remaining)} digits={2} label={`残り ${remaining} 秒`} className="text-[18px] text-[#85BF5D]" />
           </div>
 
           {/* 問題と入力 */}
-          <div className="flex flex-1 flex-col items-center justify-center gap-4">
+          <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4">
             <div className="flex items-center gap-3" role="img" aria-label={`問題: ${hexDigit(problem.left)} × ${hexDigit(problem.right)}`}>
               <Operand value={problem.left} />
               <span className="text-[30px] leading-none" aria-hidden>
@@ -183,8 +184,9 @@ export function GameDemo() {
             >
               DELETE
             </button>
-            <span className="flex h-8 min-w-[64px] items-center justify-center rounded-md bg-[#333333] px-2">
-              <SevenSeg text={String(score)} label={`${score} 点`} className="text-[15px]" />
+            {/* 桁数が変わっても幅が変わらないよう、4 桁分の幅で右寄せにする */}
+            <span className="flex h-8 w-[76px] shrink-0 items-center justify-end rounded-md bg-[#333333] px-2">
+              <SevenSeg text={String(score)} digits={4} label={`${score} 点`} className="text-[15px]" />
             </span>
             <button
               type="button"
@@ -197,8 +199,8 @@ export function GameDemo() {
             </button>
           </div>
 
-          {/* 16 進数のキーパッド。高さを固定して、表示が変わっても位置がずれないようにする */}
-          <div className="grid h-[44%] shrink-0 grid-cols-4 grid-rows-4 border-t border-white/5 pb-5">
+          {/* 16 進数のキーパッド。高さを固定して、表示が変わっても位置がずれないようにする。下はホームインジケータの分（36px）空ける */}
+          <div className="grid h-[46%] shrink-0 grid-cols-4 grid-rows-4 border-t border-white/5 pb-9">
             {HEX_DIGITS.map((digit) => (
               <button
                 key={digit}
@@ -213,15 +215,15 @@ export function GameDemo() {
             ))}
           </div>
 
-          {/* accepted / failed の表示（アプリのトーストと同じ文言） */}
-          {feedback && toastVisible && (
+          {/* accepted / failed の表示（アプリのトーストと同じ文言）。動きを減らす設定では点滅させず、次に答えるまで出したままにする */}
+          {feedback && (reduced || toastVisible) && (
             <div className="pointer-events-none absolute inset-x-0 top-[17%] flex justify-center" aria-hidden>
               <span
                 key={feedback.id}
                 className={cn(
                   "rounded-full px-4 py-1.5 text-[13px] font-bold text-white shadow-lg",
                   feedback.ok ? "bg-[#85BF5D]" : "bg-[#B33737]",
-                  !reduced && "animate-in fade-in zoom-in-90 duration-150",
+                  "motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-90 motion-safe:duration-150",
                 )}
               >
                 {feedback.ok ? "accepted" : "failed"}
@@ -239,7 +241,7 @@ export function GameDemo() {
                     <span className="flex w-full justify-center rounded-2xl bg-[#111111] py-4 text-[#85BF5D]">
                       <SevenSeg text={String(score)} label={`${score} 点`} className="text-[44px]" />
                     </span>
-                    <span className="text-[13px] text-neutral-600">{answered} 問に答えました</span>
+                    <span className="text-[13px] tabular-nums text-neutral-600">{answered} 問に答えました</span>
                     <button
                       type="button"
                       onClick={start}
@@ -270,10 +272,10 @@ export function GameDemo() {
       </div>
 
       {/* 結果の読み上げ。文の長さが変わっても下が動かないよう、高さを固定する */}
-      <div className="flex h-12 w-full max-w-sm items-center justify-center text-center text-[14px] leading-snug text-neutral-600" role="status" aria-live="polite">
+      <div className="flex h-12 w-full max-w-sm items-center justify-center text-center text-[14px] leading-snug tabular-nums opacity-80" role="status" aria-live="polite">
         {status}
       </div>
-      <p className="hidden text-xs text-neutral-400 sm:block">キーボードの 0〜9・A〜F・Enter・Backspace でも入力できます</p>
+      <p className="hidden text-xs opacity-60 sm:block">キーボードの 0〜F・Enter・Backspace でも操作できます</p>
     </div>
   );
 }
