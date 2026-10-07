@@ -128,7 +128,7 @@ const playFeatures: Item[] = [
 
 const privacyPoints: Item[] = [
   { title: ["アカウント登録は", "ありません"], body: "サインインも、メールアドレスの入力もいりません。", color: "red" },
-  { title: ["録音は", "端末の中に"], body: "録った音と一覧は iPhone・iPad の中に保存されます。開発者に送られることはありません。", color: "green" },
+  { title: ["録音は", "端末の中に"], body: "録った音と一覧は、お使いの端末の中に保存されます。開発者に送られることはありません。", color: "green" },
   { title: ["広告も解析も", "ありません"], body: "広告やアクセス解析の仕組みは入っていません。", color: "blue" },
 ];
 
@@ -274,7 +274,7 @@ export default function CheckitoutPage() {
         </CkBand>
 
         <CkBand tone="raised">
-          <CkHeading title={["録音は、", "端末の中だけに。"]}>iPhone・iPad 版は、録った音を端末の外へ送りません。</CkHeading>
+          <CkHeading title={["録音は、", "端末の中だけに。"]}>iPhone・iPad 版も Android 版も、録った音を端末の外へ送りません。</CkHeading>
           <ul className="grid gap-4 sm:grid-cols-3">
             {privacyPoints.map((point) => (
               <li key={point.color} className="flex">

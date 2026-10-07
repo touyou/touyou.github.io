@@ -63,7 +63,7 @@ export default function CheckitoutSupportPage() {
       </p>
 
       <h3>料金はかかりますか？</h3>
-      <p>チェケラは無料です。iPhone・iPad 版にはアプリ内課金も広告もありません。</p>
+      <p>チェケラは無料です。アプリ内課金も広告もありません。</p>
 
       <h3>録音した音はどこに保存されますか？</h3>
       <p>
