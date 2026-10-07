@@ -228,18 +228,24 @@ const ARTS: Record<AppArt, { background: string; text: "light" | "dark"; render:
     background: "linear-gradient(165deg, #1A1A1F 0%, #0A0A0C 100%)",
     text: "light",
     render: (
-      <div className="absolute right-[9%] top-[12%] grid grid-cols-2 gap-[7px] [transform:perspective(320px)_rotateY(-20deg)_rotateX(10deg)]">
-        {["#FF453A", "#FFD60A", "#32D74B", "#0A84FF"].map((color, i) => (
-          <span
-            key={color}
-            className="h-[42px] w-[42px] rounded-[10px] border-2"
-            style={{
-              borderColor: color,
-              background: i === 2 ? `${color}33` : "rgba(0,0,0,0.35)",
-              boxShadow: i === 2 ? `0 0 22px ${color}88, inset 0 0 14px ${color}55` : `0 0 12px ${color}40`,
-            }}
-          />
-        ))}
+      // アプリと同じ 4×4 のパッド。行ごとに赤・黄・緑・青で、アイコンと同じく奥へ傾ける
+      <div className="absolute right-[8%] top-[10%] grid grid-cols-4 gap-[5px] [transform:perspective(320px)_rotateY(-22deg)_rotateX(10deg)]">
+        {["#E63C35", "#FAC700", "#67B62D", "#009BDB"].flatMap((color, row) =>
+          [0, 1, 2, 3].map((col) => {
+            const lit = row === 2 && col === 1;
+            return (
+              <span
+                key={`${row}-${col}`}
+                className="h-[22px] w-[22px] rounded-[5px] border-[1.5px]"
+                style={{
+                  borderColor: color,
+                  background: lit ? `${color}55` : "rgba(0,0,0,0.35)",
+                  boxShadow: lit ? `0 0 16px ${color}AA, inset 0 0 10px ${color}66` : `0 0 8px ${color}33`,
+                }}
+              />
+            );
+          }),
+        )}
       </div>
     ),
   },
