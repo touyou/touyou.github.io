@@ -60,7 +60,7 @@ function ControlTile() {
           <button
             type="button"
             onClick={() => setCount((c) => c + 1)}
-            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/15 text-3xl font-light text-white backdrop-blur transition active:scale-90"
+            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/15 text-3xl font-light text-white backdrop-blur motion-safe:transition motion-safe:active:scale-90"
             aria-label="やることを追加"
           >
             +
@@ -68,7 +68,7 @@ function ControlTile() {
           <button
             type="button"
             onClick={() => setCount((c) => Math.max(0, c - 1))}
-            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white text-[#1d1d1f] transition active:scale-90"
+            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white text-[#1d1d1f] motion-safe:transition motion-safe:active:scale-90"
             aria-label="いちばん急ぎのやることを完了"
           >
             <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
@@ -109,14 +109,14 @@ function LiveActivityTile() {
               <button
                 type="button"
                 onClick={() => setState(state === "done" ? "active" : "done")}
-                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white transition active:scale-95"
+                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
               >
                 {state === "done" ? "元に戻す" : "完了"}
               </button>
               <button
                 type="button"
                 onClick={() => setState(state === "snoozed" ? "active" : "snoozed")}
-                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white transition active:scale-95"
+                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
               >
                 {state === "snoozed" ? "元に戻す" : "スヌーズ"}
               </button>

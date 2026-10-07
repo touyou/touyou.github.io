@@ -68,8 +68,8 @@ export default function IntentoPage() {
         </section>
 
         <Band tone="gray">
-          <Heading title={["声で操作する"]}>
-            「Intento でやることを追加」「Intento で〇〇を完了」のように話しかけるだけ。やることの名前をそのまま文に混ぜられるので、選び直す手間がありません。
+          <Heading title={["話しかけるだけで、", "追加も完了も。"]}>
+            「Intento で〇〇を完了」のように、やることの名前をそのまま話しかけられます。あとから選び直す手間はありません。
           </Heading>
           <ul className="flex flex-wrap justify-center gap-3">
             {[
@@ -87,15 +87,15 @@ export default function IntentoPage() {
         </Band>
 
         <Band>
-          <Heading title={["開かずに済ませる"]}>
-            ホーム画面のウィジェット、コントロールセンター、ロック画面、Apple Watch の文字盤、Spotlight の検索結果。どこから触っても、同じ操作が同じように動きます。
+          <Heading title={["ホーム画面からも、", "ロック画面からも。"]}>
+            ウィジェット、コントロールセンター、ライブアクティビティ、Apple Watch、Spotlight。どこから触っても、同じ操作が同じように動きます。
           </Heading>
           <Surfaces />
         </Band>
 
         <Band tone="gray">
-          <Heading title={["すべての", "Apple デバイスで"]}>
-            iPhone、iPad、Mac、Apple Watch、Apple Vision Pro。iCloud で同期するので、どこで足してもどこでも見えます。
+          <Heading title={["iPhone で足して、", "Mac で片づける。"]}>
+            iPhone、iPad、Mac、Apple Watch、Apple Vision Pro に対応しています。iCloud で同期するので、どのデバイスにも同じリストがあります。
           </Heading>
           <div className="relative mx-auto w-full max-w-[440px]">
             {/* 画面の角丸は実機に近い小さめの値にして、ステータスバーが欠けないようにする */}
@@ -129,7 +129,7 @@ export default function IntentoPage() {
 
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <IntentoIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Intento は無料で使えます</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Intento は無料です。</h2>
           <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <span className="text-[13px] text-neutral-500">iOS 27・iPadOS 27・macOS 27・watchOS 27・visionOS 27 以降</span>
         </section>

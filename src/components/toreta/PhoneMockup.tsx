@@ -13,7 +13,6 @@ import { TradingCard } from "./TradingCard";
  */
 export function PhoneMockup({ className }: { className?: string }) {
   const [counts, setCounts] = useState(() => dummyCards.map((card) => card.owned));
-  const [bumped, setBumped] = useState<number | null>(null);
   const ownedKinds = counts.filter((count) => count > 0).length;
   return (
     <div
@@ -35,7 +34,7 @@ export function PhoneMockup({ className }: { className?: string }) {
           <div className="text-[19px] font-bold leading-tight">第1弾 はじまりの星</div>
           <div className="flex items-center gap-2 text-[10px] text-neutral-500">
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-neutral-300">
-              <div className="h-full rounded-full bg-[#2F6BF2] transition-[width] duration-500" style={{ width: `${(ownedKinds / dummyCards.length) * 100}%` }} />
+              <div className="h-full rounded-full bg-[#2F6BF2] motion-safe:transition-[width] motion-safe:duration-500" style={{ width: `${(ownedKinds / dummyCards.length) * 100}%` }} />
             </div>
             <span>
               <span className="font-semibold text-neutral-900">{ownedKinds}</span> / {dummyCards.length} 種
@@ -50,15 +49,15 @@ export function PhoneMockup({ className }: { className?: string }) {
               type="button"
               onClick={() => {
                 setCounts((c) => c.map((v, j) => (j === i ? v + 1 : v)));
-                setBumped(i);
               }}
-              className="relative transition-transform active:scale-95"
+              className="relative motion-safe:transition-transform motion-safe:active:scale-95"
               aria-label={`${card.name}を 1 枚追加（いま ${counts[i]} 枚）`}
             >
               <TradingCard card={{ ...card, owned: counts[i] }} />
               {counts[i] > 0 ? (
                 <span
-                  key={bumped === i ? `${counts[i]}` : undefined}
+                  // 枚数が変わったときだけ作り直して、増えたバッジだけを弾ませる
+                  key={counts[i]}
                   className="absolute -bottom-1 -right-1 rounded-full bg-[#2F6BF2] px-1 text-[8px] font-bold leading-[13px] text-white ring-2 ring-[#F2F2F7] motion-safe:animate-in motion-safe:zoom-in-50"
                 >
                   ×{counts[i]}

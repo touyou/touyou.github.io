@@ -47,11 +47,16 @@ const FINAL = STEPS.reduce((todos, step) => step.apply(todos), INITIAL);
 
 const sleep = (ms: number, signal: AbortSignal) =>
   new Promise<void>((resolve, reject) => {
-    const id = setTimeout(resolve, ms);
-    signal.addEventListener("abort", () => {
+    const onAbort = () => {
       clearTimeout(id);
       reject(new DOMException("aborted", "AbortError"));
-    });
+    };
+    // ループ中に何度も呼ぶので、終わった待ち時間の listener は外して溜めない
+    const id = setTimeout(() => {
+      signal.removeEventListener("abort", onAbort);
+      resolve();
+    }, ms);
+    signal.addEventListener("abort", onAbort, { once: true });
   });
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";

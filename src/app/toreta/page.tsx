@@ -230,8 +230,8 @@ export default function ToretaPage() {
         </section>
 
         <Band tone="gray">
-          <Heading title={["URL を貼れば、", "カードの一覧ができる"]}>
-            作品ごとの専用アプリではありません。公式サイトのカードリストから、そのつど一覧を作ります。
+          <Heading title={["URL を貼るだけ。", "一覧は Toreta が", "作ります。"]}>
+            作品ごとの専用アプリではありません。公式サイトのカードリストを読み取って、そのたびに一覧を作ります。
           </Heading>
           <ol className="grid gap-4 md:grid-cols-3">
             {steps.map((step, i) => (
@@ -250,7 +250,7 @@ export default function ToretaPage() {
         </Band>
 
         <Band>
-          <Heading title={["記録するための、", "ひととおりの道具"]} />
+          <Heading title={["持っている枚数も、", "足りないカードも、", "すぐわかる。"]} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <Tile key={feature.title} title={feature.title} body={feature.body}>
@@ -262,7 +262,7 @@ export default function ToretaPage() {
         </Band>
 
         <Band tone="gray">
-          <Heading title={["記録は、", "端末の中だけに", "保存します"]} />
+          <Heading title={["記録は、", "あなたの iPhone の", "中だけに。"]} />
           <ul className="grid gap-4 sm:grid-cols-3">
             {privacyPoints.map(([title, body]) => (
               <li key={title} className="flex">
@@ -290,7 +290,7 @@ export default function ToretaPage() {
 
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <ToretaIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Toreta は近日公開です</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">まもなく App Store に。</h2>
           <span className="text-[13px] text-neutral-500">無料（アプリ内課金あり）・iOS 27 以降</span>
         </section>
       </main>
