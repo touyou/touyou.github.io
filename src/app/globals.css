@@ -110,3 +110,13 @@ body {
   min-height: 100vh; /* fallback for older browsers */
   font-family: "Noto Sans JP", sans-serif;
 }
+
+/* Intento の LP：ショートカットのアクションを横に流す */
+@keyframes intento-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

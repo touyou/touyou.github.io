@@ -1,13 +1,33 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
-/**
- * Toreta（iOS アプリ）のサポートとプライバシーポリシーの共通レイアウト。
- * App Store の審査担当が確認する経路なので、装飾を抑え「見出し → 本文」が機械的に読める構造に保つ。
- */
-export default function ToretaLayout({ children }: { children: ReactNode }) {
+import { AppNav, DocsShell } from "@/components/app-lp";
+import { ToretaIcon } from "@/components/toreta/ToretaIcon";
+
+/** Toreta（iOS アプリ）のサポートとプライバシーポリシーの共通レイアウト。紹介ページと同じナビゲーションと書体にそろえる */
+export default function ToretaDocsLayout({ children }: { children: ReactNode }) {
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-16 leading-relaxed [&_a]:underline [&_h1]:mb-2 [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:font-bold [&_li]:mb-1 [&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
+    <DocsShell
+      nav={
+        <AppNav icon={<ToretaIcon className="h-6 w-6 shadow-none" />} name="Toreta" home="/toreta">
+          <Link href="/toreta/support" className="hover:text-neutral-900">
+            サポート
+          </Link>
+          <Link href="/toreta/privacy" className="hover:text-neutral-900">
+            プライバシー
+          </Link>
+        </AppNav>
+      }
+      footer={
+        <>
+          <Link href="/toreta">Toreta</Link>
+          <Link href="/toreta/support">サポート</Link>
+          <Link href="/toreta/privacy">プライバシーポリシー</Link>
+          <Link href="/">touyou.dev</Link>
+        </>
+      }
+    >
       {children}
-    </main>
+    </DocsShell>
   );
 }
