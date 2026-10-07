@@ -51,7 +51,7 @@ function Card({ app }: { app: AppBanner }) {
       href={app.href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}${app.android ? "（Android にも対応）" : ""}`}
+      aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}`}
       className={cn(
         "group relative block h-[150px] w-[240px] overflow-hidden rounded-[20px] sm:h-[175px] sm:w-[280px]",
         light ? "ring-1 ring-inset ring-white/[0.08]" : "ring-1 ring-inset ring-black/[0.06]",
@@ -66,14 +66,14 @@ function Card({ app }: { app: AppBanner }) {
       {light && <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent" aria-hidden />}
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 px-4 pb-3.5">
         <span className={cn("text-[15px] font-semibold leading-tight tracking-[-0.01em]", light ? "text-white" : "text-[#1d1d1f]")}>{app.name}</span>
-        {(app.status || app.android) && (
+        {app.status && (
           <span
             className={cn(
               "shrink-0 text-[10px] font-medium tracking-wide",
               light ? "text-white/60" : "text-[#1d1d1f]/55",
             )}
           >
-            {app.status ?? "Android にも対応"}
+            {app.status}
           </span>
         )}
       </div>
