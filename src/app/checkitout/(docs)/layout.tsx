@@ -1,22 +1,22 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppNav, DocsShell } from "@/components/app-lp";
 import { CheckitoutIcon } from "@/components/checkitout/CheckitoutIcon";
+import { CkDocsShell, CkNav } from "@/components/checkitout/lp";
 
-/** チェケラのサポートとプライバシーポリシーの共通レイアウト。紹介ページと同じナビゲーションと書体にそろえる */
+/** チェケラのサポートとプライバシーポリシーの共通レイアウト。紹介ページと同じ暗い地・ナビゲーション・書体にそろえる */
 export default function CheckitoutDocsLayout({ children }: { children: ReactNode }) {
   return (
-    <DocsShell
+    <CkDocsShell
       nav={
-        <AppNav icon={<CheckitoutIcon className="h-6 w-6 shadow-none" />} name="チェケラ" home="/checkitout">
-          <Link href="/checkitout/support" className="hover:text-neutral-900">
+        <CkNav icon={<CheckitoutIcon className="h-6 w-6 shadow-none" />} name="チェケラ" home="/checkitout">
+          <Link href="/checkitout/support">
             サポート
           </Link>
-          <Link href="/checkitout/privacy" className="hover:text-neutral-900">
+          <Link href="/checkitout/privacy">
             プライバシー
           </Link>
-        </AppNav>
+        </CkNav>
       }
       footer={
         <>
@@ -28,6 +28,6 @@ export default function CheckitoutDocsLayout({ children }: { children: ReactNode
       }
     >
       {children}
-    </DocsShell>
+    </CkDocsShell>
   );
 }

@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 export default function CheckitoutSupportPage() {
   return (
     <>
-      <h1>チェケラ サポート</h1>
+      <h1>
+        <span className="inline-block">チェケラ</span> <span className="inline-block">サポート</span>
+      </h1>
       <p>
         チェケラは、声や身の回りの音を録音して、16 個のパッドで鳴らせる音楽アプリです。iPhone・iPad（iOS 26・iPadOS 26 以降）に対応しています。Android 版は Google Play で公開しています。
       </p>

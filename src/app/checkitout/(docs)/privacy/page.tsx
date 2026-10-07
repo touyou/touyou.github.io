@@ -22,7 +22,10 @@ export const metadata: Metadata = {
 export default function CheckitoutPrivacyPage() {
   return (
     <>
-      <h1>チェケラ プライバシーポリシー</h1>
+      <h1>
+        {/* 語の途中で折り返さないよう、まとまりごとに区切る */}
+        <span className="inline-block">チェケラ</span> <span className="inline-block">プライバシーポリシー</span>
+      </h1>
       <p>施行日：{EFFECTIVE_DATE}</p>
 
       <p>このポリシーは、App Store で配信している iPhone・iPad 版のチェケラを対象としています。</p>

@@ -52,7 +52,7 @@ const ROW_VOICES: { name: string; voice: Voice }[][] = [
   [
     { name: "キック", voice: { kind: "kick" } },
     { name: "スネア", voice: { kind: "snare" } },
-    { name: "ハイハット", voice: { kind: "hat" } },
+    { name: "ハット", voice: { kind: "hat" } },
     { name: "クラップ", voice: { kind: "clap" } },
   ],
   [
@@ -87,7 +87,7 @@ export function padIndexForKey(key: string): number | null {
 
 /**
  * 「ループ」で流す 1 小節（8 分音符 8 つ）のリズム。各ステップで鳴らすパッドの番号を並べる。
- * キック（0）・スネア（1）・ハイハット（2）とベースだけにして、上でメロディを足せる余地を残す。
+ * キック（0）・スネア（1）・ハット（2）とベースだけにして、上でメロディを足せる余地を残す。
  */
 export const LOOP_PATTERN: number[][] = [[0, 2, 4], [2], [1, 2], [2, 6], [0, 2], [0, 2, 7], [1, 2], [2]];
 

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import { Phrases } from "@/components/app-lp";
 import { cn } from "@/lib/utils";
 
+import { glow, RAISED } from "./lp";
 import { MiniModeControls, SoundRow } from "./mini-ui";
 import {
   APP_BACKGROUND,
@@ -45,11 +46,12 @@ function usePrefersReducedMotion() {
 /** パッドを押した色にしておく時間 */
 const FLASH_MS = 140;
 
-
 export function PadDemo() {
   const synthRef = useRef<PadSynth | null>(null);
   // パッドごとに、最後に光らせた回の番号を持つ。連打したとき、前の回のタイマーで早く消えないようにする
   const flashTokens = useRef<number[]>(Array(16).fill(0));
+  // 光を消すタイマー。アンマウントのときにまとめて止める
+  const flashTimers = useRef(new Set<ReturnType<typeof setTimeout>>());
   const [lit, setLit] = useState<ReadonlySet<number>>(() => new Set());
   const [looping, setLooping] = useState(false);
   const [lastPad, setLastPad] = useState<number | null>(null);
@@ -63,7 +65,9 @@ export function PadDemo() {
   const flash = useCallback((index: number) => {
     const token = ++flashTokens.current[index];
     setLit((current) => new Set(current).add(index));
-    setTimeout(() => {
+    const timers = flashTimers.current;
+    const id = setTimeout(() => {
+      timers.delete(id);
       if (flashTokens.current[index] !== token) return;
       setLit((current) => {
         const next = new Set(current);
@@ -71,6 +75,7 @@ export function PadDemo() {
         return next;
       });
     }, FLASH_MS);
+    timers.add(id);
   }, []);
 
   const trigger = useCallback(
@@ -136,14 +141,21 @@ export function PadDemo() {
     };
   }, [looping, reduced, flash, synth]);
 
-  // ページを離れたら音を止める
-  useEffect(() => () => synthRef.current?.close(), []);
+  // ページを離れたら、音と光を消すタイマーを止める
+  useEffect(() => {
+    const timers = flashTimers.current;
+    return () => {
+      for (const id of timers) clearTimeout(id);
+      timers.clear();
+      synthRef.current?.close();
+    };
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-5">
-      {/* iPhone。中身の高さに引っぱられないよう、枠は縦横比で決めて中をはみ出させない */}
-      <div className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]">
-        <div className="flex h-full flex-col gap-3 overflow-hidden rounded-[41px] px-4 pb-8 pt-12 text-left text-white" style={{ background: APP_BACKGROUND }}>
+      {/* iPhone。中身の高さに引っぱられないよう、枠は縦横比で決めて中をはみ出させない。画面の角丸は 52 − 11 = 41px */}
+      <div className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#2A2A2C] bg-[#2A2A2C] shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_30px_80px_-20px_rgba(0,0,0,0.9)]">
+        <div className="flex h-full flex-col gap-3 overflow-hidden rounded-[41px] px-4 pb-9 pt-12 text-left text-white" style={{ background: APP_BACKGROUND }}>
           {/* アプリはステータスバーを隠すので、Dynamic Island だけを描く */}
           <span className="absolute left-1/2 top-3 h-[24px] w-[80px] -translate-x-1/2 rounded-full bg-black" aria-hidden />
           <p className="text-center text-[17px] font-bold tracking-wide" aria-hidden>
@@ -170,10 +182,10 @@ export function PadDemo() {
                     if (event.detail === 0) trigger(pad.index);
                   }}
                   className={cn(
-                    "relative flex aspect-square touch-manipulation select-none items-end overflow-hidden rounded-[10px] border-[3px] p-1 shadow-[0_2px_0_rgba(255,255,255,0.08)] outline-none focus-visible:ring-2 focus-visible:ring-white motion-safe:transition-transform motion-safe:duration-75",
+                    "relative flex aspect-square touch-manipulation select-none items-end overflow-hidden rounded-[10px] border-[3px] p-1 outline-none focus-visible:ring-2 focus-visible:ring-white motion-safe:transition-transform motion-safe:duration-75",
                     on && "motion-safe:scale-95",
                   )}
-                  style={{ borderColor: PAD_COLORS[pad.color], background: on ? PAD_FILL_PRESSED : PAD_FILL }}
+                  style={{ borderColor: PAD_COLORS[pad.color], background: on ? PAD_FILL_PRESSED : PAD_FILL, boxShadow: glow(pad.color, on ? 2 : 1) }}
                 >
                   <span className="truncate text-[8px] font-semibold leading-none text-white/90">{pad.name}</span>
                 </button>
@@ -181,8 +193,9 @@ export function PadDemo() {
             })}
           </div>
 
-          {/* 音の一覧。アプリと同じく残りの高さいっぱいに広げ、入りきらない行は隠す（アプリではスクロールできる） */}
-          <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-hidden rounded-xl bg-white/[0.06] p-1.5 ring-1 ring-white/10" aria-hidden>
+          {/* 下端の操作は、ホームインジケータの分（36px）だけ画面の端から離す */}
+          {/* 音の一覧。アプリと同じく残りの高さいっぱいに広げ、入りきらない行は下をぼかして隠す（アプリではスクロールできる） */}
+          <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-hidden rounded-xl bg-white/[0.06] p-1.5 ring-1 ring-white/10 [mask-image:linear-gradient(to_bottom,black_75%,transparent)]" aria-hidden>
             {DEMO_PADS.map((pad) => (
               <SoundRow key={pad.index} name={pad.name} pad={pad.index} selected={lastPad === pad.index} />
             ))}
@@ -203,11 +216,12 @@ export function PadDemo() {
             setLooping((v) => !v);
           }}
           aria-pressed={looping}
-          className="min-w-[10em] rounded-full border border-neutral-300 px-5 py-2 text-[15px] font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-50"
+          className="h-11 min-w-[10em] rounded-full border-2 px-5 text-[15px] font-bold hover:brightness-125 motion-safe:transition"
+          style={{ borderColor: PAD_COLORS.green, color: PAD_COLORS.green, background: RAISED, boxShadow: glow("green", looping ? 2 : 1) }}
         >
           {looping ? "リズムを止める" : "リズムを流す"}
         </button>
-        <p className="flex max-w-sm flex-col gap-1 text-xs leading-[1.7] text-neutral-500">
+        <p className="flex max-w-sm flex-col gap-1 text-xs leading-[1.7] text-white/55">
           <span>
             <Phrases phrases={["パッドを押すと", "音が鳴ります。"]} />
             <span className="hidden sm:inline">
