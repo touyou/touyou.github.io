@@ -121,3 +121,32 @@ export function CategoryRow({ id, selected, className }: { id: CategoryId; selec
     </div>
   );
 }
+
+/** 再生の三角（ショートカットの play.fill） */
+export function PlayGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden fill="white">
+      <path d="M7 4.8v14.4a1 1 0 0 0 1.5.86l12-7.2a1 1 0 0 0 0-1.72l-12-7.2A1 1 0 0 0 7 4.8z" />
+    </svg>
+  );
+}
+
+/** マイク（Siri の見出し用） */
+export function MicGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden fill="none" stroke="white" strokeWidth={2} strokeLinecap="round">
+      <rect x="9" y="3" width="6" height="11" rx="3" fill="white" />
+      <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
+    </svg>
+  );
+}
+
+/** iPad（iPad 対応の見出し用） */
+export function IpadGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden fill="none" stroke="white" strokeWidth={2}>
+      <rect x="4.5" y="2.5" width="15" height="19" rx="2.5" />
+      <path d="M10.5 18.5h3" strokeLinecap="round" />
+    </svg>
+  );
+}

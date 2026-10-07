@@ -95,10 +95,12 @@ export function QuizDemo() {
   };
 
   return (
-    <section aria-label="Programming Quiz の体験版。3 問の 3 択クイズを解けます" className="flex flex-col items-center gap-4">
-      {/* iPhone。中身の文字量が変わっても枠が伸びないよう、比率で高さを決めてはみ出しは切る */}
+    <section aria-label="Programming Quiz の体験版。3 問の 3 択クイズを解けます" className="flex w-full flex-col items-center gap-4">
+      {/* iPhone。中身の文字量が変わっても枠が伸びないよう、比率で高さを決めてはみ出しは切る。画面の角丸は 52 − 11 = 41px */}
       <div className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
-        <div className="flex h-full flex-col overflow-hidden rounded-[41px] bg-[#F2F2F7] text-left">
+        <div className="relative flex h-full flex-col overflow-hidden rounded-[41px] bg-[#F2F2F7] text-left">
+          {/* ホームインジケータ。画面の中身は pb-9（36px）でここから離す */}
+          <span className="absolute bottom-2 left-1/2 h-[5px] w-[38%] -translate-x-1/2 rounded-full bg-[#1d1d1f]" aria-hidden />
           <div className="flex items-center justify-between px-7 pt-3.5 text-[12px] font-semibold" aria-hidden>
             <span>9:41</span>
             <span className="h-[24px] w-[80px] rounded-full bg-[#1d1d1f]" />
@@ -120,7 +122,7 @@ export function QuizDemo() {
               <button
                 type="button"
                 onClick={restart}
-                className="mt-auto w-full rounded-full py-3 text-[15px] font-bold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="mt-auto w-full rounded-full py-3 text-[15px] font-bold text-white hover:brightness-110 motion-safe:transition motion-safe:active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{ background: INDIGO, outlineColor: INDIGO }}
               >
                 もう一度チャレンジ
@@ -167,7 +169,7 @@ export function QuizDemo() {
                       onClick={() => choose(i)}
                       disabled={answered}
                       className={cn(
-                        "flex h-12 items-center justify-between gap-2 rounded-[14px] bg-white px-4 text-left text-[13px] font-semibold transition-colors",
+                        "flex h-12 items-center justify-between gap-2 rounded-[14px] bg-white px-4 text-left text-[13px] font-semibold motion-safe:transition-colors",
                         !answered && "hover:bg-neutral-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
                         answered && !tint && "text-neutral-400",
                       )}
@@ -203,7 +205,7 @@ export function QuizDemo() {
                 type="button"
                 onClick={advance}
                 className={cn(
-                  "mt-auto w-full rounded-full py-3 text-[15px] font-bold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+                  "mt-auto w-full rounded-full py-3 text-[15px] font-bold text-white hover:brightness-110 motion-safe:transition motion-safe:active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
                   answered ? "visible motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2" : "invisible",
                 )}
                 style={{ background: INDIGO, outlineColor: INDIGO }}
