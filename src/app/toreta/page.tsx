@@ -320,6 +320,9 @@ export default function ToretaPage() {
             <Link href="/toreta/privacy" className="hover:text-neutral-900">
               プライバシーポリシー
             </Link>
+            <Link href="/toreta/legal" className="hover:text-neutral-900">
+              特定商取引法に基づく表記
+            </Link>
             <Link href="/" className="hover:text-neutral-900">
               touyou.dev
             </Link>
