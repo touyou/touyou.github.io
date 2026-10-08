@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Toreta Plus の販売についての特定商取引法に基づく表記。",
 };
 
-export default function ToretaTokushohoPage() {
+export default function ToretaLegalPage() {
   return (
     <>
       <h1>特定商取引法に基づく表記</h1>

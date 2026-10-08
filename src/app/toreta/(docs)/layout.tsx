@@ -23,7 +23,7 @@ export default function ToretaDocsLayout({ children }: { children: ReactNode }) 
           <Link href="/toreta">Toreta</Link>
           <Link href="/toreta/support">サポート</Link>
           <Link href="/toreta/privacy">プライバシーポリシー</Link>
-          <Link href="/toreta/tokushoho">特定商取引法に基づく表記</Link>
+          <Link href="/toreta/legal">特定商取引法に基づく表記</Link>
           <Link href="/">touyou.dev</Link>
         </>
       }
