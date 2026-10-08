@@ -19,10 +19,21 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "FFMultiplier — 16進数の掛け算ゲーム",
   description: "16 進数の掛け算に 60 秒で答えていくタイムアタックゲーム。16 進数での九九、覚えてみませんか？",
+  // 紹介画像は public/og/ffmultiplier.png（ページの絵を 1200×630 で撮ったもの）
   openGraph: {
     title: "FFMultiplier",
     description: "16 進数の掛け算に 60 秒で答えていくタイムアタックゲーム。",
-    url: "https://touyou.dev/ffmultiplier",
+    url: "https://www.touyou.dev/ffmultiplier",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "https://www.touyou.dev/og/ffmultiplier.png", width: 1200, height: 630, alt: "FFMultiplier の紹介画像" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FFMultiplier",
+    description: "16 進数の掛け算に 60 秒で答えていくタイムアタックゲーム。",
+    images: ["https://www.touyou.dev/og/ffmultiplier.png"],
   },
 };
 

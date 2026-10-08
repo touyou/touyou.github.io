@@ -27,10 +27,21 @@ export const metadata: Metadata = {
   title: "チェケラ — すべての音が楽器になる音楽アプリ",
   description:
     "声や身の回りの音を録音して、16 個のパッドで鳴らせる音楽アプリ。みんなでつくって、みんなで楽しめます。iPhone・iPad・Android に対応。",
+  // 紹介画像は public/og/checkitout.png（ページの絵を 1200×630 で撮ったもの）
   openGraph: {
     title: "チェケラ",
     description: "すべての音が、楽器になる。録音した音を 16 個のパッドで鳴らせる音楽アプリ。",
-    url: "https://touyou.dev/checkitout",
+    url: "https://www.touyou.dev/checkitout",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "https://www.touyou.dev/og/checkitout.png", width: 1200, height: 630, alt: "チェケラの紹介画像" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "チェケラ",
+    description: "すべての音が、楽器になる。録音した音を 16 個のパッドで鳴らせる音楽アプリ。",
+    images: ["https://www.touyou.dev/og/checkitout.png"],
   },
 };
 

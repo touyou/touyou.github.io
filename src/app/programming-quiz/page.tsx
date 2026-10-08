@@ -34,10 +34,21 @@ export const metadata: Metadata = {
   title: "Programming Quiz — 3 択で試す、プログラミングの知識",
   description:
     "プログラミング言語の由来、iPhone アプリ開発、アルゴリズムの 3 つのジャンルから、全 27 問の 3 択クイズに挑戦できる iPhone・iPad アプリ。好きなテーマでオンデバイス AI に問題をつくってもらうこともできます。",
+  // 紹介画像は public/og/programming-quiz.png（ページの絵を 1200×630 で撮ったもの）
   openGraph: {
     title: "Programming Quiz",
     description: "3 択で試す、プログラミングの知識。",
-    url: "https://touyou.dev/programming-quiz",
+    url: "https://www.touyou.dev/programming-quiz",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "https://www.touyou.dev/og/programming-quiz.png", width: 1200, height: 630, alt: "Programming Quiz の紹介画像" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Programming Quiz",
+    description: "3 択で試す、プログラミングの知識。",
+    images: ["https://www.touyou.dev/og/programming-quiz.png"],
   },
 };
 
