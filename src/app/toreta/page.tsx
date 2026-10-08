@@ -19,10 +19,21 @@ export const metadata: Metadata = {
   title: "Toreta — 公式カードリストを、そのままコレクション帳に",
   description:
     "トレーディングカードゲームの公式カードリストの URL を貼るだけで、持っているカードとほしいカードを記録できる iPhone アプリ。",
+  // 紹介画像は public/og/toreta.png（ページの絵を 1200×630 で撮ったもの）
   openGraph: {
     title: "Toreta",
     description: "公式カードリストを、そのままコレクション帳に。トレーディングカードの所持枚数を記録する iPhone アプリ。",
-    url: "https://touyou.dev/toreta",
+    url: "https://www.touyou.dev/toreta",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "https://www.touyou.dev/og/toreta.png", width: 1200, height: 630, alt: "Toreta の紹介画像" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Toreta",
+    description: "公式カードリストを、そのままコレクション帳に。トレーディングカードの所持枚数を記録する iPhone アプリ。",
+    images: ["https://www.touyou.dev/og/toreta.png"],
   },
 };
 

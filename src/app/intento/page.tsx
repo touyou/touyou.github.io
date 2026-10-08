@@ -21,10 +21,21 @@ export const metadata: Metadata = {
   title: "Intento — アプリを開かなくても使えるやることリスト",
   description:
     "やることの追加も、完了も、あと回しも、Siri に話しかければ終わります。ウィジェット、コントロールセンター、ロック画面、Apple Watch、Spotlight からも使えるやることリスト。",
+  // 紹介画像は public/og/intento.png（ページの絵を 1200×630 で撮ったもの）
   openGraph: {
     title: "Intento",
     description: "アプリを開かなくても使える、やることリスト。",
-    url: "https://touyou.dev/intento",
+    url: "https://www.touyou.dev/intento",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+    images: [{ url: "https://www.touyou.dev/og/intento.png", width: 1200, height: 630, alt: "Intento の紹介画像" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Intento",
+    description: "アプリを開かなくても使える、やることリスト。",
+    images: ["https://www.touyou.dev/og/intento.png"],
   },
 };
 
