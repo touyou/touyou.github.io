@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { AppNav, DocsShell } from "@/components/app-lp";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
 
-/** Toreta（iOS アプリ）のサポートとプライバシーポリシーの共通レイアウト。紹介ページと同じナビゲーションと書体にそろえる */
+/** Toreta（iOS アプリ）のサポート・プライバシーポリシー・特定商取引法に基づく表記の共通レイアウト。紹介ページと同じナビゲーションと書体にそろえる */
 export default function ToretaDocsLayout({ children }: { children: ReactNode }) {
   return (
     <DocsShell
@@ -23,6 +23,7 @@ export default function ToretaDocsLayout({ children }: { children: ReactNode }) 
           <Link href="/toreta">Toreta</Link>
           <Link href="/toreta/support">サポート</Link>
           <Link href="/toreta/privacy">プライバシーポリシー</Link>
+          <Link href="/toreta/tokushoho">特定商取引法に基づく表記</Link>
           <Link href="/">touyou.dev</Link>
         </>
       }
