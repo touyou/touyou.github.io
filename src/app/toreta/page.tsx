@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppNav, AppPage, Band, Heading, Phrases, Tile } from "@/components/app-lp";
+import { AppNav, AppPage, Band, Heading, Phrases, PillLink, Tile } from "@/components/app-lp";
 import { dummyCards } from "@/components/toreta/dummy-cards";
 import { PhoneMockup } from "@/components/toreta/PhoneMockup";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
@@ -13,6 +13,8 @@ import { TradingCard } from "@/components/toreta/TradingCard";
  * 権利の都合で、実在するカードゲームの名前・カード画像・ロゴは載せない。画面の例は架空カードで描く。
  * 機能の説明はアプリの実装（Toreta リポジトリ）に合わせる。機能を変えたらここも直す。
  */
+
+const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
 export const metadata: Metadata = {
   title: "Toreta — 公式カードリストを、そのままコレクション帳に",
   description:
@@ -186,7 +188,9 @@ export default function ToretaPage() {
         <Link href="/toreta/privacy" className="hidden hover:text-neutral-900 sm:inline">
           プライバシー
         </Link>
-        <span className="rounded-full bg-neutral-200 px-3 py-1 text-[12px] font-medium text-neutral-600">近日公開</span>
+        <PillLink href={APP_STORE_URL} size="sm">
+          入手
+        </PillLink>
       </AppNav>
 
       <main className="flex flex-col">
@@ -204,7 +208,7 @@ export default function ToretaPage() {
               </p>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <span className="rounded-full bg-neutral-200 px-7 py-3 text-[17px] font-medium text-neutral-700">App Store で近日公開</span>
+              <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
               <span className="text-[13px] text-neutral-500">無料（アプリ内課金あり）・iOS 27 以降</span>
             </div>
           </div>
@@ -290,7 +294,8 @@ export default function ToretaPage() {
 
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <ToretaIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">まもなく App Store に。</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Toreta は無料です。</h2>
+          <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <span className="text-[13px] text-neutral-500">無料（アプリ内課金あり）・iOS 27 以降</span>
         </section>
       </main>

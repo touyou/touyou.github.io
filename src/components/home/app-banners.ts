@@ -15,7 +15,7 @@ export type AppBanner = {
 
 export const appBanners: AppBanner[] = [
   { id: "intento", name: "Intento", href: "/intento" },
-  { id: "toreta", name: "Toreta", href: "/toreta", status: "近日公開" },
+  { id: "toreta", name: "Toreta", href: "/toreta" },
   { id: "graphica", name: "GRAPHICA", href: "https://graphica.touyou.dev/app" },
   { id: "playground", name: "Graphica Playground", href: "https://graphica.touyou.dev/playground" },
   { id: "checkitout", name: "チェケラ", href: "/checkitout" },
