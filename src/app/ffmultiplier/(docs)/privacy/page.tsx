@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 /**
  * FFMultiplier のプライバシーポリシー。
  * FFMultiply リポジトリの docs/privacy_policy.html（広告を入れる前の版）を、いまのアプリの実装に合わせて書き直したもの。
- * 根拠: Services/RankingService.swift（ランキングに送るもの）、Services/AdManager.swift と App/FFMultiplyApp.swift（広告・ATT）、
+ * 根拠: Services/RankingService.swift（ランキングに送るもの、匿名認証の識別子）、Services/AdManager.swift と App/FFMultiplyApp.swift（広告・ATT）、
  * Services/ScoreStore.swift と Model/ScoreEntry.swift（端末内の記録）、Views/*.swift の UserDefaults（名前など）。
  * アプリで扱うデータを変えたら、ここも直す。
  */
-const EFFECTIVE_DATE = "2026-10-08";
+const EFFECTIVE_DATE = "2026-10-13";
 const CONTACT_EMAIL = "contact@touyou.dev";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function FFMultiplierPrivacyPage() {
         個人でアプリを開発している touyou（以下「開発者」）は、iPhone アプリ「FFMultiplier」（以下「本アプリ」）で扱う情報について、次のとおり定めます。
       </p>
       <ul>
-        <li>アカウント登録はありません。メールアドレスや電話番号を入力する場面もありません</li>
+        <li>名前やメールアドレスでのアカウント登録はありません。メールアドレスや電話番号を入力する場面もありません</li>
         <li>アクセス解析のツールは組み込んでいません</li>
         <li>端末の外に送るのは、オンラインランキングに登録する情報と、広告の配信に使われる情報だけです（自分でシェアを選んだときを除きます）</li>
       </ul>
@@ -46,10 +46,16 @@ export default function FFMultiplierPrivacyPage() {
       <ul>
         <li>ユーザー名</li>
         <li>点数（ハイスコア）</li>
-        <li>この iPhone で本アプリを区別するための識別子（Apple が提供する「ベンダー識別子」。同じ iPhone からの登録を 1 件にまとめ、自分の順位を見つけるために使います）</li>
+        <li>
+          本アプリの利用者を区別するための識別子（Google の Firebase Authentication が自動で発行する、本アプリ専用のランダムな値。同じ利用者からの登録を 1 件にまとめ、自分の順位を見つけるために使います。iPhone 本体や Apple Account とは結び付きません）
+        </li>
       </ul>
       <p>
         ランキングの名前と点数は、本アプリを使うほかの利用者にも表示されます。本名など、知られたくない情報をユーザー名にしないでください。ランキングを表示するとき、ほかの利用者の本アプリには上記の識別子もあわせて送られますが、画面には表示しません。
+      </p>
+      <p>識別子の発行のため、Firebase Authentication は IP アドレスなどの通信に関する情報を取得することがあります。</p>
+      <p>
+        バージョン 2.1.2 以前で登録した記録には、Apple が提供する「ベンダー識別子」が使われています。バージョン 2.2.0 以降で登録し直すと、この古い記録は削除されます。
       </p>
       <p>これらの情報は、オンラインランキングを提供するためだけに使います。</p>
 
@@ -75,7 +81,9 @@ export default function FFMultiplierPrivacyPage() {
       <h2>データの削除</h2>
       <ul>
         <li>「local score」の画面のゴミ箱のボタンから、端末に残っている点数をすべて削除できます。ユーザー名を設定している場合は、オンラインランキングの点数も 0 になります（名前は残ります）</li>
-        <li>本アプリを削除すると、端末に保存した情報はすべて消えます。オンラインランキングの情報は残ります</li>
+        <li>
+          本アプリを削除すると、端末に保存した情報はすべて消えます。オンラインランキングの情報は残ります。入れ直したときに別の利用者として扱われ、以前の記録とは別に登録されることがあります
+        </li>
         <li>
           オンラインランキングの情報を名前ごと削除したい場合は、登録した名前を添えて <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> までご連絡ください
         </li>
