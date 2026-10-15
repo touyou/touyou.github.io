@@ -227,6 +227,11 @@
       "title": "これまでやってきたこと",
       "links": [
         {
+          "url": "https://www.g-mark.org/gallery/designers/fb976b4e-9cf9-486d-b49c-ba58b97dd70f",
+          "title": "GOOD DESIGN AWARD 受賞デザイナー",
+          "cardType": "ogp"
+        },
+        {
           "url": "https://github.com/touyou/NeumorphismTab",
           "title": "GitHub - touyou/NeumorphismTab: Custom TabBarController with Neumorphism.",
           "cardType": "ogp"
