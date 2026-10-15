@@ -30,7 +30,7 @@ export function AppCarousel() {
       >
         {appBanners.map((app) => (
           <li key={app.id} className="snap-start">
-            <Card app={app} />
+            <AppBannerCard app={app} />
           </li>
         ))}
       </ul>
@@ -42,7 +42,8 @@ export function AppCarousel() {
   );
 }
 
-function Card({ app }: { app: AppBanner }) {
+/** 大きさは className で上書きできる。既定はカルーセル用の固定サイズ */
+export function AppBannerCard({ app, className }: { app: AppBanner; className?: string }) {
   const art = ARTS[app.id];
   const external = app.href.startsWith("http");
   const light = art.text === "light";
@@ -53,7 +54,8 @@ function Card({ app }: { app: AppBanner }) {
       rel={external ? "noreferrer" : undefined}
       aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}`}
       className={cn(
-        "group relative block h-[150px] w-[240px] overflow-hidden rounded-[20px] sm:h-[175px] sm:w-[280px]",
+        "group relative block overflow-hidden rounded-[20px]",
+        className ?? "h-[150px] w-[240px] sm:h-[175px] sm:w-[280px]",
         light ? "ring-1 ring-inset ring-white/[0.08]" : "ring-1 ring-inset ring-black/[0.06]",
       )}
       style={{ background: art.background }}
