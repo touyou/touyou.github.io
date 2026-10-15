@@ -52,6 +52,7 @@ const platformOptions: { value: SocialPlatform; label: string }[] = [
   { value: "hoyolab", label: "HoYoLAB" },
   { value: "hatena", label: "Hatena" },
   { value: "lapras", label: "Lapras" },
+  { value: "gmark", label: "GOOD DESIGN AWARD" },
 ];
 
 // Access state type
