@@ -122,7 +122,7 @@ export default function BentoPage() {
                 );
               })}
 
-              {/* 紹介ページのあるアプリを、トップページのカルーセルと同じ絵で並べる */}
+              {/* 紹介ページのあるアプリを、トップページと同じカルーセルで並べる */}
               <AppBannerSection title="つくったアプリ" />
 
               {/* YouTube Sections - Defined in JSON */}

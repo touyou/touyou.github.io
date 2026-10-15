@@ -12,7 +12,8 @@ import { appBanners, type AppArt, type AppBanner } from "./app-banners";
  * App Store のカテゴリカードのように、色と絵でリンク先の雰囲気を伝え、文字はアプリ名だけにする。
  * 横スクロールとスクロールスナップで動かし、広い画面では左右のボタンでも送れるようにする。
  */
-export function AppCarousel() {
+/** compact は Bento のような段組みの中に置くとき用。左右の余白をページ幅ではなく親に合わせる */
+export function AppCarousel({ compact = false }: { compact?: boolean }) {
   const scroller = useRef<HTMLUListElement>(null);
 
   const scrollByPage = (direction: 1 | -1) => {
@@ -26,7 +27,12 @@ export function AppCarousel() {
     <section aria-label="つくったアプリ" className="relative w-full">
       <ul
         ref={scroller}
-        className="flex snap-x snap-mandatory scroll-px-6 gap-3 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:scroll-px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] [&::-webkit-scrollbar]:hidden"
+        className={cn(
+          "flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          compact
+            ? "-mx-4 scroll-px-4 px-4 md:mx-0 md:scroll-px-0 md:px-0"
+            : "scroll-px-6 px-6 sm:scroll-px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))]",
+        )}
       >
         {appBanners.map((app) => (
           <li key={app.id} className="snap-start">
@@ -34,7 +40,7 @@ export function AppCarousel() {
           </li>
         ))}
       </ul>
-      <div className="mx-auto mt-3 hidden w-full max-w-6xl justify-end gap-2 px-6 sm:flex">
+      <div className={cn("mt-3 hidden justify-end gap-2 sm:flex", !compact && "mx-auto w-full max-w-6xl px-6")}>
         <ArrowButton label="前のアプリへ" onClick={() => scrollByPage(-1)} direction={-1} />
         <ArrowButton label="次のアプリへ" onClick={() => scrollByPage(1)} direction={1} />
       </div>
@@ -42,8 +48,7 @@ export function AppCarousel() {
   );
 }
 
-/** 大きさは className で上書きできる。既定はカルーセル用の固定サイズ */
-export function AppBannerCard({ app, className }: { app: AppBanner; className?: string }) {
+function AppBannerCard({ app }: { app: AppBanner }) {
   const art = ARTS[app.id];
   const external = app.href.startsWith("http");
   const light = art.text === "light";
@@ -54,8 +59,7 @@ export function AppBannerCard({ app, className }: { app: AppBanner; className?: 
       rel={external ? "noreferrer" : undefined}
       aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}`}
       className={cn(
-        "group relative block overflow-hidden rounded-[20px]",
-        className ?? "h-[150px] w-[240px] sm:h-[175px] sm:w-[280px]",
+        "group relative block h-[150px] w-[240px] overflow-hidden rounded-[20px] sm:h-[175px] sm:w-[280px]",
         light ? "ring-1 ring-inset ring-white/[0.08]" : "ring-1 ring-inset ring-black/[0.06]",
       )}
       style={{ background: art.background }}
