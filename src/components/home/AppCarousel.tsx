@@ -30,7 +30,7 @@ export function AppCarousel({ compact = false }: { compact?: boolean }) {
         className={cn(
           "flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           compact
-            ? "-mx-4 scroll-px-4 px-4 md:mx-0 md:scroll-px-0 md:px-0"
+            ? "-mx-4 scroll-px-4 px-4"
             : "scroll-px-6 px-6 sm:scroll-px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] sm:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))]",
         )}
       >
@@ -48,7 +48,8 @@ export function AppCarousel({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function AppBannerCard({ app }: { app: AppBanner }) {
+/** 大きさは className で上書きできる。既定はカルーセル用の固定サイズ */
+export function AppBannerCard({ app, className }: { app: AppBanner; className?: string }) {
   const art = ARTS[app.id];
   const external = app.href.startsWith("http");
   const light = art.text === "light";
@@ -59,7 +60,8 @@ function AppBannerCard({ app }: { app: AppBanner }) {
       rel={external ? "noreferrer" : undefined}
       aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}`}
       className={cn(
-        "group relative block h-[150px] w-[240px] overflow-hidden rounded-[20px] sm:h-[175px] sm:w-[280px]",
+        "group relative block overflow-hidden rounded-[20px]",
+        className ?? "h-[150px] w-[240px] sm:h-[175px] sm:w-[280px]",
         light ? "ring-1 ring-inset ring-white/[0.08]" : "ring-1 ring-inset ring-black/[0.06]",
       )}
       style={{ background: art.background }}
