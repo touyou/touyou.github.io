@@ -5,8 +5,7 @@ import bentoData from "@/data/bento-links.json";
 import type { BentoData, BentoLink } from "@/lib/bento-types";
 import { fetchHatenaBlogPosts } from "@/lib/hatena-blog";
 import { fetchSpeakerDeckTalks } from "@/lib/speakerdeck";
-import { fetchAppStoreApps } from "@/lib/app-store";
-import { fetchGooglePlayApps } from "@/lib/google-play";
+import { AppBannerSection } from "@/components/bento/AppBannerSection";
 import { ImageGallery } from "@/components/bento/ImageGallery";
 import { SocialCard } from "@/components/bento/SocialCard";
 import { SimpleLinkCard } from "@/components/bento/SimpleLinkCard";
@@ -18,8 +17,6 @@ import { SuspenseBlogSection } from "@/components/bento/SuspenseBlogSection";
 import { BlogSectionSkeleton } from "@/components/bento/BlogSectionSkeleton";
 import { SuspenseSpeakerDeckSection } from "@/components/bento/SuspenseSpeakerDeckSection";
 import { SpeakerDeckSectionSkeleton } from "@/components/bento/SpeakerDeckSectionSkeleton";
-import { SuspenseAppStoreSection } from "@/components/bento/SuspenseAppStoreSection";
-import { AppStoreSectionSkeleton } from "@/components/bento/AppStoreSectionSkeleton";
 import { YouTubeSection } from "@/components/bento/YouTubeSection";
 import { SuspenseMastodonSection } from "@/components/bento/SuspenseMastodonSection";
 import { MastodonSectionSkeleton } from "@/components/bento/MastodonSectionSkeleton";
@@ -42,15 +39,6 @@ export default function BentoPage() {
   const blogPromise = fetchHatenaBlogPosts();
   const speakerDeckPromise = fetchSpeakerDeckTalks();
   const mastodonPromise = fetchMastodonPosts(10);
-  // App Store + Google Play merged into one grid, newest release first
-  const appStorePromise = Promise.all([
-    fetchAppStoreApps(),
-    fetchGooglePlayApps(),
-  ]).then(([iosApps, androidApps]) =>
-    [...iosApps, ...androidApps].sort((a, b) =>
-      b.releaseDate.localeCompare(a.releaseDate)
-    )
-  );
 
   return (
     <main className="min-h-dvh">
@@ -134,13 +122,8 @@ export default function BentoPage() {
                 );
               })}
 
-              {/* Apps I've shipped - auto-collected from the App Store (see src/lib/app-store.ts) */}
-              <Suspense fallback={<AppStoreSectionSkeleton />}>
-                <SuspenseAppStoreSection
-                  appsPromise={appStorePromise}
-                  title="つくったアプリ"
-                />
-              </Suspense>
+              {/* 紹介ページのあるアプリを、トップページと同じカルーセルで並べる */}
+              <AppBannerSection title="つくったアプリ" />
 
               {/* YouTube Sections - Defined in JSON */}
               {data.youtubeSections?.map((ytSection) => (
