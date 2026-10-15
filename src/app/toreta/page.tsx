@@ -85,7 +85,7 @@ const steps = [
   },
 ];
 
-const features: { title: string; body: string; visual?: ReactNode }[] = [
+const features: { title: string; body: ReactNode; visual?: ReactNode }[] = [
   {
     title: "タップで 1 枚ずつ記録",
     body: "クイック追加モードでは、カードをタップするたびに所持枚数が 1 枚増えます。長押しで細かく調整できます。",
@@ -112,7 +112,15 @@ const features: { title: string; body: string; visual?: ReactNode }[] = [
   },
   {
     title: "カメラで番号を読み取る",
-    body: "手元のカードにカメラを向けると、カード番号を読み取って記録します。映像は保存せず、端末の外へも送りません。",
+    body: (
+      <>
+        手元のカードにカメラを向けると、カード番号を読み取って記録します。映像は保存せず、端末の外へも送りません。読み取りを安定させる部分は{" "}
+        <a href="https://github.com/touyou/ToreScan" target="_blank" rel="noreferrer" className="text-[#0066CC] hover:underline">
+          ToreScan
+        </a>{" "}
+        としてオープンソースで公開しています。
+      </>
+    ),
     visual: (
       <div className="relative flex h-24 w-40 items-center justify-center rounded-2xl bg-[#1d1d1f]">
         {/* ファインダーの四隅 */}
