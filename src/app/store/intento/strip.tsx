@@ -11,18 +11,19 @@ import { cn } from "@/lib/utils";
 /**
  * App Store のスクリーンショット 6 枚を、横に 1 枚つながった絵として描く（開発サーバーでだけ開ける）。
  * 紹介ページと同じ部品を使い、ストアで横に並べたときに帯や部品が隣の画像へ流れて見えるようにする。
- * 撮って 1 枚ずつに切るのは scripts/store-screenshots.sh。1 枚は 440×956 で、3 倍で撮ると 1320×2868（iPhone 6.9"）。
+ * 撮って 1 枚ずつに切るのは scripts/store-screenshots.sh。iPhone は 1 枚 440×956 を 3 倍で 1320×2868（6.9"）、
+ * iPad は 1 枚 1032×1376 を 2 倍で 2064×2752（13"）。iPad は横に広いので配置を別に持つ。
  * アプリの画面は実機のスクショだけを使い、手で描くのはウィジェットや吹き出しなどの部品に限る。
  */
 
-const FRAME_W = 440;
-const FRAME_H = 956;
 const FRAMES = 6;
+const FRAME = { iphone: { w: 440, h: 956 }, ipad: { w: 1032, h: 1376 } } as const;
+export type StoreDevice = keyof typeof FRAME;
 
 export type Lang = "ja" | "en";
 
 /** 実機のスクショ（IntentTodo の scripts/capture_screenshots.sh の出力）の公開パス */
-export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; watchList: string };
+export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; ipadDetail: string; watchList: string };
 
 const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
@@ -78,8 +79,10 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
 };
 
 /** 帯の中のある位置に置く。x は帯の左端からの距離なので、画像の境目をまたいで置ける */
-function At({ x, y, w, rotate = 0, z, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; children: ReactNode; className?: string }) {
-  const style: CSSProperties = { left: x, top: y, width: w, transform: rotate ? `rotate(${rotate}deg)` : undefined, zIndex: z };
+// zoom は iPad で iPhone 用の部品を大きく見せるため。位置と幅は zoom 前の値で書く
+function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; zoom?: number; children: ReactNode; className?: string }) {
+  const k = zoom ?? 1;
+  const style: CSSProperties = { left: x / k, top: y / k, width: w && w / k, transform: rotate ? `rotate(${rotate}deg)` : undefined, zIndex: z, zoom };
   return (
     <div className={cn("absolute", className)} style={style}>
       {children}
@@ -100,11 +103,15 @@ function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; wi
   );
 }
 
-function Title({ index, lines }: { index: number; lines: string[] }) {
+const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: { size: 64, top: 150, inset: 72 } } as const;
+
+function Title({ device, index, lines }: { device: StoreDevice; index: number; lines: string[] }) {
+  const { size, top, inset } = TITLE[device];
+  const { w } = FRAME[device];
   return (
     <h2
-      className="absolute z-30 text-[34px] font-bold leading-[1.2] tracking-[-0.015em] [font-feature-settings:'palt']"
-      style={{ left: index * FRAME_W + 28, top: 92, width: FRAME_W - 56 }}
+      className="absolute z-30 font-bold leading-[1.2] tracking-[-0.015em] [font-feature-settings:'palt']"
+      style={{ left: index * w + inset, top, width: w - inset * 2, fontSize: size }}
     >
       {lines.map((line) => (
         <span key={line} className="block">
@@ -116,7 +123,10 @@ function Title({ index, lines }: { index: number; lines: string[] }) {
 }
 
 /** Siri の色をぼかして帯全体に流す。どの画像にも少しずつかかるので、並べると 1 本の流れに見える */
-function Aurora() {
+function Aurora({ device }: { device: StoreDevice }) {
+  // 位置は iPhone の帯で決めたものを、端末の帯の大きさに引き伸ばす
+  const sx = FRAME[device].w / FRAME.iphone.w;
+  const sy = FRAME[device].h / FRAME.iphone.h;
   const blobs = [
     { x: 260, y: 640, r: 260, c: "#5AC8FA" },
     { x: 760, y: 520, r: 240, c: "#AF52DE" },
@@ -131,26 +141,58 @@ function Aurora() {
         <span
           key={b.x}
           className="absolute rounded-full opacity-[0.22] blur-[70px]"
-          style={{ left: b.x - b.r, top: b.y - b.r * 0.6, width: b.r * 2, height: b.r * 1.2, background: b.c }}
+          style={{ left: (b.x - b.r) * sx, top: (b.y - b.r * 0.6) * sy, width: b.r * 2 * sx, height: b.r * 1.2 * sy, background: b.c }}
         />
       ))}
     </div>
   );
 }
 
-export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots }) {
+export function IntentoStoreStrip({ device, lang, shots }: { device: StoreDevice; lang: Lang; shots: Shots }) {
   const t = COPY[lang];
-
+  const { w, h } = FRAME[device];
   return (
     <div
-      data-store-strip={`${FRAME_W}x${FRAME_H}x${FRAMES}`}
+      data-store-strip={`${w}x${h}x${FRAMES}`}
       lang={lang}
       className="relative overflow-hidden bg-gradient-to-b from-[#FBFBFD] to-[#EDEDF2] font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [&_*]:!animate-none [&_*]:!transition-none"
-      style={{ width: FRAME_W * FRAMES, height: FRAME_H }}
+      style={{ width: w * FRAMES, height: h }}
     >
       {/* 開発サーバーのインジケータを写さない */}
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
-      <Aurora />
+      <Aurora device={device} />
+      {device === "iphone" ? <IphoneScene lang={lang} shots={shots} /> : <IpadScene lang={lang} shots={shots} />}
+      {t.titles.map((lines, i) => (
+        <Title key={i} device={device} index={i} lines={lines} />
+      ))}
+    </div>
+  );
+}
+
+/** ショートカットのアクション名を斜めの列にして、その画像の中だけに流す */
+function ActionRows({ actions, left, device, top, zoom = 1 }: { actions: string[]; left: number; device: StoreDevice; top: number; zoom?: number }) {
+  const { w, h } = FRAME[device];
+  return (
+    <div className="absolute overflow-hidden" style={{ left, top: 0, width: w, height: h }}>
+      <div className="absolute flex flex-col gap-3" style={{ left: -120 / zoom, top: top / zoom, width: (w + 320) / zoom, transform: "rotate(-8deg)", zoom }}>
+        {[0, 4, 8, 2].map((offset, row) => (
+          <div key={row} className="flex gap-2" style={{ marginLeft: row * -46 }}>
+            {[...actions.slice(offset), ...actions.slice(0, offset)].slice(0, 6).map((action) => (
+              <span key={action} className="whitespace-nowrap rounded-full bg-white px-4 py-2 text-[14px] font-medium shadow-sm ring-1 ring-black/5">
+                {action}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
+  const t = COPY[lang];
+  return (
+    <>
 
       {/* 1. 表紙: アイコンとアプリ名は 1 枚目だけ */}
       <At x={28} y={40} className="flex items-center gap-2.5">
@@ -201,19 +243,7 @@ export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots })
       <At x={1760 + 32} y={430} z={10} className="text-[16px] text-neutral-500">
         {t.actionsNote}
       </At>
-      <div className="absolute overflow-hidden" style={{ left: 1760, top: 0, width: FRAME_W, height: FRAME_H }}>
-        <div className="absolute flex flex-col gap-3" style={{ left: -120, top: 500, width: 760, transform: "rotate(-8deg)" }}>
-          {[0, 4, 8, 2].map((offset, row) => (
-            <div key={row} className="flex gap-2" style={{ marginLeft: row * -46 }}>
-              {[...t.actions.slice(offset), ...t.actions.slice(0, offset)].slice(0, 6).map((action) => (
-                <span key={action} className="whitespace-nowrap rounded-full bg-white px-4 py-2 text-[14px] font-medium shadow-sm ring-1 ring-black/5">
-                  {action}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
+      <ActionRows actions={t.actions} left={1760} device="iphone" top={500} />
 
       {/* 6. iPad と iPhone */}
       <At x={2200 + 70} y={280} w={340} rotate={3} z={9}>
@@ -222,10 +252,74 @@ export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots })
       <At x={2200 + 30} y={520} w={170} rotate={-5} z={10}>
         <Device src={shots.iphoneList} kind="iphone" width={170} />
       </At>
+    </>
+  );
+}
 
-      {t.titles.map((lines, i) => (
-        <Title key={i} index={i} lines={lines} />
-      ))}
-    </div>
+/** iPad の 6 枚。iPhone と同じ流れで、部品は zoom で大きくし、画面は iPad の実機スクショを使う */
+function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
+  const t = COPY[lang];
+  const W = FRAME.ipad.w;
+  return (
+    <>
+      {/* 1. 表紙 */}
+      <At x={72} y={64} className="flex items-center gap-4">
+        <IntentoIcon className="h-14 w-14 shadow-none" />
+        <span className="text-[28px] font-semibold text-neutral-500">Intento</span>
+      </At>
+      <At x={160} y={420} w={800} rotate={-3} z={10}>
+        <Device src={shots.ipadList} kind="ipad" width={800} />
+      </At>
+      <At x={56} y={480} z={20} rotate={-4} zoom={1.8}>
+        <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
+      </At>
+
+      {/* 2. 声 */}
+      <At x={W + 64} y={380} rotate={-3} z={10} zoom={1.8}>
+        <SiriBubble className="max-w-[420px]">{t.quote(t.phrases[1])}</SiriBubble>
+      </At>
+      <At x={W + 480} y={520} w={470} rotate={4} z={9} zoom={1.6}>
+        <WidgetCard todos={t.widgetTodos} done={[false, false, true]} header={t.widgetHeader} leftLabel={t.left} className="max-w-none" />
+      </At>
+      <At x={W + 72} y={780} rotate={2} z={10} zoom={1.8}>
+        <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
+      </At>
+      <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
+        <Device src={shots.ipadDetail} kind="ipad" width={680} />
+      </At>
+
+      {/* 3. ホーム画面とロック画面 */}
+      <At x={2 * W + 80} y={400} w={560} rotate={-4} z={10} zoom={1.7}>
+        <WidgetCard todos={t.widgetTodos} done={[false, true, false]} header={t.widgetHeader} leftLabel={t.left} className="max-w-none p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.3)]" />
+      </At>
+      <At x={2 * W + 440} y={700} w={520} rotate={6} z={9} zoom={1.65}>
+        <LockScreen state="active" lang={lang} className="max-w-none pb-6 pt-14 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]" />
+      </At>
+
+      {/* 4. コントロールセンターと Apple Watch */}
+      <At x={3 * W + 110} y={440} rotate={-5} z={9} zoom={1.7} className="rounded-[40px] bg-[#1d1d1f]/90 p-7 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
+        <ControlPad count={2} remainingLabel={t.remaining} />
+      </At>
+      <At x={3 * W + 540} y={760} rotate={6} z={10} zoom={1.8}>
+        <WatchFace src={shots.watchList} className="scale-[1.15]" />
+      </At>
+
+      {/* 5. 25 のアクション */}
+      <At x={4 * W + 64} y={330} z={10}>
+        <ShortcutsCount className="text-[360px]" />
+      </At>
+      <At x={4 * W + 80} y={770} z={10} className="text-[28px] text-neutral-500">
+        {t.actionsNote}
+      </At>
+      <ActionRows actions={t.actions} left={4 * W} device="ipad" top={900} zoom={1.7} />
+
+      {/* 6. iPad と iPhone */}
+      <At x={5 * W + 210} y={430} w={720} rotate={3} z={9}>
+        <Device src={shots.ipadList} kind="ipad" width={720} />
+      </At>
+      <At x={5 * W + 70} y={720} w={300} rotate={-5} z={10}>
+        <Device src={shots.iphoneList} kind="iphone" width={300} />
+      </At>
+    </>
   );
 }

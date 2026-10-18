@@ -4,7 +4,7 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { IntentoStoreStrip, type Shots } from "./strip";
+import { IntentoStoreStrip, type Shots, type StoreDevice } from "./strip";
 
 // App Store のスクリーンショットの元絵。開発サーバーでだけ開ける（撮り方は strip.tsx）
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -14,12 +14,15 @@ const SHOT_FILES: Record<keyof Shots, string> = {
   iphoneList: "iphone/{lang}/01-list.png",
   iphoneDetail: "iphone/{lang}/02-detail.png",
   ipadList: "ipad/{lang}/01-list.png",
+  ipadDetail: "ipad/{lang}/02-detail.png",
   watchList: "watch/{lang}/01-list.png",
 };
 
-export default async function IntentoStorePage({ searchParams }: { searchParams: Promise<{ lang?: string }> }) {
+export default async function IntentoStorePage({ searchParams }: { searchParams: Promise<{ lang?: string; device?: string }> }) {
   if (process.env.NODE_ENV === "production") notFound();
-  const lang = (await searchParams).lang === "en" ? "en" : "ja";
+  const params = await searchParams;
+  const lang = params.lang === "en" ? "en" : "ja";
+  const device: StoreDevice = params.device === "ipad" ? "ipad" : "iphone";
   const shots = Object.fromEntries(
     Object.entries(SHOT_FILES).map(([key, file]) => [key, `/store-shots/intento/${file.replace("{lang}", lang)}`]),
   ) as Shots;
@@ -32,5 +35,5 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
       </pre>
     );
   }
-  return <IntentoStoreStrip lang={lang} shots={shots} />;
+  return <IntentoStoreStrip device={device} lang={lang} shots={shots} />;
 }
