@@ -44,3 +44,7 @@ yarn-error.log*
 
 # firebase
 firebase-debug.log
+StoreImages/
+
+# ストア画像の元にする実機スクショ（scripts/store-screenshots.sh が写す）
+public/store-shots/

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { type ReactNode, useEffect, useState, useSyncExternalStore } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -12,9 +12,9 @@ import { CalendarGlyph, CheckCircle, Star } from "./todo-ui";
  * 動きを減らす設定のときは、アニメーションせずに最後の状態とフレーズの一覧を出す。
  */
 
-type Todo = { id: string; title: string; date?: string; starred: boolean; done: boolean };
+export type Todo = { id: string; title: string; date?: string; starred: boolean; done: boolean };
 
-const INITIAL: Todo[] = [
+export const INITIAL: Todo[] = [
   { id: "rehearsal", title: "登壇のリハーサルをする", date: "10月7日", starred: true, done: false },
   { id: "build", title: "1.0 のビルドを提出する", date: "10月8日", starred: true, done: false },
   { id: "dentist", title: "歯医者を予約する", date: "10月9日", starred: false, done: false },
@@ -137,66 +137,95 @@ export function VoiceDemo() {
             ))}
           </ul>
         ) : (
-          <div
-            className={cn(
-              "relative rounded-[30px] p-[2px] transition-opacity duration-300",
-              spoken || reply ? "opacity-100" : "opacity-0",
-            )}
-            style={{ background: "conic-gradient(from 180deg, #5AC8FA, #AF52DE, #FF2D55, #FF9500, #5AC8FA)" }}
-          >
-            <div className="line-clamp-2 rounded-[28px] bg-white px-5 py-3 text-[15px] font-medium leading-snug text-neutral-900 shadow-lg">
-              {reply ? <span className="text-neutral-500">{reply}</span> : <>「{spoken}」</>}
-            </div>
-          </div>
+          <SiriBubble className={cn("transition-opacity duration-300", spoken || reply ? "opacity-100" : "opacity-0")}>
+            {reply ? <span className="text-neutral-500">{reply}</span> : <>「{spoken}」</>}
+          </SiriBubble>
         )}
       </div>
 
-      {/* iPhone */}
-      <div
-        className="relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
-        role="img"
-        aria-label="Intento の一覧画面。話しかけると、やることが追加されたり完了したりする"
-      >
-        <div className="flex h-full flex-col overflow-hidden rounded-[41px] bg-[#F2F2F7] text-left" aria-hidden>
-          <div className="flex items-center justify-between px-7 pt-3.5 text-[12px] font-semibold">
-            <span>9:41</span>
-            <span className="h-[24px] w-[80px] rounded-full bg-[#1d1d1f]" />
-            <span className="h-[10px] w-[22px] rounded-[3px] bg-[#1d1d1f]" />
-          </div>
-          <div className="flex justify-end gap-2 px-4 pt-4">
-            <span className="h-8 w-8 rounded-full bg-white shadow-sm ring-1 ring-black/5" />
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0A84FF] text-lg leading-none text-white">+</span>
-          </div>
-          <div className="px-5 pt-2 text-[28px] font-bold tracking-tight">やること</div>
-          <ul className="mx-3 mt-3 overflow-hidden rounded-[18px] bg-white">
-            {todos.map((todo) => (
-              <li
-                key={todo.id}
-                className={cn(
-                  "flex items-center gap-3 px-3.5 py-2.5 transition-colors duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2",
-                  highlight === todo.id && "bg-[#0A84FF]/10",
-                )}
-              >
-                <CheckCircle done={todo.done} className="h-[22px] w-[22px]" />
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className={cn("truncate text-[13px] transition-colors duration-300", todo.done ? "text-neutral-400" : "text-neutral-900")}>
-                    {todo.title}
+      <PhoneMock todos={todos} highlight={highlight} />
+    </div>
+  );
+}
+
+/** Siri に話しかけた言葉の吹き出し。縁は Siri の色 */
+export function SiriBubble({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn("relative rounded-[30px] p-[2px]", className)}
+      style={{ background: "conic-gradient(from 180deg, #5AC8FA, #AF52DE, #FF2D55, #FF9500, #5AC8FA)" }}
+    >
+      <div className="line-clamp-2 rounded-[28px] bg-white px-5 py-3 text-[15px] font-medium leading-snug text-neutral-900 shadow-lg">{children}</div>
+    </div>
+  );
+}
+
+const PHONE_COPY = {
+  ja: { title: "やること", search: "やることを検索", date: (d: string) => `2026年${d}` },
+  en: { title: "To Do", search: "Search", date: (d: string) => d },
+};
+
+/** 一覧画面を描き直した iPhone */
+export function PhoneMock({
+  todos,
+  highlight = null,
+  lang = "ja",
+  className,
+}: {
+  todos: Todo[];
+  highlight?: string | null;
+  lang?: "ja" | "en";
+  className?: string;
+}) {
+  const t = PHONE_COPY[lang];
+  return (
+    <div
+      className={cn(
+        "relative aspect-[9/19.5] w-full max-w-[300px] overflow-hidden rounded-[52px] border-[11px] border-[#1d1d1f] bg-[#1d1d1f] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]",
+        className,
+      )}
+      role="img"
+      aria-label="Intento の一覧画面。話しかけると、やることが追加されたり完了したりする"
+    >
+      <div className="flex h-full flex-col overflow-hidden rounded-[41px] bg-[#F2F2F7] text-left" aria-hidden>
+        <div className="flex items-center justify-between px-7 pt-3.5 text-[12px] font-semibold">
+          <span>9:41</span>
+          <span className="h-[24px] w-[80px] rounded-full bg-[#1d1d1f]" />
+          <span className="h-[10px] w-[22px] rounded-[3px] bg-[#1d1d1f]" />
+        </div>
+        <div className="flex justify-end gap-2 px-4 pt-4">
+          <span className="h-8 w-8 rounded-full bg-white shadow-sm ring-1 ring-black/5" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0A84FF] text-lg leading-none text-white">+</span>
+        </div>
+        <div className="px-5 pt-2 text-[28px] font-bold tracking-tight">{t.title}</div>
+        <ul className="mx-3 mt-3 overflow-hidden rounded-[18px] bg-white">
+          {todos.map((todo) => (
+            <li
+              key={todo.id}
+              className={cn(
+                "flex items-center gap-3 px-3.5 py-2.5 transition-colors duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2",
+                highlight === todo.id && "bg-[#0A84FF]/10",
+              )}
+            >
+              <CheckCircle done={todo.done} className="h-[22px] w-[22px]" />
+              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className={cn("truncate text-[13px] transition-colors duration-300", todo.done ? "text-neutral-400" : "text-neutral-900")}>
+                  {todo.title}
+                </span>
+                {todo.date && (
+                  <span className="flex items-center gap-1 text-[10px] text-neutral-400">
+                    <CalendarGlyph className="h-2.5 w-2.5" />
+                    {t.date(todo.date)}
                   </span>
-                  {todo.date && (
-                    <span className="flex items-center gap-1 text-[10px] text-neutral-400">
-                      <CalendarGlyph className="h-2.5 w-2.5" />
-                      2026年{todo.date}
-                    </span>
-                  )}
-                </div>
-                <Star filled={todo.starred} className="h-4 w-4" />
-              </li>
-            ))}
-          </ul>
-          {/* 実機と同じく、ホームインジケータの分だけ下を空ける */}
-          <div className="mt-auto px-4 pb-9">
-            <div className="rounded-full bg-white/80 px-4 py-2.5 text-[12px] text-neutral-400 shadow-sm ring-1 ring-black/5">やることを検索</div>
-          </div>
+                )}
+              </div>
+              <Star filled={todo.starred} className="h-4 w-4" />
+            </li>
+          ))}
+        </ul>
+        {/* 実機と同じく、ホームインジケータの分だけ下を空ける */}
+        <div className="mt-auto px-4 pb-9">
+          <div className="rounded-full bg-white/80 px-4 py-2.5 text-[12px] text-neutral-400 shadow-sm ring-1 ring-black/5">{t.search}</div>
         </div>
       </div>
     </div>
