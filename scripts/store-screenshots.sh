@@ -8,7 +8,7 @@
 #
 # アプリの画面は実機のスクショを使う。IntentTodo なら先に Mac で ./scripts/capture_screenshots.sh を回し、
 # その Screenshots/ を SHOTS で渡す（既定は隣にクローンした ../IntentTodo/Screenshots）。
-# 出力は StoreImages/<app>/iphone/<lang>/01.png〜（gitignore）。
+# 出力は StoreImages/<app>/{iphone,ipad}/<lang>/01.png〜（gitignore）。
 
 set -euo pipefail
 
@@ -34,11 +34,18 @@ cp -R "$SHOTS"/. "public/store-shots/$APP/"
 
 for lang in $LANGS; do
   # スクショが欠けているとページは理由を出すだけの画面になるので、撮る前に止める
-  if curl -fsS "$BASE_URL/store/$APP?lang=$lang" | grep -q data-store-missing; then
+  if ! page=$(curl -fsS "$BASE_URL/store/$APP?lang=$lang&device=ipad"); then
+    echo "$BASE_URL に繋がらない（先に pnpm dev を動かす）" >&2
+    exit 1
+  fi
+  if grep -q data-store-missing <<<"$page"; then
     echo "$lang: 実機のスクショが足りない（$BASE_URL/store/$APP?lang=$lang を開くと一覧が出る）" >&2
     exit 1
   fi
-  # 440x956 を 3 倍で撮ると 1320x2868（iPhone 6.9"）。枚数はページの FRAMES と合わせる
-  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang" \
+  # iPhone は 440x956 を 3 倍で 1320x2868（6.9"）、iPad は 1032x1376 を 2 倍で 2064x2752（13"）。
+  # 枚数はページの FRAMES と合わせる
+  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=iphone" \
     --frame 440x956 --count 6 --scale 3 --out "StoreImages/$APP/iphone/$lang"
+  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
+    --frame 1032x1376 --count 6 --scale 2 --out "StoreImages/$APP/ipad/$lang"
 done
