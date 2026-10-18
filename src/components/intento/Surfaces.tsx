@@ -282,13 +282,13 @@ function FocusTile() {
 }
 
 /** Apple Watch の一覧画面 */
-export function WatchFace({ className }: { className?: string }) {
+export function WatchFace({ src = "/intento/watch-list.jpg", className }: { src?: string; className?: string }) {
   return (
     // 画面の外周は黒い余白にして、角丸で右上の「＋」ボタンが欠けないようにする
     <div className={cn("rounded-[46px] bg-[#1d1d1f] p-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)]", className)}>
       <div className="rounded-[38px] bg-black px-3 py-4">
         <div className="relative h-[190px] w-[156px] overflow-hidden rounded-[18px]">
-          <Image src="/intento/watch-list.jpg" alt="Apple Watch の Intento の一覧画面" fill sizes="156px" className="object-cover object-top" />
+          <Image src={src} alt="Apple Watch の Intento の一覧画面" fill sizes="156px" className="object-cover object-top" />
         </div>
       </div>
     </div>

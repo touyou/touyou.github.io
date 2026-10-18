@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { ControlPad, LockScreen, SHORTCUT_ACTIONS, ShortcutsCount, WatchFace, WidgetCard } from "@/components/intento/Surfaces";
-import { INITIAL, PhoneMock, SiriBubble, type Todo } from "@/components/intento/VoiceDemo";
+import { SiriBubble } from "@/components/intento/VoiceDemo";
 
 import { cn } from "@/lib/utils";
 
@@ -13,6 +12,7 @@ import { cn } from "@/lib/utils";
  * App Store のスクリーンショット 6 枚を、横に 1 枚つながった絵として描く（開発サーバーでだけ開ける）。
  * 紹介ページと同じ部品を使い、ストアで横に並べたときに帯や部品が隣の画像へ流れて見えるようにする。
  * 撮って 1 枚ずつに切るのは scripts/store-screenshots.sh。1 枚は 440×956 で、3 倍で撮ると 1320×2868（iPhone 6.9"）。
+ * アプリの画面は実機のスクショだけを使い、手で描くのはウィジェットや吹き出しなどの部品に限る。
  */
 
 const FRAME_W = 440;
@@ -20,6 +20,9 @@ const FRAME_H = 956;
 const FRAMES = 6;
 
 export type Lang = "ja" | "en";
+
+/** 実機のスクショ（IntentTodo の scripts/capture_screenshots.sh の出力）の公開パス */
+export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; watchList: string };
 
 const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
@@ -29,7 +32,7 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
       ["ホーム画面からも、", "ロック画面からも。"],
       ["コントロールセンターや", "Apple Watch からも。"],
       ["25 のアクションで、", "ショートカットに。"],
-      ["iPhone で足して、", "iPad で片づける。"],
+      ["iPhone でも iPad でも、", "同じリストで。"],
     ],
     phrases: ["Intento でやることを追加", "Intento で歯医者を予約するを完了", "Intento の会場からのメールに返信するにスターを付ける", "Intento のやることは何件"],
     widgetTodos: ["登壇のリハーサルをする", "1.0 のビルドを提出する", "歯医者を予約する"],
@@ -47,7 +50,7 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
       ["On your Home Screen.", "On your Lock Screen."],
       ["From Control Center", "and Apple Watch."],
       ["25 actions,", "ready for Shortcuts."],
-      ["Add on iPhone.", "Finish on iPad."],
+      ["iPhone or iPad,", "the same list."],
     ],
     phrases: ["Add a todo in Intento", "Complete Book the dentist in Intento", "Star Reply to the venue in Intento", "How many todos in Intento"],
     widgetTodos: ["Rehearse the talk", "Submit the 1.0 build", "Book the dentist"],
@@ -74,19 +77,22 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
   },
 };
 
-const EN_TODOS: Todo[] = [
-  { id: "rehearsal", title: "Rehearse the talk", date: "Oct 7, 2026", starred: true, done: false },
-  { id: "build", title: "Submit the 1.0 build", date: "Oct 8, 2026", starred: true, done: false },
-  { id: "dentist", title: "Book the dentist", date: "Oct 9, 2026", starred: false, done: false },
-  { id: "mail", title: "Reply to the venue", starred: false, done: false },
-];
-
 /** 帯の中のある位置に置く。x は帯の左端からの距離なので、画像の境目をまたいで置ける */
 function At({ x, y, w, rotate = 0, z, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; children: ReactNode; className?: string }) {
   const style: CSSProperties = { left: x, top: y, width: w, transform: rotate ? `rotate(${rotate}deg)` : undefined, zIndex: z };
   return (
     <div className={cn("absolute", className)} style={style}>
       {children}
+    </div>
+  );
+}
+
+/** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない */
+function Device({ src, kind }: { src: string; kind: "iphone" | "ipad" }) {
+  return (
+    <div className={cn("bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]", kind === "iphone" ? "rounded-[46px] p-[7px]" : "rounded-[28px] p-3")}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className={cn("block w-full", kind === "iphone" ? "rounded-[39px]" : "rounded-[16px]")} />
     </div>
   );
 }
@@ -129,12 +135,8 @@ function Aurora() {
   );
 }
 
-export function IntentoStoreStrip({ lang }: { lang: Lang }) {
+export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots }) {
   const t = COPY[lang];
-  const base = lang === "en" ? EN_TODOS : INITIAL;
-  const added: Todo = lang === "en" ? { id: "umbrella", title: "Take an umbrella", starred: false, done: false } : { id: "umbrella", title: "傘を持っていく", starred: false, done: false };
-  const coverTodos = [added, ...base];
-  const doneTodos = base.map((todo) => (todo.id === "dentist" ? { ...todo, done: true } : todo));
 
   return (
     <div
@@ -153,7 +155,7 @@ export function IntentoStoreStrip({ lang }: { lang: Lang }) {
         <span className="text-[17px] font-semibold text-neutral-500">Intento</span>
       </At>
       <At x={96} y={262} w={316} rotate={-3} z={10}>
-        <PhoneMock todos={coverTodos} highlight="umbrella" lang={lang} className="max-w-none" />
+        <Device src={shots.iphoneList} kind="iphone" />
       </At>
       <At x={22} y={300} z={20} rotate={-4}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
@@ -170,7 +172,7 @@ export function IntentoStoreStrip({ lang }: { lang: Lang }) {
         <SiriBubble className="max-w-[330px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
       <At x={440 + 104} y={680} w={316} rotate={-2} z={8}>
-        <PhoneMock todos={doneTodos.map((todo) => (todo.id === "mail" ? { ...todo, starred: true } : todo))} highlight="mail" lang={lang} className="max-w-none" />
+        <Device src={shots.iphoneDetail} kind="iphone" />
       </At>
 
       {/* 3. ホーム画面とロック画面。ロック画面は次の画像へはみ出す */}
@@ -186,7 +188,7 @@ export function IntentoStoreStrip({ lang }: { lang: Lang }) {
         <ControlPad count={2} remainingLabel={t.remaining} />
       </At>
       <At x={1320 + 200} y={560} rotate={6} z={10}>
-        <WatchFace className="scale-[1.15]" />
+        <WatchFace src={shots.watchList} className="scale-[1.15]" />
       </At>
 
       {/* 5. 25 のアクション。名前の列を斜めに流す */}
@@ -211,11 +213,11 @@ export function IntentoStoreStrip({ lang }: { lang: Lang }) {
       </div>
 
       {/* 6. iPad と iPhone */}
-      <At x={2200 + 70} y={280} w={340} rotate={3} z={9} className="rounded-[26px] bg-[#1d1d1f] p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)]">
-        <Image src="/intento/ipad-list.jpg" alt="" width={750} height={1000} className="w-full rounded-[12px]" />
+      <At x={2200 + 70} y={280} w={340} rotate={3} z={9}>
+        <Device src={shots.ipadList} kind="ipad" />
       </At>
-      <At x={2200 + 30} y={520} w={170} rotate={-5} z={10} className="rounded-[28px] bg-[#1d1d1f] p-[6px] shadow-2xl">
-        <Image src="/intento/iphone-list.jpg" alt="" width={460} height={1000} className="w-full rounded-[22px]" />
+      <At x={2200 + 30} y={520} w={170} rotate={-5} z={10}>
+        <Device src={shots.iphoneList} kind="iphone" />
       </At>
 
       {t.titles.map((lines, i) => (
