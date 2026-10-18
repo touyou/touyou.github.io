@@ -87,12 +87,15 @@ function At({ x, y, w, rotate = 0, z, children, className }: { x: number; y: num
   );
 }
 
-/** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない */
-function Device({ src, kind }: { src: string; kind: "iphone" | "ipad" }) {
+/** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない。角丸は幅に比例させる */
+function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; width: number }) {
+  // 実機の画面の角丸は iPhone で幅の約 12%、iPad で約 4%
+  const pad = kind === "iphone" ? Math.max(4, width * 0.022) : width * 0.035;
+  const inner = width * (kind === "iphone" ? 0.12 : 0.04);
   return (
-    <div className={cn("bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]", kind === "iphone" ? "rounded-[46px] p-[7px]" : "rounded-[28px] p-3")}>
+    <div className="bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]" style={{ width, padding: pad, borderRadius: inner + pad }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" className={cn("block w-full", kind === "iphone" ? "rounded-[39px]" : "rounded-[16px]")} />
+      <img src={src} alt="" className="block w-full" style={{ borderRadius: inner }} />
     </div>
   );
 }
@@ -155,7 +158,7 @@ export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots })
         <span className="text-[17px] font-semibold text-neutral-500">Intento</span>
       </At>
       <At x={96} y={262} w={316} rotate={-3} z={10}>
-        <Device src={shots.iphoneList} kind="iphone" />
+        <Device src={shots.iphoneList} kind="iphone" width={316} />
       </At>
       <At x={22} y={300} z={20} rotate={-4}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
@@ -172,7 +175,7 @@ export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots })
         <SiriBubble className="max-w-[330px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
       <At x={440 + 104} y={680} w={316} rotate={-2} z={8}>
-        <Device src={shots.iphoneDetail} kind="iphone" />
+        <Device src={shots.iphoneDetail} kind="iphone" width={316} />
       </At>
 
       {/* 3. ホーム画面とロック画面。ロック画面は次の画像へはみ出す */}
@@ -214,10 +217,10 @@ export function IntentoStoreStrip({ lang, shots }: { lang: Lang; shots: Shots })
 
       {/* 6. iPad と iPhone */}
       <At x={2200 + 70} y={280} w={340} rotate={3} z={9}>
-        <Device src={shots.ipadList} kind="ipad" />
+        <Device src={shots.ipadList} kind="ipad" width={340} />
       </At>
       <At x={2200 + 30} y={520} w={170} rotate={-5} z={10}>
-        <Device src={shots.iphoneList} kind="iphone" />
+        <Device src={shots.iphoneList} kind="iphone" width={170} />
       </At>
 
       {t.titles.map((lines, i) => (
