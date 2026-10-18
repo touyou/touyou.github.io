@@ -14,40 +14,103 @@ import { CheckCircle, Star, SYSTEM_BLUE } from "./todo-ui";
  * どれも実機の画面写真ではなく、雰囲気を HTML で描き直したもの。
  */
 
-const WIDGET_TODOS = ["登壇のリハーサルをする", "1.0 のビルドを提出する", "歯医者を予約する"];
+export const WIDGET_TODOS = ["登壇のリハーサルをする", "1.0 のビルドを提出する", "歯医者を予約する"];
+
+/** ホーム画面のウィジェット。紹介ページでは押して試せ、ストア画像では状態を決めて止めて描く */
+export function WidgetCard({
+  todos = WIDGET_TODOS,
+  done,
+  onToggle,
+  header = "やること",
+  leftLabel = (n: number) => `残り ${n}`,
+  className,
+}: {
+  todos?: string[];
+  done: boolean[];
+  onToggle?: (index: number) => void;
+  header?: string;
+  leftLabel?: (left: number) => string;
+  className?: string;
+}) {
+  const left = done.filter((d) => !d).length;
+  return (
+    <div className={cn("w-full max-w-[320px] rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.2)]", className)}>
+      <div className="mb-2 flex items-baseline justify-between">
+        <span className="text-[13px] font-semibold" style={{ color: SYSTEM_BLUE }}>
+          {header}
+        </span>
+        <span className="text-[13px] tabular-nums text-neutral-400">{leftLabel(left)}</span>
+      </div>
+      <ul className="flex flex-col">
+        {todos.map((title, i) => (
+          <li key={title}>
+            <button
+              type="button"
+              onClick={() => onToggle?.(i)}
+              className="flex w-full items-center gap-2.5 py-1.5 text-left"
+              aria-pressed={done[i]}
+            >
+              <CheckCircle done={done[i]} className="h-5 w-5" />
+              <span className={cn("truncate text-[14px] transition-colors", done[i] ? "text-neutral-400" : "text-neutral-900")}>{title}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function WidgetTile() {
   const [done, setDone] = useState<boolean[]>([false, false, false]);
-  const left = done.filter((d) => !d).length;
   return (
     <Tile title="ウィジェット" body="ホーム画面に今日のやることを表示します。チェックはその場でつけられます。" className="md:col-span-2">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-full max-w-[320px] rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.2)]">
-          <div className="mb-2 flex items-baseline justify-between">
-            <span className="text-[13px] font-semibold" style={{ color: SYSTEM_BLUE }}>
-              やること
-            </span>
-            <span className="text-[13px] tabular-nums text-neutral-400">残り {left}</span>
-          </div>
-          <ul className="flex flex-col">
-            {WIDGET_TODOS.map((title, i) => (
-              <li key={title}>
-                <button
-                  type="button"
-                  onClick={() => setDone((d) => d.map((v, j) => (j === i ? !v : v)))}
-                  className="flex w-full items-center gap-2.5 py-1.5 text-left"
-                  aria-pressed={done[i]}
-                >
-                  <CheckCircle done={done[i]} className="h-5 w-5" />
-                  <span className={cn("truncate text-[14px] transition-colors", done[i] ? "text-neutral-400" : "text-neutral-900")}>{title}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <WidgetCard done={done} onToggle={(i) => setDone((d) => d.map((v, j) => (j === i ? !v : v)))} />
         <TapHint />
       </div>
     </Tile>
+  );
+}
+
+/** コントロールセンターのボタン 3 つ */
+export function ControlPad({
+  count,
+  onAdd,
+  onComplete,
+  remainingLabel = "未完了",
+}: {
+  count: number;
+  onAdd?: () => void;
+  onComplete?: () => void;
+  remainingLabel?: string;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      <button
+        type="button"
+        onClick={onAdd}
+        className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/15 text-3xl font-light text-white backdrop-blur motion-safe:transition motion-safe:active:scale-90"
+        aria-label="やることを追加"
+      >
+        +
+      </button>
+      <button
+        type="button"
+        onClick={onComplete}
+        className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white text-[#1d1d1f] motion-safe:transition motion-safe:active:scale-90"
+        aria-label="いちばん急ぎのやることを完了"
+      >
+        <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
+          <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <div className="col-span-2 flex h-[72px] items-center justify-between rounded-[36px] bg-white/15 px-6 backdrop-blur" aria-live="polite">
+        <span className="text-sm text-neutral-300">{remainingLabel}</span>
+        <span key={count} className="text-3xl font-semibold tabular-nums motion-safe:animate-in motion-safe:zoom-in-75">
+          {count}
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -56,73 +119,94 @@ function ControlTile() {
   return (
     <Tile title="コントロールセンター" body="ワンタップで追加したり、未完了の数を見たり、いちばん急ぎのものを完了にしたりできます。" dark>
       <div className="flex flex-col items-center gap-3">
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            type="button"
-            onClick={() => setCount((c) => c + 1)}
-            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/15 text-3xl font-light text-white backdrop-blur motion-safe:transition motion-safe:active:scale-90"
-            aria-label="やることを追加"
-          >
-            +
-          </button>
-          <button
-            type="button"
-            onClick={() => setCount((c) => Math.max(0, c - 1))}
-            className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white text-[#1d1d1f] motion-safe:transition motion-safe:active:scale-90"
-            aria-label="いちばん急ぎのやることを完了"
-          >
-            <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
-              <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <div className="col-span-2 flex h-[72px] items-center justify-between rounded-[36px] bg-white/15 px-6 backdrop-blur" aria-live="polite">
-            <span className="text-sm text-neutral-300">未完了</span>
-            <span key={count} className="text-3xl font-semibold tabular-nums motion-safe:animate-in motion-safe:zoom-in-75">
-              {count}
-            </span>
-          </div>
-        </div>
+        <ControlPad count={count} onAdd={() => setCount((c) => c + 1)} onComplete={() => setCount((c) => Math.max(0, c - 1))} />
         <TapHint dark />
       </div>
     </Tile>
   );
 }
 
+export type ActivityState = "active" | "done" | "snoozed";
+
+const ACTIVITY_COPY = {
+  ja: {
+    title: "登壇のリハーサルをする",
+    status: { active: "今日 17:00 まで", done: "完了しました", snoozed: "スヌーズしました" },
+    complete: "完了",
+    snooze: "スヌーズ",
+    undo: "元に戻す",
+  },
+  en: {
+    title: "Rehearse the talk",
+    status: { active: "Due today at 5:00 PM", done: "Done", snoozed: "Snoozed" },
+    complete: "Done",
+    snooze: "Snooze",
+    undo: "Undo",
+  },
+};
+
+/** ロック画面とライブアクティビティ */
+export function LockScreen({
+  state,
+  onComplete,
+  onSnooze,
+  lang = "ja",
+  className,
+}: {
+  state: ActivityState;
+  onComplete?: () => void;
+  onSnooze?: () => void;
+  lang?: "ja" | "en";
+  className?: string;
+}) {
+  const t = ACTIVITY_COPY[lang];
+  return (
+    <div
+      className={cn(
+        "relative flex w-full max-w-[300px] flex-col items-center gap-6 overflow-hidden rounded-[32px] bg-gradient-to-b from-[#2c3e66] via-[#5b4a8a] to-[#c0708a] px-4 pb-4 pt-8",
+        className,
+      )}
+    >
+      <span className="text-5xl font-semibold tracking-tight text-white/90">9:41</span>
+      <div className="w-full rounded-[22px] bg-black/45 p-3.5 backdrop-blur" aria-live="polite">
+        <div className="flex items-center gap-2.5">
+          <CheckCircle done={state === "done"} className="h-6 w-6 border-white/60" />
+          <div className="flex min-w-0 flex-1 flex-col">
+            <span className={cn("truncate text-[14px] font-semibold", state === "done" ? "text-white/50" : "text-white")}>{t.title}</span>
+            <span className="text-[11px] text-white/60">{t.status[state]}</span>
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={onComplete}
+            className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
+          >
+            {state === "done" ? t.undo : t.complete}
+          </button>
+          <button
+            type="button"
+            onClick={onSnooze}
+            className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
+          >
+            {state === "snoozed" ? t.undo : t.snooze}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LiveActivityTile() {
-  const [state, setState] = useState<"active" | "done" | "snoozed">("active");
+  const [state, setState] = useState<ActivityState>("active");
   return (
     <Tile title="ロック画面" body="進めているやることを、ライブアクティビティで追いかけます。" dark>
       <div className="flex w-full flex-col items-center gap-3">
-        <div className="relative flex w-full max-w-[300px] flex-col items-center gap-6 overflow-hidden rounded-[32px] bg-gradient-to-b from-[#2c3e66] via-[#5b4a8a] to-[#c0708a] px-4 pb-4 pt-8">
-          <span className="text-5xl font-semibold tracking-tight text-white/90">9:41</span>
-          <div className="w-full rounded-[22px] bg-black/45 p-3.5 backdrop-blur" aria-live="polite">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle done={state === "done"} className="h-6 w-6 border-white/60" />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <span className={cn("truncate text-[14px] font-semibold", state === "done" ? "text-white/50" : "text-white")}>登壇のリハーサルをする</span>
-                <span className="text-[11px] text-white/60">
-                  {state === "active" ? "今日 17:00 まで" : state === "done" ? "完了しました" : "スヌーズしました"}
-                </span>
-              </div>
-            </div>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setState(state === "done" ? "active" : "done")}
-                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
-              >
-                {state === "done" ? "元に戻す" : "完了"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setState(state === "snoozed" ? "active" : "snoozed")}
-                className="rounded-full bg-white/20 py-1.5 text-[12px] font-semibold text-white motion-safe:transition motion-safe:active:scale-95"
-              >
-                {state === "snoozed" ? "元に戻す" : "スヌーズ"}
-              </button>
-            </div>
-          </div>
-        </div>
+        <LockScreen
+          state={state}
+          onComplete={() => setState(state === "done" ? "active" : "done")}
+          onSnooze={() => setState(state === "snoozed" ? "active" : "snoozed")}
+        />
         <TapHint dark />
       </div>
     </Tile>
@@ -197,23 +281,30 @@ function FocusTile() {
   );
 }
 
+/** Apple Watch の一覧画面 */
+export function WatchFace({ className }: { className?: string }) {
+  return (
+    // 画面の外周は黒い余白にして、角丸で右上の「＋」ボタンが欠けないようにする
+    <div className={cn("rounded-[46px] bg-[#1d1d1f] p-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)]", className)}>
+      <div className="rounded-[38px] bg-black px-3 py-4">
+        <div className="relative h-[190px] w-[156px] overflow-hidden rounded-[18px]">
+          <Image src="/intento/watch-list.jpg" alt="Apple Watch の Intento の一覧画面" fill sizes="156px" className="object-cover object-top" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function WatchTile() {
   return (
     <Tile title="Apple Watch" body="文字盤のコンプリケーションに、残りの数と次の期限を表示します。手首の上で追加や完了もできます。">
-      {/* 画面の外周は黒い余白にして、角丸で右上の「＋」ボタンが欠けないようにする */}
-      <div className="rounded-[46px] bg-[#1d1d1f] p-2.5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.4)]">
-        <div className="rounded-[38px] bg-black px-3 py-4">
-          <div className="relative h-[190px] w-[156px] overflow-hidden rounded-[18px]">
-            <Image src="/intento/watch-list.jpg" alt="Apple Watch の Intento の一覧画面" fill sizes="156px" className="object-cover object-top" />
-          </div>
-        </div>
-      </div>
+      <WatchFace />
     </Tile>
   );
 }
 
 // 名前はアプリの日本語ローカライズ（ショートカット App に出る名前）に合わせる
-const ACTIONS = [
+export const SHORTCUT_ACTIONS = [
   "やることを追加",
   "やることの完了を切り替え",
   "やることをスヌーズ",
@@ -236,16 +327,14 @@ function ShortcutsTile() {
       className="md:col-span-2"
     >
       <div className="flex w-full flex-col items-center gap-6">
-        <span className="bg-gradient-to-br from-[#FF2D55] via-[#AF52DE] to-[#0A84FF] bg-clip-text text-[96px] font-bold leading-none tracking-tighter text-transparent">
-          25
-        </span>
+        <ShortcutsCount />
         {/* 横に流れるアクションの列。動きを減らす設定では止まる */}
         <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <div className="flex w-max gap-2 pr-2 motion-safe:animate-[intento-marquee_40s_linear_infinite]">
-            {[...ACTIONS, ...ACTIONS].map((action, i) => (
+            {[...SHORTCUT_ACTIONS, ...SHORTCUT_ACTIONS].map((action, i) => (
               <span
                 key={i}
-                aria-hidden={i >= ACTIONS.length}
+                aria-hidden={i >= SHORTCUT_ACTIONS.length}
                 className="whitespace-nowrap rounded-full bg-white px-4 py-2 text-[13px] font-medium shadow-sm ring-1 ring-black/5"
               >
                 {action}
@@ -255,6 +344,20 @@ function ShortcutsTile() {
         </div>
       </div>
     </Tile>
+  );
+}
+
+/** ショートカットの「25」。紹介ページとストア画像で同じ色にする */
+export function ShortcutsCount({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "bg-gradient-to-br from-[#FF2D55] via-[#AF52DE] to-[#0A84FF] bg-clip-text text-[96px] font-bold leading-none tracking-tighter text-transparent",
+        className,
+      )}
+    >
+      25
+    </span>
   );
 }
 
