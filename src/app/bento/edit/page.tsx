@@ -36,6 +36,7 @@ const cardTypeOptions: { value: CardType; label: string }[] = [
 const platformOptions: { value: SocialPlatform; label: string }[] = [
   { value: "twitter", label: "Twitter" },
   { value: "github", label: "GitHub" },
+  { value: "devnull", label: "/dev/null" },
   { value: "youtube", label: "YouTube" },
   { value: "linkedin", label: "LinkedIn" },
   { value: "instagram", label: "Instagram" },

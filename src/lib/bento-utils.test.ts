@@ -103,6 +103,7 @@ describe("platformColors", () => {
   it("has colors for all social platforms", () => {
     expect(platformColors.twitter).toBeDefined();
     expect(platformColors.github).toBeDefined();
+    expect(platformColors.devnull).toBeDefined();
     expect(platformColors.youtube).toBeDefined();
     expect(platformColors.linkedin).toBeDefined();
     expect(platformColors.instagram).toBeDefined();

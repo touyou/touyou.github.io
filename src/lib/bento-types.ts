@@ -5,6 +5,7 @@ export type CardType = "social" | "ogp" | "simple" | "image";
 export type SocialPlatform =
   | "twitter"
   | "github"
+  | "devnull"
   | "youtube"
   | "linkedin"
   | "instagram"

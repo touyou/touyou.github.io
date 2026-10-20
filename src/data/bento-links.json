@@ -90,6 +90,13 @@
           "username": "touyou"
         },
         {
+          "url": "https://dev-null.sh/@touyou",
+          "title": "/dev/null",
+          "cardType": "social",
+          "platform": "devnull",
+          "username": "@touyou"
+        },
+        {
           "url": "https://youtube.com/@touyoubuntu",
           "title": "YouTube",
           "cardType": "social",
