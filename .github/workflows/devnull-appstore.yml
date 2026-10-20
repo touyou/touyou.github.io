@@ -1,0 +1,65 @@
+name: /dev/null App Store
+
+# App Store に新しいバージョンが出たら dev-null.sh/@touyou に投稿する。対象は .github/devnull/apps.json。
+# 毎日 1 回、直近 24 時間に配信されたものを拾う(スクリプト側の HOURS と cron の間隔を揃える)。
+# リポジトリ変数 DEVNULL_ENABLED=true とシークレット DEVNULL_SSH_KEY が揃うまでは投稿しない。
+
+on:
+  schedule:
+    - cron: "0 1 * * *" # 10:00 JST
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: 何時間前までの配信を拾うか
+        default: "24"
+      dry_run:
+        description: 投稿せずに文面だけログに出す
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    if: vars.DEVNULL_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      posts: ${{ steps.collect.outputs.posts }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+      - id: collect
+        env:
+          APPS_FILE: .github/devnull/apps.json
+          HOURS: ${{ inputs.hours || '24' }}
+          HAS_KEY: ${{ secrets.DEVNULL_SSH_KEY != '' && !inputs.dry_run }}
+        run: python3 .github/scripts/devnull_appstore.py
+
+  commit:
+    needs: prepare
+    if: needs.prepare.outputs.posts != '[]' && needs.prepare.outputs.posts != ''
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        post: ${{ fromJSON(needs.prepare.outputs.posts) }}
+    steps:
+      - id: image
+        if: matrix.post.image != ''
+        env:
+          IMAGE_URL: ${{ matrix.post.image }}
+        run: |
+          ext="${IMAGE_URL##*.}"
+          case "$ext" in jpg|jpeg|png|webp) ;; *) ext=jpg ;; esac
+          if curl -fsSL --max-time 30 -o "$RUNNER_TEMP/shot.$ext" "$IMAGE_URL"; then
+            echo "path=$RUNNER_TEMP/shot.$ext" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::スクリーンショットを取得できなかったので画像なしで投稿する"
+          fi
+      - uses: nunomaduro/dev-null.sh/.github/actions/commit@8bec9b18939ae627b256eec89f83fbb368b0f228 # production
+        with:
+          body: ${{ matrix.post.body }}
+          images: ${{ steps.image.outputs.path }}
+          ssh-key: ${{ secrets.DEVNULL_SSH_KEY }}
