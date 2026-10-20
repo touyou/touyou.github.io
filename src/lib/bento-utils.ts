@@ -27,6 +27,7 @@ export function getFaviconUrl(url: string): string {
 export const platformColors: Record<SocialPlatform, string> = {
   twitter: "hover:bg-gray-900",
   github: "hover:bg-gray-800",
+  devnull: "hover:bg-black",
   youtube: "hover:bg-red-500",
   linkedin: "hover:bg-blue-600",
   instagram:
