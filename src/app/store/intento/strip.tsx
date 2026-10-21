@@ -273,7 +273,8 @@ function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       <At x={440 + 30} y={560} rotate={2} z={10}>
         <SiriBubble className="max-w-[330px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
-      <At x={440 + 104} y={680} w={316} rotate={-2} z={8}>
+      {/* 1 枚目と同じ向きに傾くと流れが単調になるので、ここは縦にまっすぐ置く */}
+      <At x={440 + 104} y={680} w={316} z={8}>
         <Device src={shots.iphoneDetail} kind="iphone" width={316} />
       </At>
 
@@ -341,7 +342,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       <At x={W + 72} y={780} rotate={2} z={10} zoom={1.8}>
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
-      <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
+      <At x={W + 300} y={960} w={680} z={8}>
         <Device src={shots.ipadDetail} kind="ipad" width={680} />
       </At>
 
