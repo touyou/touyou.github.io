@@ -48,3 +48,5 @@ StoreImages/
 
 # ストア画像の元にする実機スクショ（scripts/store-screenshots.sh が写す）
 public/store-shots/
+# Apple Design Resources の端末枠。利用規約で再配布できないのでコミットしない
+public/store-bezels/

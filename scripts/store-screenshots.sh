@@ -32,6 +32,13 @@ rm -rf "public/store-shots/$APP"
 mkdir -p "public/store-shots/$APP"
 cp -R "$SHOTS"/. "public/store-shots/$APP/"
 
+# Duo の公式の端末枠（Apple Design Resources）があれば画面の位置を測る。無ければ CSS の枠で撮れるが、ストアには出さない
+if ls public/store-bezels/duo/*.png >/dev/null 2>&1; then
+  python3 scripts/measure-bezels.py public/store-bezels/duo
+else
+  echo "Duo の端末枠が public/store-bezels/duo/ に無い（CSS で描いた枠になる）" >&2
+fi
+
 # スクショが欠けているとページは理由を出すだけの画面になるので、撮る前に止める
 check_page() {
   local lang=$1 device=$2 page
@@ -53,13 +60,12 @@ for lang in $LANGS; do
     --frame 440x956 --count 6 --scale 3 --out "StoreImages/$APP/iphone/$lang"
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
     --frame 1032x1376 --count 6 --scale 2 --out "StoreImages/$APP/ipad/$lang"
-  # iPhone Duo は iPad と同じ配置を倍率で合わせる。Duo のスクショ（duo-inner / duo-outer）があるときだけ撮る
-  if [ -d "$SHOTS/duo-inner/$lang" ]; then
+  # iPhone Duo は開いた横向き 1467x1032 を 1.94477 倍で 2853x2007、閉じた縦向き 1032x1501 を 1.355 倍で 1398x2034。
+  # どちらの帯にも両方の形が出るので、開いた形と閉じた形のスクショ（duo-inner / duo-outer）が揃ったときだけ撮る
+  if [ -d "$SHOTS/duo-inner/$lang" ] && [ -d "$SHOTS/duo-outer/$lang" ]; then
     check_page "$lang" duoInner
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoInner" \
-      --frame 1032x1467 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-inner/$lang"
-  fi
-  if [ -d "$SHOTS/duo-outer/$lang" ]; then
+      --frame 1467x1032 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-inner/$lang"
     check_page "$lang" duoOuter
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoOuter" \
       --frame 1032x1501 --count 6 --scale 1.355 --out "StoreImages/$APP/duo-outer/$lang"
