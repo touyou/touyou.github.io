@@ -382,7 +382,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
 }
 
 /**
- * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右下に置く。開いた形は 1 枚目、閉じた形は 2 枚目に出す。
+ * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右下に置く。開いた形は 1 枚目、閉じた形は 2・6 枚目に出す。
  * 傾きは左から順に左右を交互にし、同じ向きが続いて流れが単調にならないようにする
  */
 function DuoOpenScene({ lang, shots, bezels }: { lang: Lang; shots: Shots; bezels: Bezels }) {
@@ -438,11 +438,11 @@ function DuoOpenScene({ lang, shots, bezels }: { lang: Lang; shots: Shots; bezel
       </At>
       <ActionRows actions={t.actions} left={4 * W} device="duoInner" top={700} zoom={1.6} />
 
-      {/* 6. iPhone と iPad。見出しのとおりの端末を見せる */}
-      <At x={5 * W + 300} y={400} w={300} rotate={4} z={10}>
-        <Device src={shots.iphoneList} kind="iphone" width={300} />
+      {/* 6. 閉じた Duo と iPad */}
+      <At x={5 * W + 280} y={380} w={340} rotate={-4} z={10}>
+        <Device src={shots.duoClosedList!} kind="duoClosed" width={340} bezel={bezels.closed} />
       </At>
-      <At x={5 * W + 700} y={300} w={560} rotate={-3} z={9}>
+      <At x={5 * W + 700} y={300} w={560} rotate={3} z={9}>
         <Device src={shots.ipadList} kind="ipad" width={560} />
       </At>
     </>
