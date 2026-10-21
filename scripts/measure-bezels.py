@@ -31,10 +31,12 @@ def measure(path):
     alpha = img.getchannel("A").load()
     # 開いた端末は中央に折り目が描かれていることがあるので、縦は左寄りの列で測る
     cx, cy = w // 4, h // 2
-    if alpha[cx, cy] >= OPAQUE:
+    rx = w - 1 - cx
+    if alpha[cx, cy] >= OPAQUE or alpha[rx, cy] >= OPAQUE:
         raise SystemExit(f"{path.name}: 画面の位置が透けていない（枠の PNG ではない？）")
-    left, _ = edge(alpha, w, h, w // 2, cy, -1, 0)
-    right, _ = edge(alpha, w, h, w // 2, cy, 1, 0)
+    # 横も折り目をまたがないよう、左右それぞれ透けている列から外へ測る
+    left, _ = edge(alpha, w, h, cx, cy, -1, 0)
+    right, _ = edge(alpha, w, h, rx, cy, 1, 0)
     _, top = edge(alpha, w, h, cx, cy, 0, -1)
     _, bottom = edge(alpha, w, h, cx, cy, 0, 1)
     return {
