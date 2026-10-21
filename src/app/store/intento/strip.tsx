@@ -13,17 +13,37 @@ import { cn } from "@/lib/utils";
  * 紹介ページと同じ部品を使い、ストアで横に並べたときに帯や部品が隣の画像へ流れて見えるようにする。
  * 撮って 1 枚ずつに切るのは scripts/store-screenshots.sh。iPhone は 1 枚 440×956 を 3 倍で 1320×2868（6.9"）、
  * iPad は 1 枚 1032×1376 を 2 倍で 2064×2752（13"）。iPad は横に広いので配置を別に持つ。
+ * iPhone Duo は開いた横向き（内画面）の帯 1 本だけを出し、その中で開いた形と閉じた形の両方を見せる。
  * アプリの画面は実機のスクショだけを使い、手で描くのはウィジェットや吹き出しなどの部品に限る。
  */
 
 const FRAMES = 6;
-const FRAME = { iphone: { w: 440, h: 956 }, ipad: { w: 1032, h: 1376 } } as const;
+// Duo は撮るときの倍率で 2853×2007（開いた横向き）に合わせる
+const FRAME = {
+  iphone: { w: 440, h: 956 },
+  ipad: { w: 1032, h: 1376 },
+  duoInner: { w: 1467, h: 1032 },
+} as const;
 export type StoreDevice = keyof typeof FRAME;
 
 export type Lang = "ja" | "en";
 
 /** 実機のスクショ（IntentTodo の scripts/capture_screenshots.sh の出力）の公開パス */
-export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; ipadDetail: string; watchList: string };
+export type Shots = {
+  iphoneList: string;
+  iphoneDetail: string;
+  ipadList: string;
+  ipadDetail: string;
+  watchList: string;
+  duoOpenList?: string;
+  duoOpenDetail?: string;
+  duoClosedList?: string;
+  duoClosedDetail?: string;
+};
+
+/** Apple Design Resources の端末枠と、その中の画面の位置（枠に対する比）。scripts/measure-bezels.py が測る */
+export type Bezel = { src: string; w: number; h: number; screen: { x: number; y: number; w: number; h: number } };
+export type Bezels = { open?: Bezel; closed?: Bezel };
 
 const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
@@ -80,7 +100,7 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
 
 /** 帯の中のある位置に置く。x は帯の左端からの距離なので、画像の境目をまたいで置ける */
 // zoom は iPad で iPhone 用の部品を大きく見せるため。位置と幅は zoom 前の値で書く
-function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; zoom?: number; children: ReactNode; className?: string }) {
+export function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; zoom?: number; children: ReactNode; className?: string }) {
   const k = zoom ?? 1;
   const style: CSSProperties = { left: x / k, top: y / k, width: w && w / k, transform: rotate ? `rotate(${rotate}deg)` : undefined, zIndex: z, zoom };
   return (
@@ -91,19 +111,54 @@ function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; 
 }
 
 /** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない。角丸は幅に比例させる */
-function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; width: number }) {
-  // 実機の画面の角丸は iPhone で幅の約 12%、iPad で約 4%
-  const pad = kind === "iphone" ? Math.max(4, width * 0.022) : width * 0.035;
-  const inner = width * (kind === "iphone" ? 0.12 : 0.04);
+type DeviceKind = "iphone" | "ipad" | "duoOpen" | "duoClosed";
+
+// 画面の角丸と枠の太さを幅に対する比で持つ。Duo は公式の枠の PNG が無いとき（クラウドでの確認用）だけこれで描く。
+// 閉じた Duo は左が折り目の側で角が立ち、右上にカメラの穴がある
+const BEZEL: Record<DeviceKind, { pad: number; radius: number; hinge?: number }> = {
+  iphone: { pad: 0.022, radius: 0.12 },
+  ipad: { pad: 0.035, radius: 0.04 },
+  duoOpen: { pad: 0.018, radius: 0.05 },
+  duoClosed: { pad: 0.03, radius: 0.13, hinge: 0.02 },
+};
+
+const SHADOW = "drop-shadow-[0_30px_40px_rgba(0,0,0,0.3)]";
+
+export function Device({ src, kind, width, bezel }: { src: string; kind: DeviceKind; width: number; bezel?: Bezel }) {
+  if (bezel) {
+    const s = bezel.screen;
+    return (
+      <div className={cn("relative", SHADOW)} style={{ width, aspectRatio: `${bezel.w} / ${bezel.h}` }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt="" className="absolute object-cover" style={{ left: `${s.x * 100}%`, top: `${s.y * 100}%`, width: `${s.w * 100}%`, height: `${s.h * 100}%` }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={encodeURI(bezel.src)} alt="" className="absolute inset-0 h-full w-full" />
+      </div>
+    );
+  }
+  const { pad: padRatio, radius, hinge } = BEZEL[kind];
+  const pad = Math.max(4, width * padRatio);
+  const inner = width * radius;
+  const corners = (r: number) => (hinge === undefined ? r : `${width * hinge}px ${r}px ${r}px ${width * hinge}px`);
   return (
-    <div className="bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]" style={{ width, padding: pad, borderRadius: inner + pad }}>
+    <div className={cn("relative bg-[#1d1d1f]", SHADOW)} style={{ width, padding: pad, borderRadius: corners(inner + pad) }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" className="block w-full" style={{ borderRadius: inner }} />
+      <img src={src} alt="" className="block w-full" style={{ borderRadius: corners(inner) }} />
+      {kind === "duoOpen" && (
+        <div
+          className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2"
+          style={{ width: Math.max(4, width * 0.006), background: "linear-gradient(90deg, rgba(0,0,0,0.06), rgba(255,255,255,0.12), rgba(0,0,0,0.06))" }}
+        />
+      )}
+      {kind === "duoClosed" && (
+        <span className="absolute rounded-full bg-black" style={{ left: pad + (width - pad * 2) * 0.86, top: pad + (width - pad * 2) * 0.1, width: width * 0.062, height: width * 0.062 }} />
+      )}
     </div>
   );
 }
 
-const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: { size: 64, top: 150, inset: 72 } } as const;
+const IPAD_TITLE = { size: 64, top: 150, inset: 72 };
+const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: IPAD_TITLE, duoInner: { size: 56, top: 92, inset: 84 } } as const;
 
 function Title({ device, index, lines }: { device: StoreDevice; index: number; lines: string[] }) {
   const { size, top, inset } = TITLE[device];
@@ -148,7 +203,7 @@ function Aurora({ device }: { device: StoreDevice }) {
   );
 }
 
-export function IntentoStoreStrip({ device, lang, shots }: { device: StoreDevice; lang: Lang; shots: Shots }) {
+export function IntentoStoreStrip({ device, lang, shots, bezels = {} }: { device: StoreDevice; lang: Lang; shots: Shots; bezels?: Bezels }) {
   const t = COPY[lang];
   const { w, h } = FRAME[device];
   return (
@@ -161,7 +216,9 @@ export function IntentoStoreStrip({ device, lang, shots }: { device: StoreDevice
       {/* 開発サーバーのインジケータを写さない */}
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <Aurora device={device} />
-      {device === "iphone" ? <IphoneScene lang={lang} shots={shots} /> : <IpadScene lang={lang} shots={shots} />}
+      {device === "iphone" && <IphoneScene lang={lang} shots={shots} />}
+      {device === "ipad" && <IpadScene shots={shots} lang={lang} />}
+      {device === "duoInner" && <DuoOpenScene lang={lang} shots={shots} bezels={bezels} />}
       {t.titles.map((lines, i) => (
         <Title key={i} device={device} index={i} lines={lines} />
       ))}
@@ -216,7 +273,8 @@ function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       <At x={440 + 30} y={560} rotate={2} z={10}>
         <SiriBubble className="max-w-[330px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
-      <At x={440 + 104} y={680} w={316} rotate={-2} z={8}>
+      {/* 1 枚目と同じ向きに傾くと流れが単調になるので、ここは縦にまっすぐ置く */}
+      <At x={440 + 104} y={680} w={316} z={8}>
         <Device src={shots.iphoneDetail} kind="iphone" width={316} />
       </At>
 
@@ -284,7 +342,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       <At x={W + 72} y={780} rotate={2} z={10} zoom={1.8}>
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
-      <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
+      <At x={W + 300} y={960} w={680} z={8}>
         <Device src={shots.ipadDetail} kind="ipad" width={680} />
       </At>
 
@@ -319,6 +377,74 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       </At>
       <At x={5 * W + 70} y={720} w={300} rotate={-5} z={10}>
         <Device src={shots.iphoneList} kind="iphone" width={300} />
+      </At>
+    </>
+  );
+}
+
+/**
+ * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右下に置く。開いた形は 1 枚目、閉じた形は 2・6 枚目に出す。
+ * 傾きは左から順に左右を交互にし、同じ向きが続いて流れが単調にならないようにする
+ */
+function DuoOpenScene({ lang, shots, bezels }: { lang: Lang; shots: Shots; bezels: Bezels }) {
+  const t = COPY[lang];
+  const W = FRAME.duoInner.w;
+  return (
+    <>
+      {/* 1. 表紙: 開いた形 */}
+      <At x={84} y={40} className="flex items-center gap-3">
+        <IntentoIcon className="h-10 w-10 shadow-none" />
+        <span className="text-[22px] font-semibold text-neutral-500">Intento</span>
+      </At>
+      <At x={60} y={560} z={20} rotate={4} zoom={1.6}>
+        <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
+      </At>
+      <At x={420} y={300} w={960} rotate={-3} z={10}>
+        <Device src={shots.duoOpenList!} kind="duoOpen" width={960} bezel={bezels.open} />
+      </At>
+
+      {/* 2. 声: 閉じた形で話しかける */}
+      <At x={W + 70} y={330} rotate={3} z={10} zoom={1.6}>
+        <SiriBubble className="max-w-[380px]">{t.quote(t.phrases[1])}</SiriBubble>
+      </At>
+      <At x={W + 110} y={620} rotate={-2} z={10} zoom={1.6}>
+        <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
+      </At>
+      <At x={W + 900} y={250} w={460} rotate={4} z={8}>
+        <Device src={shots.duoClosedDetail!} kind="duoClosed" width={460} bezel={bezels.closed} />
+      </At>
+
+      {/* 3. ホーム画面とロック画面を横に並べる */}
+      <At x={2 * W + 120} y={330} w={560} rotate={-4} z={10} zoom={1.6}>
+        <WidgetCard todos={t.widgetTodos} done={[false, true, false]} header={t.widgetHeader} leftLabel={t.left} className="max-w-none p-5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.3)]" />
+      </At>
+      <At x={2 * W + 780} y={300} w={500} rotate={5} z={9} zoom={1.5}>
+        <LockScreen state="active" lang={lang} className="max-w-none pb-6 pt-14 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]" />
+      </At>
+
+      {/* 4. コントロールセンターと Apple Watch */}
+      <At x={3 * W + 200} y={330} rotate={-5} z={9} zoom={1.6} className="rounded-[40px] bg-[#1d1d1f]/90 p-7 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.5)]">
+        <ControlPad count={2} remainingLabel={t.remaining} />
+      </At>
+      <At x={3 * W + 860} y={360} rotate={6} z={10} zoom={1.7}>
+        <WatchFace src={shots.watchList} className="scale-[1.15]" />
+      </At>
+
+      {/* 5. 25 のアクション */}
+      <At x={4 * W + 84} y={250} z={10}>
+        <ShortcutsCount className="text-[300px]" />
+      </At>
+      <At x={4 * W + 96} y={620} z={10} className="text-[26px] text-neutral-500">
+        {t.actionsNote}
+      </At>
+      <ActionRows actions={t.actions} left={4 * W} device="duoInner" top={700} zoom={1.6} />
+
+      {/* 6. 閉じた Duo と iPad */}
+      <At x={5 * W + 280} y={380} w={340} rotate={-4} z={10}>
+        <Device src={shots.duoClosedList!} kind="duoClosed" width={340} bezel={bezels.closed} />
+      </At>
+      <At x={5 * W + 700} y={300} w={560} rotate={3} z={9}>
+        <Device src={shots.ipadList} kind="ipad" width={560} />
       </At>
     </>
   );
