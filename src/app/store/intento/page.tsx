@@ -44,7 +44,7 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
     );
   }
   // header / search は iOS 27 のプロダクトページのヘッダーと検索結果の画像
-  if (device === "header" || device === "search") return <IntentoStoreArt kind={device} lang={lang} shots={shots} />;
+  if (device === "header" || device === "search") return <IntentoStoreArt kind={device} lang={lang} />;
   const strip: StoreDevice = device === "ipad" || device === "duoInner" || device === "duoOuter" ? device : "iphone";
   return <IntentoStoreStrip device={strip} lang={lang} shots={shots} />;
 }

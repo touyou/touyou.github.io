@@ -97,14 +97,32 @@ export function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: n
 }
 
 /** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない。角丸は幅に比例させる */
-export function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; width: number }) {
-  // 実機の画面の角丸は iPhone で幅の約 12%、iPad で約 4%
-  const pad = kind === "iphone" ? Math.max(4, width * 0.022) : width * 0.035;
-  const inner = width * (kind === "iphone" ? 0.12 : 0.04);
+type DeviceKind = "iphone" | "ipad" | "duoInner" | "duoOuter";
+
+// 画面の角丸と枠の太さを幅に対する比で持つ。Duo の内側は開いた本の形で、中央に折り目が出る
+const BEZEL: Record<DeviceKind, { pad: number; radius: number }> = {
+  iphone: { pad: 0.022, radius: 0.12 },
+  ipad: { pad: 0.035, radius: 0.04 },
+  duoInner: { pad: 0.02, radius: 0.045 },
+  duoOuter: { pad: 0.03, radius: 0.13 },
+};
+
+export function Device({ src, kind, width }: { src: string; kind: DeviceKind; width: number }) {
+  const pad = Math.max(4, width * BEZEL[kind].pad);
+  const inner = width * BEZEL[kind].radius;
   return (
-    <div className="bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]" style={{ width, padding: pad, borderRadius: inner + pad }}>
+    <div className="relative bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]" style={{ width, padding: pad, borderRadius: inner + pad }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" className="block w-full" style={{ borderRadius: inner }} />
+      {kind === "duoInner" && (
+        <div
+          className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2"
+          style={{
+            width: Math.max(6, width * 0.012),
+            background: "linear-gradient(90deg, rgba(0,0,0,0.10), rgba(255,255,255,0.18) 45%, rgba(0,0,0,0.14) 55%, rgba(0,0,0,0.04))",
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -264,11 +282,12 @@ function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
 }
 
 /** iPad の 6 枚。iPhone と同じ流れで、部品は zoom で大きくし、画面は iPad の実機スクショを使う */
-// Duo も縦横比が iPad に近いので同じ配置を使い、主役の画面だけ Duo のスクショに替える
+// Duo も縦横比が iPad に近いので同じ配置を使い、主役の画面は Duo のスクショを Duo の枠で見せる
 function IpadScene({ device, lang, shots }: { device: Exclude<StoreDevice, "iphone">; lang: Lang; shots: Shots }) {
   const t = COPY[lang];
   const list = device === "ipad" ? shots.ipadList : shots.duoList!;
   const detail = device === "ipad" ? shots.ipadDetail : shots.duoDetail!;
+  const kind = device;
   const W = FRAME.ipad.w;
   return (
     <>
@@ -278,7 +297,7 @@ function IpadScene({ device, lang, shots }: { device: Exclude<StoreDevice, "ipho
         <span className="text-[28px] font-semibold text-neutral-500">Intento</span>
       </At>
       <At x={160} y={420} w={800} rotate={-3} z={10}>
-        <Device src={list} kind="ipad" width={800} />
+        <Device src={list} kind={kind} width={800} />
       </At>
       <At x={56} y={480} z={20} rotate={-4} zoom={1.8}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
@@ -295,7 +314,7 @@ function IpadScene({ device, lang, shots }: { device: Exclude<StoreDevice, "ipho
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
       <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
-        <Device src={detail} kind="ipad" width={680} />
+        <Device src={detail} kind={kind} width={680} />
       </At>
 
       {/* 3. ホーム画面とロック画面 */}
