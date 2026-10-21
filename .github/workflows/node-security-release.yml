@@ -1,0 +1,61 @@
+name: Node.js security release
+
+# .node-version と同じメジャーにセキュリティリリースが出たら、上げる PR を作る。
+# GITHUB_TOKEN で作った PR では他のワークフローが起動しないので、CI は PR 上で手動再実行する。
+on:
+  schedule:
+    - cron: "0 1 * * *" # 10:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check nodejs.org for a security release
+        id: check
+        run: |
+          current=$(tr -d ' v\n' < .node-version)
+          major=${current%%.*}
+          curl -fsSL https://nodejs.org/dist/index.json -o index.json
+          # index.json は新しい順。現在のバージョンより新しい同メジャーのリリースに security が 1 つでもあれば上げる
+          read -r latest security < <(jq -r --arg m "v$major." --arg cur "v$current" '
+            [.[] | select(.version | startswith($m))] as $rs
+            | ($rs | map(.version) | index($cur)) as $i
+            | ($rs[: ($i // ($rs | length))]) as $newer
+            | "\($rs[0].version | ltrimstr("v")) \($newer | any(.security))"' index.json)
+          echo "current=$current latest=$latest security=$security"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          echo "security=$security" >> "$GITHUB_OUTPUT"
+
+      - name: Open a PR (or an issue if PR creation is not allowed)
+        if: steps.check.outputs.security == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT: ${{ steps.check.outputs.current }}
+          LATEST: ${{ steps.check.outputs.latest }}
+        run: |
+          branch="node-security/v$LATEST"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            echo "$branch already exists"; exit 0
+          fi
+          echo "$LATEST" > .node-version
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -am "chore: Node.js を $LATEST に上げる (セキュリティリリース)"
+          git push -u origin "$branch"
+          title="chore: Node.js $CURRENT → $LATEST (security release)"
+          body="nodejs.org に v$LATEST までのセキュリティリリースが出たので .node-version を上げます。
+          リリースノート: https://nodejs.org/en/blog/release/v$LATEST
+          この PR は GITHUB_TOKEN で作られているため CI が自動では走りません。必要なら Actions から再実行してください。"
+          gh pr create --base "${{ github.event.repository.default_branch }}" --head "$branch" --title "$title" --body "$body" \
+            || gh issue create --title "$title" --body "$body
+          PR の自動作成が許可されていないため issue にしました: https://github.com/${{ github.repository }}/compare/$branch?expand=1"
