@@ -164,3 +164,17 @@ export function ScanResult({ card, owned, zoom = 1 }: { card: CardName; owned: n
     </div>
   );
 }
+
+/**
+ * 実機のスクショの一部を切り抜いて拡大する。crop はスクショの画素での位置と角丸。
+ * 画面に写っているものをそのまま大きく見せるだけで、中身は描き足さない
+ */
+export function ShotCrop({ src, crop, width }: { src: string; crop: { srcW: number; srcH: number; x: number; y: number; w: number; h: number; radius: number }; width: number }) {
+  const k = width / crop.w;
+  return (
+    <div className="relative overflow-hidden shadow-[0_40px_80px_-24px_rgba(5,4,25,0.75)]" style={{ width, height: crop.h * k, borderRadius: crop.radius * k }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="absolute block max-w-none" style={{ left: -crop.x * k, top: -crop.y * k, width: crop.srcW * k, height: crop.srcH * k }} />
+    </div>
+  );
+}

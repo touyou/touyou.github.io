@@ -3,13 +3,13 @@
 import type { ReactNode } from "react";
 
 import { At, type Bezels, Device } from "../intento/strip";
-import { Backlight, type CardName, INK, NightSky, ScanResult, TCard, ToretaIcon, Viewfinder } from "./parts";
+import { Backlight, type CardName, INK, NightSky, ScanResult, ShotCrop, TCard, ToretaIcon, Viewfinder } from "./parts";
 
 /**
  * Toreta の App Store のスクリーンショット 6 枚を、横に 1 枚つながった絵として描く（開発サーバーでだけ開ける）。
  * Toreta は iPhone 専用で日本語だけなので、iPhone（440×956 を 3 倍）と、開いた iPhone Duo（1467×1032 を 1.94477 倍）を持つ。
  * 地は夜空の紺で、アプリのサンプルのカードを画像の境目にまたがせて置き、並べたときに 1 本の流れに見せる。
- * 端末とカードの傾きは画像ごとに左右を交互にする。
+ * 端末とカードの傾きは画像ごとに左右を交互にし、端末の画像と絵の画像（集め具合・読み取り）も交互に並べる。
  */
 
 const FRAMES = 6;
@@ -20,11 +20,9 @@ export type ToretaDevice = keyof typeof FRAME;
 export type ToretaShots = {
   series: string;
   collection: string;
-  detail: string;
   trade: string;
   deck: string;
   duoOpenCollection?: string;
-  duoOpenDetail?: string;
   duoOpenTrade?: string;
   duoOpenDeck?: string;
   duoClosedSeries?: string;
@@ -33,9 +31,9 @@ export type ToretaShots = {
 // 見出しの上の小さな札は、どの画像でも同じ位置・同じ色で繰り返す（1 枚目だけはアイコンとアプリ名）
 const COPY: { tag: string; lines: [string, string] }[] = [
   { tag: "Toreta", lines: ["持っているカードを、", "シリーズごとに記録。"] },
+  { tag: "集め具合", lines: ["何種そろったか、", "レアリティごとに。"] },
   { tag: "取り込み", lines: ["公式のカードリストを", "URL から取り込み。"] },
   { tag: "読み取り", lines: ["カメラにかざして、", "番号を読み取る。"] },
-  { tag: "所持枚数", lines: ["持っている枚数は、", "ボタンひとつで。"] },
   { tag: "トレード", lines: ["ゆずる・もとめるを", "画像にして書き出し。"] },
   { tag: "デッキ", lines: ["デッキの足りない分を", "「ねらい」にまとめて。"] },
 ];
@@ -132,8 +130,8 @@ function UrlField({ zoom = 1 }: { zoom?: number }) {
   );
 }
 
-/** 読み取りの絵: 枠の中のカードと、見つかったカードの知らせ */
-function ScanScene({ x, y, cardW, resultX, resultY, zoom, children }: { x: number; y: number; cardW: number; resultX: number; resultY: number; zoom: number; children?: ReactNode }) {
+/** 読み取りの絵: 枠の中のカードと、見つかったカードの知らせ。カードと知らせは逆に傾ける */
+function ScanScene({ x, y, cardW, rotate, resultX, resultY, zoom, children }: { x: number; y: number; cardW: number; rotate: number; resultX: number; resultY: number; zoom: number; children?: ReactNode }) {
   const cardH = (cardW * 88) / 63;
   const pad = cardW * 0.14;
   return (
@@ -143,14 +141,36 @@ function ScanScene({ x, y, cardW, resultX, resultY, zoom, children }: { x: numbe
       <At x={x - pad} y={y - pad} z={12}>
         <Viewfinder width={cardW + pad * 2} height={cardH + pad * 2} stroke={Math.max(4, cardW * 0.022)} />
       </At>
-      <Card x={x} y={y} w={cardW} rotate={-4} card="bell" z={11} />
+      <Card x={x} y={y} w={cardW} rotate={rotate} card="bell" z={11} />
       {/* 読み取り中の光の線 */}
       <At x={x - pad * 0.6} y={y + cardH * 0.42} w={cardW + pad * 1.2} z={13}>
         <div className="h-[3px] rounded-full bg-white shadow-[0_0_24px_6px_rgba(160,150,255,0.85)]" />
       </At>
-      <At x={resultX} y={resultY} rotate={3} z={14}>
+      <At x={resultX} y={resultY} rotate={-Math.sign(rotate) * 3} z={14}>
         <ScanResult card="bell" owned={4} zoom={zoom} />
       </At>
+    </>
+  );
+}
+
+// コレクションの画面の上にある「集め具合」の枠（何種そろったか・レアリティごと・ねらいのカード）の位置。実機のスクショの画素で測った
+const SUMMARY = {
+  iphone: { srcW: 1320, srcH: 2868, x: 46, y: 681, w: 1229, h: 644, radius: 62 },
+  duo: { srcW: 2853, srcH: 2007, x: 1006, y: 303, w: 1550, h: 645, radius: 62 },
+} as const;
+
+/** 集め具合の絵: 1 枚目の画面の「集め具合」の枠を拡大して浮かせ、横にレアリティの違うカード（SR・R・C）を扇に並べる */
+function SummaryScene({ src, crop, x, y, width, rotate, cards }: { src: string; crop: (typeof SUMMARY)[keyof typeof SUMMARY]; x: number; y: number; width: number; rotate: number; cards: { x: number; y: number; w: number; rotate: number; card: CardName; z: number }[] }) {
+  const h = (width * crop.h) / crop.w;
+  return (
+    <>
+      <Backlight color="#7B6BEA" style={{ left: x + width * 0.08, top: y + h * 0.1, width: width * 0.84, height: h * 0.9 }} />
+      <At x={x} y={y} rotate={rotate} z={12}>
+        <ShotCrop src={src} crop={crop} width={width} />
+      </At>
+      {cards.map((c) => (
+        <Card key={c.card} {...c} />
+      ))}
     </>
   );
 }
@@ -160,41 +180,49 @@ function IphoneScene({ shots }: { shots: ToretaShots }) {
   const DW = 300;
   return (
     <>
-      {/* 1. 表紙: シリーズの画面と、後ろに扇に開いたカード */}
+      {/* 1. 表紙: コレクションの画面と、後ろに扇に開いたカード */}
       <Card x={18} y={600} w={128} rotate={-16} card="mina" z={4} />
       <Card x={52} y={560} w={128} rotate={-8} card="kai" z={5} />
       <Backlight color="#5146D9" style={{ left: 110, top: 300, width: 300, height: 560 }} />
       <At x={112} y={252} w={DW} rotate={-3} z={10}>
         <Device src={shots.collection} kind="iphone" width={DW} />
       </At>
-      {/* 1|2 の境目をまたぐ、ぼかした奥のカード */}
-      <Card x={W - 70} y={400} w={140} rotate={12} card="luka" blur={5} z={2} />
 
-      {/* 2. 取り込み: URL を貼る欄から、シリーズの一覧へ */}
-      <Backlight color="#2F6BF2" style={{ left: W + 60, top: 320, width: 300, height: 560 }} />
-      <At x={W + 70} y={300} w={DW} rotate={3} z={10}>
+      {/* 2. 集め具合: 1 枚目の画面の上の枠を拡大する。見出しと左端をそろえる */}
+      <SummaryScene
+        src={shots.collection}
+        crop={SUMMARY.iphone}
+        x={W + 28}
+        y={262}
+        width={384}
+        rotate={3}
+        cards={[
+          { x: W + 40, y: 610, w: 132, rotate: -12, card: "bell", z: 6 },
+          { x: W + 154, y: 584, w: 132, rotate: 0, card: "luka", z: 8 },
+          { x: W + 268, y: 610, w: 132, rotate: 12, card: "mina", z: 7 },
+        ]}
+      />
+      {/* 2|3 の境目をまたぐ、ぼかした奥のカード */}
+      <Card x={2 * W - 70} y={420} w={140} rotate={12} card="shion" blur={5} z={2} />
+
+      {/* 3. 取り込み: URL を貼る欄から、シリーズの一覧へ */}
+      <Backlight color="#2F6BF2" style={{ left: 2 * W + 60, top: 320, width: 300, height: 560 }} />
+      <At x={2 * W + 70} y={300} w={DW} rotate={-3} z={10}>
         <Device src={shots.series} kind="iphone" width={DW} />
       </At>
-      <At x={W + 26} y={232} rotate={-3} z={20}>
+      <At x={2 * W + 26} y={232} rotate={2} z={20}>
         <UrlField zoom={1.05} />
       </At>
       {/* 取り込んだカードが、画面の下から手前にこぼれる */}
-      <Card x={W + 110} y={640} w={124} rotate={-10} card="bell" z={12} />
-      <Card x={W + 222} y={616} w={124} rotate={4} card="luka" z={13} />
-      <Card x={2 * W - 60} y={720} w={120} rotate={14} card="shion" z={12} />
+      <Card x={2 * W + 110} y={640} w={124} rotate={-10} card="kai" z={12} />
+      <Card x={2 * W + 222} y={616} w={124} rotate={4} card="rei" z={13} />
+      <Card x={3 * W - 60} y={720} w={120} rotate={14} card="mina" z={12} />
 
-      {/* 3. 読み取り: 端末の画面ではなく、カメラの枠とカードで見せる */}
-      <ScanScene x={2 * W + 104} y={296} cardW={232} resultX={2 * W + 34} resultY={760} zoom={1.15}>
-        <Card x={2 * W + 20} y={520} w={130} rotate={10} card="kai" blur={6} z={3} />
-        <Card x={2 * W + 300} y={250} w={120} rotate={-12} card="rei" blur={6} z={3} />
+      {/* 4. 読み取り: 端末の画面ではなく、カメラの枠とカードで見せる */}
+      <ScanScene x={3 * W + 104} y={296} cardW={232} rotate={4} resultX={3 * W + 34} resultY={760} zoom={1.15}>
+        <Card x={3 * W + 20} y={520} w={130} rotate={10} card="kai" blur={6} z={3} />
+        <Card x={3 * W + 300} y={250} w={120} rotate={-12} card="rei" blur={6} z={3} />
       </ScanScene>
-
-      {/* 4. 所持枚数: カードの詳細と ＋ − */}
-      <Backlight color="#8A3FD1" style={{ left: 3 * W + 64, top: 320, width: 300, height: 560 }} />
-      <At x={3 * W + 76} y={256} w={DW} rotate={3} z={10}>
-        <Device src={shots.detail} kind="iphone" width={DW} />
-      </At>
-      <Card x={4 * W - 60} y={640} w={118} rotate={-9} card="luka" z={12} />
 
       {/* 5. トレード: ゆずる・もとめる */}
       <Backlight color="#5146D9" style={{ left: 4 * W + 64, top: 320, width: 300, height: 560 }} />
@@ -215,7 +243,7 @@ function IphoneScene({ shots }: { shots: ToretaShots }) {
 }
 
 /**
- * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右に置く。閉じた形は取り込み（2 枚目）でだけ使い、
+ * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右に置く。閉じた形は取り込み（3 枚目）でだけ使い、
  * 開いた形と同じ画面を並べて見せることはしない
  */
 function DuoOpenScene({ shots, bezels }: { shots: ToretaShots; bezels: Bezels }) {
@@ -231,32 +259,39 @@ function DuoOpenScene({ shots, bezels }: { shots: ToretaShots; bezels: Bezels })
       <At x={ox} y={300} w={OW} rotate={-3} z={10}>
         <Device src={shots.duoOpenCollection!} kind="duoOpen" width={OW} bezel={bezels.open} />
       </At>
-      <Card x={W - 110} y={700} w={210} rotate={12} card="luka" blur={8} z={2} />
 
-      {/* 2. 取り込み: 閉じた形で、取り込んだシリーズの一覧 */}
-      <At x={W + 88} y={330} rotate={-3} z={20}>
+      {/* 2. 集め具合: 開いた形の画面の枠を拡大する。見出しと左端をそろえ、右にカードの扇 */}
+      <SummaryScene
+        src={shots.duoOpenCollection!}
+        crop={SUMMARY.duo}
+        x={W + 88}
+        y={380}
+        width={940}
+        rotate={3}
+        cards={[
+          { x: W + 1080, y: 220, w: 180, rotate: -12, card: "bell", z: 6 },
+          { x: W + 1150, y: 540, w: 180, rotate: 8, card: "luka", z: 7 },
+        ]}
+      />
+      <Card x={2 * W - 110} y={800} w={190} rotate={-10} card="mina" blur={8} z={2} />
+
+      {/* 3. 取り込み: 閉じた形で、取り込んだシリーズの一覧 */}
+      <At x={2 * W + 88} y={330} rotate={2} z={20}>
         <UrlField zoom={1.7} />
       </At>
-      <Card x={W + 150} y={600} w={170} rotate={-10} card="bell" z={6} />
-      <Card x={W + 330} y={640} w={170} rotate={6} card="luka" z={7} />
-      <Backlight color="#2F6BF2" style={{ left: W + 860, top: 260, width: 400, height: 600 }} />
-      <At x={W + 840} y={220} w={430} rotate={3} z={10}>
+      <Card x={2 * W + 150} y={600} w={170} rotate={-10} card="kai" z={6} />
+      <Card x={2 * W + 330} y={640} w={170} rotate={6} card="rei" z={7} />
+      <Backlight color="#2F6BF2" style={{ left: 2 * W + 860, top: 260, width: 400, height: 600 }} />
+      <At x={2 * W + 840} y={220} w={430} rotate={-3} z={10}>
         <Device src={shots.duoClosedSeries!} kind="duoClosed" width={430} bezel={bezels.closed} />
       </At>
-      <Card x={2 * W - 90} y={760} w={180} rotate={-12} card="shion" blur={6} z={2} />
+      <Card x={3 * W - 90} y={760} w={180} rotate={-12} card="shion" blur={6} z={2} />
 
-      {/* 3. 読み取り */}
-      <ScanScene x={2 * W + 820} y={250} cardW={330} resultX={2 * W + 110} resultY={560} zoom={1.7}>
-        <Card x={2 * W + 600} y={560} w={190} rotate={12} card="kai" blur={8} z={3} />
-        <Card x={2 * W + 1220} y={220} w={170} rotate={-10} card="rei" blur={8} z={3} />
+      {/* 4. 読み取り */}
+      <ScanScene x={3 * W + 820} y={250} cardW={330} rotate={4} resultX={3 * W + 110} resultY={560} zoom={1.7}>
+        <Card x={3 * W + 600} y={560} w={190} rotate={12} card="kai" blur={8} z={3} />
+        <Card x={3 * W + 1220} y={220} w={170} rotate={-10} card="rei" blur={8} z={3} />
       </ScanScene>
-
-      {/* 4. 所持枚数 */}
-      <Backlight color="#8A3FD1" style={{ left: 3 * W + ox + 40, top: 320, width: OW - 80, height: 560 }} />
-      <At x={3 * W + ox} y={300} w={OW} rotate={3} z={10}>
-        <Device src={shots.duoOpenDetail!} kind="duoOpen" width={OW} bezel={bezels.open} />
-      </At>
-      <Card x={3 * W + 150} y={560} w={210} rotate={-8} card="bell" z={6} />
 
       {/* 5. トレード */}
       <Card x={4 * W + 110} y={600} w={190} rotate={-12} card="kai" z={5} />

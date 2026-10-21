@@ -15,15 +15,13 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 const SHOT_FILES: Record<Exclude<keyof ToretaShots, `duo${string}`>, string> = {
   series: "iphone/ja/01-series.png",
   collection: "iphone/ja/02-collection.png",
-  detail: "iphone/ja/03-card-detail.png",
   trade: "iphone/ja/04-trade.png",
   deck: "iphone/ja/05-deck.png",
 };
 
-// Duo の帯は開いた形が中心で、閉じた形は取り込みの 1 枚だけに出す
+// Duo の帯は開いた形が中心で、閉じた形は取り込みの 1 枚だけに出す。カードの詳細の画面は使わない
 const DUO_FILES = {
   duoOpenCollection: "duo-open/ja/02-collection.png",
-  duoOpenDetail: "duo-open/ja/03-card-detail.png",
   duoOpenTrade: "duo-open/ja/04-trade.png",
   duoOpenDeck: "duo-open/ja/05-deck.png",
   duoClosedSeries: "duo-closed/ja/01-series.png",
