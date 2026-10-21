@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { AiProgress } from "@/components/programming-quiz/Screens";
 import { QuizIcon } from "@/components/programming-quiz/QuizIcon";
-import { CATEGORIES, type CategoryId, CategoryGlyph, Crown, ResultMark, Sparkles } from "@/components/programming-quiz/quiz-ui";
+import { CATEGORIES, type CategoryId, CategoryGlyph, ResultMark, Sparkles } from "@/components/programming-quiz/quiz-ui";
 import { SiriBubble } from "@/components/intento/VoiceDemo";
 
 import { cn } from "@/lib/utils";
@@ -147,6 +147,23 @@ export function Place({ x, y, w, rotate = 0, scale = 1, z, children, className }
     >
       {children}
     </div>
+  );
+}
+
+/**
+ * 結果画面の王冠。アプリは SF Symbols の crown.fill（indigo）なので、描き直さずに iPhone の結果画面のスクショから切り抜く。
+ * 地のグレー（#F2F2F7）を透明に、王冠の色（#6155F5）を不透明にする色の行列をかける
+ */
+const CROWN_BOX = { x: 519, y: 803, w: 282, h: 218 }; // 1320×2868 のスクショの中の位置
+function ResultCrown({ src, width, className }: { src: string; width: number; className?: string }) {
+  const b = CROWN_BOX;
+  return (
+    <svg viewBox={`${b.x} ${b.y} ${b.w} ${b.h}`} width={width} height={(width * b.h) / b.w} className={cn("overflow-hidden", className)} aria-hidden>
+      <filter id="quiz-crown" colorInterpolationFilters="sRGB">
+        <feColorMatrix type="matrix" values="0 0 0 0 0.38  0 0 0 0 0.333  0 0 0 0 0.961  -0.839 -0.839 -0.839 0 2.405" />
+      </filter>
+      <image href={src} x={0} y={0} width={1320} height={2868} filter="url(#quiz-crown)" />
+    </svg>
   );
 }
 
@@ -317,7 +334,7 @@ function IphoneScene({ shots }: { shots: QuizShots }) {
         <Device src={s.result} kind="iphone" width={316} />
       </At>
       <At x={1760 + 4} y={560} rotate={-10} z={12}>
-        <Crown className="h-[96px] w-[96px] drop-shadow-[0_24px_24px_rgba(40,30,120,0.35)]" />
+        <ResultCrown src={s.result} width={110} className="drop-shadow-[0_24px_24px_rgba(40,30,120,0.35)]" />
       </At>
 
       {/* 6. iPad と iPhone と Siri */}
@@ -375,7 +392,7 @@ function IpadScene({ shots }: { shots: QuizShots }) {
         <Device src={s.result} kind="ipad" width={780} />
       </At>
       <At x={4 * W + 24} y={820} rotate={-10} z={12}>
-        <Crown className="h-[170px] w-[170px] drop-shadow-[0_30px_30px_rgba(40,30,120,0.35)]" />
+        <ResultCrown src={shots.iphone.result} width={190} className="drop-shadow-[0_30px_30px_rgba(40,30,120,0.35)]" />
       </At>
 
       <At x={5 * W + 270} y={430} w={700} rotate={3} z={9}>
@@ -434,7 +451,7 @@ function DuoScene({ shots, bezels }: { shots: QuizShots; bezels: Bezels }) {
       </At>
 
       <At x={4 * W + 600} y={340} rotate={-8} z={12}>
-        <Crown className="h-[180px] w-[180px] drop-shadow-[0_30px_30px_rgba(40,30,120,0.35)]" />
+        <ResultCrown src={shots.iphone.result} width={200} className="drop-shadow-[0_30px_30px_rgba(40,30,120,0.35)]" />
       </At>
       <At x={4 * W + 860} y={140} w={430} rotate={4} z={10}>
         <Device src={closed.result} kind="duoClosed" width={430} bezel={bezels.closed} />
