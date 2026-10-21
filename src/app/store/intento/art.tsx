@@ -156,10 +156,10 @@ function SearchScene({ t, shots }: { t: Copy; shots: Shots }) {
         </h1>
         <p className="text-[38px] font-semibold text-neutral-500">{t.searchSub}</p>
       </At>
-      <At x={1230} y={170} w={480} rotate={-5} z={10} className={`rounded-[64px] ${FLOAT}`}>
+      <At x={1200} y={170} w={480} rotate={5} z={10} className={`rounded-[64px] ${FLOAT}`}>
         <Device src={shots.iphoneList} kind="iphone" width={480} />
       </At>
-      <At x={1010} y={760} rotate={-3} z={20} zoom={1.45}>
+      <At x={1010} y={780} rotate={3} z={20} zoom={1.45}>
         <SiriBubble className={`whitespace-nowrap [&>div]:line-clamp-none ${FLOAT}`}>{t.phrase}</SiriBubble>
       </At>
     </>
