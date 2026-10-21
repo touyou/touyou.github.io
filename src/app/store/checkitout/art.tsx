@@ -97,7 +97,7 @@ function SearchScene({ shots }: { shots: Shots }) {
     <>
       <Glow x={1100} y={300} w={700} h={800} color="red" opacity={0.26} blur={170} />
       <Glow x={1500} y={-80} w={420} h={420} color="blue" opacity={0.18} blur={150} />
-      <Confetti x={1000} y={0} w={920} h={700} count={70} unit={1.8} seed={5} />
+      <Confetti x={0} y={0} w={1920} h={1280} count={150} unit={1.8} seed={5} avoid={{ x: 130, y: 280, w: 1000, h: 600 }} />
       <At x={150} y={300} w={980} z={30} className="flex flex-col gap-10">
         <PadRow size={30} />
         <h1 className="text-[124px] font-black leading-[1.12] tracking-[-0.035em] [font-feature-settings:'palt']">

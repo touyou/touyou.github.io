@@ -176,7 +176,7 @@ function IphoneScene({ shots }: { shots: Shots }) {
       <Seams device="iphone" ys={[640, 300, 700, 330, 680]} size={58} blur={5} />
 
       {/* 1. PLAY: 端末の上に紙吹雪 */}
-      <Confetti x={0} y={200} w={440} h={330} count={40} unit={1.3} />
+      <Confetti x={0} y={0} w={440} h={956} count={90} unit={1.3} avoid={{ x: 20, y: 50, w: 360, h: 150 }} />
       <Glow x={70} y={420} w={300} h={420} color="red" opacity={0.32} />
       <At x={78} y={250} w={300} rotate={-3} z={10}>
         <Phone src={shots.iphonePlay} kind="iphone" width={300} />
@@ -243,7 +243,7 @@ function IpadScene({ shots }: { shots: Shots }) {
       <Seams device="ipad" ys={[900, 420, 980, 460, 940]} size={110} blur={9} />
 
       {/* 1. PLAY: 端末の上に紙吹雪 */}
-      <Confetti x={0} y={300} w={1032} h={420} count={60} unit={1.8} seed={2} />
+      <Confetti x={0} y={0} w={1032} h={1376} count={130} unit={1.8} seed={2} avoid={{ x: 60, y: 90, w: 640, h: 230 }} />
       <Glow x={180} y={600} w={680} h={600} color="red" opacity={0.3} blur={150} />
       <At x={170} y={380} w={700} rotate={-3} z={10}>
         <Phone src={shots.ipadPlay} kind="ipad" width={700} />
@@ -311,7 +311,7 @@ function DuoScene({ shots, bezels }: { shots: Shots; bezels: Bezels }) {
       <Seams device="duoInner" ys={[700, 300, 720, 320, 700]} size={90} blur={8} />
 
       {/* 1. PLAY: 開いた形。上に紙吹雪 */}
-      <Confetti x={380} y={60} w={1087} h={380} count={56} unit={1.6} seed={3} />
+      <Confetti x={0} y={0} w={1467} h={1032} count={130} unit={1.6} seed={3} avoid={{ x: 70, y: 60, w: 480, h: 200 }} />
       <Glow x={620} y={420} w={720} h={480} color="red" opacity={0.3} blur={140} />
       <At x={460} y={270} w={960} rotate={-3} z={10}>
         <Device src={shots.duoOpenPlay!} kind="duoOpen" width={960} bezel={bezels.open} />
@@ -337,11 +337,11 @@ function DuoScene({ shots, bezels }: { shots: Shots; bezels: Bezels }) {
 
       {/* 4. TAP */}
       <Glow x={3 * W + 200} y={360} w={1000} h={560} color="blue" opacity={0.2} blur={160} />
-      {/* 見出しの左端と帯の中央を、2 つの図と説明の左端にする。図は下端を、説明は上端をそろえる */}
-      <At x={3 * W + 84} y={300} rotate={4} z={10}>
+      {/* 2 つの図は帯の中央に寄せて並べ、傾きを逆にする。図は下端を、説明は上端をそろえる */}
+      <At x={3 * W + 220} y={300} rotate={-4} z={10}>
         <Retrigger size={270} />
       </At>
-      <At x={3 * W + 84} y={724} z={10}>
+      <At x={3 * W + 220} y={724} z={10}>
         <Caption lines={CAPTIONS.retrigger} size={32} />
       </At>
       <At x={3 * W + W / 2} y={367} rotate={4} z={10}>
