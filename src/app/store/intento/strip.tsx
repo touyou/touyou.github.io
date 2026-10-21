@@ -13,17 +13,16 @@ import { cn } from "@/lib/utils";
  * 紹介ページと同じ部品を使い、ストアで横に並べたときに帯や部品が隣の画像へ流れて見えるようにする。
  * 撮って 1 枚ずつに切るのは scripts/store-screenshots.sh。iPhone は 1 枚 440×956 を 3 倍で 1320×2868（6.9"）、
  * iPad は 1 枚 1032×1376 を 2 倍で 2064×2752（13"）。iPad は横に広いので配置を別に持つ。
- * iPhone Duo は開いた横向き（内画面）と閉じた縦向き（外画面）で別の帯にし、どちらにも両方の形を 1 度は見せる。
+ * iPhone Duo は開いた横向き（内画面）の帯 1 本だけを出し、その中で開いた形と閉じた形の両方を見せる。
  * アプリの画面は実機のスクショだけを使い、手で描くのはウィジェットや吹き出しなどの部品に限る。
  */
 
 const FRAMES = 6;
-// Duo は撮るときの倍率で 2853×2007（開いた横向き）/ 1398×2034（閉じた縦向き）に合わせる
+// Duo は撮るときの倍率で 2853×2007（開いた横向き）に合わせる
 const FRAME = {
   iphone: { w: 440, h: 956 },
   ipad: { w: 1032, h: 1376 },
   duoInner: { w: 1467, h: 1032 },
-  duoOuter: { w: 1032, h: 1501 },
 } as const;
 export type StoreDevice = keyof typeof FRAME;
 
@@ -46,7 +45,7 @@ export type Shots = {
 export type Bezel = { src: string; w: number; h: number; screen: { x: number; y: number; w: number; h: number } };
 export type Bezels = { open?: Bezel; closed?: Bezel };
 
-const COPY: Record<Lang, { titles: string[][]; duoLast: string[]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
+const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
     titles: [
       ["アプリを開かなくても", "使える、やることリスト。"],
@@ -56,7 +55,6 @@ const COPY: Record<Lang, { titles: string[][]; duoLast: string[]; phrases: strin
       ["25 のアクションで、", "ショートカットに。"],
       ["iPhone でも iPad でも、", "同じリストで。"],
     ],
-    duoLast: ["開いても、閉じても、", "同じリストで。"],
     phrases: ["Intento でやることを追加", "Intento で歯医者を予約するを完了", "Intento の会場からのメールに返信するにスターを付ける", "Intento のやることは何件"],
     widgetTodos: ["登壇のリハーサルをする", "1.0 のビルドを提出する", "歯医者を予約する"],
     widgetHeader: "やること",
@@ -75,7 +73,6 @@ const COPY: Record<Lang, { titles: string[][]; duoLast: string[]; phrases: strin
       ["25 actions,", "ready for Shortcuts."],
       ["iPhone or iPad,", "the same list."],
     ],
-    duoLast: ["Open or closed,", "the same list."],
     phrases: ["Add a todo in Intento", "Complete Book the dentist in Intento", "Star Reply to the venue in Intento", "How many todos in Intento"],
     widgetTodos: ["Rehearse the talk", "Submit the 1.0 build", "Book the dentist"],
     widgetHeader: "To Do",
@@ -161,7 +158,7 @@ export function Device({ src, kind, width, bezel }: { src: string; kind: DeviceK
 }
 
 const IPAD_TITLE = { size: 64, top: 150, inset: 72 };
-const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: IPAD_TITLE, duoInner: { size: 56, top: 92, inset: 84 }, duoOuter: IPAD_TITLE } as const;
+const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: IPAD_TITLE, duoInner: { size: 56, top: 92, inset: 84 } } as const;
 
 function Title({ device, index, lines }: { device: StoreDevice; index: number; lines: string[] }) {
   const { size, top, inset } = TITLE[device];
@@ -208,7 +205,6 @@ function Aurora({ device }: { device: StoreDevice }) {
 
 export function IntentoStoreStrip({ device, lang, shots, bezels = {} }: { device: StoreDevice; lang: Lang; shots: Shots; bezels?: Bezels }) {
   const t = COPY[lang];
-  const titles = device === "duoInner" || device === "duoOuter" ? [...t.titles.slice(0, 5), t.duoLast] : t.titles;
   const { w, h } = FRAME[device];
   return (
     <div
@@ -221,9 +217,9 @@ export function IntentoStoreStrip({ device, lang, shots, bezels = {} }: { device
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <Aurora device={device} />
       {device === "iphone" && <IphoneScene lang={lang} shots={shots} />}
-      {(device === "ipad" || device === "duoOuter") && <IpadScene device={device} lang={lang} shots={shots} bezels={bezels} />}
+      {device === "ipad" && <IpadScene shots={shots} lang={lang} />}
       {device === "duoInner" && <DuoOpenScene lang={lang} shots={shots} bezels={bezels} />}
-      {titles.map((lines, i) => (
+      {t.titles.map((lines, i) => (
         <Title key={i} device={device} index={i} lines={lines} />
       ))}
     </div>
@@ -318,14 +314,8 @@ function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
 }
 
 /** iPad の 6 枚。iPhone と同じ流れで、部品は zoom で大きくし、画面は iPad の実機スクショを使う */
-// 閉じた Duo も縦横比が iPad に近いので同じ配置を使い、主役の画面は閉じた Duo の枠で見せる
-function IpadScene({ device, lang, shots, bezels }: { device: "ipad" | "duoOuter"; lang: Lang; shots: Shots; bezels: Bezels }) {
+function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
   const t = COPY[lang];
-  const duo = device === "duoOuter";
-  const list = duo ? shots.duoClosedList! : shots.ipadList;
-  const detail = duo ? shots.duoClosedDetail! : shots.ipadDetail;
-  const kind = duo ? "duoClosed" : "ipad";
-  const bezel = duo ? bezels.closed : undefined;
   const W = FRAME.ipad.w;
   return (
     <>
@@ -335,7 +325,7 @@ function IpadScene({ device, lang, shots, bezels }: { device: "ipad" | "duoOuter
         <span className="text-[28px] font-semibold text-neutral-500">Intento</span>
       </At>
       <At x={160} y={420} w={800} rotate={-3} z={10}>
-        <Device src={list} kind={kind} width={800} bezel={bezel} />
+        <Device src={shots.ipadList} kind="ipad" width={800} />
       </At>
       <At x={56} y={480} z={20} rotate={-4} zoom={1.8}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
@@ -352,7 +342,7 @@ function IpadScene({ device, lang, shots, bezels }: { device: "ipad" | "duoOuter
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
       <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
-        <Device src={detail} kind={kind} width={680} bezel={bezel} />
+        <Device src={shots.ipadDetail} kind="ipad" width={680} />
       </At>
 
       {/* 3. ホーム画面とロック画面 */}
@@ -378,59 +368,49 @@ function IpadScene({ device, lang, shots, bezels }: { device: "ipad" | "duoOuter
       <At x={4 * W + 80} y={770} z={10} className="text-[28px] text-neutral-500">
         {t.actionsNote}
       </At>
-      <ActionRows actions={t.actions} left={4 * W} device={device} top={900} zoom={1.7} />
+      <ActionRows actions={t.actions} left={4 * W} device="ipad" top={900} zoom={1.7} />
 
-      {/* 6. iPad と iPhone。Duo では開いた形と閉じた形 */}
-      {duo ? (
-        <>
-          <At x={5 * W + 120} y={470} w={880} rotate={3} z={9}>
-            <Device src={shots.duoOpenList!} kind="duoOpen" width={880} bezel={bezels.open} />
-          </At>
-          <At x={5 * W + 60} y={880} w={330} rotate={-5} z={10}>
-            <Device src={shots.duoClosedList!} kind="duoClosed" width={330} bezel={bezels.closed} />
-          </At>
-        </>
-      ) : (
-        <>
-          <At x={5 * W + 210} y={430} w={720} rotate={3} z={9}>
-            <Device src={shots.ipadList} kind="ipad" width={720} />
-          </At>
-          <At x={5 * W + 70} y={720} w={300} rotate={-5} z={10}>
-            <Device src={shots.iphoneList} kind="iphone" width={300} />
-          </At>
-        </>
-      )}
+      {/* 6. iPad と iPhone */}
+      <At x={5 * W + 210} y={430} w={720} rotate={3} z={9}>
+        <Device src={shots.ipadList} kind="ipad" width={720} />
+      </At>
+      <At x={5 * W + 70} y={720} w={300} rotate={-5} z={10}>
+        <Device src={shots.iphoneList} kind="iphone" width={300} />
+      </At>
     </>
   );
 }
 
-/** 開いた Duo（横向き）の 6 枚。見出しは左上、主役の端末は右下に置き、最後の 1 枚で閉じた形と並べる */
+/**
+ * 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右下に置く。開いた形は 1 枚目、閉じた形は 2 枚目に出す。
+ * 傾きは左から順に左右を交互にし、同じ向きが続いて流れが単調にならないようにする
+ */
 function DuoOpenScene({ lang, shots, bezels }: { lang: Lang; shots: Shots; bezels: Bezels }) {
   const t = COPY[lang];
   const W = FRAME.duoInner.w;
   return (
     <>
-      {/* 1. 表紙 */}
+      {/* 1. 表紙: 開いた形 */}
       <At x={84} y={40} className="flex items-center gap-3">
         <IntentoIcon className="h-10 w-10 shadow-none" />
         <span className="text-[22px] font-semibold text-neutral-500">Intento</span>
       </At>
-      <At x={420} y={300} w={960} rotate={-2} z={10}>
-        <Device src={shots.duoOpenList!} kind="duoOpen" width={960} bezel={bezels.open} />
-      </At>
-      <At x={60} y={560} z={20} rotate={-4} zoom={1.6}>
+      <At x={60} y={560} z={20} rotate={4} zoom={1.6}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
       </At>
+      <At x={420} y={300} w={960} rotate={-3} z={10}>
+        <Device src={shots.duoOpenList!} kind="duoOpen" width={960} bezel={bezels.open} />
+      </At>
 
-      {/* 2. 声 */}
-      <At x={W + 70} y={330} rotate={-3} z={10} zoom={1.6}>
+      {/* 2. 声: 閉じた形で話しかける */}
+      <At x={W + 70} y={330} rotate={3} z={10} zoom={1.6}>
         <SiriBubble className="max-w-[380px]">{t.quote(t.phrases[1])}</SiriBubble>
       </At>
-      <At x={W + 90} y={620} rotate={2} z={10} zoom={1.6}>
+      <At x={W + 110} y={620} rotate={-2} z={10} zoom={1.6}>
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
-      <At x={W + 620} y={330} w={800} rotate={3} z={8}>
-        <Device src={shots.duoOpenDetail!} kind="duoOpen" width={800} bezel={bezels.open} />
+      <At x={W + 900} y={250} w={460} rotate={4} z={8}>
+        <Device src={shots.duoClosedDetail!} kind="duoClosed" width={460} bezel={bezels.closed} />
       </At>
 
       {/* 3. ホーム画面とロック画面を横に並べる */}
@@ -458,12 +438,12 @@ function DuoOpenScene({ lang, shots, bezels }: { lang: Lang; shots: Shots; bezel
       </At>
       <ActionRows actions={t.actions} left={4 * W} device="duoInner" top={700} zoom={1.6} />
 
-      {/* 6. 開いた形と閉じた形 */}
-      <At x={5 * W + 470} y={330} w={900} rotate={2} z={9}>
-        <Device src={shots.duoOpenList!} kind="duoOpen" width={900} bezel={bezels.open} />
+      {/* 6. iPhone と iPad。見出しのとおりの端末を見せる */}
+      <At x={5 * W + 300} y={400} w={300} rotate={4} z={10}>
+        <Device src={shots.iphoneList} kind="iphone" width={300} />
       </At>
-      <At x={5 * W + 110} y={400} w={360} rotate={-5} z={10}>
-        <Device src={shots.duoClosedList!} kind="duoClosed" width={360} bezel={bezels.closed} />
+      <At x={5 * W + 700} y={300} w={560} rotate={-3} z={9}>
+        <Device src={shots.ipadList} kind="ipad" width={560} />
       </At>
     </>
   );

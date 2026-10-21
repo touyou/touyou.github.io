@@ -19,7 +19,7 @@ const SHOT_FILES: Record<Exclude<keyof Shots, `duo${string}`>, string> = {
   watchList: "watch/{lang}/01-list.png",
 };
 
-// Duo は開いた形（duo-inner）と閉じた形（duo-outer）でフォルダが分かれる。どちらの帯にも両方の形が出る
+// Duo は開いた形（duo-inner）と閉じた形（duo-outer）でフォルダが分かれる。帯は開いた形の 1 本で、閉じた形も中に出す
 const DUO_FILES = {
   duoOpenList: "duo-inner/{lang}/01-list.png",
   duoOpenDetail: "duo-inner/{lang}/02-detail.png",
@@ -35,7 +35,7 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
   const params = await searchParams;
   const lang = params.lang === "en" ? "en" : "ja";
   const device = params.device;
-  const duo = device === "duoInner" || device === "duoOuter";
+  const duo = device === "duoInner";
   const files = duo ? { ...SHOT_FILES, ...DUO_FILES } : SHOT_FILES;
   const shots = Object.fromEntries(
     Object.entries(files).map(([key, file]) => [key, `/store-shots/intento/${file.replace("{lang}", lang)}`]),
@@ -51,7 +51,7 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
   }
   // header / search は iOS 27 のプロダクトページのヘッダーと検索結果の画像
   if (device === "header" || device === "search") return <IntentoStoreArt kind={device} lang={lang} shots={shots} />;
-  const strip: StoreDevice = device === "ipad" || device === "duoInner" || device === "duoOuter" ? device : "iphone";
+  const strip: StoreDevice = device === "ipad" || device === "duoInner" ? device : "iphone";
   const bezels: Bezels = duo && existsSync(BEZELS_JSON) ? JSON.parse(readFileSync(BEZELS_JSON, "utf8")) : {};
   return <IntentoStoreStrip device={strip} lang={lang} shots={shots} bezels={bezels} />;
 }
