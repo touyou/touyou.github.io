@@ -1,0 +1,28 @@
+name: /dev/null Post
+
+# 本文を渡して dev-null.sh/@touyou に手動で投稿する(学習ログなど)。
+# 鍵は devnull-appstore.yml と同じ DEVNULL_SSH_KEY を使う。
+
+on:
+  workflow_dispatch:
+    inputs:
+      body:
+        description: 投稿する本文(4,000 字まで)
+        required: true
+      reply_to:
+        description: 返信先のコミットのハッシュかリンク(スレッドにするとき)
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  commit:
+    if: vars.DEVNULL_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nunomaduro/dev-null.sh/.github/actions/commit@8bec9b18939ae627b256eec89f83fbb368b0f228 # production
+        with:
+          body: ${{ inputs.body }}
+          reply-to: ${{ inputs.reply_to }}
+          ssh-key: ${{ secrets.DEVNULL_SSH_KEY }}
