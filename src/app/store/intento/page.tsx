@@ -19,12 +19,12 @@ const SHOT_FILES: Record<Exclude<keyof Shots, `duo${string}`>, string> = {
   watchList: "watch/{lang}/01-list.png",
 };
 
-// Duo は開いた形（duo-inner）と閉じた形（duo-outer）でフォルダが分かれる。帯は開いた形の 1 本で、閉じた形も中に出す
+// Duo は開いた形（duo-open）と閉じた形（duo-closed）でフォルダが分かれる。帯は開いた形の 1 本で、閉じた形も中に出す
 const DUO_FILES = {
-  duoOpenList: "duo-inner/{lang}/01-list.png",
-  duoOpenDetail: "duo-inner/{lang}/02-detail.png",
-  duoClosedList: "duo-outer/{lang}/01-list.png",
-  duoClosedDetail: "duo-outer/{lang}/02-detail.png",
+  duoOpenList: "duo-open/{lang}/01-list.png",
+  duoOpenDetail: "duo-open/{lang}/02-detail.png",
+  duoClosedList: "duo-closed/{lang}/01-list.png",
+  duoClosedDetail: "duo-closed/{lang}/02-detail.png",
 };
 
 // Apple の端末枠は再配布できないので gitignore。無いときは CSS で描いた枠になる（確認用で、ストアには出さない）

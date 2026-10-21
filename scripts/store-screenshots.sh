@@ -61,11 +61,11 @@ for lang in $LANGS; do
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
     --frame 1032x1376 --count 6 --scale 2 --out "StoreImages/$APP/ipad/$lang"
   # iPhone Duo は開いた横向き 1467x1032 を 1.94477 倍で 2853x2007 の 1 組だけ。
-  # 帯の中に閉じた形も出るので、開いた形と閉じた形のスクショ（duo-inner / duo-outer）が揃ったときだけ撮る
-  if [ -d "$SHOTS/duo-inner/$lang" ] && [ -d "$SHOTS/duo-outer/$lang" ]; then
+  # 帯の中に閉じた形も出るので、開いた形と閉じた形のスクショ（duo-open / duo-closed）が揃ったときだけ撮る
+  if [ -d "$SHOTS/duo-open/$lang" ] && [ -d "$SHOTS/duo-closed/$lang" ]; then
     check_page "$lang" duoInner
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoInner" \
-      --frame 1467x1032 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-inner/$lang"
+      --frame 1467x1032 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-open/$lang"
   fi
   # iOS 27 のプロダクトページのヘッダー（21:9、3840x1646）と検索結果（3:2、3840x2560）
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=header" \
