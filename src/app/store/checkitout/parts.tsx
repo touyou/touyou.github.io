@@ -162,3 +162,47 @@ export function Phone({ src, kind, width, landscape = false, children }: { src: 
     </div>
   );
 }
+
+/**
+ * 紙吹雪。今ストアに出ている画像（ライブ会場に紙吹雪が舞う写真）の空気だけを借りる。写真は使わない。
+ * 白い紙片を主にパッドの色を少し混ぜ、手前の何枚かはぼかして奥行きを出す。位置は決まった式で出す
+ */
+const CONFETTI_COLORS = ["#FFFFFF", "#FFFFFF", "#FFFFFF", PAD_COLORS.red, "#FFFFFF", PAD_COLORS.yellow, "#FFFFFF", PAD_COLORS.blue, "#FFFFFF", PAD_COLORS.green];
+
+/** avoid（Confetti の中の座標）に入る紙片は描かない。見出しに紙片が重ならないようにする */
+type Rect = { x: number; y: number; w: number; h: number };
+
+export function Confetti({ x, y, w, h, count, unit = 1, seed = 1, avoid }: { x: number; y: number; w: number; h: number; count: number; unit?: number; seed?: number; avoid?: Rect }) {
+  const rand = (i: number, k: number) => {
+    const v = Math.sin((i + 1) * 12.9898 * seed + k * 78.233) * 43758.5453;
+    return v - Math.floor(v);
+  };
+  return (
+    <div className="pointer-events-none absolute" style={{ left: x, top: y, width: w, height: h, zIndex: 2 }} aria-hidden>
+      {Array.from({ length: count }, (_, i) => {
+        const px = rand(i, 1) * w;
+        const py = rand(i, 2) * h;
+        if (avoid && px > avoid.x && px < avoid.x + avoid.w && py > avoid.y && py < avoid.y + avoid.h) return null;
+        const near = rand(i, 5) > 0.82;
+        const size = (near ? 1.8 : 1) * unit * (0.7 + rand(i, 3) * 0.6);
+        return (
+          <span
+            key={i}
+            className="absolute"
+            style={{
+              left: px,
+              top: py,
+              width: 5 * size,
+              height: 11 * size,
+              borderRadius: 1.5 * size,
+              background: CONFETTI_COLORS[Math.floor(rand(i, 4) * CONFETTI_COLORS.length)],
+              opacity: near ? 0.55 : 0.4 + rand(i, 6) * 0.45,
+              transform: `rotate(${Math.round(rand(i, 7) * 180 - 90)}deg) skewX(${Math.round(rand(i, 8) * 30 - 15)}deg)`,
+              filter: near ? `blur(${2.5 * unit}px)` : undefined,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}

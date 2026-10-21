@@ -27,6 +27,7 @@ const DUO_FILES = {
   duoOpenPlay: "duo-open/ja/01-play.png",
   duoOpenEdit: "duo-open/ja/02-edit.png",
   duoClosedPlay: "duo-closed/ja/01-play.png",
+  duoClosedEdit: "duo-closed/ja/02-edit.png",
   duoClosedRecord: "duo-closed/ja/03-record.png",
 };
 

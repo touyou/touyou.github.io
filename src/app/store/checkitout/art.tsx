@@ -4,7 +4,7 @@ import { PAD_COLORS, type PadColor } from "@/components/checkitout/pads";
 import { cn } from "@/lib/utils";
 
 import { At } from "../intento/strip";
-import { BokehPads, FONT, GRAIN, Glow, PadGrid, Phone, Waveform } from "./parts";
+import { BokehPads, Confetti, FONT, GRAIN, Glow, PadGrid, Phone, Waveform } from "./parts";
 import type { Shots } from "./strip";
 
 /**
@@ -61,6 +61,7 @@ function HeaderScene({ shots }: { shots: Shots }) {
     <>
       <Glow x={60} y={300} w={460} h={520} color="yellow" opacity={0.22} blur={150} />
       <Glow x={1420} y={120} w={460} h={560} color="blue" opacity={0.2} blur={150} />
+      <Confetti x={0} y={0} w={1920} h={823} count={110} unit={1.6} seed={4} avoid={{ x: s.x - 40, y: s.y + 40, w: s.w + 80, h: s.h - 60 }} />
       <At x={s.x} y={s.y} w={s.w} z={30} className="flex flex-col items-center justify-center gap-7 text-center" >
         <div className="flex flex-col items-center gap-7" style={{ height: s.h, justifyContent: "center" }}>
           <PadRow size={20} />
@@ -96,6 +97,7 @@ function SearchScene({ shots }: { shots: Shots }) {
     <>
       <Glow x={1100} y={300} w={700} h={800} color="red" opacity={0.26} blur={170} />
       <Glow x={1500} y={-80} w={420} h={420} color="blue" opacity={0.18} blur={150} />
+      <Confetti x={1000} y={0} w={920} h={700} count={70} unit={1.8} seed={5} />
       <At x={150} y={300} w={980} z={30} className="flex flex-col gap-10">
         <PadRow size={30} />
         <h1 className="text-[124px] font-black leading-[1.12] tracking-[-0.035em] [font-feature-settings:'palt']">

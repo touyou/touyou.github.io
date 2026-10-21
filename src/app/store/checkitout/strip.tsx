@@ -4,7 +4,7 @@ import { PAD_COLORS, type PadColor } from "@/components/checkitout/pads";
 import { cn } from "@/lib/utils";
 
 import { At, type Bezels, Device } from "../intento/strip";
-import { BokehPads, FONT, GRAIN, Glow, NeonPad, Phone, Tag, Waveform } from "./parts";
+import { BokehPads, Confetti, FONT, GRAIN, Glow, NeonPad, Phone, Tag, Waveform } from "./parts";
 
 /**
  * チェケラの App Store のスクリーンショット 6 枚を、横に 1 枚つながった絵として描く（開発サーバーでだけ開ける）。
@@ -34,6 +34,7 @@ export type Shots = {
   duoOpenPlay?: string;
   duoOpenEdit?: string;
   duoClosedPlay?: string;
+  duoClosedEdit?: string;
   duoClosedRecord?: string;
 };
 
@@ -174,7 +175,8 @@ function IphoneScene({ shots }: { shots: Shots }) {
     <>
       <Seams device="iphone" ys={[640, 300, 700, 330, 680]} size={58} blur={5} />
 
-      {/* 1. PLAY */}
+      {/* 1. PLAY: 端末の上に紙吹雪 */}
+      <Confetti x={0} y={200} w={440} h={330} count={40} unit={1.3} />
       <Glow x={70} y={420} w={300} h={420} color="red" opacity={0.32} />
       <At x={78} y={250} w={300} rotate={-3} z={10}>
         <Phone src={shots.iphonePlay} kind="iphone" width={300} />
@@ -240,7 +242,8 @@ function IpadScene({ shots }: { shots: Shots }) {
     <>
       <Seams device="ipad" ys={[900, 420, 980, 460, 940]} size={110} blur={9} />
 
-      {/* 1. PLAY */}
+      {/* 1. PLAY: 端末の上に紙吹雪 */}
+      <Confetti x={0} y={300} w={1032} h={420} count={60} unit={1.8} seed={2} />
       <Glow x={180} y={600} w={680} h={600} color="red" opacity={0.3} blur={150} />
       <At x={170} y={380} w={700} rotate={-3} z={10}>
         <Phone src={shots.ipadPlay} kind="ipad" width={700} />
@@ -300,14 +303,15 @@ function IpadScene({ shots }: { shots: Shots }) {
   );
 }
 
-/** 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右に置く。閉じた形は 2・5 枚目に出す */
+/** 開いた Duo（横向き）の 6 枚。見出しは左上、端末は右に置く。閉じた形は 2・5・6 枚目に出し、ふつうの iPhone は出さない */
 function DuoScene({ shots, bezels }: { shots: Shots; bezels: Bezels }) {
   const W = FRAME.duoInner.w;
   return (
     <>
       <Seams device="duoInner" ys={[700, 300, 720, 320, 700]} size={90} blur={8} />
 
-      {/* 1. PLAY: 開いた形 */}
+      {/* 1. PLAY: 開いた形。上に紙吹雪 */}
+      <Confetti x={380} y={60} w={1087} h={380} count={56} unit={1.6} seed={3} />
       <Glow x={620} y={420} w={720} h={480} color="red" opacity={0.3} blur={140} />
       <At x={460} y={270} w={960} rotate={-3} z={10}>
         <Device src={shots.duoOpenPlay!} kind="duoOpen" width={960} bezel={bezels.open} />
@@ -333,35 +337,36 @@ function DuoScene({ shots, bezels }: { shots: Shots; bezels: Bezels }) {
 
       {/* 4. TAP */}
       <Glow x={3 * W + 200} y={360} w={1000} h={560} color="blue" opacity={0.2} blur={160} />
-      <At x={3 * W + 100} y={330} rotate={4} z={10}>
-        <Retrigger size={250} />
+      {/* 見出しの左端と帯の中央を、2 つの図と説明の左端にする。図は下端を、説明は上端をそろえる */}
+      <At x={3 * W + 84} y={300} rotate={4} z={10}>
+        <Retrigger size={270} />
       </At>
-      <At x={3 * W + 100} y={760} z={10}>
-        <Caption lines={CAPTIONS.retrigger} size={30} />
+      <At x={3 * W + 84} y={724} z={10}>
+        <Caption lines={CAPTIONS.retrigger} size={32} />
       </At>
-      <At x={3 * W + 780} y={390} rotate={4} z={10}>
+      <At x={3 * W + W / 2} y={367} rotate={4} z={10}>
         <Layered size={240} />
       </At>
-      <At x={3 * W + 780} y={760} z={10}>
-        <Caption lines={CAPTIONS.layer} size={30} />
+      <At x={3 * W + W / 2} y={724} z={10}>
+        <Caption lines={CAPTIONS.layer} size={32} />
       </At>
 
-      {/* 5. LAYOUT: 縦長（閉じた形）と横長 */}
+      {/* 5. LAYOUT: 閉じた形（縦長の並び）と開いた形（横長の並び） */}
       <Glow x={4 * W + 600} y={380} w={760} h={520} color="red" opacity={0.26} blur={140} />
-      <At x={4 * W + 560} y={240} w={380} rotate={-3} z={10}>
+      <At x={4 * W + 520} y={220} w={380} rotate={-3} z={10}>
         <Device src={shots.duoClosedPlay!} kind="duoClosed" width={380} bezel={bezels.closed} />
       </At>
-      <At x={4 * W + 760} y={600} w={620} rotate={3} z={11}>
-        <Phone src={shots.iphoneLandscape} kind="iphone" width={620} landscape />
+      <At x={4 * W + 760} y={500} w={640} rotate={3} z={11}>
+        <Device src={shots.duoOpenPlay!} kind="duoOpen" width={640} bezel={bezels.open} />
       </At>
 
-      {/* 6. iPad と iPhone */}
+      {/* 6. iPad と、閉じた Duo。この帯には Duo と iPad だけを出す */}
       <Glow x={5 * W + 600} y={380} w={760} h={560} color="yellow" opacity={0.26} blur={140} />
       <At x={5 * W + 820} y={270} w={520} rotate={3} z={9}>
         <Phone src={shots.ipadPlay} kind="ipad" width={520} />
       </At>
-      <At x={5 * W + 580} y={470} w={230} rotate={-5} z={10}>
-        <Phone src={shots.iphonePlay} kind="iphone" width={230} />
+      <At x={5 * W + 560} y={500} w={300} rotate={-5} z={10}>
+        <Device src={shots.duoClosedEdit!} kind="duoClosed" width={300} bezel={bezels.closed} />
       </At>
     </>
   );
