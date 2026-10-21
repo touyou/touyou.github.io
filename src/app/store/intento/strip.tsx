@@ -17,13 +17,19 @@ import { cn } from "@/lib/utils";
  */
 
 const FRAMES = 6;
-const FRAME = { iphone: { w: 440, h: 956 }, ipad: { w: 1032, h: 1376 } } as const;
+// Duo は iPad と同じ幅で描き、撮るときの倍率で 2007×2853（内画面）/ 1398×2034（外画面）に合わせる
+const FRAME = {
+  iphone: { w: 440, h: 956 },
+  ipad: { w: 1032, h: 1376 },
+  duoInner: { w: 1032, h: 1467 },
+  duoOuter: { w: 1032, h: 1501 },
+} as const;
 export type StoreDevice = keyof typeof FRAME;
 
 export type Lang = "ja" | "en";
 
 /** 実機のスクショ（IntentTodo の scripts/capture_screenshots.sh の出力）の公開パス */
-export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; ipadDetail: string; watchList: string };
+export type Shots = { iphoneList: string; iphoneDetail: string; ipadList: string; ipadDetail: string; watchList: string; duoList?: string; duoDetail?: string };
 
 const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
@@ -80,7 +86,7 @@ const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: s
 
 /** 帯の中のある位置に置く。x は帯の左端からの距離なので、画像の境目をまたいで置ける */
 // zoom は iPad で iPhone 用の部品を大きく見せるため。位置と幅は zoom 前の値で書く
-function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; zoom?: number; children: ReactNode; className?: string }) {
+export function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; y: number; w?: number; rotate?: number; z?: number; zoom?: number; children: ReactNode; className?: string }) {
   const k = zoom ?? 1;
   const style: CSSProperties = { left: x / k, top: y / k, width: w && w / k, transform: rotate ? `rotate(${rotate}deg)` : undefined, zIndex: z, zoom };
   return (
@@ -91,7 +97,7 @@ function At({ x, y, w, rotate = 0, z, zoom, children, className }: { x: number; 
 }
 
 /** 実機のスクショを端末の枠に入れる。縮小で潰れないよう next/image を通さない。角丸は幅に比例させる */
-function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; width: number }) {
+export function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; width: number }) {
   // 実機の画面の角丸は iPhone で幅の約 12%、iPad で約 4%
   const pad = kind === "iphone" ? Math.max(4, width * 0.022) : width * 0.035;
   const inner = width * (kind === "iphone" ? 0.12 : 0.04);
@@ -103,7 +109,8 @@ function Device({ src, kind, width }: { src: string; kind: "iphone" | "ipad"; wi
   );
 }
 
-const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: { size: 64, top: 150, inset: 72 } } as const;
+const IPAD_TITLE = { size: 64, top: 150, inset: 72 };
+const TITLE = { iphone: { size: 34, top: 92, inset: 28 }, ipad: IPAD_TITLE, duoInner: IPAD_TITLE, duoOuter: IPAD_TITLE } as const;
 
 function Title({ device, index, lines }: { device: StoreDevice; index: number; lines: string[] }) {
   const { size, top, inset } = TITLE[device];
@@ -161,7 +168,7 @@ export function IntentoStoreStrip({ device, lang, shots }: { device: StoreDevice
       {/* 開発サーバーのインジケータを写さない */}
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <Aurora device={device} />
-      {device === "iphone" ? <IphoneScene lang={lang} shots={shots} /> : <IpadScene lang={lang} shots={shots} />}
+      {device === "iphone" ? <IphoneScene lang={lang} shots={shots} /> : <IpadScene device={device} lang={lang} shots={shots} />}
       {t.titles.map((lines, i) => (
         <Title key={i} device={device} index={i} lines={lines} />
       ))}
@@ -257,8 +264,11 @@ function IphoneScene({ lang, shots }: { lang: Lang; shots: Shots }) {
 }
 
 /** iPad の 6 枚。iPhone と同じ流れで、部品は zoom で大きくし、画面は iPad の実機スクショを使う */
-function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
+// Duo も縦横比が iPad に近いので同じ配置を使い、主役の画面だけ Duo のスクショに替える
+function IpadScene({ device, lang, shots }: { device: Exclude<StoreDevice, "iphone">; lang: Lang; shots: Shots }) {
   const t = COPY[lang];
+  const list = device === "ipad" ? shots.ipadList : shots.duoList!;
+  const detail = device === "ipad" ? shots.ipadDetail : shots.duoDetail!;
   const W = FRAME.ipad.w;
   return (
     <>
@@ -268,7 +278,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
         <span className="text-[28px] font-semibold text-neutral-500">Intento</span>
       </At>
       <At x={160} y={420} w={800} rotate={-3} z={10}>
-        <Device src={shots.ipadList} kind="ipad" width={800} />
+        <Device src={list} kind="ipad" width={800} />
       </At>
       <At x={56} y={480} z={20} rotate={-4} zoom={1.8}>
         <SiriBubble className="max-w-[250px] shadow-xl">{t.quote(t.phrases[0])}</SiriBubble>
@@ -285,7 +295,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
         <SiriBubble className="max-w-[300px]">{t.quote(t.phrases[2])}</SiriBubble>
       </At>
       <At x={W + 300} y={960} w={680} rotate={-2} z={8}>
-        <Device src={shots.ipadDetail} kind="ipad" width={680} />
+        <Device src={detail} kind="ipad" width={680} />
       </At>
 
       {/* 3. ホーム画面とロック画面 */}
@@ -311,7 +321,7 @@ function IpadScene({ lang, shots }: { lang: Lang; shots: Shots }) {
       <At x={4 * W + 80} y={770} z={10} className="text-[28px] text-neutral-500">
         {t.actionsNote}
       </At>
-      <ActionRows actions={t.actions} left={4 * W} device="ipad" top={900} zoom={1.7} />
+      <ActionRows actions={t.actions} left={4 * W} device={device} top={900} zoom={1.7} />
 
       {/* 6. iPad と iPhone */}
       <At x={5 * W + 210} y={430} w={720} rotate={3} z={9}>

@@ -48,4 +48,18 @@ for lang in $LANGS; do
     --frame 440x956 --count 6 --scale 3 --out "StoreImages/$APP/iphone/$lang"
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
     --frame 1032x1376 --count 6 --scale 2 --out "StoreImages/$APP/ipad/$lang"
+  # iPhone Duo は iPad と同じ配置を倍率で合わせる。Duo のスクショ（duo-inner / duo-outer）があるときだけ撮る
+  if [ -d "$SHOTS/duo-inner/$lang" ]; then
+    python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoInner" \
+      --frame 1032x1467 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-inner/$lang"
+  fi
+  if [ -d "$SHOTS/duo-outer/$lang" ]; then
+    python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoOuter" \
+      --frame 1032x1501 --count 6 --scale 1.355 --out "StoreImages/$APP/duo-outer/$lang"
+  fi
+  # iOS 27 のプロダクトページのヘッダー（21:9、3840x1646）と検索結果（3:2、3840x2560）
+  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=header" \
+    --frame 1920x823 --count 1 --scale 2 --names header.png --out "StoreImages/$APP/art/$lang"
+  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=search" \
+    --frame 1920x1280 --count 1 --scale 2 --names search.png --out "StoreImages/$APP/art/$lang"
 done
