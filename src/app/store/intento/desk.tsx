@@ -143,7 +143,7 @@ function ActionRows({ actions, left, width, height, top, zoom }: { actions: stri
   );
 }
 
-/** Mac の 3 枚。傾きは左から -・+・- と交互にする */
+/** Mac の 3 枚。傾きは左から -・+ と交互にし、3 枚目はアクション名の列が傾くのでウィンドウはまっすぐ置く（ハの字にしない） */
 function MacScene({ lang, shots }: { lang: Lang; shots: DeskShots }) {
   const t = COPY[lang];
   const { w: W, h: H } = DESK_FRAME.mac;
@@ -180,14 +180,14 @@ function MacScene({ lang, shots }: { lang: Lang; shots: DeskShots }) {
         {t.actionsNote}
       </At>
       <ActionRows actions={t.actions} left={2 * W} width={W} height={H} top={640} zoom={1.4} />
-      <At x={2 * W + 760} y={260} w={600} rotate={-3} z={20}>
+      <At x={2 * W + 760} y={250} w={600} z={20}>
         <Shot src={shots.deskAdd} device="mac" width={600} radius={14} />
       </At>
     </>
   );
 }
 
-/** Apple Vision Pro の 3 枚。部屋ごとのスクショからウィンドウの周りを切り抜く。傾きは -・+・- */
+/** Apple Vision Pro の 3 枚。部屋ごとのスクショからウィンドウの周りを切り抜く。傾きは -・+・-。3 枚目の iPhone はまっすぐ置き、2 台でハの字にしない */
 function VisionScene({ lang, shots }: { lang: Lang; shots: DeskShots }) {
   const t = COPY[lang];
   const W = DESK_FRAME.vision.w;
@@ -220,7 +220,7 @@ function VisionScene({ lang, shots }: { lang: Lang; shots: DeskShots }) {
       <At x={2 * W + 700} y={340} w={1100} rotate={-3} z={10}>
         <Shot src={shots.deskAdd} device="vision" width={1100} radius={36} />
       </At>
-      <At x={2 * W + 240} y={370} w={300} rotate={5} z={20}>
+      <At x={2 * W + 240} y={370} w={300} z={20}>
         <Device src={shots.iphoneList} kind="iphone" width={300} />
       </At>
     </>
