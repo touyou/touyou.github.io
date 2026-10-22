@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * 「アプリはぜんぶ iPhone Duo に対応している」の 1 枚絵（1600×900）。7 本のアプリそれぞれの閉じた形と開いた形、計 14 台を並べる。
- * レイアウトは 2 案: a は見出しを囲む輪、b は斜めにずらして敷き詰めた上にガラスの板を置く。
+ * レイアウトは 3 案: a は見出しを囲む輪、b は斜めにずらして敷き詰めた上にガラスの板を置く、c は英語の見出しを軌道のように囲む輪。
  * 撮るのは store-screenshot-composer の capture_web.py（--frame 1600x900 --count 1 --scale 1）。
  * 端末の画面は実機のスクショだけを使う。
  */
@@ -40,15 +40,17 @@ function Device({
   src,
   bezel,
   height,
+  shadow = SHADOW,
 }: {
   src: string;
   bezel: Bezel;
   height: number;
+  shadow?: string;
 }) {
   const s = bezel.screen;
   return (
     <div
-      className={cn("relative shrink-0", SHADOW)}
+      className={cn("relative shrink-0", shadow)}
       style={{ height, aspectRatio: `${bezel.w} / ${bezel.h}` }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -164,63 +166,132 @@ function RingLayout({
   );
 }
 
-// c: 軌道を回っているような輪。端末ごとに大きさと傾きを変えつつ、重ねない。
-// 見出しの字の外形から 70px 外に沿わせ、隣どうしのすき間はどこも 55px にそろえてある（並べ方は scratchpad の計算で出した値）
+// c: 英語の見出しを軌道のように囲む輪。端末ごとに大きさと傾きを変え、傾きの向きは隣どうしでも場所ごとでも偏らないよう散らす。
+// 端末どうしは重ねず、すき間はどこも同じ（2 行は 33px、1 行は 40px）。見出しの字の外形からは 140px（1 行は 150px）以上離し、外周は少しはみ出してよい。
+// 位置は字の外形に沿った角丸の輪の上で、隣どうしのすき間が等しくなるように計算した値
 // [アプリの番号, 形, 中心 x, 中心 y, 高さ, 傾き]。番号は page.tsx の APPS の順（0 Intento … 6 FFMultiplier）
-const ORBIT: [number, "closed" | "open", number, number, number, number][] = [
-  [6, "open", 203, 239, 126, -8],
-  [0, "closed", 178, 452, 170, -12],
-  [1, "open", 214, 680, 137, 6],
-  [2, "closed", 417, 674, 122, -4],
-  [3, "open", 645, 715, 174, 9],
-  [4, "closed", 886, 697, 152, 14],
-  [0, "open", 1132, 707, 159, -10],
-  [1, "closed", 1387, 687, 185, 8],
-  [2, "open", 1458, 451, 148, -6],
-  [6, "closed", 1381, 258, 122, 12],
-  [5, "open", 1152, 189, 170, -9],
-  [3, "closed", 908, 212, 137, 15],
-  [4, "open", 665, 186, 163, -13],
-  [5, "closed", 417, 207, 152, 10],
+type OrbitSlot = [number, "closed" | "open", number, number, number, number];
+const ORBIT_TWO_LINES: OrbitSlot[] = [
+  [6, "open", 131, 414, 160, -5],
+  [0, "closed", 159, 643, 216, 3],
+  [1, "open", 386, 759, 174, 11],
+  [2, "closed", 616, 743, 155, -9],
+  [3, "open", 870, 774, 221, 2],
+  [4, "closed", 1146, 767, 193, -13],
+  [0, "open", 1416, 749, 202, 7],
+  [1, "closed", 1441, 488, 235, -2],
+  [2, "open", 1465, 226, 188, 12],
+  [6, "closed", 1235, 155, 155, -7],
+  [5, "open", 985, 119, 216, 6],
+  [3, "closed", 731, 146, 174, 10],
+  [4, "open", 467, 111, 207, -12],
+  [5, "closed", 215, 196, 193, 1],
+];
+const ORBIT_ONE_LINE: OrbitSlot[] = [
+  [6, "open", 81, 500, 153, -5],
+  [0, "closed", 205, 719, 207, 3],
+  [1, "open", 444, 731, 166, 11],
+  [2, "closed", 672, 709, 148, -9],
+  [3, "open", 923, 738, 212, 2],
+  [4, "closed", 1196, 732, 184, -13],
+  [0, "open", 1464, 718, 194, 7],
+  [1, "closed", 1498, 460, 225, -2],
+  [2, "open", 1371, 195, 180, 12],
+  [6, "closed", 1130, 193, 148, -7],
+  [5, "open", 882, 155, 207, 6],
+  [3, "closed", 630, 181, 166, 10],
+  [4, "open", 368, 154, 198, -12],
+  [5, "closed", 128, 282, 184, 1],
 ];
 
+// apple.com の製品ページに寄せる: ほぼ白の地、#1d1d1f の字、詰めた字間と行間、浅くやわらかい影
+const APPLE_INK = "#1d1d1f";
+const APPLE_SHADOW =
+  "drop-shadow-[0_22px_30px_rgba(0,0,0,0.10)] drop-shadow-[0_3px_6px_rgba(0,0,0,0.06)]";
+// accent のとき「iPhone Duo.」だけに控えめなグラデーションを掛ける
+const ACCENT = "linear-gradient(100deg, #2f6bff 0%, #6a4dff 55%, #a84ee6 100%)";
+
+function AppleHeading({
+  oneLine,
+  accent,
+  weight,
+}: {
+  oneLine: boolean;
+  accent: boolean;
+  weight: number;
+}) {
+  const duo = accent ? (
+    <span
+      className="bg-clip-text text-transparent"
+      style={{ backgroundImage: ACCENT, WebkitBackgroundClip: "text" }}
+    >
+      iPhone Duo.
+    </span>
+  ) : (
+    "iPhone Duo."
+  );
+  return (
+    <h1
+      className={cn(FONT_EN, "whitespace-nowrap text-center leading-[1.05]")}
+      style={{
+        color: APPLE_INK,
+        fontWeight: weight,
+        fontSize: oneLine ? 56 : 76,
+        letterSpacing: oneLine ? "-0.022em" : "-0.028em",
+      }}
+    >
+      {oneLine ? (
+        <>All my apps are ready for {duo}</>
+      ) : (
+        <>
+          <span className="block">All my apps are ready</span>
+          <span className="block">for {duo}</span>
+        </>
+      )}
+    </h1>
+  );
+}
+
 function OrbitLayout({
-  title,
+  oneLine,
+  accent,
   weight,
   apps,
   bezelFor,
 }: {
-  title: number;
-  weight?: number;
+  oneLine: boolean;
+  accent: boolean;
+  weight: number;
   apps: DuoApp[];
   bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
 }) {
   return (
     <>
-      <span className="absolute left-1/2 top-1/2 h-[520px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white blur-[80px]" />
-      {ORBIT.map(([index, kind, x, y, h, r]) => {
-        const app = apps[index];
-        return (
-          <div
-            key={`${index}-${kind}`}
-            className="absolute"
-            style={{
-              left: x,
-              top: y,
-
-              transform: `translate(-50%, -50%) rotate(${r}deg)`,
-            }}
-          >
-            <Device src={app[kind]} bezel={bezelFor(app, kind)} height={h} />
-          </div>
-        );
-      })}
-      <div className="absolute inset-0 z-[1000] flex items-center justify-center">
-        <Heading
-          title={title}
-          weight={weight}
-          size={TITLES[title].en ? 100 : 92}
-        />
+      {(oneLine ? ORBIT_ONE_LINE : ORBIT_TWO_LINES).map(
+        ([index, kind, x, y, h, r]) => {
+          const app = apps[index];
+          return (
+            <div
+              key={`${index}-${kind}`}
+              className="absolute"
+              style={{
+                left: x,
+                top: y,
+                transform: `translate(-50%, -50%) rotate(${r}deg)`,
+              }}
+            >
+              <Device
+                src={app[kind]}
+                bezel={bezelFor(app, kind)}
+                height={h}
+                shadow={APPLE_SHADOW}
+              />
+            </div>
+          );
+        },
+      )}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <AppleHeading oneLine={oneLine} accent={accent} weight={weight} />
       </div>
     </>
   );
@@ -357,13 +428,17 @@ function GlassLayout({
 export function DuoAnnounce({
   layout,
   title,
-  weight,
+  weight = 800,
+  oneLine = false,
+  accent = false,
   apps,
   bezelFor,
 }: {
   layout: Layout;
   title: number;
   weight?: number;
+  oneLine?: boolean;
+  accent?: boolean;
   apps: DuoApp[];
   bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
 }) {
@@ -377,7 +452,9 @@ export function DuoAnnounce({
         width: W,
         height: H,
         background:
-          "radial-gradient(120% 120% at 50% 40%, #ffffff, #f3f3f1 70%, #ececea)",
+          layout === "c"
+            ? "#fbfbfd"
+            : "radial-gradient(120% 120% at 50% 40%, #ffffff, #f3f3f1 70%, #ececea)",
       }}
     >
       {layout === "a" && (
@@ -388,7 +465,8 @@ export function DuoAnnounce({
       )}
       {layout === "c" && (
         <OrbitLayout
-          title={title}
+          oneLine={oneLine}
+          accent={accent}
           weight={weight}
           apps={apps}
           bezelFor={bezelFor}

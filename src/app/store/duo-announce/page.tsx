@@ -82,7 +82,13 @@ const BEZELS_JSON = path.join(
 export default async function DuoAnnouncePage({
   searchParams,
 }: {
-  searchParams: Promise<{ layout?: string; title?: string; weight?: string }>;
+  searchParams: Promise<{
+    layout?: string;
+    title?: string;
+    weight?: string;
+    line?: string;
+    accent?: string;
+  }>;
 }) {
   if (process.env.NODE_ENV === "production") notFound();
   const params = await searchParams;
@@ -90,6 +96,9 @@ export default async function DuoAnnouncePage({
     params.layout === "b" || params.layout === "c" ? params.layout : "a";
   // 英語の見出しの太さ。既定は Heavy（800）、weight=700 で Bold
   const weight = params.weight === "700" ? 700 : 800;
+  // c だけ: line=1 で見出しを 1 行に、accent=1 で「iPhone Duo.」に色を差す
+  const oneLine = params.line === "1";
+  const accent = params.accent === "1";
   // title=1 は日本語、2 は英語の見出し
   const title = params.title === "2" ? 1 : 0;
   const apps = APPS.map((app) => ({
@@ -118,6 +127,8 @@ export default async function DuoAnnouncePage({
       layout={layout}
       title={title}
       weight={weight}
+      oneLine={oneLine}
+      accent={accent}
       apps={apps}
       bezelFor={bezelFor}
     />
