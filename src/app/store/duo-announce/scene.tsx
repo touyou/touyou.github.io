@@ -73,11 +73,11 @@ function Device({
   );
 }
 
-// 英語は SF Pro の Bold（700）。weight で Heavy（800）とも見比べる。日本語はヒラギノ W6 のまま
+// 英語は SF Pro の Heavy（800）。weight で Bold（700）とも見比べる。日本語はヒラギノ W6 のまま
 function Heading({
   title,
   size,
-  weight = 700,
+  weight = 800,
 }: {
   title: number;
   size: number;
@@ -164,23 +164,24 @@ function RingLayout({
   );
 }
 
-// c: 軌道を回っているような輪。半径・大きさ・傾きをばらつかせ、端からはみ出させる。見出しの四角（x 300〜1300, y 330〜570）にはかからない
+// c: 軌道を回っているような輪。端末ごとに大きさと傾きを変えつつ、重ねない。
+// 見出しの字の外形から 70px 外に沿わせ、隣どうしのすき間はどこも 55px にそろえてある（並べ方は scratchpad の計算で出した値）
 // [アプリの番号, 形, 中心 x, 中心 y, 高さ, 傾き]。番号は page.tsx の APPS の順（0 Intento … 6 FFMultiplier）
 const ORBIT: [number, "closed" | "open", number, number, number, number][] = [
-  [6, "open", 95, 95, 170, -8],
-  [0, "closed", 300, 165, 230, -12],
-  [1, "open", 565, 105, 185, 6],
-  [2, "closed", 830, 92, 165, -4],
-  [3, "open", 1100, 145, 235, 9],
-  [4, "closed", 1375, 120, 205, 14],
-  [0, "open", 1480, 400, 215, -10],
-  [1, "closed", 1400, 690, 250, 8],
-  [2, "open", 1120, 795, 200, -6],
-  [6, "closed", 860, 805, 165, 12],
-  [5, "open", 610, 790, 230, -9],
-  [3, "closed", 370, 800, 185, 15],
-  [4, "open", 130, 590, 220, -13],
-  [5, "closed", 100, 340, 205, 10],
+  [6, "open", 203, 239, 126, -8],
+  [0, "closed", 178, 452, 170, -12],
+  [1, "open", 214, 680, 137, 6],
+  [2, "closed", 417, 674, 122, -4],
+  [3, "open", 645, 715, 174, 9],
+  [4, "closed", 886, 697, 152, 14],
+  [0, "open", 1132, 707, 159, -10],
+  [1, "closed", 1387, 687, 185, 8],
+  [2, "open", 1458, 451, 148, -6],
+  [6, "closed", 1381, 258, 122, 12],
+  [5, "open", 1152, 189, 170, -9],
+  [3, "closed", 908, 212, 137, 15],
+  [4, "open", 665, 186, 163, -13],
+  [5, "closed", 417, 207, 152, 10],
 ];
 
 function OrbitLayout({
@@ -203,11 +204,10 @@ function OrbitLayout({
           <div
             key={`${index}-${kind}`}
             className="absolute"
-            // 小さいものほど奥に置く
             style={{
               left: x,
               top: y,
-              zIndex: h,
+
               transform: `translate(-50%, -50%) rotate(${r}deg)`,
             }}
           >
