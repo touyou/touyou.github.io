@@ -354,6 +354,10 @@ function LandscapeScene({ device, t, shots, bezels }: { device: "ipad" | "duoInn
   );
 }
 
+// 撮ったウィンドウ（画面いっぱい、3508x2260）の縦横比と、見せる範囲。いまの画像のウィンドウ（約 1.5:1）に寄せる
+const MAC_ASPECT = 3508 / 2260;
+const MAC_CROP = { gallery: { w: 0.78, h: 0.74 }, detail: { w: 0.78, h: 0.74 } };
+
 /** Mac の 2 枚。いまの画像の構図のまま（1: ウィンドウが右上・ワードマークが左下、2: 一言が上・ウィンドウが中央） */
 function MacScene({ t, shots }: { t: Copy; shots: GShots }) {
   const W = FRAME.mac.w;
@@ -361,7 +365,7 @@ function MacScene({ t, shots }: { t: Copy; shots: GShots }) {
     <>
       <Bokeh width={W * 2} height={900} lights={lightsFor(W, 2, 2)} scale={1.6} density={0.55} seed={5} />
       <Place x={514} y={89} z={10}>
-        <MacWindow src={shots.macGallery!} width={800} />
+        <MacWindow src={shots.macGallery!} width={800} crop={MAC_CROP.gallery} aspect={MAC_ASPECT} />
       </Place>
       <Place x={81} y={708} z={30}>
         <Wordmark size={46} />
@@ -371,7 +375,7 @@ function MacScene({ t, shots }: { t: Copy; shots: GShots }) {
         <Kicker size={30}>{t.kicker}</Kicker>
       </Place>
       <Place x={W + 290} y={200} z={10}>
-        <MacWindow src={shots.macDetail!} width={860} />
+        <MacWindow src={shots.macDetail!} width={860} crop={MAC_CROP.detail} aspect={MAC_ASPECT} />
       </Place>
     </>
   );

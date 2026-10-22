@@ -172,12 +172,17 @@ export function Tablet({ src, width }: { src: string; width: number }) {
   );
 }
 
-/** Mac のウィンドウ。撮ったウィンドウの画像（余白を足す前のもの）に、角丸と影を付ける */
-export function MacWindow({ src, width }: { src: string; width: number }) {
+/**
+ * Mac のウィンドウ。撮ったウィンドウの画像（余白を足す前のもの）に、角丸と影を付ける。
+ * 撮影ではウィンドウを画面いっぱいに広げるので中身が小さく空きが多い。crop で左上から切り出し、
+ * 小さめのウィンドウに見せる（値はウィンドウの幅・高さに対する割合）
+ */
+export function MacWindow({ src, width, crop = { w: 1, h: 1 }, aspect }: { src: string; width: number; crop?: { w: number; h: number }; aspect: number }) {
+  const imageWidth = width / crop.w;
   return (
-    <div className="overflow-hidden" style={{ width, borderRadius: width * 0.016, boxShadow: `${DEVICE_SHADOW}, 0 0 0 1px rgba(255,255,255,0.12)` }}>
+    <div className="relative overflow-hidden" style={{ width, height: (imageWidth / aspect) * crop.h, borderRadius: width * 0.016, boxShadow: `${DEVICE_SHADOW}, 0 0 0 1px rgba(255,255,255,0.12)` }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" className="block w-full" />
+      <img src={src} alt="" className="absolute left-0 top-0 max-w-none" style={{ width: imageWidth }} />
     </div>
   );
 }
