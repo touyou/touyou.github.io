@@ -82,11 +82,14 @@ const BEZELS_JSON = path.join(
 export default async function DuoAnnouncePage({
   searchParams,
 }: {
-  searchParams: Promise<{ layout?: string; title?: string }>;
+  searchParams: Promise<{ layout?: string; title?: string; weight?: string }>;
 }) {
   if (process.env.NODE_ENV === "production") notFound();
   const params = await searchParams;
-  const layout: Layout = params.layout === "b" ? "b" : "a";
+  const layout: Layout =
+    params.layout === "b" || params.layout === "c" ? params.layout : "a";
+  // 英語の見出しの太さ。既定は Bold（700）、weight=800 で Heavy
+  const weight = params.weight === "800" ? 800 : 700;
   // title=1 は日本語、2 は英語の見出し
   const title = params.title === "2" ? 1 : 0;
   const apps = APPS.map((app) => ({
@@ -114,6 +117,7 @@ export default async function DuoAnnouncePage({
     <DuoAnnounce
       layout={layout}
       title={title}
+      weight={weight}
       apps={apps}
       bezelFor={bezelFor}
     />

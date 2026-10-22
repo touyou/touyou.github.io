@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * 端末の画面は実機のスクショだけを使う。
  */
 
-export type Layout = "a" | "b";
+export type Layout = "a" | "b" | "c";
 export type DuoApp = {
   name: string;
   closed: string;
@@ -73,17 +73,26 @@ function Device({
   );
 }
 
-function Heading({ title, size }: { title: number; size: number }) {
+// 英語は SF Pro の Bold（700）。weight で Heavy（800）とも見比べる。日本語はヒラギノ W6 のまま
+function Heading({
+  title,
+  size,
+  weight = 700,
+}: {
+  title: number;
+  size: number;
+  weight?: number;
+}) {
   const { lines, en } = TITLES[title];
   return (
     <h1
+      style={{ fontSize: size, fontWeight: en ? weight : 600 }}
       className={cn(
-        "text-center font-semibold text-[#111]",
+        "text-center text-[#111]",
         en
           ? cn(FONT_EN, "leading-[1.08] tracking-[-0.025em]")
           : "leading-[1.22] tracking-[-0.015em] [font-feature-settings:'palt']",
       )}
-      style={{ fontSize: size }}
     >
       {lines.map((line) => (
         <span key={line} className="block whitespace-nowrap">
@@ -150,6 +159,68 @@ function RingLayout({
       })}
       <div className="absolute inset-0 flex items-center justify-center">
         <Heading title={title} size={TITLES[title].en ? 96 : 90} />
+      </div>
+    </>
+  );
+}
+
+// c: 軌道を回っているような輪。半径・大きさ・傾きをばらつかせ、端からはみ出させる。見出しの四角（x 300〜1300, y 330〜570）にはかからない
+// [アプリの番号, 形, 中心 x, 中心 y, 高さ, 傾き]。番号は page.tsx の APPS の順（0 Intento … 6 FFMultiplier）
+const ORBIT: [number, "closed" | "open", number, number, number, number][] = [
+  [6, "open", 95, 95, 170, -8],
+  [0, "closed", 300, 165, 230, -12],
+  [1, "open", 565, 105, 185, 6],
+  [2, "closed", 830, 92, 165, -4],
+  [3, "open", 1100, 145, 235, 9],
+  [4, "closed", 1375, 120, 205, 14],
+  [0, "open", 1480, 400, 215, -10],
+  [1, "closed", 1400, 690, 250, 8],
+  [2, "open", 1120, 795, 200, -6],
+  [6, "closed", 860, 805, 165, 12],
+  [5, "open", 610, 790, 230, -9],
+  [3, "closed", 370, 800, 185, 15],
+  [4, "open", 130, 590, 220, -13],
+  [5, "closed", 100, 340, 205, 10],
+];
+
+function OrbitLayout({
+  title,
+  weight,
+  apps,
+  bezelFor,
+}: {
+  title: number;
+  weight?: number;
+  apps: DuoApp[];
+  bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
+}) {
+  return (
+    <>
+      <span className="absolute left-1/2 top-1/2 h-[520px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white blur-[80px]" />
+      {ORBIT.map(([index, kind, x, y, h, r]) => {
+        const app = apps[index];
+        return (
+          <div
+            key={`${index}-${kind}`}
+            className="absolute"
+            // 小さいものほど奥に置く
+            style={{
+              left: x,
+              top: y,
+              zIndex: h,
+              transform: `translate(-50%, -50%) rotate(${r}deg)`,
+            }}
+          >
+            <Device src={app[kind]} bezel={bezelFor(app, kind)} height={h} />
+          </div>
+        );
+      })}
+      <div className="absolute inset-0 z-[1000] flex items-center justify-center">
+        <Heading
+          title={title}
+          weight={weight}
+          size={TITLES[title].en ? 100 : 92}
+        />
       </div>
     </>
   );
@@ -286,11 +357,13 @@ function GlassLayout({
 export function DuoAnnounce({
   layout,
   title,
+  weight,
   apps,
   bezelFor,
 }: {
   layout: Layout;
   title: number;
+  weight?: number;
   apps: DuoApp[];
   bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
 }) {
@@ -307,10 +380,19 @@ export function DuoAnnounce({
           "radial-gradient(120% 120% at 50% 40%, #ffffff, #f3f3f1 70%, #ececea)",
       }}
     >
-      {layout === "a" ? (
+      {layout === "a" && (
         <RingLayout title={title} apps={apps} bezelFor={bezelFor} />
-      ) : (
+      )}
+      {layout === "b" && (
         <GlassLayout title={title} apps={apps} bezelFor={bezelFor} />
+      )}
+      {layout === "c" && (
+        <OrbitLayout
+          title={title}
+          weight={weight}
+          apps={apps}
+          bezelFor={bezelFor}
+        />
       )}
     </main>
   );
