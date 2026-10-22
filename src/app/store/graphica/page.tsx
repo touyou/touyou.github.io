@@ -30,7 +30,7 @@ const FILES: Record<keyof GShots, string> = {
   macGallery: "mac-window/{lang}/01-gallery.png",
   macDetail: "mac-window/{lang}/02-detail.png",
   visionGallery: "vision/{lang}/01-gallery.png",
-  visionDetail: "vision/{lang}/02-detail.png",
+  visionDetail: "vision/{lang}/03-space.png",
 };
 
 // 端末ごとに要るスクショ。iPhone と iPad の帯は互いの画面も使う
@@ -40,7 +40,7 @@ const NEEDS: Record<GDevice | "header" | "search", string[]> = {
   duoInner: ["duo", "ipadGallery"],
   mac: ["mac"],
   vision: ["vision"],
-  header: ["iphone", "ipadGallery"],
+  header: ["iphone"],
   search: ["iphone"],
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { BODY, Bokeh, G, Kicker, Phone, Place, StoreStyle, Tablet, Wordmark } from "./parts";
+import { BODY, Bokeh, G, Kicker, Phone, Place, StoreStyle, Wordmark } from "./parts";
 import { COPY as STRIP_COPY, type GShots, type Lang } from "./strip";
 
 /**
@@ -37,12 +37,12 @@ function HeaderScene({ lang, shots }: { lang: Lang; shots: GShots }) {
         <Wordmark size={84} />
         <Kicker size={28}>{STRIP_COPY[lang].kicker}</Kicker>
       </Place>
-      {/* 左右は安全領域の外。左に iPad の横向き、右に iPhone。傾きは左右で逆にする */}
-      <Place x={-140} y={250} rotate={-5} z={10}>
-        <Tablet src={shots.ipadGallery} width={620} />
+      {/* 左右は安全領域の外。iPhone を 1 台ずつ、どちらも見切れさせず左右対称に置き、傾きは逆にする */}
+      <Place x={150} y={120} rotate={-5} z={10}>
+        <Phone src={shots.iphoneGallery} width={280} />
       </Place>
-      <Place x={1480} y={150} rotate={5} z={10}>
-        <Phone src={shots.iphoneDetail} width={300} />
+      <Place x={1920 - 150 - 280} y={120} rotate={5} z={10}>
+        <Phone src={shots.iphoneDetail} width={280} />
       </Place>
     </>
   );

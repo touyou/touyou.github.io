@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { type Bezel, type Bezels, Device } from "../intento/strip";
 import { BODY, Bokeh, G, Kicker, type Light, MacWindow, MONO, Phone, Place, StoreStyle, Tablet, Wordmark } from "./parts";
 
@@ -128,12 +130,15 @@ export function CodeCard({ width, size, lines = CODE_017, title = "#017 · shade
 }
 
 /** 3 枚目以降の見出し: Plex Mono の一言（acid）と、日本語の 2 行 */
-export function SceneTitle({ x, y, w, eyebrow, title, size, align = "left", accent = G.acid }: { x: number; y: number; w: number; eyebrow: string; title: string[]; size: number; align?: "left" | "center"; accent?: string }) {
+export function SceneTitle({ x, y, w, eyebrow, title, size, align = "left", accent = G.acid, badge }: { x: number; y: number; w: number; eyebrow: string; title: string[]; size: number; align?: "left" | "center"; accent?: string; badge?: ReactNode }) {
   return (
     <Place x={x} y={y} w={w} z={30} className={`flex flex-col ${align === "center" ? "items-center text-center" : ""}`} style={{ gap: size * 0.45 }}>
-      <Kicker size={size * 0.42} style={{ color: accent }}>
-        {eyebrow}
-      </Kicker>
+      <span className="flex items-center" style={{ gap: size * 0.3 }}>
+        <Kicker size={size * 0.42} style={{ color: accent }}>
+          {eyebrow}
+        </Kicker>
+        {badge}
+      </span>
       <h2 className={`font-bold leading-[1.28] tracking-[0.01em] [font-feature-settings:'palt'] ${BODY}`} style={{ fontSize: size, color: G.paper }}>
         {title.map((line) => (
           <span key={line} className="block whitespace-nowrap">
@@ -145,11 +150,14 @@ export function SceneTitle({ x, y, w, eyebrow, title, size, align = "left", acce
   );
 }
 
-export function Lead({ x, y, size, lines, z = 30 }: { x: number; y: number; size: number; lines: string[]; z?: number }) {
+export function Lead({ x, y, size, lines, z = 30, trailing }: { x: number; y: number; size: number; lines: string[]; z?: number; trailing?: ReactNode }) {
   return (
     <Place x={x} y={y} z={z} className={`flex flex-col whitespace-nowrap tracking-[0.04em] ${BODY}`} style={{ fontSize: size, lineHeight: 1.62, color: "rgba(236,233,226,0.92)" }}>
-      {lines.map((line) => (
-        <span key={line}>{line}</span>
+      {lines.map((line, i) => (
+        <span key={line} className="flex items-center" style={{ gap: size * 0.5 }}>
+          {line}
+          {i === lines.length - 1 && trailing}
+        </span>
       ))}
     </Place>
   );

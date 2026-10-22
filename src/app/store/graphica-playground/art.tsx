@@ -1,7 +1,7 @@
 "use client";
 
-import { BODY, Bokeh, G, Kicker, Phone, Place, StoreStyle, Tablet } from "../graphica/parts";
-import { type Lang, PlaygroundMark, POOL, type PShots } from "./strip";
+import { BODY, Bokeh, G, Kicker, Phone, Place, StoreStyle } from "../graphica/parts";
+import { type Lang, PlaygroundMark, POOL, ProBadge, type PShots } from "./strip";
 
 /**
  * iOS 27 のプロダクトページのヘッダー（21:9）と検索結果（3:2）の 1 枚絵。2 倍で撮ると 3840×1646 / 3840×2560。
@@ -30,11 +30,12 @@ export function PlaygroundStoreArt({ kind, lang, shots }: { kind: ArtKind; lang:
             <PlaygroundMark size={74} />
             <Kicker size={26}>{t.kicker}</Kicker>
           </Place>
-          <Place x={-120} y={170} rotate={-5} z={10}>
-            <Tablet src={shots.ipadLesson} width={520} />
+          {/* 左右は安全領域の外。iPhone を 1 台ずつ、どちらも見切れさせず左右対称に置き、傾きは逆にする */}
+          <Place x={150} y={120} rotate={-5} z={10}>
+            <Phone src={shots.iphoneLesson} width={280} />
           </Place>
-          <Place x={1490} y={150} rotate={5} z={10}>
-            <Phone src={shots.iphoneEditor} width={300} />
+          <Place x={1920 - 150 - 280} y={120} rotate={5} z={10}>
+            <Phone src={shots.iphoneEditor} width={280} />
           </Place>
         </>
       ) : (
@@ -49,7 +50,10 @@ export function PlaygroundStoreArt({ kind, lang, shots }: { kind: ArtKind; lang:
                 </span>
               ))}
             </h1>
-            <p className={`text-[36px] text-white/70 ${BODY}`}>{t.sub}</p>
+            <p className={`flex items-center gap-4 text-[36px] text-white/70 ${BODY}`}>
+              {t.sub}
+              <ProBadge size={22} />
+            </p>
           </Place>
           <Place x={1250} y={150} rotate={4} z={10}>
             <Phone src={shots.iphoneEditor} width={480} />

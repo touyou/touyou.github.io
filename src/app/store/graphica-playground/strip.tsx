@@ -90,6 +90,15 @@ const SWIFTUI_CODE = [
   "}",
 ];
 
+/** アプリの ProBadge と同じ形（「PRO」、太字・字間、mint の 22% の地に mint の文字） */
+export function ProBadge({ size }: { size: number }) {
+  return (
+    <span className="inline-flex shrink-0 items-center rounded-full font-bold leading-none font-['IBM_Plex_Mono',ui-monospace,monospace]" style={{ fontSize: size, letterSpacing: "0.08em", padding: `${size * 0.35}px ${size * 0.6}px`, color: MINT, background: "rgba(103,218,189,0.22)" }}>
+      PRO
+    </span>
+  );
+}
+
 /** 「GRAPHICA」を小さく添えた PLAYGROUND のワードマーク。✦ は mint */
 export function PlaygroundMark({ size }: { size: number }) {
   return (
@@ -134,12 +143,12 @@ function IphoneScene({ t, shots }: { t: Copy; shots: PShots }) {
       <Place x={45} y={30} z={30}>
         <PlaygroundMark size={50} />
       </Place>
-      <Lead x={45} y={122} size={15.5} lines={t.lead} />
+      <Lead x={45} y={122} size={15.5} lines={t.lead} trailing={<ProBadge size={9} />} />
       <Glow x={80} y={330} w={320} h={520} color="#3aa7d8" />
       <Place x={56} y={230} rotate={-4} z={10}>
         <Phone src={shots.iphoneEditor} width={340} />
       </Place>
-      <Place x={W} y={92} w={W} z={30} className="flex justify-center">
+      <Place x={W} y={150} w={W} z={30} className="flex justify-center">
         <Kicker size={15}>{t.kicker}</Kicker>
       </Place>
       <Glow x={W + 90} y={300} w={300} h={400} color="#f4b860" opacity={0.22} />
@@ -157,7 +166,7 @@ function IphoneScene({ t, shots }: { t: Copy; shots: PShots }) {
       </Place>
 
       {/* 4. 書き出し */}
-      <SceneTitle x={3 * W + 30} y={70} w={W - 60} eyebrow={s[1].eyebrow} title={s[1].title} size={32} accent={MINT} />
+      <SceneTitle x={3 * W + 30} y={70} w={W - 60} eyebrow={s[1].eyebrow} title={s[1].title} size={32} accent={MINT} badge={<ProBadge size={10} />} />
       <Place x={3 * W + 100} y={250} rotate={3} z={10}>
         <Phone src={shots.iphoneExport} width={300} />
       </Place>
@@ -199,7 +208,7 @@ function IpadScene({ t, shots }: { t: Copy; shots: PShots }) {
       <Place x={84} y={64} z={30}>
         <PlaygroundMark size={92} />
       </Place>
-      <Lead x={84} y={240} size={30} lines={t.lead} />
+      <Lead x={84} y={240} size={30} lines={t.lead} trailing={<ProBadge size={17} />} />
       <Glow x={160} y={560} w={760} h={720} color="#3aa7d8" />
       <Place x={150} y={470} rotate={-3} z={10}>
         <Tablet src={shots.ipadEditor} width={760} />
@@ -217,7 +226,7 @@ function IpadScene({ t, shots }: { t: Copy; shots: PShots }) {
         const chips = [t.sliders, null, t.steps, t.privacy][i];
         return (
           <div key={src}>
-            <SceneTitle x={x + 84} y={title.y} w={W - 168} eyebrow={s[i].eyebrow} title={s[i].title} size={title.size} accent={MINT} />
+            <SceneTitle x={x + 84} y={title.y} w={W - 168} eyebrow={s[i].eyebrow} title={s[i].title} size={title.size} accent={MINT} badge={i === 1 ? <ProBadge size={20} /> : undefined} />
             {chips && (
               <Place x={x + 84} y={430} w={W - 168} z={30}>
                 <Chips items={chips} size={24} accent={0} color={MINT} />
@@ -260,7 +269,7 @@ function DuoScene({ t, shots, bezels }: { t: Copy; shots: PShots; bezels: Bezels
       <Place x={78} y={H - 330} z={30}>
         <PlaygroundMark size={64} />
       </Place>
-      <Lead x={78} y={H - 182} size={24} lines={t.lead} />
+      <Lead x={78} y={H - 182} size={24} lines={t.lead} trailing={<ProBadge size={14} />} />
 
       {/* 2. 一言が上の中央、開いた形のレッスン（絵とコードが左右に分かれる）がまっすぐ中央 */}
       <Place x={W} y={104} w={W} z={30} className="flex justify-center">
@@ -280,7 +289,7 @@ function DuoScene({ t, shots, bezels }: { t: Copy; shots: PShots; bezels: Bezels
       </Place>
 
       {/* 4. 書き出し: 開いた形とコード */}
-      <SceneTitle x={3 * W + 90} y={96} w={560} eyebrow={s[1].eyebrow} title={s[1].title} size={58} accent={MINT} />
+      <SceneTitle x={3 * W + 90} y={96} w={560} eyebrow={s[1].eyebrow} title={s[1].title} size={58} accent={MINT} badge={<ProBadge size={18} />} />
       <Place x={3 * W + 620} y={320} rotate={3} z={10}>
         {open(shots.duoOpenExport, 760)}
       </Place>
@@ -297,13 +306,13 @@ function DuoScene({ t, shots, bezels }: { t: Copy; shots: PShots; bezels: Bezels
         {open(shots.duoOpenLearn, 760)}
       </Place>
 
-      {/* 6. 登録なしで: 閉じた形のライブラリと iPad */}
+      {/* 6. 登録なしで: 閉じた形のライブラリと、開いた形の作成画面 */}
       <SceneTitle x={5 * W + 90} y={240} w={620} eyebrow={s[3].eyebrow} title={s[3].title} size={58} accent={MINT} />
       <Place x={5 * W + 90} y={560} w={560} z={30}>
         <Chips items={t.privacy} size={22} accent={0} color={MINT} />
       </Place>
-      <Place x={5 * W + 700} y={250} rotate={-4} z={9}>
-        <Tablet src={shots.ipadLibrary} width={520} />
+      <Place x={5 * W + 640} y={560} rotate={-4} z={9}>
+        {open(shots.duoOpenHome, 560)}
       </Place>
       <Place x={5 * W + 900} y={60} rotate={3} z={10}>
         {closed(shots.duoClosedLibrary, 540)}
