@@ -12,6 +12,8 @@ import { cn } from "@/lib/utils";
  */
 
 export type Layout = "a" | "b" | "c";
+// mask は scripts/bezel-masks.py が作る、枠の外側だけが透明な PNG。あればスクショを枠の外へ漏らさない
+export type DuoBezel = Bezel & { mask?: string };
 export type DuoApp = {
   name: string;
   closed: string;
@@ -43,28 +45,33 @@ function Device({
   shadow = SHADOW,
 }: {
   src: string;
-  bezel: Bezel;
+  bezel: DuoBezel;
   height: number;
   shadow?: string;
 }) {
   const s = bezel.screen;
+  const mask =
+    bezel.mask && `url("${encodeURI(bezel.mask)}") 0 0 / 100% 100% no-repeat`;
   return (
     <div
       className={cn("relative shrink-0", shadow)}
       style={{ height, aspectRatio: `${bezel.w} / ${bezel.h}` }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt=""
-        className="absolute object-cover"
-        style={{
-          left: `${s.x * 100}%`,
-          top: `${s.y * 100}%`,
-          width: `${s.w * 100}%`,
-          height: `${s.h * 100}%`,
-        }}
-      />
+      {/* 画面の四角は端末の角丸より大きいので、枠の外へ出た角を枠の形で切る（影は外の箱に付けるので切れない） */}
+      <div className="absolute inset-0" style={{ mask, WebkitMask: mask }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt=""
+          className="absolute object-cover"
+          style={{
+            left: `${s.x * 100}%`,
+            top: `${s.y * 100}%`,
+            width: `${s.w * 100}%`,
+            height: `${s.h * 100}%`,
+          }}
+        />
+      </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={encodeURI(bezel.src)}
@@ -133,7 +140,7 @@ function RingLayout({
 }: {
   title: number;
   apps: DuoApp[];
-  bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
+  bezelFor: (app: DuoApp, kind: "open" | "closed") => DuoBezel;
 }) {
   return (
     <>
@@ -166,26 +173,26 @@ function RingLayout({
   );
 }
 
-// c: 英語の見出しを軌道のように囲む輪。端末ごとに大きさと傾きを変え、傾きの向きは隣どうしでも場所ごとでも偏らないよう散らす。
-// 端末どうしは重ねず、すき間はどこも同じ（2 行は 33px、1 行は 40px）。見出しの字の外形からは 140px（1 行は 150px）以上離し、外周は少しはみ出してよい。
+// c: 英語の見出しを軌道のように囲む輪。端末の大きさはそろえて少しだけ揺らし、傾きの向きは隣どうしでも場所ごとでも偏らないよう散らす。
+// 端末どうしは重ねず、すき間はどこも同じ（2 行は 34px、1 行は 40px）。見出しの字の外形からは 140px（1 行は 150px）以上離し、外周は少しはみ出してよい。
 // 位置は字の外形に沿った角丸の輪の上で、隣どうしのすき間が等しくなるように計算した値
 // [アプリの番号, 形, 中心 x, 中心 y, 高さ, 傾き]。番号は page.tsx の APPS の順（0 Intento … 6 FFMultiplier）
 type OrbitSlot = [number, "closed" | "open", number, number, number, number];
 const ORBIT_TWO_LINES: OrbitSlot[] = [
-  [6, "open", 131, 414, 160, -5],
-  [0, "closed", 159, 643, 216, 3],
-  [1, "open", 386, 759, 174, 11],
-  [2, "closed", 616, 743, 155, -9],
-  [3, "open", 870, 774, 221, 2],
-  [4, "closed", 1146, 767, 193, -13],
-  [0, "open", 1416, 749, 202, 7],
-  [1, "closed", 1441, 488, 235, -2],
-  [2, "open", 1465, 226, 188, 12],
-  [6, "closed", 1235, 155, 155, -7],
-  [5, "open", 985, 119, 216, 6],
-  [3, "closed", 731, 146, 174, 10],
-  [4, "open", 467, 111, 207, -12],
-  [5, "closed", 215, 196, 193, 1],
+  [6, "open", 116, 414, 191, -5],
+  [0, "closed", 181, 644, 194, 3],
+  [1, "open", 405, 771, 185, 11],
+  [2, "closed", 668, 772, 208, -9],
+  [3, "open", 913, 751, 178, 2],
+  [4, "closed", 1165, 774, 204, -13],
+  [0, "open", 1418, 732, 181, 7],
+  [1, "closed", 1438, 495, 206, -2],
+  [2, "open", 1484, 258, 179, 12],
+  [6, "closed", 1247, 128, 202, -7],
+  [5, "open", 989, 132, 192, 6],
+  [3, "closed", 746, 135, 192, 10],
+  [4, "open", 488, 125, 185, -12],
+  [5, "closed", 242, 176, 196, 1],
 ];
 const ORBIT_ONE_LINE: OrbitSlot[] = [
   [6, "open", 81, 500, 153, -5],
@@ -263,7 +270,7 @@ function OrbitLayout({
   accent: boolean;
   weight: number;
   apps: DuoApp[];
-  bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
+  bezelFor: (app: DuoApp, kind: "open" | "closed") => DuoBezel;
 }) {
   return (
     <>
@@ -358,7 +365,7 @@ function GlassLayout({
 }: {
   title: number;
   apps: DuoApp[];
-  bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
+  bezelFor: (app: DuoApp, kind: "open" | "closed") => DuoBezel;
 }) {
   const glass: CSSProperties = {
     background:
@@ -440,7 +447,7 @@ export function DuoAnnounce({
   oneLine?: boolean;
   accent?: boolean;
   apps: DuoApp[];
-  bezelFor: (app: DuoApp, kind: "open" | "closed") => Bezel;
+  bezelFor: (app: DuoApp, kind: "open" | "closed") => DuoBezel;
 }) {
   return (
     <main

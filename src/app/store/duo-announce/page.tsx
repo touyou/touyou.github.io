@@ -4,9 +4,9 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import type { Bezel, Bezels } from "../intento/strip";
+import type { Bezels } from "../intento/strip";
 
-import { DuoAnnounce, type DuoApp, type Layout } from "./scene";
+import { DuoAnnounce, type DuoApp, type DuoBezel, type Layout } from "./scene";
 
 // 「アプリはぜんぶ iPhone Duo に対応している」の告知画像（1600×900、X / Bluesky 用）。開発サーバーでだけ開ける
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -120,8 +120,17 @@ export default async function DuoAnnouncePage({
   const night: Bezels = JSON.parse(raw);
   // GRAPHICA の 2 本はストア画像と同じく Star White の枠（画面の位置は同じ）
   const white: Bezels = JSON.parse(raw.replaceAll("Night Sky", "Star White"));
-  const bezelFor = (app: DuoApp, kind: "open" | "closed"): Bezel =>
-    (app.white ? white : night)[kind]!;
+  const bezelFor = (app: DuoApp, kind: "open" | "closed"): DuoBezel => {
+    const bezel = (app.white ? white : night)[kind]!;
+    // 枠の外側を切るマスク（scripts/bezel-masks.py）があれば使う
+    const mask = bezel.src.replace(
+      "/store-bezels/duo/",
+      "/store-bezels/duo/masks/",
+    );
+    return existsSync(path.join(process.cwd(), "public", mask))
+      ? { ...bezel, mask }
+      : bezel;
+  };
   return (
     <DuoAnnounce
       layout={layout}
