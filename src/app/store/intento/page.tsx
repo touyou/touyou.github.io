@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { IntentoStoreArt } from "./art";
+import { type DeskShots, IntentoDeskStrip } from "./desk";
 import { type Bezels, IntentoStoreStrip, type Shots, type StoreDevice } from "./strip";
 
 // App Store のスクリーンショットの元絵。開発サーバーでだけ開ける（撮り方は strip.tsx）
@@ -27,6 +28,12 @@ const DUO_FILES = {
   duoClosedDetail: "duo-closed/{lang}/02-detail.png",
 };
 
+// Mac と Apple Vision Pro は 3 枚ずつ。どちらも同じ名前の 3 枚を撮る
+const DESK_FILES = {
+  mac: { deskList: "mac/{lang}/01-list.png", deskDetail: "mac/{lang}/02-detail.png", deskAdd: "mac/{lang}/03-add.png" },
+  vision: { deskList: "vision/{lang}/01-list.png", deskDetail: "vision/{lang}/02-detail.png", deskAdd: "vision/{lang}/03-add.png" },
+};
+
 // Apple の端末枠は再配布できないので gitignore。無いときは CSS で描いた枠になる（確認用で、ストアには出さない）
 const BEZELS_JSON = path.join(process.cwd(), "public/store-bezels/duo/bezels.json");
 
@@ -36,7 +43,8 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
   const lang = params.lang === "en" ? "en" : "ja";
   const device = params.device;
   const duo = device === "duoInner";
-  const files = duo ? { ...SHOT_FILES, ...DUO_FILES } : SHOT_FILES;
+  const desk = device === "mac" || device === "vision" ? device : undefined;
+  const files = duo ? { ...SHOT_FILES, ...DUO_FILES } : desk ? { ...SHOT_FILES, ...DESK_FILES[desk] } : SHOT_FILES;
   const shots = Object.fromEntries(
     Object.entries(files).map(([key, file]) => [key, `/store-shots/intento/${file.replace("{lang}", lang)}`]),
   ) as Shots;
@@ -51,6 +59,7 @@ export default async function IntentoStorePage({ searchParams }: { searchParams:
   }
   // header / search は iOS 27 のプロダクトページのヘッダーと検索結果の画像
   if (device === "header" || device === "search") return <IntentoStoreArt kind={device} lang={lang} shots={shots} />;
+  if (desk) return <IntentoDeskStrip device={desk} lang={lang} shots={shots as DeskShots} />;
   const strip: StoreDevice = device === "ipad" || device === "duoInner" ? device : "iphone";
   const bezels: Bezels = duo && existsSync(BEZELS_JSON) ? JSON.parse(readFileSync(BEZELS_JSON, "utf8")) : {};
   return <IntentoStoreStrip device={strip} lang={lang} shots={shots} bezels={bezels} />;
