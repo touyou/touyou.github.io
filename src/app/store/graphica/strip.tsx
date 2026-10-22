@@ -354,9 +354,9 @@ function LandscapeScene({ device, t, shots, bezels }: { device: "ipad" | "duoInn
   );
 }
 
-// 撮ったウィンドウ（画面いっぱい、3508x2260）の縦横比と、見せる範囲。いまの画像のウィンドウ（約 1.5:1）に寄せる
-const MAC_ASPECT = 3508 / 2260;
-const MAC_CROP = { gallery: { w: 0.78, h: 0.74 }, detail: { w: 0.78, h: 0.74 } };
+// 撮ったウィンドウ（1280x800pt を 2 倍、2560x1600）の縦横比。切り出さずに全体を見せる
+const MAC_ASPECT = 2560 / 1600;
+const MAC_CROP = { gallery: { w: 1, h: 1 }, detail: { w: 1, h: 1 } };
 
 /** Mac の 2 枚。いまの画像の構図のまま（1: ウィンドウが右上・ワードマークが左下、2: 一言が上・ウィンドウが中央） */
 function MacScene({ t, shots }: { t: Copy; shots: GShots }) {
