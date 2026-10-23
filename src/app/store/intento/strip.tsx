@@ -45,7 +45,7 @@ export type Shots = {
 export type Bezel = { src: string; w: number; h: number; screen: { x: number; y: number; w: number; h: number } };
 export type Bezels = { open?: Bezel; closed?: Bezel };
 
-const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
+export const COPY: Record<Lang, { titles: string[][]; phrases: string[]; widgetTodos: string[]; widgetHeader: string; left: (n: number) => string; remaining: string; actionsNote: string; actions: string[]; quote: (text: string) => string }> = {
   ja: {
     titles: [
       ["アプリを開かなくても", "使える、やることリスト。"],
