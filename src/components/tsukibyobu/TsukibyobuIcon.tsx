@@ -12,15 +12,15 @@ export function TsukibyobuIcon({ className }: { className?: string }) {
         className,
       )}
     >
-      <svg viewBox="0 0 64 64" className="h-full w-full" role="img" aria-label="月屏風のアイコン">
+      {/* 24px 程度まで縮むので、線は太めにして埋もれないようにする */}
+      <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true" focusable="false">
         <rect width="64" height="64" fill="#b68c3c" />
         <rect width="64" height="64" fill="url(#byobu-haku)" />
-        <circle cx="40" cy="22" r="11" fill="#cfd3d6" />
-        <circle cx="40" cy="22" r="11" fill="none" stroke="#6b6f74" strokeWidth="0.8" />
-        <g stroke="#3b4a52" strokeWidth="1.1" strokeLinecap="round" fill="none">
-          <path d="M14 60 C 15 48, 13 40, 10 34" />
-          <path d="M22 60 C 22 47, 24 39, 29 33" />
-          <path d="M30 60 C 29 50, 30 44, 33 39" />
+        <circle cx="40" cy="22" r="13" fill="#cfd3d6" stroke="#5d6267" strokeWidth="1.6" />
+        <g stroke="#2f3c44" strokeWidth="2.6" strokeLinecap="round" fill="none">
+          <path d="M13 62 C 14 48, 11 40, 7 33" />
+          <path d="M23 62 C 23 46, 26 38, 32 31" />
+          <path d="M33 62 C 32 50, 33 44, 37 38" />
         </g>
         <defs>
           <linearGradient id="byobu-haku" x1="0" y1="0" x2="1" y2="1">
