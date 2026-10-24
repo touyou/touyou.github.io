@@ -48,21 +48,21 @@ const COPY: Record<Lang, { titles: string[][]; subs: ReactNode[]; name: string }
     name: "月屏風",
     titles: [
       LEAD.ja.lines,
-      ["琳派の屏風を、", "机の上に。"],
-      ["場所は 4 つ、", "季節も 4 つ。"],
-      ["通知も広告もない、", "眺めるための夜。"],
+      ["金の霞に、", "銀の月。"],
+      ["梅に燕子花、", "すすきに雪の笹。"],
+      ["なにもしない、", "月見の夜。"],
     ],
-    subs: [LEAD.ja.sub, "金箔の霞、群青の山、銀の月。", "富士と湖・東山・松原・山里", "月をタップすると、月の話がひとつ。"],
+    subs: [LEAD.ja.sub, "琳派の屏風に倣った、夜の絵。", "四つの景色と、四つの季節。", "通知も広告もなく。月に触れれば、月の話をひとつ。"],
   },
   en: {
     name: "Tsukibyobu",
     titles: [
       LEAD.en.lines,
-      ["A Rinpa screen,", "on your desk."],
-      ["Four places.", "Four seasons."],
-      ["No notifications.", "Just the night."],
+      ["Gold mist,", "a silver moon."],
+      ["Plum and iris,", "pampas and snow."],
+      ["Nothing to do", "but watch the moon."],
     ],
-    subs: [LEAD.en.sub, "Gold-leaf clouds, blue hills, a silver moon.", "Fuji & Lake, Higashiyama, Pine Beach, Village", "Tap the moon for a short note."],
+    subs: [LEAD.en.sub, "A night painted after the Rinpa screens.", "Four landscapes, four seasons.", "No notifications, no ads. Tap the moon for a story."],
   },
 };
 
@@ -201,6 +201,35 @@ function Eyebrow({ device, name }: { device: StoreDevice; name: string }) {
   );
 }
 
+/**
+ * 4 枚を一隻の屏風の扇に見立てる。扇ごとに細い金の縁を内側に引き、隣の扇との境目には蝶番を置く。
+ * 縁は画像の端から少し内側に引くので、切り分けても線が途切れない
+ */
+function Panels({ device }: { device: StoreDevice }) {
+  const { w, h } = FRAME[device];
+  const inset = device === "iphone" ? 10 : 16;
+  const hinge = { w: device === "iphone" ? 5 : 8, h: device === "iphone" ? 34 : 44 };
+  return (
+    <div className="absolute inset-0" aria-hidden>
+      {Array.from({ length: FRAMES }, (_, i) => (
+        <span key={i} className="absolute" style={{ left: i * w + inset, top: inset, width: w - inset * 2, height: h - inset * 2, border: `1.5px solid ${COLOR.gold}`, opacity: 0.45 }} />
+      ))}
+      {/* 蝶番は扇の右端と、次の扇の左端に半分ずつかかる */}
+      {Array.from({ length: FRAMES * 2 }, (_, i) => {
+        const panel = Math.floor(i / 2);
+        const right = i % 2 === 0;
+        return [0.18, 0.82].map((y) => (
+          <span
+            key={`${i}-${y}`}
+            className="absolute"
+            style={{ left: right ? (panel + 1) * w - inset - hinge.w / 2 : panel * w + inset - hinge.w / 2, top: h * y - hinge.h / 2, width: hinge.w, height: hinge.h, background: COLOR.gold, opacity: (right && panel === FRAMES - 1) || (!right && panel === 0) ? 0 : 0.8 }}
+          />
+        ));
+      })}
+    </div>
+  );
+}
+
 export function TsukibyobuStoreStrip({ device, lang, shots }: { device: StoreDevice; lang: Lang; shots: Shots }) {
   const t = COPY[lang];
   const { w, h } = FRAME[device];
@@ -214,6 +243,7 @@ export function TsukibyobuStoreStrip({ device, lang, shots }: { device: StoreDev
       {/* 開発サーバーのインジケータを写さない */}
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <GoldDust width={w * FRAMES} height={h} count={device === "iphone" ? 90 : 160} unit={device === "iphone" ? 1 : 1.6} />
+      <Panels device={device} />
       {device === "iphone" ? <IphoneScene shots={shots} /> : <DuoScene shots={shots} />}
       <Eyebrow device={device} name={t.name} />
       {t.titles.map((lines, i) => (
