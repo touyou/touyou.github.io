@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 
-import { At, COLOR, GoldDust, Kasumi, type Lang, LEAD, MINCHO, MoonPhases, Screen, type Shots } from "./strip";
+import { At, type Bezels, COLOR, GoldDust, Kasumi, type Lang, LEAD, MINCHO, MoonPhases, Screen, type Shots } from "./strip";
 
 /**
  * iOS 27 のプロダクトページのヘッダー（21:9）と検索結果（3:2）の 1 枚絵。2 倍で撮ると 3840×1646 / 3840×2560。
@@ -21,7 +21,7 @@ const COPY: Record<Lang, Copy> = {
   en: { ...LEAD.en, headerLines: LEAD.en.lines, headerSize: 50 },
 };
 
-export function TsukibyobuStoreArt({ kind, lang, shots }: { kind: ArtKind; lang: Lang; shots: Shots }) {
+export function TsukibyobuStoreArt({ kind, lang, shots, bezels = {} }: { kind: ArtKind; lang: Lang; shots: Shots; bezels?: Bezels }) {
   const t = COPY[lang];
   const { w, h } = ART[kind];
   return (
@@ -33,23 +33,23 @@ export function TsukibyobuStoreArt({ kind, lang, shots }: { kind: ArtKind; lang:
     >
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <GoldDust width={w} height={h} count={kind === "header" ? 140 : 170} unit={1.8} seed={11} />
-      {kind === "header" ? <HeaderScene t={t} shots={shots} /> : <SearchScene t={t} shots={shots} />}
+      {kind === "header" ? <HeaderScene t={t} shots={shots} bezels={bezels} /> : <SearchScene t={t} shots={shots} bezels={bezels} />}
     </div>
   );
 }
 
-/** ヘッダー: 見出しと月相の列を安全領域の中央に置き、左右に開いた Duo と iPhone の画面、霞を外側に置く */
-function HeaderScene({ t, shots }: { t: Copy; shots: Shots }) {
+/** ヘッダー: 見出しと月相の列を安全領域の中央に置き、左に開いた Duo、右に閉じた Duo（朔）、霞を外側に置く */
+function HeaderScene({ t, shots, bezels }: { t: Copy; shots: Shots; bezels: Bezels }) {
   const s = HEADER_SAFE;
   return (
     <>
       <Kasumi x={-80} y={130} w={520} h={30} />
       <Kasumi x={1500} y={660} w={500} h={28} opacity={0.75} />
-      <At x={-60} y={250} rotate={-4} z={10}>
-        <Screen src={shots.duoOpen[0]} width={560} kind="duoOpen" />
+      <At x={-70} y={230} rotate={-4} z={10}>
+        <Screen src={shots.duoOpen[0]} width={600} kind="duoOpen" bezel={bezels.open} />
       </At>
-      <At x={1560} y={140} rotate={4} z={10}>
-        <Screen src={shots.iphone[1]} width={250} kind="iphone" />
+      <At x={1560} y={150} rotate={5} z={10}>
+        <Screen src={shots.duoClosed[0]} width={300} kind="duoClosed" bezel={bezels.closed} />
       </At>
       <At x={s.x} y={s.y} w={s.w} z={30} className="flex h-[331px] flex-col items-center justify-center gap-6 text-center">
         <h1 className={cn(MINCHO, "whitespace-nowrap font-semibold leading-[1.25] [font-feature-settings:'palt']")} style={{ fontSize: t.headerSize, color: COLOR.ink }}>
@@ -68,8 +68,8 @@ function HeaderScene({ t, shots }: { t: Copy; shots: Shots }) {
   );
 }
 
-/** 検索結果: 左に見出し（左端をそろえる）、右に iPhone の画面を 1 枚だけ置く */
-function SearchScene({ t, shots }: { t: Copy; shots: Shots }) {
+/** 検索結果: 左に見出し（左端をそろえる）、右に閉じた Duo を主役に置き、開いた Duo を後ろに添える */
+function SearchScene({ t, shots, bezels }: { t: Copy; shots: Shots; bezels: Bezels }) {
   return (
     <>
       <Kasumi x={-100} y={300} w={760} h={40} />
@@ -87,8 +87,11 @@ function SearchScene({ t, shots }: { t: Copy; shots: Shots }) {
         </p>
         <MoonPhases size={48} gap={28} />
       </At>
-      <At x={1280} y={130} rotate={4} z={10}>
-        <Screen src={shots.iphone[0]} width={460} kind="iphone" />
+      <At x={1020} y={800} rotate={-3} z={9}>
+        <Screen src={shots.duoOpen[1]} width={600} kind="duoOpen" bezel={bezels.open} />
+      </At>
+      <At x={1400} y={110} rotate={4} z={10}>
+        <Screen src={shots.duoClosed[0]} width={440} kind="duoClosed" bezel={bezels.closed} />
       </At>
     </>
   );
