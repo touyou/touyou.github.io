@@ -5,6 +5,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useMemo,
   useSyncExternalStore,
 } from "react";
 import type { BentoData } from "@/lib/bento-types";
@@ -50,7 +51,11 @@ export default function BentoEditPage() {
   const [saveMessage, setSaveMessage] = useState<SaveMessage | null>(null);
   // Saving clears the indicator until the data changes again
   const [savedData, setSavedData] = useState<BentoData | null>(null);
-  const hasChanges = data !== savedData && JSON.stringify(data) !== initialJson;
+  const differsFromFile = useMemo(
+    () => JSON.stringify(data) !== initialJson,
+    [data],
+  );
+  const hasChanges = data !== savedData && differsFromFile;
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Sync to preview iframe

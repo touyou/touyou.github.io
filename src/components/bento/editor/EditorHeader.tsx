@@ -1,3 +1,5 @@
+"use client";
+
 import type { PreviewMode, SaveMessage } from "./types";
 
 interface Props {

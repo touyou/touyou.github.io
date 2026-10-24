@@ -1,3 +1,5 @@
+"use client";
+
 import type { BentoEditor } from "./useBentoEditor";
 
 export function LinkSectionsPanel({ editor }: { editor: BentoEditor }) {

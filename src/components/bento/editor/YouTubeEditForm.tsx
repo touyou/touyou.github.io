@@ -1,3 +1,5 @@
+"use client";
+
 import type { BentoEditor } from "./useBentoEditor";
 
 export function YouTubeEditForm({ editor }: { editor: BentoEditor }) {

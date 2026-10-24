@@ -1,3 +1,5 @@
+"use client";
+
 import type { BentoEditor } from "./useBentoEditor";
 import type { CardType, SocialPlatform } from "@/lib/bento-types";
 import { cardTypeOptions, platformOptions } from "./types";

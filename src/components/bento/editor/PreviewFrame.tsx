@@ -1,3 +1,5 @@
+"use client";
+
 import type { Ref } from "react";
 import type { PreviewMode } from "./types";
 
