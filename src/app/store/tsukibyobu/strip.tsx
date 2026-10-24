@@ -30,26 +30,39 @@ export type Shots = { iphone: string[]; duoOpen: string[] };
 export const COLOR = { night: "#0A0B12", ink: "#F3EBDD", sub: "#9C968C", gold: "#C9A24E", leaf: "#B38D3F", silver: "#CFD3D6" } as const;
 export const MINCHO = "font-['YuMincho','Yu_Mincho','Hiragino_Mincho_ProN',serif]";
 
-const COPY: Record<Lang, { titles: string[][]; subs: string[]; name: string }> = {
+/** 1 枚目・ヘッダー・検索結果で共通の見出し。朔と望には読みを振る */
+export const LEAD: Record<Lang, { lines: string[]; sub: ReactNode }> = {
+  ja: {
+    lines: ["満ちては欠ける、", "てのひらの屏風。"],
+    sub: (
+      <>
+        閉じて<ruby>朔<rt>さく</rt></ruby>、ひらいて<ruby>望<rt>ぼう</rt></ruby>。
+      </>
+    ),
+  },
+  en: { lines: ["Waxing and waning,", "a screen in your hand."], sub: "Closed, the new moon. Open, the full." },
+};
+
+const COPY: Record<Lang, { titles: string[][]; subs: ReactNode[]; name: string }> = {
   ja: {
     name: "月屏風",
     titles: [
-      ["ひらく角度で、", "月が満ちる。"],
+      LEAD.ja.lines,
       ["琳派の屏風を、", "机の上に。"],
       ["場所は 4 つ、", "季節も 4 つ。"],
       ["通知も広告もない、", "眺めるための夜。"],
     ],
-    subs: ["閉じれば新月、ひらけば満月。", "金箔の霞、群青の山、銀の月。", "富士と湖・東山・松原・山里", "月をタップすると、月の話がひとつ。"],
+    subs: [LEAD.ja.sub, "金箔の霞、群青の山、銀の月。", "富士と湖・東山・松原・山里", "月をタップすると、月の話がひとつ。"],
   },
   en: {
     name: "Tsukibyobu",
     titles: [
-      ["Open it,", "and the moon waxes."],
+      LEAD.en.lines,
       ["A Rinpa screen,", "on your desk."],
       ["Four places.", "Four seasons."],
       ["No notifications.", "Just the night."],
     ],
-    subs: ["Closed is a new moon. Flat is full.", "Gold-leaf clouds, blue hills, a silver moon.", "Fuji & Lake, Higashiyama, Pine Beach, Village", "Tap the moon for a short note."],
+    subs: [LEAD.en.sub, "Gold-leaf clouds, blue hills, a silver moon.", "Fuji & Lake, Higashiyama, Pine Beach, Village", "Tap the moon for a short note."],
   },
 };
 
@@ -157,7 +170,7 @@ function Moon({ lit, size }: { lit: number; size: number }) {
 
 const TITLE = { iphone: { size: 36, top: 92, inset: 30, sub: 15 }, duoInner: { size: 58, top: 96, inset: 84, sub: 24 } } as const;
 
-function Title({ device, index, lines, sub }: { device: StoreDevice; index: number; lines: string[]; sub: string }) {
+function Title({ device, index, lines, sub }: { device: StoreDevice; index: number; lines: string[]; sub: ReactNode }) {
   const { size, top, inset, sub: subSize } = TITLE[device];
   const { w } = FRAME[device];
   return (
@@ -169,7 +182,7 @@ function Title({ device, index, lines, sub }: { device: StoreDevice; index: numb
           </span>
         ))}
       </h2>
-      <p className={cn(MINCHO, "leading-snug [font-feature-settings:'palt']")} style={{ fontSize: subSize, color: COLOR.sub }}>
+      <p className={cn(MINCHO, "leading-[1.7] [font-feature-settings:'palt']")} style={{ fontSize: subSize, color: COLOR.sub }}>
         {sub}
       </p>
     </div>

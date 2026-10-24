@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 
-import { At, COLOR, GoldDust, Kasumi, type Lang, MINCHO, MoonPhases, Screen, type Shots } from "./strip";
+import { At, COLOR, GoldDust, Kasumi, type Lang, LEAD, MINCHO, MoonPhases, Screen, type Shots } from "./strip";
 
 /**
  * iOS 27 のプロダクトページのヘッダー（21:9）と検索結果（3:2）の 1 枚絵。2 倍で撮ると 3840×1646 / 3840×2560。
@@ -13,11 +13,12 @@ export const ART = { header: { w: 1920, h: 823 }, search: { w: 1920, h: 1280 } }
 export type ArtKind = keyof typeof ART;
 const HEADER_SAFE = { x: 548, y: 246, w: 824 }; // 高さ 331 は見出しの枠の h-[331px]
 
-type Copy = { header: string; headerSize: number; search: string[]; searchSub: string };
+/** 見出しの文言は strip.tsx の LEAD。ヘッダーは日本語なら 1 行、英語は 2 行で安全領域に収める */
+type Copy = (typeof LEAD)[Lang] & { headerLines: string[]; headerSize: number };
 
 const COPY: Record<Lang, Copy> = {
-  ja: { header: "ひらく角度で、月が満ちる。", headerSize: 58, search: ["ひらく角度で、", "月が満ちる。"], searchSub: "閉じれば新月、ひらけば満月。" },
-  en: { header: "Open it, and the moon waxes.", headerSize: 58, search: ["Open it,", "and the moon waxes."], searchSub: "Closed is a new moon. Flat is full." },
+  ja: { ...LEAD.ja, headerLines: [LEAD.ja.lines.join("")], headerSize: 54 },
+  en: { ...LEAD.en, headerLines: LEAD.en.lines, headerSize: 50 },
 };
 
 export function TsukibyobuStoreArt({ kind, lang, shots }: { kind: ArtKind; lang: Lang; shots: Shots }) {
@@ -50,11 +51,18 @@ function HeaderScene({ t, shots }: { t: Copy; shots: Shots }) {
       <At x={1560} y={140} rotate={4} z={10}>
         <Screen src={shots.iphone[1]} width={250} kind="iphone" />
       </At>
-      <At x={s.x} y={s.y} w={s.w} z={30} className="flex h-[331px] flex-col items-center justify-center gap-10">
-        <h1 className={cn(MINCHO, "whitespace-nowrap font-semibold leading-none [font-feature-settings:'palt']")} style={{ fontSize: t.headerSize, color: COLOR.ink }}>
-          {t.header}
+      <At x={s.x} y={s.y} w={s.w} z={30} className="flex h-[331px] flex-col items-center justify-center gap-6 text-center">
+        <h1 className={cn(MINCHO, "whitespace-nowrap font-semibold leading-[1.25] [font-feature-settings:'palt']")} style={{ fontSize: t.headerSize, color: COLOR.ink }}>
+          {t.headerLines.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
         </h1>
-        <MoonPhases size={44} gap={26} />
+        <p className={cn(MINCHO, "leading-[1.7] [font-feature-settings:'palt']")} style={{ fontSize: 24, color: COLOR.sub }}>
+          {t.sub}
+        </p>
+        <MoonPhases size={40} gap={24} />
       </At>
     </>
   );
@@ -68,14 +76,14 @@ function SearchScene({ t, shots }: { t: Copy; shots: Shots }) {
       <Kasumi x={1380} y={1130} w={640} h={36} opacity={0.75} />
       <At x={150} y={430} w={1020} z={30} className="flex flex-col gap-10">
         <h1 className={cn(MINCHO, "font-semibold leading-[1.3] [font-feature-settings:'palt']")} style={{ fontSize: 96, color: COLOR.ink }}>
-          {t.search.map((line) => (
+          {t.lines.map((line) => (
             <span key={line} className="block">
               {line}
             </span>
           ))}
         </h1>
-        <p className={cn(MINCHO, "[font-feature-settings:'palt']")} style={{ fontSize: 38, color: COLOR.sub }}>
-          {t.searchSub}
+        <p className={cn(MINCHO, "leading-[1.7] [font-feature-settings:'palt']")} style={{ fontSize: 38, color: COLOR.sub }}>
+          {t.sub}
         </p>
         <MoonPhases size={48} gap={28} />
       </At>
