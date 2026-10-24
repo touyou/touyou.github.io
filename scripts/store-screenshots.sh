@@ -5,10 +5,12 @@
 #
 #   ./scripts/store-screenshots.sh intento            # ja と en
 #   LANGS=ja ./scripts/store-screenshots.sh intento
+#   ./scripts/store-screenshots.sh tsukibyobu
 #
 # アプリの画面は実機のスクショを使う。IntentTodo なら先に Mac で ./scripts/capture_screenshots.sh を回し、
 # その Screenshots/ を SHOTS で渡す（既定は隣にクローンした ../IntentTodo/Screenshots）。
-# 出力は StoreImages/<app>/{iphone,ipad}/<lang>/01.png〜（gitignore）。
+# 月屏風は Tsukibyobu の docs/app-store/screenshots/raw/{iphone,duo-open}/<lang>/01.png〜04.png（既定は ../Tsukibyobu）。
+# 出力は StoreImages/<app>/{iphone,ipad,duo-open}/<lang>/01.png〜（gitignore）。
 
 set -euo pipefail
 
@@ -16,7 +18,12 @@ cd "$(dirname "$0")/.."
 APP="${1:?usage: $0 <app>}"
 LANGS="${LANGS:-ja en}"
 BASE_URL="${BASE_URL:-http://localhost:3000}"
-SHOTS="${SHOTS:-../IntentTodo/Screenshots}"
+# アプリごとの既定: 実機のスクショの場所、帯の枚数（ページの FRAMES と合わせる）、iPad を撮るか
+case "$APP" in
+  tsukibyobu) DEFAULT_SHOTS=../Tsukibyobu/docs/app-store/screenshots/raw COUNT=4 IPAD=0 ;;
+  *) DEFAULT_SHOTS=../IntentTodo/Screenshots COUNT=6 IPAD=1 ;;
+esac
+SHOTS="${SHOTS:-$DEFAULT_SHOTS}"
 CAPTURE="${CAPTURE:-$HOME/.agents/skills/store-screenshot-composer/scripts/capture_web.py}"
 
 if [ ! -f "$CAPTURE" ]; then
@@ -53,19 +60,21 @@ check_page() {
 }
 
 for lang in $LANGS; do
-  check_page "$lang" ipad
-  # iPhone は 440x956 を 3 倍で 1320x2868（6.9"）、iPad は 1032x1376 を 2 倍で 2064x2752（13"）。
-  # 枚数はページの FRAMES と合わせる
+  check_page "$lang" iphone
+  # iPhone は 440x956 を 3 倍で 1320x2868（6.9"）、iPad は 1032x1376 を 2 倍で 2064x2752（13"）
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=iphone" \
-    --frame 440x956 --count 6 --scale 3 --out "StoreImages/$APP/iphone/$lang"
-  python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
-    --frame 1032x1376 --count 6 --scale 2 --out "StoreImages/$APP/ipad/$lang"
+    --frame 440x956 --count "$COUNT" --scale 3 --out "StoreImages/$APP/iphone/$lang"
+  if [ "$IPAD" = 1 ]; then
+    python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
+      --frame 1032x1376 --count "$COUNT" --scale 2 --out "StoreImages/$APP/ipad/$lang"
+  fi
   # iPhone Duo は開いた横向き 1467x1032 を 1.94477 倍で 2853x2007 の 1 組だけ。
-  # 帯の中に閉じた形も出るので、開いた形と閉じた形のスクショ（duo-open / duo-closed）が揃ったときだけ撮る
-  if [ -d "$SHOTS/duo-open/$lang" ] && [ -d "$SHOTS/duo-closed/$lang" ]; then
+  # Intento は帯の中に閉じた形も出るので、開いた形と閉じた形のスクショ（duo-open / duo-closed）が揃ったときだけ撮る。
+  # 月屏風は開いた形だけを使う
+  if [ -d "$SHOTS/duo-open/$lang" ] && { [ "$APP" = tsukibyobu ] || [ -d "$SHOTS/duo-closed/$lang" ]; }; then
     check_page "$lang" duoInner
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoInner" \
-      --frame 1467x1032 --count 6 --scale 1.94477 --out "StoreImages/$APP/duo-open/$lang"
+      --frame 1467x1032 --count "$COUNT" --scale 1.94477 --out "StoreImages/$APP/duo-open/$lang"
   fi
   # iOS 27 のプロダクトページのヘッダー（21:9、3840x1646）と検索結果（3:2、3840x2560）
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=header" \
