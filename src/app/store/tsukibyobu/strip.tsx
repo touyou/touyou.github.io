@@ -25,7 +25,11 @@ export type StoreDevice = keyof typeof FRAME;
 export type Lang = "ja" | "en";
 
 /** 実機のスクショの公開パス。どちらも 01〜04 の 4 枚（富士と湖・秋 / 東山・春 / 松原・夏 / 山里・冬） */
-export type Shots = { iphone: string[]; duoOpen: string[] };
+export type Shots = { iphone: string[]; duoOpen: string[]; duoClosed: string[] };
+
+/** Apple Design Resources の端末枠と、その中の画面の位置（枠に対する比）。touyou.github.io の scripts/measure-bezels.py が測る */
+export type Bezel = { src: string; w: number; h: number; screen: { x: number; y: number; w: number; h: number } };
+export type Bezels = { open?: Bezel; closed?: Bezel };
 
 export const COLOR = { night: "#0A0B12", ink: "#F3EBDD", sub: "#9C968C", gold: "#C9A24E", leaf: "#B38D3F", silver: "#CFD3D6" } as const;
 export const MINCHO = "font-['YuMincho','Yu_Mincho','Hiragino_Mincho_ProN',serif]";
@@ -80,7 +84,19 @@ export function At({ x, y, w, rotate = 0, z, children, className }: { x: number;
  * 実機のスクショを浮かせる。端末の枠は付けない。スクショの四隅はアプリが黒く塗っているので、角丸でその黒を落とす。
  * 縮小で潰れないよう next/image を通さない
  */
-export function Screen({ src, width, kind }: { src: string; width: number; kind: "iphone" | "duoOpen" }) {
+export function Screen({ src, width, kind, bezel }: { src: string; width: number; kind: "iphone" | "duoOpen" | "duoClosed"; bezel?: Bezel }) {
+  if (bezel) {
+    // 端末枠があるときは枠の中に画面をはめる。width は枠の幅
+    const s = bezel.screen;
+    return (
+      <div className="relative shadow-[0_40px_70px_-20px_rgba(0,0,0,0.85)]" style={{ width, aspectRatio: `${bezel.w} / ${bezel.h}`, borderRadius: width * 0.06 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt="" className="absolute object-cover" style={{ left: `${s.x * 100}%`, top: `${s.y * 100}%`, width: `${s.w * 100}%`, height: `${s.h * 100}%` }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={encodeURI(bezel.src)} alt="" className="absolute inset-0 h-full w-full" />
+      </div>
+    );
+  }
   const radius = width * (kind === "iphone" ? 0.13 : 0.045);
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -230,7 +246,7 @@ function Panels({ device }: { device: StoreDevice }) {
   );
 }
 
-export function TsukibyobuStoreStrip({ device, lang, shots }: { device: StoreDevice; lang: Lang; shots: Shots }) {
+export function TsukibyobuStoreStrip({ device, lang, shots, bezels = {} }: { device: StoreDevice; lang: Lang; shots: Shots; bezels?: Bezels }) {
   const t = COPY[lang];
   const { w, h } = FRAME[device];
   return (
@@ -244,7 +260,7 @@ export function TsukibyobuStoreStrip({ device, lang, shots }: { device: StoreDev
       <style>{"nextjs-portal{display:none!important}body{margin:0}"}</style>
       <GoldDust width={w * FRAMES} height={h} count={device === "iphone" ? 90 : 160} unit={device === "iphone" ? 1 : 1.6} />
       <Panels device={device} />
-      {device === "iphone" ? <IphoneScene shots={shots} /> : <DuoScene shots={shots} />}
+      {device === "iphone" ? <IphoneScene shots={shots} /> : <DuoScene shots={shots} bezel={bezels.open} />}
       <Eyebrow device={device} name={t.name} />
       {t.titles.map((lines, i) => (
         <Title key={i} device={device} index={i} lines={lines} sub={t.subs[i]} />
@@ -296,7 +312,7 @@ function IphoneScene({ shots }: { shots: Shots }) {
 }
 
 /** 開いた Duo の 4 枚。見出しは左上、画面は右下。3 枚目は 4 つの場所を少しずつずらして並べる */
-function DuoScene({ shots }: { shots: Shots }) {
+function DuoScene({ shots, bezel }: { shots: Shots; bezel?: Bezel }) {
   const W = FRAME.duoInner.w;
   const row = [
     { x: 2 * W + 60, y: 470, r: -4 },
@@ -310,18 +326,18 @@ function DuoScene({ shots }: { shots: Shots }) {
       <Kasumi x={3 * W - 260} y={960} w={560} h={32} lift={0.4} opacity={0.75} />
 
       <At x={500} y={340} z={10}>
-        <Screen src={shots.duoOpen[0]} width={900} kind="duoOpen" />
+        <Screen src={shots.duoOpen[0]} width={900} kind="duoOpen" bezel={bezel} />
       </At>
       <At x={W + 500} y={350} rotate={2} z={10}>
-        <Screen src={shots.duoOpen[1]} width={880} kind="duoOpen" />
+        <Screen src={shots.duoOpen[1]} width={880} kind="duoOpen" bezel={bezel} />
       </At>
       {row.map((p, i) => (
         <At key={i} x={p.x} y={p.y} rotate={p.r} z={10 + i}>
-          <Screen src={shots.duoOpen[i]} width={400} kind="duoOpen" />
+          <Screen src={shots.duoOpen[i]} width={400} kind="duoOpen" bezel={bezel} />
         </At>
       ))}
       <At x={3 * W + 500} y={340} z={10}>
-        <Screen src={shots.duoOpen[3]} width={900} kind="duoOpen" />
+        <Screen src={shots.duoOpen[3]} width={900} kind="duoOpen" bezel={bezel} />
       </At>
     </>
   );
