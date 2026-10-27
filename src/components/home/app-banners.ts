@@ -4,7 +4,7 @@
  * 対応している端末（Android など）は各アプリの紹介ページに書き、カードには出さない。
  */
 
-export type AppArt = "intento" | "toreta" | "graphica" | "playground" | "checkitout" | "quiz" | "ffmultiplier";
+export type AppArt = "tsukibyobu" | "intento" | "toreta" | "graphica" | "playground" | "checkitout" | "quiz" | "ffmultiplier";
 
 export type AppBanner = {
   id: AppArt;
@@ -14,6 +14,7 @@ export type AppBanner = {
 };
 
 export const appBanners: AppBanner[] = [
+  { id: "tsukibyobu", name: "月屏風", href: "/tsukibyobu" },
   { id: "intento", name: "Intento", href: "/intento" },
   { id: "toreta", name: "Toreta", href: "/toreta" },
   { id: "graphica", name: "GRAPHICA", href: "https://graphica.touyou.dev/app" },
