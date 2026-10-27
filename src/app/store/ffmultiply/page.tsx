@@ -101,7 +101,7 @@ const PLAY_FILES: Record<keyof PlayShots, string> = {
   icon: "android/icon.png",
 };
 // ローカルスコアのスクショの 1 位の点数。自己ベストの札に出す
-const PLAY_BEST = "2620";
+const PLAY_BEST = "2920";
 
 function PlayPage({ device, lang }: { device: "android" | "feature"; lang: "ja" | "en" }) {
   const shots = Object.fromEntries(Object.entries(PLAY_FILES).map(([key, file]) => [key, `/store-shots/ffmultiply/${file}`])) as PlayShots;
