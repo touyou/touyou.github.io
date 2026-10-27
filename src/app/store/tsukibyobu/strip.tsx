@@ -218,17 +218,23 @@ function Eyebrow({ device, name }: { device: StoreDevice; name: string }) {
 }
 
 /**
+ * ストアはスクショの角を丸めて見せる。縁の角がその丸みに欠けないよう、縁は内側に引いて同心の角丸にする。
+ * store はストアが丸める半径の見込み（大きめに取る）、inset は画像の端から縁までの距離
+ */
+const PANEL = { iphone: { store: 44, inset: 14 }, duoInner: { store: 90, inset: 24 } } as const;
+
+/**
  * 4 枚を一隻の屏風の扇に見立てる。扇ごとに細い金の縁を内側に引き、隣の扇との境目には蝶番を置く。
  * 縁は画像の端から少し内側に引くので、切り分けても線が途切れない
  */
 function Panels({ device }: { device: StoreDevice }) {
   const { w, h } = FRAME[device];
-  const inset = device === "iphone" ? 10 : 16;
+  const { store, inset } = PANEL[device];
   const hinge = { w: device === "iphone" ? 5 : 8, h: device === "iphone" ? 34 : 44 };
   return (
     <div className="absolute inset-0" aria-hidden>
       {Array.from({ length: FRAMES }, (_, i) => (
-        <span key={i} className="absolute" style={{ left: i * w + inset, top: inset, width: w - inset * 2, height: h - inset * 2, border: `1.5px solid ${COLOR.gold}`, opacity: 0.45 }} />
+        <span key={i} className="absolute" style={{ left: i * w + inset, top: inset, width: w - inset * 2, height: h - inset * 2, border: `1.5px solid ${COLOR.gold}`, borderRadius: store - inset, opacity: 0.45 }} />
       ))}
       {/* 蝶番は扇の右端と、次の扇の左端に半分ずつかかる */}
       {Array.from({ length: FRAMES * 2 }, (_, i) => {
