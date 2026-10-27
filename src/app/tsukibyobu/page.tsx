@@ -176,10 +176,10 @@ export default function TsukibyobuPage() {
             </div>
           </div>
           <Image
-            src="/tsukibyobu/hero-duo-open.jpg"
-            alt="ひらいた屏風。富士と湖の秋に、満ちかけた月がのぼる"
+            src="/tsukibyobu/hero-duo-open.webp"
+            alt="ひらいた iPhone Duo に、富士と湖の秋の屏風絵と満ちかけた月"
             width={2400}
-            height={1688}
+            height={1743}
             priority
             className="w-full max-w-4xl"
             sizes="(min-width: 1024px) 896px, 100vw"
@@ -195,10 +195,10 @@ export default function TsukibyobuPage() {
           <div className="mx-auto grid w-full max-w-3xl grid-cols-[2fr_3fr] items-end gap-6 sm:gap-10">
             <figure className="flex flex-col gap-3">
               <Image
-                src="/tsukibyobu/duo-closed.jpg"
-                alt="閉じた屏風。月は地球照で輪郭だけが見える"
-                width={962}
-                height={1400}
+                src="/tsukibyobu/duo-closed.webp"
+                alt="閉じた iPhone Duo。外の画面の月は地球照で輪郭だけが見える"
+                width={1200}
+                height={1672}
                 className="w-full"
                 sizes="(min-width: 640px) 290px, 40vw"
               />
@@ -206,10 +206,10 @@ export default function TsukibyobuPage() {
             </figure>
             <figure className="flex flex-col gap-3">
               <Image
-                src="/tsukibyobu/places/fuji-autumn.jpg"
-                alt="ひらいた屏風に満月がのぼる"
-                width={1200}
-                height={844}
+                src="/tsukibyobu/duo-open-full.webp"
+                alt="まっすぐひらいた iPhone Duo に、望月がのぼる"
+                width={2400}
+                height={1743}
                 className="w-full"
                 sizes="(min-width: 640px) 440px, 60vw"
               />
