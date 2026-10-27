@@ -76,6 +76,17 @@ for lang in $LANGS; do
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=duoInner" \
       --frame 1467x1032 --count "$COUNT" --scale 1.94477 --out "StoreImages/$APP/duo-open/$lang"
   fi
+  # Mac は 1440x900 を 2 倍で 2880x1800、Apple Vision Pro は 1920x1080 を 2 倍で 3840x2160。どちらも 3 枚
+  if [ -d "$SHOTS/mac/$lang" ]; then
+    check_page "$lang" mac
+    python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=mac" \
+      --frame 1440x900 --count 3 --scale 2 --out "StoreImages/$APP/mac/$lang"
+  fi
+  if [ -d "$SHOTS/vision/$lang" ]; then
+    check_page "$lang" vision
+    python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=vision" \
+      --frame 1920x1080 --count 3 --scale 2 --out "StoreImages/$APP/vision/$lang"
+  fi
   # iOS 27 のプロダクトページのヘッダー（21:9、3840x1646）と検索結果（3:2、3840x2560）
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=header" \
     --frame 1920x823 --count 1 --scale 2 --names header.png --out "StoreImages/$APP/art/$lang"
