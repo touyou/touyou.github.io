@@ -45,7 +45,7 @@ const places = [
   { src: "/tsukibyobu/places/fuji-autumn.jpg", name: "富士と湖", note: "秋" },
   { src: "/tsukibyobu/places/higashiyama-spring.jpg", name: "東山", note: "春" },
   { src: "/tsukibyobu/places/matsubara-winter.jpg", name: "松原", note: "冬" },
-  { src: "/tsukibyobu/places/yamazato-autumn.jpg", name: "山里", note: "秋" },
+  { src: "/tsukibyobu/seasons/yamazato-autumn.jpg", name: "山里", note: "秋" },
 ];
 
 const seasons = [
@@ -59,7 +59,7 @@ const seasons = [
 function MoonPhases() {
   const phases = [0, 0.12, 0.3, 0.5, 0.65, 0.8, 0.92, 1];
   return (
-    <ol aria-label="朔から望まで" className="flex items-center gap-3 sm:gap-4">
+    <ol role="img" aria-label="朔から望までの月の満ち欠け" className="flex items-center gap-3 sm:gap-4">
       {phases.map((lit) => (
         <li key={lit}>
           <svg viewBox="0 0 20 20" className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true">
@@ -170,14 +170,14 @@ export default function TsukibyobuPage() {
               <p className="text-[clamp(16px,2vw,20px)] tracking-[0.12em] text-[#B9B6C8]">閉じれば朔、ひらけば望。</p>
             </div>
             <MoonPhases />
-            <div className="flex flex-col items-center gap-3 pt-2">
+            <div className="flex flex-col items-center gap-3">
               <StoreLink />
               <span className="font-sans text-[13px] text-[#8E8BA0]">無料・アプリ内課金なし</span>
             </div>
           </div>
           <Image
             src="/tsukibyobu/hero-duo-open.jpg"
-            alt="ひらいた iPhone Duo に映る、富士と湖の秋の屏風絵と満ちかけの月"
+            alt="ひらいた屏風。富士と湖の秋に、満ちかけた月がのぼる"
             width={2400}
             height={1688}
             priority
@@ -196,7 +196,7 @@ export default function TsukibyobuPage() {
             <figure className="flex flex-col gap-3">
               <Image
                 src="/tsukibyobu/duo-closed.jpg"
-                alt="閉じかけの iPhone Duo。月は地球照で輪郭だけが見える"
+                alt="閉じた屏風。月は地球照で輪郭だけが見える"
                 width={962}
                 height={1400}
                 className="w-full"
@@ -238,7 +238,7 @@ export default function TsukibyobuPage() {
 
         <Section>
           <Heading title={["梅に燕子花、", "すすきに雪の笹。"]}>
-            季節ごとに、手前に描かれる草木が変わります。はじめは今の月に合わせた季節が選ばれています。
+            季節ごとに、手前に描かれる草木が変わります。はじめは今の季節が選ばれています。
           </Heading>
           <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
             {seasons.map((s) => (
