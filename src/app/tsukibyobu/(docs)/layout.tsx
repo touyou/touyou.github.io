@@ -12,7 +12,7 @@ export default function TsukibyobuDocsLayout({ children }: { children: ReactNode
         <AppNav
           icon={<TsukibyobuIcon className="h-6 w-6 shadow-none" />}
           name="月屏風"
-          home="/tsukibyobu/support"
+          home="/tsukibyobu"
         >
           <Link href="/tsukibyobu/support" className="hover:text-neutral-900">
             サポート

@@ -147,6 +147,14 @@ function SevenSegment({ char }: { char: string }) {
 const DARK_RING = "ring-1 ring-inset ring-white/[0.08]";
 
 const ARTS: Record<AppArt, { background: string; text: "light" | "dark"; render: ReactNode }> = {
+  tsukibyobu: {
+    background: "#0B0C18",
+    text: "light",
+    render: (
+      // アプリと同じ画素の屏風絵（富士と湖の秋）
+      <Image src="/tsukibyobu/places/fuji-autumn.jpg" alt="" fill sizes="280px" className="object-cover object-top" />
+    ),
+  },
   intento: {
     background: "linear-gradient(165deg, #FBFBFD 0%, #ECECF1 100%)",
     text: "dark",
