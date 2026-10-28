@@ -46,7 +46,7 @@ function YouTubeLinkCard({ video }: { video: YouTubeVideoData }) {
       <div className="relative w-full aspect-video overflow-hidden bg-gray-900">
         <Image
           src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
-          alt={video.title}
+          alt=""
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           unoptimized
