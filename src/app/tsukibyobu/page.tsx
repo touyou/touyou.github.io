@@ -224,6 +224,44 @@ export default function TsukibyobuPage() {
         <GoldRule />
 
         <Section>
+          <Heading title={["黒漆の床に、", "夜がうつる。"]}>
+            屏風を床に立てました。縦長の画面では屏風の下に黒漆の床がのび、夜の絵がほのかに映ります。足もとはくっきりと、離れるほど淡く。iPhone Duo を横に持てば、上の画面に屏風、下の画面に床。ひらき具合で映り方が変わります。
+          </Heading>
+          <div className="mx-auto grid w-full max-w-3xl grid-cols-[46fr_73fr] items-end gap-6 sm:gap-10">
+            <figure className="flex flex-col gap-3">
+              {/* iPhone の端末枠の画像は無いので、角丸の縁だけを CSS で付ける */}
+              <div className="overflow-hidden rounded-[22px] border-[5px] border-[#26252c] bg-black sm:rounded-[34px] sm:border-[7px]">
+                <Image
+                  src="/tsukibyobu/iphone-portrait-floor.webp"
+                  alt="縦向きの iPhone。富士と湖の秋の屏風の下に黒漆の床がのび、絵が淡く映る"
+                  width={1320}
+                  height={2868}
+                  className="w-full"
+                  sizes="(min-width: 640px) 270px, 38vw"
+                />
+              </div>
+              <figcaption className="text-center text-[13px] tracking-[0.1em] text-[#8E8BA0]">縦の iPhone</figcaption>
+            </figure>
+            <figure className="flex flex-col gap-3">
+              <Image
+                src="/tsukibyobu/duo-landscape-floor.webp"
+                alt="横に持った iPhone Duo。上の画面に富士と湖の屏風、下の画面の黒漆の床にその絵が映る"
+                width={2600}
+                height={3578}
+                className="w-full"
+                sizes="(min-width: 640px) 440px, 60vw"
+              />
+              <figcaption className="text-center text-[13px] tracking-[0.1em] text-[#8E8BA0]">横に持った Duo</figcaption>
+            </figure>
+          </div>
+          <p className="mx-auto max-w-2xl text-center text-[15px] leading-[2] text-[#B9B6C8]">
+            眺めているあいだは、ボタンが静かに溶けて消えます。月のほかに触れれば戻ります。
+          </p>
+        </Section>
+
+        <GoldRule />
+
+        <Section>
           <Heading title={["金の霞に、", "銀の月。"]}>
             絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。
           </Heading>
