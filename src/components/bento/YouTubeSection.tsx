@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { cardBase } from "@/lib/bento-utils";
 import type { YouTubeVideoData } from "@/lib/bento-types";
@@ -10,6 +11,9 @@ interface YouTubeSectionProps {
 }
 
 function YouTubeCard({ video }: { video: YouTubeVideoData }) {
+  if (video.embeddable === false) {
+    return <YouTubeLinkCard video={video} />;
+  }
   return (
     <div className={`${cardBase} group`}>
       <div className="relative w-full aspect-video bg-gray-900">
@@ -27,6 +31,38 @@ function YouTubeCard({ video }: { video: YouTubeVideoData }) {
         </p>
       </div>
     </div>
+  );
+}
+
+// iframe だと「動画を再生できません」になるので、サムネイルを YouTube へのリンクにする
+function YouTubeLinkCard({ video }: { video: YouTubeVideoData }) {
+  return (
+    <a
+      href={video.url}
+      target="_blank"
+      rel="noreferrer"
+      className={`${cardBase} group block`}
+    >
+      <div className="relative w-full aspect-video overflow-hidden bg-gray-900">
+        <Image
+          src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+          alt=""
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          unoptimized
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="flex items-center justify-center w-16 h-11 rounded-xl bg-red-600/90 group-hover:bg-red-600 transition-colors">
+            <span className="ml-1 border-y-[9px] border-y-transparent border-l-[15px] border-l-white" />
+          </span>
+        </div>
+      </div>
+      <div className="p-4">
+        <p className="font-medium text-gray-900 text-sm line-clamp-2">
+          {video.title}
+        </p>
+      </div>
+    </a>
   );
 }
 

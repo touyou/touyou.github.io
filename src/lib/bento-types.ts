@@ -53,6 +53,8 @@ export interface YouTubeVideoData {
   url: string;
   title: string;
   videoId: string;
+  /** 投稿者が埋め込みを無効にしている動画は false。サムネイルから YouTube へ飛ばす */
+  embeddable?: boolean;
 }
 
 // YouTube section definition

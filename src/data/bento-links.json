@@ -15,6 +15,12 @@
       "title": "YouTube",
       "videos": [
         {
+          "url": "https://www.youtube.com/watch?v=Z9QAISerldE",
+          "title": "iOSDC Japan 2026: 世界の中心でAI（App Intents）を叫ぶ - App Intents中心設計の実践ガイド",
+          "videoId": "Z9QAISerldE",
+          "embeddable": false
+        },
+        {
           "url": "https://www.youtube.com/watch?v=3v7OPdfb2R8",
           "title": "ノーコードツール・Studioでつくった「佐久間宣行事務所オフィシャルサイト」デザインと開発の裏側を聞いた｜CGWORLD Web Design Week",
           "videoId": "3v7OPdfb2R8"
