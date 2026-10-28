@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 
 import type { Bezels } from "../intento/strip";
 import { CheckitoutStoreArt } from "./art";
+import { CheckitoutFeatureGraphic, CheckitoutPlayStrip, type PlayShots } from "./play";
 import { CheckitoutStoreStrip, type Shots, type StoreDevice } from "./strip";
 
 // App Store のスクリーンショットの元絵。開発サーバーでだけ開ける（撮り方は intento/strip.tsx と同じ）
@@ -37,6 +38,7 @@ const BEZELS_JSON = path.join(process.cwd(), "public/store-bezels/duo/bezels.jso
 export default async function CheckitoutStorePage({ searchParams }: { searchParams: Promise<{ device?: string }> }) {
   if (process.env.NODE_ENV === "production") notFound();
   const { device } = await searchParams;
+  if (device === "android" || device === "feature") return <PlayPage device={device} />;
   const duo = device === "duoInner";
   const files = duo ? { ...SHOT_FILES, ...DUO_FILES } : SHOT_FILES;
   const shots = Object.fromEntries(Object.entries(files).map(([key, file]) => [key, `/store-shots/checkitout/${file}`])) as Shots;
@@ -52,4 +54,20 @@ export default async function CheckitoutStorePage({ searchParams }: { searchPara
   const strip: StoreDevice = device === "ipad" || device === "duoInner" ? device : "iphone";
   const bezels: Bezels = duo && existsSync(BEZELS_JSON) ? JSON.parse(readFileSync(BEZELS_JSON, "utf8")) : {};
   return <CheckitoutStoreStrip device={strip} shots={shots} bezels={bezels} />;
+}
+
+// Google Play 用。CheckItOutAndroid の store-shots/raw ブランチ（Actions がエミュレータで撮る）の ja-JP をここへ写す（gitignore）
+const PLAY_FILES: Record<keyof PlayShots, string> = { play: "01-play.png", edit: "02-edit.png", record: "03-rec.png" };
+
+function PlayPage({ device }: { device: "android" | "feature" }) {
+  const shots = Object.fromEntries(Object.entries(PLAY_FILES).map(([key, file]) => [key, `/store-shots/checkitout/android/ja/${file}`])) as PlayShots;
+  const missing = Object.values(shots).filter((src) => !existsSync(path.join(process.cwd(), "public", src)));
+  if (missing.length > 0) {
+    return (
+      <pre data-store-missing className="p-6 text-red-600">
+        {`エミュレータのスクショが無い:\n${missing.join("\n")}\nCheckItOutAndroid の store-shots/raw ブランチの store-shots/ja-JP を写す`}
+      </pre>
+    );
+  }
+  return device === "feature" ? <CheckitoutFeatureGraphic shots={shots} /> : <CheckitoutPlayStrip shots={shots} />;
 }

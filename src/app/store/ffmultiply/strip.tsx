@@ -50,7 +50,7 @@ export type FFShots = {
   duoClosedLocal?: string;
 };
 
-const COPY: Record<
+export const COPY: Record<
   Lang,
   {
     titles: string[][];
@@ -131,9 +131,13 @@ function Title({
  */
 function busCircuit(device: FFDevice): { traces: Trace[]; gates: Gate[] } {
   const { w, h } = FRAME[device];
+  return circuitFor({ w, h, count: FRAMES, s: device === "iphone" ? 1 : 1.6, y: device === "iphone" ? 214 : 268 });
+}
+
+/** busCircuit の中身。Play 用の帯（play.tsx）も同じ配線を別の大きさで引く */
+export function circuitFor({ w, h, count, s, y }: { w: number; h: number; count: number; s: number; y: number }): { traces: Trace[]; gates: Gate[] } {
+  const FRAMES = count;
   const k = w / FRAME.iphone.w;
-  const s = device === "iphone" ? 1 : 1.6;
-  const y = device === "iphone" ? 214 : 268;
   const d = 22 * s;
   const gap = 16 * s;
   const line = (y0: number): [number, number][] => {
@@ -226,7 +230,7 @@ export function FFStoreStrip({
   );
 }
 
-function AppMark({
+export function AppMark({
   x,
   y,
   size,

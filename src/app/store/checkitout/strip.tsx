@@ -38,10 +38,10 @@ export type Shots = {
   duoClosedRecord?: string;
 };
 
-type Slide = { tag: string; color: PadColor; lines: string[] };
+export type Slide = { tag: string; color: PadColor; lines: string[] };
 
 // 機能はアプリの実装（CheckItOut/Checkitout/Views）にあるものだけを書く
-const SLIDES: Slide[] = [
+export const SLIDES: Slide[] = [
   { tag: "PLAY", color: "red", lines: ["叩けば鳴る、", "16 のパッド。"] },
   { tag: "REC", color: "yellow", lines: ["声も物音も、", "録れば楽器に。"] },
   { tag: "EDIT", color: "green", lines: ["録った音を、", "好きなパッドへ。"] },
@@ -50,7 +50,7 @@ const SLIDES: Slide[] = [
   { tag: "iPad", color: "yellow", lines: ["iPhone でも、", "iPad でも。"] },
 ];
 
-const CAPTIONS = { retrigger: ["同じパッドは、", "頭から鳴り直す。"], layer: ["別々のパッドは、", "重なって鳴る。"] };
+export const CAPTIONS = { retrigger: ["同じパッドは、", "頭から鳴り直す。"], layer: ["別々のパッドは、", "重なって鳴る。"] };
 
 const TITLE = {
   iphone: { size: 42, tag: 14, top: 64, inset: 28 },
@@ -115,7 +115,7 @@ function Seams({ device, ys, size, blur }: { device: StoreDevice; ys: number[]; 
 }
 
 /** 編集の図: 一覧で選んだ音を、空いているパッドに割り当てる */
-function AssignChip({ size = 1 }: { size?: number }) {
+export function AssignChip({ size = 1 }: { size?: number }) {
   return (
     <div className="flex items-center" style={{ gap: 14 * size }}>
       <span
@@ -136,7 +136,7 @@ function AssignChip({ size = 1 }: { size?: number }) {
 }
 
 /** 連打の図: 同じパッドを続けて押すと、残像のように重なる */
-function Retrigger({ size }: { size: number }) {
+export function Retrigger({ size }: { size: number }) {
   return (
     <div className="relative" style={{ width: size * 1.36, height: size * 1.36 }}>
       {[0.36, 0.24, 0.12].map((o, i) => (
@@ -148,7 +148,7 @@ function Retrigger({ size }: { size: number }) {
 }
 
 /** 重ね打ちの図: 違う色のパッドを同時に押す */
-function Layered({ size }: { size: number }) {
+export function Layered({ size }: { size: number }) {
   return (
     <div className="relative" style={{ width: size * 1.7, height: size * 1.25 }}>
       <NeonPad color="red" size={size} pressed className="absolute" style={{ left: 0, top: 0 }} />
@@ -157,7 +157,7 @@ function Layered({ size }: { size: number }) {
   );
 }
 
-function Caption({ lines, size }: { lines: string[]; size: number }) {
+export function Caption({ lines, size }: { lines: string[]; size: number }) {
   return (
     <p className="font-bold leading-[1.45] text-white/80 [font-feature-settings:'palt']" style={{ fontSize: size }}>
       {lines.map((l) => (

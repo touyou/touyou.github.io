@@ -26,7 +26,7 @@ const COPY = {
 const ORDER: PadColor[] = ["red", "yellow", "green", "blue"];
 
 /** 赤・黄・緑・青の小さなパッド。見出しの札として 4 色をそろえて見せる */
-function PadRow({ size }: { size: number }) {
+export function PadRow({ size }: { size: number }) {
   return (
     <span className="flex" style={{ gap: size * 0.45 }} aria-hidden>
       {ORDER.map((c) => (

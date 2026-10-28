@@ -36,7 +36,7 @@ type Copy = {
   sec: string;
 };
 
-const COPY: Record<Lang, Copy> = {
+export const COPY: Record<Lang, Copy> = {
   ja: {
     header: "九九を、16 進数で。",
     headerSize: 80,

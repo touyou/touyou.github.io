@@ -13,7 +13,7 @@ export type ArtKind = keyof typeof ART;
 const HEADER_SAFE = { x: 548, y: 246, w: 824, h: 331 };
 
 // 検索結果の見出しは Web 版の紹介ページの見出し（ことばが、動く絵になる。）と同じ
-const COPY: Record<Lang, { title: string[]; sub: string }> = {
+export const COPY: Record<Lang, { title: string[]; sub: string }> = {
   ja: { title: ["ことばが、", "動く絵になる。"], sub: "思い浮かんだ情景を一文で書くだけ。" },
   en: { title: ["Words become", "living art."], sub: "Describe a scene in a single sentence." },
 };

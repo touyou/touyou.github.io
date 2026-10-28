@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 
 import type { Bezels } from "../intento/strip";
 import { GraphicaStoreArt } from "./art";
+import { GraphicaFeatureGraphic, GraphicaPlayStrip, type PlayShots } from "./play";
 import { type GDevice, type GShots, GraphicaStoreStrip } from "./strip";
 
 // App Store のスクリーンショットの元絵。開発サーバーでだけ開ける（撮り方は strip.tsx）
@@ -50,6 +51,7 @@ export default async function GraphicaStorePage({ searchParams }: { searchParams
   if (process.env.NODE_ENV === "production") notFound();
   const params = await searchParams;
   const lang = params.lang === "en" ? "en" : "ja";
+  if (params.device === "android" || params.device === "feature") return <PlayPage device={params.device} lang={lang} />;
   const device = (params.device && params.device in NEEDS ? params.device : "iphone") as keyof typeof NEEDS;
   const shots = Object.fromEntries(
     Object.entries(FILES).map(([key, file]) => [key, `/store-shots/graphica/${file.replace("{lang}", lang)}`]),
@@ -68,4 +70,25 @@ export default async function GraphicaStorePage({ searchParams }: { searchParams
   const bezels: Bezels =
     device === "duoInner" && existsSync(BEZELS_JSON) ? JSON.parse(readFileSync(BEZELS_JSON, "utf8").replaceAll("Night Sky", "Star White")) : {};
   return <GraphicaStoreStrip device={device} lang={lang} shots={shots} bezels={bezels} />;
+}
+
+// Google Play 用。graphica の store-shots/raw ブランチ（Actions がエミュレータで撮る）の ja-JP / en-US を android/ja・android/en へ写す（gitignore）
+const PLAY_FILES: Record<keyof PlayShots, string> = {
+  gallery: "01-gallery.png",
+  detail: "02-detail.png",
+  create: "03-create.png",
+  detail2: "04-detail-second.png",
+};
+
+function PlayPage({ device, lang }: { device: "android" | "feature"; lang: "ja" | "en" }) {
+  const shots = Object.fromEntries(Object.entries(PLAY_FILES).map(([key, file]) => [key, `/store-shots/graphica/android/${lang}/${file}`])) as PlayShots;
+  const missing = Object.values(shots).filter((src) => !existsSync(path.join(process.cwd(), "public", src)));
+  if (missing.length > 0) {
+    return (
+      <pre data-store-missing className="p-6 text-red-600">
+        {`エミュレータのスクショが無い:\n${missing.join("\n")}\ngraphica の store-shots/raw ブランチの android/store-shots を写す`}
+      </pre>
+    );
+  }
+  return device === "feature" ? <GraphicaFeatureGraphic lang={lang} shots={shots} /> : <GraphicaPlayStrip lang={lang} shots={shots} />;
 }
