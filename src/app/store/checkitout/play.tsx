@@ -95,17 +95,17 @@ export function CheckitoutPlayStrip({ shots }: { shots: PlayShots }) {
       </At>
 
       {/* 4. TAP: 端末を置かず、パッドの図を横に 2 つ並べる */}
-      <Glow x={3 * W + 60} y={120} w={520} h={220} color="blue" opacity={0.2} blur={80} />
-      <At x={3 * W + 40} y={150} rotate={-4} z={10}>
+      <Glow x={3 * W + 100} y={120} w={520} h={220} color="blue" opacity={0.2} blur={80} />
+      <At x={3 * W + 130} y={150} rotate={-4} z={10}>
         <Retrigger size={92} />
       </At>
-      <At x={3 * W + 40} y={292} z={10}>
+      <At x={3 * W + 130} y={292} z={10}>
         <Caption lines={CAPTIONS.retrigger} size={13} />
       </At>
-      <At x={3 * W + 340} y={172} rotate={4} z={10}>
+      <At x={3 * W + 370} y={172} rotate={4} z={10}>
         <Layered size={84} />
       </At>
-      <At x={3 * W + 340} y={292} z={10}>
+      <At x={3 * W + 370} y={292} z={10}>
         <Caption lines={CAPTIONS.layer} size={13} />
       </At>
 
