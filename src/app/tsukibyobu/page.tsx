@@ -172,7 +172,7 @@ export default function TsukibyobuPage() {
             <MoonPhases />
             <div className="flex flex-col items-center gap-3">
               <StoreLink />
-              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・アプリ内課金なし</span>
+              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り</span>
             </div>
           </div>
           <Image
@@ -289,7 +289,7 @@ export default function TsukibyobuPage() {
 
         <Section>
           <Heading title={["なにもしない、", "月見の夜。"]}>
-            月に触れると、その夜の月にちなんだ話をひとつ。音を入れれば、箏のような音がかすかに鳴ります。置いて、眺めて、閉じれば夜が終わります。
+            月に触れると、その夜の月にちなんだ話をひとつ。音を入れれば、箏のような音がかすかに鳴ります。音階は季節ごとに変わり、春は明るく、冬は静かに。買い切りの「音の箱」を開ければ、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色も選べます。置いて、眺めて、閉じれば夜が終わります。
           </Heading>
           <ul className="grid gap-4 font-sans sm:grid-cols-3">
             {[
