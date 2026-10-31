@@ -5,12 +5,12 @@ import Link from "next/link";
 import { Phrases } from "@/components/app-lp";
 import { FFIcon } from "@/components/ffmultiplier/FFIcon";
 import { GameDemo } from "@/components/ffmultiplier/GameDemo";
-import { FFCard, FFHeading, FFNav, FFPage, HEADING_FONT, PRIVACY_URL, Section, StoreButton, SUPPORT_URL } from "@/components/ffmultiplier/lp";
+import { FFCard, FFHeading, FFNav, FFPage, GOOGLE_PLAY_URL, HEADING_FONT, PRIVACY_URL, Section, StoreButton, SUPPORT_URL } from "@/components/ffmultiplier/lp";
 import { FTable, LocalScoreScreen, OnlineRankingScreen, PointChip, ResultCard, ShareMessage } from "@/components/ffmultiplier/Screens";
 import { cn } from "@/lib/utils";
 
 /**
- * FFMultiplier（FFMultiply リポジトリの iOS アプリ）の紹介ページ。
+ * FFMultiplier（iOS は FFMultiply、Android は FFMultiplierAndroid リポジトリ）の紹介ページ。
  * 見た目はアプリに寄せる（FFGreen の地、ゲーム画面の黒、白い地、Futura の見出し、7 セグメントの数字）。
  * 遊び方・点数・ランキングの説明は、アプリの実装（GameViewModel.swift / RankingService.swift / ScoreStore.swift など）に合わせる。
  * 「FF」は 16 進数の 0xFF のこと。ゲームの決まりを変えたら、ここと components/ffmultiplier/hex.ts も直す。
@@ -70,8 +70,11 @@ export default function FFMultiplierPage() {
                 16&nbsp;進数の掛け算に、60&nbsp;秒で何問答えられるかを競うゲームです。16&nbsp;進数での九九、覚えてみませんか？
               </p>
               <div className="flex flex-col items-center gap-3 lg:items-start">
-                <StoreButton>App Store で入手</StoreButton>
-                <span className="text-[13px] text-[#111111]/70">無料（広告あり）・iOS 18 以降</span>
+                <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
+                  <StoreButton>App Store で入手</StoreButton>
+                  <StoreButton href={GOOGLE_PLAY_URL}>Google Play で入手</StoreButton>
+                </div>
+                <span className="text-[13px] text-[#111111]/70">無料（広告あり）・iOS 18 以降 / Android 7.0 以降</span>
               </div>
             </div>
             <GameDemo />
@@ -140,8 +143,13 @@ export default function FFMultiplierPage() {
           <h2 className={cn("text-[clamp(28px,5vw,40px)] font-bold", HEADING_FONT)}>
             <Phrases phrases={["FFMultiplier は", "無料です。"]} />
           </h2>
-          <StoreButton variant="green">App Store で入手</StoreButton>
-          <span className="text-[13px] text-neutral-400">広告が表示されます・iOS 18 以降</span>
+          <div className="flex flex-wrap justify-center gap-3">
+            <StoreButton variant="green">App Store で入手</StoreButton>
+            <StoreButton variant="green" href={GOOGLE_PLAY_URL}>
+              Google Play で入手
+            </StoreButton>
+          </div>
+          <span className="text-[13px] text-neutral-400">広告が表示されます・iOS 18 以降 / Android 7.0 以降</span>
         </section>
       </main>
 
@@ -159,7 +167,7 @@ export default function FFMultiplierPage() {
             </Link>
           </div>
           <p>このページの画面は、説明のために描き直したイメージです。ランキングの名前と点数は架空のものです。</p>
-          <p>Apple、iPhone、App Store は Apple Inc. の商標です。</p>
+          <p>Apple、iPhone、App Store は Apple Inc. の商標です。Google Play および Google Play ロゴは Google LLC の商標です。</p>
           <p>© 2026 touyou</p>
         </div>
       </footer>

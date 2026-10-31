@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 export const HEADING_FONT = "font-[Futura,'Century_Gothic','Avenir_Next','Hiragino_Sans','Noto_Sans_JP',sans-serif]";
 
 export const APP_STORE_URL = "https://apps.apple.com/jp/app/id1151801381";
+export const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.dev.touyou.ffmultiplier";
 export const SUPPORT_URL = "/ffmultiplier/support";
 export const PRIVACY_URL = "/ffmultiplier/privacy";
 
@@ -107,10 +108,20 @@ export function FFCard({
 }
 
 /** App Store へのボタン。地の色に合わせて黒か緑にする */
-export function StoreButton({ variant = "dark", size = "lg", children }: { variant?: "dark" | "green"; size?: "sm" | "lg"; children: ReactNode }) {
+export function StoreButton({
+  href = APP_STORE_URL,
+  variant = "dark",
+  size = "lg",
+  children,
+}: {
+  href?: string;
+  variant?: "dark" | "green";
+  size?: "sm" | "lg";
+  children: ReactNode;
+}) {
   return (
     <a
-      href={APP_STORE_URL}
+      href={href}
       className={cn(
         "rounded-full font-bold text-white motion-safe:transition-colors",
         variant === "dark" ? "bg-[#111111] hover:bg-[#2a2a2a]" : "bg-[#85BF5D] hover:bg-[#78B050]",
