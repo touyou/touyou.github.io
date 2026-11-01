@@ -11,19 +11,33 @@ interface YouTubeSectionProps {
 }
 
 function YouTubeCard({ video }: { video: YouTubeVideoData }) {
+  // 埋め込みのプレーヤーは 1 本ごとに重い JS を読み込み、PC 用とスマホ用の 2 か所に描くので
+  // 隠れている側も読み込まれる。押されるまではサムネイルだけを出す。
+  const [playing, setPlaying] = useState(false);
   if (video.embeddable === false) {
     return <YouTubeLinkCard video={video} />;
   }
   return (
     <div className={`${cardBase} group`}>
       <div className="relative w-full aspect-video bg-gray-900">
-        <iframe
-          src={`https://www.youtube.com/embed/${video.videoId}`}
-          title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="absolute inset-0 w-full h-full"
-        />
+        {playing ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1`}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`${video.title} を再生`}
+            className="absolute inset-0 w-full h-full overflow-hidden"
+          >
+            <YouTubeThumbnail videoId={video.videoId} />
+          </button>
+        )}
       </div>
       <div className="p-4">
         <p className="font-medium text-gray-900 text-sm line-clamp-2">
@@ -31,6 +45,25 @@ function YouTubeCard({ video }: { video: YouTubeVideoData }) {
         </p>
       </div>
     </div>
+  );
+}
+
+function YouTubeThumbnail({ videoId }: { videoId: string }) {
+  return (
+    <>
+      <Image
+        src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+        alt=""
+        fill
+        className="object-cover group-hover:scale-105 transition-transform duration-300"
+        unoptimized
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="flex items-center justify-center w-16 h-11 rounded-xl bg-red-600/90 group-hover:bg-red-600 transition-colors">
+          <span className="ml-1 border-y-[9px] border-y-transparent border-l-[15px] border-l-white" />
+        </span>
+      </div>
+    </>
   );
 }
 
@@ -44,18 +77,7 @@ function YouTubeLinkCard({ video }: { video: YouTubeVideoData }) {
       className={`${cardBase} group block`}
     >
       <div className="relative w-full aspect-video overflow-hidden bg-gray-900">
-        <Image
-          src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
-          alt=""
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-          unoptimized
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="flex items-center justify-center w-16 h-11 rounded-xl bg-red-600/90 group-hover:bg-red-600 transition-colors">
-            <span className="ml-1 border-y-[9px] border-y-transparent border-l-[15px] border-l-white" />
-          </span>
-        </div>
+        <YouTubeThumbnail videoId={video.videoId} />
       </div>
       <div className="p-4">
         <p className="font-medium text-gray-900 text-sm line-clamp-2">
