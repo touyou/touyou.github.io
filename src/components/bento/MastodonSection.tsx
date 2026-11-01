@@ -283,7 +283,7 @@ function MastodonHeader({ title }: { title: string }) {
       href="https://fedibird.com/@touyou"
       target="_blank"
       rel="me noreferrer"
-      className="text-gray-600 text-sm font-semibold hover:text-[#6364ff] transition-colors"
+      className="text-gray-600 text-sm font-semibold hover:text-[#5557f0] transition-colors"
     >
       {title}
     </a>
