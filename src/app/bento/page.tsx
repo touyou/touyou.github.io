@@ -163,7 +163,7 @@ export default function BentoPage() {
             </div>
 
             {/* Footer */}
-            <footer className="mt-12 text-center text-gray-400 text-sm">
+            <footer className="mt-12 text-center text-gray-600 text-sm">
               <p>Copyrights © 2015- touyou. All Rights Reserved.</p>
             </footer>
           </div>

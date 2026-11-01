@@ -58,7 +58,6 @@ export function AppBannerCard({ app, className }: { app: AppBanner; className?: 
       href={app.href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      aria-label={`${app.name}${app.status ? `（${app.status}）` : ""}`}
       className={cn(
         "group relative block overflow-hidden rounded-[20px]",
         className ?? "h-[150px] w-[240px] sm:h-[175px] sm:w-[280px]",
@@ -81,7 +80,9 @@ export function AppBannerCard({ app, className }: { app: AppBanner; className?: 
               light ? "text-white/60" : "text-[#1d1d1f]/55",
             )}
           >
+            <span className="sr-only">（</span>
             {app.status}
+            <span className="sr-only">）</span>
           </span>
         )}
       </div>
@@ -225,7 +226,7 @@ const ARTS: Record<AppArt, { background: string; text: "light" | "dark"; render:
         <span className="relative aspect-square w-[38%] shrink-0 overflow-hidden rounded-[8px]">
           <Image src="/apps/playground-preview.jpg" alt="" fill sizes="80px" className="object-cover" />
         </span>
-        <span className="flex min-w-0 flex-1 flex-col justify-center gap-[6px] overflow-hidden whitespace-nowrap font-mono text-[8.5px] leading-none text-white/45">
+        <span className="flex min-w-0 flex-1 flex-col justify-center gap-[6px] overflow-hidden whitespace-nowrap font-mono text-[8.5px] leading-none text-white/50">
           <span>
             <span className="text-[#67DABD]">float</span> d = length(uv);
           </span>

@@ -133,7 +133,7 @@ function LinkPreviewCard({ card }: { card: MastodonCardType }) {
       )}
       <div className="px-3 py-2">
         {domain && (
-          <p className="text-gray-400 text-xs mb-0.5">{domain}</p>
+          <p className="text-gray-500 text-xs mb-0.5">{domain}</p>
         )}
         <p className="text-gray-900 text-sm font-medium line-clamp-1">
           {card.title}
@@ -229,7 +229,7 @@ function MastodonPostCard({ post, compact, "data-post": dataPost }: { post: Mast
             <p className="text-gray-900 text-sm font-semibold truncate">
               {post.account.displayName}
             </p>
-            <p className="text-gray-400 text-xs truncate">
+            <p className="text-gray-500 text-xs truncate">
               @{post.account.acct}
             </p>
           </div>
@@ -267,7 +267,7 @@ function MastodonPostCard({ post, compact, "data-post": dataPost }: { post: Mast
             href={post.url}
             target="_blank"
             rel="noreferrer"
-            className={`block text-gray-400 hover:text-gray-600 text-xs transition-colors ${hasBottomContent ? "mt-2" : ""}`}
+            className={`block text-gray-500 hover:text-gray-700 text-xs transition-colors ${hasBottomContent ? "mt-2" : ""}`}
           >
             {formatDate(post.createdAt)}
           </a>

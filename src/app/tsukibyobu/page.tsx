@@ -59,9 +59,9 @@ const seasons = [
 function MoonPhases() {
   const phases = [0, 0.12, 0.3, 0.5, 0.65, 0.8, 0.92, 1];
   return (
-    <ol role="img" aria-label="朔から望までの月の満ち欠け" className="flex items-center gap-3 sm:gap-4">
+    <div role="img" aria-label="朔から望までの月の満ち欠け" className="flex items-center gap-3 sm:gap-4">
       {phases.map((lit) => (
-        <li key={lit}>
+        <span key={lit}>
           <svg viewBox="0 0 20 20" className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true">
             <circle cx="10" cy="10" r="9" fill="#1b1d2c" stroke="#3a3d52" strokeWidth="0.8" />
             {lit > 0 && (
@@ -71,9 +71,9 @@ function MoonPhases() {
               />
             )}
           </svg>
-        </li>
+        </span>
       ))}
-    </ol>
+    </div>
   );
 }
 

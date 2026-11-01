@@ -22,7 +22,7 @@ export function OGPCard({ link, ogpData }: OGPCardProps) {
         {imageUrl ? (
           <Image
             src={imageUrl}
-            alt={displayTitle}
+            alt=""
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             unoptimized

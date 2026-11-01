@@ -49,7 +49,6 @@ export const viewport: Viewport = {
   themeColor: "white",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 const GA_TRACKING_ID = "UA-136500666-1";
