@@ -53,7 +53,7 @@ export function MastodonEmptyState({
       </p>
       <button
         onClick={onReload}
-        className="inline-flex items-center gap-1.5 text-sm text-[#6364ff] hover:text-[#4b4cff] transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-[#5557f0] hover:text-[#4344e0] transition-colors"
       >
         <RefreshCw className="w-3.5 h-3.5" />
         再取得

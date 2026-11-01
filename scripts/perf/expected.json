@@ -1,21 +1,11 @@
 {
   "/": {
-    "color-contrast": 4,
-    "meta-viewport": 1,
-    "label-content-name-mismatch": 1,
     "errors-in-console": 1
   },
   "/bento": {
-    "color-contrast": 35,
-    "image-redundant-alt": 17,
-    "meta-viewport": 1,
-    "label-content-name-mismatch": 1,
     "errors-in-console": 27
   },
   "/tsukibyobu": {
-    "aria-allowed-role": 1,
-    "listitem": 8,
-    "meta-viewport": 1,
     "errors-in-console": 1
   }
 }

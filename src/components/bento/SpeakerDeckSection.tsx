@@ -47,7 +47,7 @@ function SpeakerDeckCard({ talk }: { talk: SpeakerDeckTalk }) {
         <p className="font-medium text-gray-900 text-sm line-clamp-2 flex-1">
           {talk.title}
         </p>
-        <p className="text-gray-400 text-xs mt-2">{formatDate(talk.pubDate)}</p>
+        <p className="text-gray-500 text-xs mt-2">{formatDate(talk.pubDate)}</p>
       </div>
     </a>
   );

@@ -47,7 +47,7 @@ function BlogCard({ post }: { post: BlogPost }) {
         <p className="font-medium text-gray-900 text-sm line-clamp-2 flex-1">
           {post.title}
         </p>
-        <p className="text-gray-400 text-xs mt-2">{formatDate(post.pubDate)}</p>
+        <p className="text-gray-500 text-xs mt-2">{formatDate(post.pubDate)}</p>
       </div>
     </a>
   );

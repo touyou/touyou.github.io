@@ -104,7 +104,7 @@ export default async function Home() {
         {cards.map((card) => renderCard(card))}
       </div>
       <AppCarousel />
-      <footer className="mt-auto w-full cursor-default text-center text-sm text-muted transition hover:text-primary">
+      <footer className="mt-auto w-full cursor-default text-center text-sm text-muted-foreground transition hover:text-primary">
         Copyrights © 2015- touyou. All Rights Reserved.
       </footer>
     </main>
