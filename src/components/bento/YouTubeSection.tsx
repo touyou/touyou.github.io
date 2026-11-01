@@ -14,6 +14,8 @@ function YouTubeCard({ video }: { video: YouTubeVideoData }) {
   // 埋め込みのプレーヤーは 1 本ごとに重い JS を読み込み、PC 用とスマホ用の 2 か所に描くので
   // 隠れている側も読み込まれる。押されるまではサムネイルだけを出す。
   const [playing, setPlaying] = useState(false);
+  // ID はそのまま youtube.com の URL のパスに入るので、ID の形でないものは出さない
+  if (!/^[A-Za-z0-9_-]{11}$/.test(video.videoId)) return null;
   if (video.embeddable === false) {
     return <YouTubeLinkCard video={video} />;
   }

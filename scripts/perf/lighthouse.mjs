@@ -6,7 +6,7 @@
  * 使い方: node scripts/perf/lighthouse.mjs [--record]  (LIGHTHOUSE_BIN で lighthouse の実行ファイルを指定)
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync, mkdtempSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -81,6 +81,8 @@ for (const { path } of PAGES) {
     ),
   };
 }
+
+rmSync(dir, { recursive: true, force: true });
 
 if (record || !existsSync(expectedPath)) {
   writeFileSync(expectedPath, JSON.stringify(got, null, 2) + "\n");
