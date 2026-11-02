@@ -155,12 +155,14 @@ export async function fetchOGP(url: string): Promise<OGPData> {
       },
     });
 
+    const scrapedImage =
+      result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || null;
     const ogpData: OGPData = {
       title: result.ogTitle || result.twitterTitle || "",
       image:
-        result.ogImage?.[0]?.url ||
-        result.twitterImage?.[0]?.url ||
-        null,
+        githubImage && (!scrapedImage || isVolatileImageHost(scrapedImage))
+          ? githubImage
+          : scrapedImage,
       description: result.ogDescription || result.twitterDescription,
     };
 
@@ -180,7 +182,7 @@ export async function fetchOGP(url: string): Promise<OGPData> {
     // Return empty fallback data
     return {
       title: "",
-      image: null,
+      image: githubImage,
     };
   }
 }
