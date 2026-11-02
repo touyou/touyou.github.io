@@ -1,14 +1,10 @@
 import ogs from "open-graph-scraper";
 import type { OGPData } from "./bento-types";
 
-// Import pre-built OGP cache as fallback
-let ogpCacheFile: Record<string, OGPData> = {};
-try {
-  // Dynamic import for the cached data (generated at build time)
-  ogpCacheFile = require("@/data/ogp-cache.json");
-} catch {
-  // Cache file may not exist yet
-}
+import ogpCacheJson from "@/data/ogp-cache.json";
+
+// 日次のワークフローが更新してコミットする取得済みの OGP
+const ogpCacheFile: Record<string, OGPData> = ogpCacheJson;
 
 // Runtime cache for OGP results
 const ogpCache = new Map<string, OGPData>();
@@ -77,10 +73,36 @@ function isVolatileImageHost(imageUrl: string | null): boolean {
   return imageUrl.includes("opengraph.githubassets.com");
 }
 
+// GitHub のカード画像は URL から組み立てられる（先頭の区切りは何でもよい）。
+// github.com をその場で取りに行くと失敗しやすいので、リポジトリのカードは取りに行かない。
+// 区切りを日ごとに変えて、GitHub 側の古い画像が残り続けないようにする。
+const GITHUB_REPO_URL = /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/?$/;
+
+export function githubCardImage(url: string, now = new Date()): string | null {
+  const match = url.match(GITHUB_REPO_URL);
+  if (!match) return null;
+  const day = now.toISOString().slice(0, 10).replaceAll("-", "");
+  return `https://opengraph.githubassets.com/${day}/${match[1]}/${match[2]}`;
+}
+
 export async function fetchOGP(url: string): Promise<OGPData> {
   // Check runtime cache first
   if (ogpCache.has(url)) {
     return ogpCache.get(url)!;
+  }
+
+  // 文字は日次で更新するキャッシュのものを使い、画像だけ組み立てる。
+  // リポジトリ独自の画像（repository-images）が付いていればそれを残す。
+  const githubImage = githubCardImage(url);
+  const cachedGitHub = ogpCacheFile[url];
+  if (githubImage && cachedGitHub?.title) {
+    return {
+      ...cachedGitHub,
+      image:
+        cachedGitHub.image && !isVolatileImageHost(cachedGitHub.image)
+          ? cachedGitHub.image
+          : githubImage,
+    };
   }
 
   // Cache-first for non-YouTube URLs: if the pre-built cache already has a
@@ -133,12 +155,14 @@ export async function fetchOGP(url: string): Promise<OGPData> {
       },
     });
 
+    const scrapedImage =
+      result.ogImage?.[0]?.url || result.twitterImage?.[0]?.url || null;
     const ogpData: OGPData = {
       title: result.ogTitle || result.twitterTitle || "",
       image:
-        result.ogImage?.[0]?.url ||
-        result.twitterImage?.[0]?.url ||
-        null,
+        githubImage && (!scrapedImage || isVolatileImageHost(scrapedImage))
+          ? githubImage
+          : scrapedImage,
       description: result.ogDescription || result.twitterDescription,
     };
 
@@ -158,7 +182,7 @@ export async function fetchOGP(url: string): Promise<OGPData> {
     // Return empty fallback data
     return {
       title: "",
-      image: null,
+      image: githubImage,
     };
   }
 }
