@@ -31,7 +31,6 @@ export interface BentoLink {
   platform?: SocialPlatform;
   username?: string; // for social cards
   imageSrc?: string; // for image cards
-  thumbnailOverride?: string; // local image (in /public) to override a volatile OGP thumbnail, e.g. GitHub's rotating opengraph hash URLs
   span?: number; // grid column span (default: 1)
   aspectRatio?: string; // e.g., "1/1", "4/3", "16/9" for image cards
 }

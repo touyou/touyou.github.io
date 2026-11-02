@@ -279,8 +279,7 @@
         {
           "url": "https://github.com/goodpatch/sparkle-design",
           "title": "GitHub - goodpatch/sparkle-design",
-          "cardType": "ogp",
-          "thumbnailOverride": "/images/ogp/sparkle-design.png"
+          "cardType": "ogp"
         },
         {
           "url": "https://github.com/touyou/flutter_intents",
