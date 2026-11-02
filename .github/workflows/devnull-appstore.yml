@@ -1,6 +1,7 @@
 name: /dev/null App Store
 
 # App Store に新しいバージョンが出たら dev-null.sh/@touyou に投稿する。対象は .github/devnull/apps.json。
+# apps.json の name が投稿の見出しになる。リポジトリ名ではなくホーム画面のアプリ名(CFBundleDisplayName)を書く。
 # 毎日 1 回、直近 24 時間に配信されたものを拾う(スクリプト側の HOURS と cron の間隔を揃える)。
 # リポジトリ変数 DEVNULL_ENABLED=true とシークレット DEVNULL_SSH_KEY が揃うまでは投稿しない。
 
