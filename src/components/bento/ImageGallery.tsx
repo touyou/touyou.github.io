@@ -29,6 +29,9 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               src={image.imageSrc}
               alt={image.title}
               fill
+              // 無いと 100vw として画面幅の画像を取る。object-cover で横長（最大 2:1）を正方形に切るので、
+              // タイルの幅ではなく、高さを埋めるのに要る幅（タイル × 横長の比）を渡す。
+              sizes="(min-width: 1152px) 560px, 70vw"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </button>
