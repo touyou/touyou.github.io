@@ -29,6 +29,8 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               src={image.imageSrc}
               alt={image.title}
               fill
+              // 3 列のタイル（最大幅 6xl）の大きさで選ばせる。無いと 100vw として画面幅の画像を落とす。
+              sizes="(min-width: 1152px) 384px, 34vw"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </button>
