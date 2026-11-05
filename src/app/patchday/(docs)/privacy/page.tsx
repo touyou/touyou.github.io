@@ -44,7 +44,7 @@ export default function PatchdayPrivacyPage() {
       </ul>
       <p>
         ウィジェットに表示するため、これらの写しを端末内でアプリとウィジェットが共有する領域（App Group）にも置きます。端末の外には出ません。
-        アプリを削除すると端末内のデータは消えます。iCloud に保存された進み具合とメモは、iOS / macOS の設定の「iCloud」› 「アカウントのストレージを管理」から削除できます。
+        iPhone・iPad ではアプリを削除すると端末内のデータも消えます。Mac ではアプリをゴミ箱に入れても、端末内のデータ（~/Library/Containers と ~/Library/Group Containers の中）が残ることがあります。iCloud に保存された進み具合とメモは、iOS / macOS の設定の「iCloud」› 「アカウントのストレージを管理」から削除できます。
       </p>
 
       <h2>3. 通信する先</h2>

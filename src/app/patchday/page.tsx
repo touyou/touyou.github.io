@@ -65,7 +65,7 @@ export default function PatchdayPage() {
         </Band>
         <Band>
           <Heading title={["サーバーなし、", "アカウントなし。"]}>
-            通信するのは CISA と JVN だけ。記録はあなたの iCloud に保存され、開発者には送られません。
+            情報を取りに行くのは CISA と JVN だけ。記録はあなたの iCloud に保存され、開発者には送られません。
           </Heading>
           <p className="text-center text-sm text-neutral-500">
             出典: CISA Known Exploited Vulnerabilities Catalog ／ JVN・JVN iPedia（IPA・JPCERT/CC）。Patchday は CISA・IPA・JPCERT/CC とは関係のない個人のアプリです。
