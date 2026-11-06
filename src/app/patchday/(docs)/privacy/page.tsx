@@ -32,7 +32,7 @@ export default function PatchdayPrivacyPage() {
       <h2>2. 保存するもの</h2>
       <ul>
         <li>
-          <strong>脆弱性の情報</strong>：公開されている脆弱性情報（CISA Known Exploited Vulnerabilities Catalog と JVN）と、Node.js のセキュリティリリースの予告から取得した内容を、表示のために端末内に保存します。
+          <strong>脆弱性の情報</strong>：公開されている脆弱性情報（CISA Known Exploited Vulnerabilities Catalog・JVN・NVD）と、Node.js のセキュリティリリースの予告から取得した内容を、表示のために端末内に保存します。
         </li>
         <li>
           <strong>進み具合とメモ</strong>：利用者が記録した脆弱性ごとの状態（未着手・アナウンス済み・対応協議済み・完了・対象外）、日付つきのメモ、更新日時。
@@ -53,6 +53,7 @@ export default function PatchdayPrivacyPage() {
         <li>CISA（米国サイバーセキュリティ・社会基盤安全保障庁）：www.cisa.gov の Known Exploited Vulnerabilities Catalog</li>
         <li>JVN（IPA・JPCERT/CC）：jvndb.jvn.jp の JVN iPedia 新着情報、および jvn.jp の新着情報</li>
         <li>Node.js：nodejs.org のセキュリティリリースの予告</li>
+        <li>NIST（米国国立標準技術研究所）：services.nvd.nist.gov の National Vulnerability Database（NVD）。問い合わせるのは、アプリに組み込んだ決まった製品（Chrome・Firefox・iOS など）の名前と期間だけです</li>
       </ul>
       <p>
         これらのサイトは、一般的なウェブブラウザでの閲覧と同様に、IP アドレスや端末の種類などの情報を受け取ることがあります。その取り扱いは各サイトのプライバシーポリシーに従います。
