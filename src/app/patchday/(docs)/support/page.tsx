@@ -25,7 +25,7 @@ export default function PatchdaySupportPage() {
 
       <h3>期限はどう決まっていますか？</h3>
       <p>
-        CISA KEV の脆弱性は、CISA が示す期限（due date）を使います。JVN の脆弱性は、公開日から深刻度ごとの日数（緊急 7 日・重要 14 日・警告 30 日・注意 90 日）で決めます。どちらも「設定」›「期限のルール」で変えられます。KEV を社内ルールで数えるときは、悪用が確認済みなので緊急として扱います。
+        CISA KEV の脆弱性は、CISA が示す期限（due date）を使います。JVN と NVD の脆弱性は、公開日から深刻度ごとの日数（緊急 7 日・重要 14 日・警告 30 日・注意 90 日）で決めます。NVD は製品と公開日ごとのまとまりの中で、いちばん高い深刻度を使います。どちらも「設定」›「期限のルール」で変えられます。KEV を社内ルールで数えるときは、悪用が確認済みなので緊急として扱います。
       </p>
 
       <h3>関係ない製品ばかり出てきます</h3>
@@ -35,6 +35,11 @@ export default function PatchdaySupportPage() {
 
       <h3>何年も前の期限切れが出てきません</h3>
       <p>KEV には何年も前に期限を迎えたものが大量にあるため、期限切れは 30 日前までを表示しています。「設定」›「期限切れの表示」で変えられます。</p>
+
+      <h3>NVD の「〇〇 の脆弱性 45 件」とは何ですか</h3>
+      <p>
+        Chrome や macOS などは、1 日に数十件の CVE が公開されることがあります。カレンダーが埋まらないように、NVD の分は製品と公開日ごとに 1 件にまとめています。深刻度はその中でいちばん高いものです。詳細を開くと、含まれる CVE を 1 件ずつ NVD のページで確かめられます。取る製品は「設定」›「情報源」の NVD で選べます。
+      </p>
 
       <h3>JVN の深刻度が「深刻度不明」になっています</h3>
       <p>
@@ -49,7 +54,7 @@ export default function PatchdaySupportPage() {
 
       <h2>出典について</h2>
       <p>
-        脆弱性の情報は、CISA Known Exploited Vulnerabilities Catalog と JVN（Japan Vulnerability Notes）・JVN iPedia（IPA・JPCERT/CC）から取得しています。リリースの予定は、Node.js のセキュリティリリースの予告（nodejs.org）と、Microsoft の月例更新（毎月第 2 火曜日）・Oracle の Critical Patch Update（1・4・7・10 月の第 3 火曜日）の暦から作っています。Patchday は個人が開発しているアプリで、CISA・IPA・JPCERT/CC・OpenJS Foundation・Microsoft・Oracle とは関係ありません。対応の要否や内容は、必ず各情報源と製品の提供元の情報で確かめてください。
+        脆弱性の情報は、CISA Known Exploited Vulnerabilities Catalog と JVN（Japan Vulnerability Notes）・JVN iPedia（IPA・JPCERT/CC）、NIST の National Vulnerability Database（NVD）から取得しています。This product uses data from the NVD API but is not endorsed or certified by the NVD. リリースの予定は、Node.js のセキュリティリリースの予告（nodejs.org）と、Microsoft の月例更新（毎月第 2 火曜日）・Oracle の Critical Patch Update（1・4・7・10 月の第 3 火曜日）の暦から作っています。Patchday は個人が開発しているアプリで、CISA・IPA・JPCERT/CC・NIST・OpenJS Foundation・Microsoft・Oracle とは関係ありません。対応の要否や内容は、必ず各情報源と製品の提供元の情報で確かめてください。
       </p>
 
       <p>
