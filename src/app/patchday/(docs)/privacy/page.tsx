@@ -57,7 +57,7 @@ export default function PatchdayPrivacyPage() {
       </ul>
       <p>
         これらのサイトは、一般的なウェブブラウザでの閲覧と同様に、IP アドレスや端末の種類などの情報を受け取ることがあります。その取り扱いは各サイトのプライバシーポリシーに従います。
-        詳細画面の「情報源で詳しく見る」を押したときは、ブラウザで情報源のページ（jvn.jp、jvndb.jvn.jp、www.cisa.gov、nvd.nist.gov、nodejs.org）を開きます。
+        詳細画面の「情報源で詳しく見る」を押したときは、ブラウザで情報源のページ（jvn.jp、jvndb.jvn.jp、www.cisa.gov、nvd.nist.gov、nodejs.org、msrc.microsoft.com、www.oracle.com）を開きます。
       </p>
       <p>iCloud との同期は Apple が行い、Apple のプライバシーポリシーに従います。</p>
 

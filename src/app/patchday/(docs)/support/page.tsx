@@ -54,7 +54,7 @@ export default function PatchdaySupportPage() {
 
       <h2>出典について</h2>
       <p>
-        脆弱性の情報は、CISA Known Exploited Vulnerabilities Catalog と JVN（Japan Vulnerability Notes）・JVN iPedia（IPA・JPCERT/CC）、NIST の National Vulnerability Database（NVD）から取得しています。This product uses data from the NVD API but is not endorsed or certified by the NVD.リリースの予定は、Node.js のセキュリティリリースの予告（nodejs.org）と、Microsoft の月例更新（毎月第 2 火曜日）・Oracle の Critical Patch Update（1・4・7・10 月の第 3 火曜日）の暦から作っています。Patchday は個人が開発しているアプリで、CISA・IPA・JPCERT/CC・NIST・OpenJS Foundation・Microsoft・Oracle とは関係ありません。対応の要否や内容は、必ず各情報源と製品の提供元の情報で確かめてください。
+        脆弱性の情報は、CISA Known Exploited Vulnerabilities Catalog と JVN（Japan Vulnerability Notes）・JVN iPedia（IPA・JPCERT/CC）、NIST の National Vulnerability Database（NVD）から取得しています。This product uses data from the NVD API but is not endorsed or certified by the NVD. リリースの予定は、Node.js のセキュリティリリースの予告（nodejs.org）と、Microsoft の月例更新（毎月第 2 火曜日）・Oracle の Critical Patch Update（1・4・7・10 月の第 3 火曜日）の暦から作っています。Patchday は個人が開発しているアプリで、CISA・IPA・JPCERT/CC・NIST・OpenJS Foundation・Microsoft・Oracle とは関係ありません。対応の要否や内容は、必ず各情報源と製品の提供元の情報で確かめてください。
       </p>
 
       <p>
