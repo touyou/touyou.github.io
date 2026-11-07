@@ -8,6 +8,7 @@ import {
   Band,
   Heading,
   Phrases,
+  PillLink,
   Tile,
 } from "@/components/app-lp";
 import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
@@ -76,6 +77,8 @@ const features = [
   },
 ];
 
+const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
+
 export default function PatchdayPage() {
   return (
     <AppPage>
@@ -90,6 +93,9 @@ export default function PatchdayPage() {
         <Link href="/patchday/privacy" className="hover:text-neutral-900">
           プライバシー
         </Link>
+        <PillLink href={APP_STORE_URL} size="sm">
+          入手
+        </PillLink>
       </AppNav>
       <main>
         <Band className="items-center text-center">
@@ -103,8 +109,9 @@ export default function PatchdayPage() {
             CISA KEV・JVN・NVD
             の脆弱性を、対応期限のカレンダーで。関係のある製品だけをウォッチして、アナウンスした・話し合えた、を記録できます。
           </p>
+          <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <p className="text-sm text-neutral-500">
-            iPhone・iPad・Mac 向け。App Store で近日公開。
+            iPhone・iPad 向けを配信中です。Mac 版は審査中です。
           </p>
         </Band>
         <Band tone="gray">
