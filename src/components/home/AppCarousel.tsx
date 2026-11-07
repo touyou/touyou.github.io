@@ -156,6 +156,16 @@ const ARTS: Record<AppArt, { background: string; text: "light" | "dark"; render:
       <Image src="/tsukibyobu/places/fuji-autumn.jpg" alt="" fill sizes="280px" className="object-cover object-top" />
     ),
   },
+  patchday: {
+    background: "linear-gradient(160deg, #1F3B70 0%, #0E6B76 100%)",
+    text: "light",
+    render: (
+      // アイコンと同じ色で、カレンダーの画面を斜めに重ねる
+      <div className="absolute right-[-6%] top-[12%] h-[120%] w-[52%] rotate-[-6deg] overflow-hidden rounded-[18px] shadow-[0_12px_28px_-8px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/20">
+        <Image src="/patchday/iphone-calendar.jpg" alt="" fill sizes="160px" className="object-cover object-top" />
+      </div>
+    ),
+  },
   intento: {
     background: "linear-gradient(165deg, #FBFBFD 0%, #ECECF1 100%)",
     text: "dark",
