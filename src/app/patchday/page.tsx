@@ -78,6 +78,7 @@ const features = [
 ];
 
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
+const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
 
 export default function PatchdayPage() {
   return (
@@ -111,7 +112,14 @@ export default function PatchdayPage() {
           </p>
           <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <p className="text-sm text-neutral-500">
-            iPhone・iPad 向けを配信中です。Mac 版は審査中です。
+            iPhone・iPad・Mac 向けを配信中です（
+            <a
+              href={MAC_APP_STORE_URL}
+              className="text-[#0066CC] underline-offset-4 hover:underline"
+            >
+              Mac App Store で見る
+            </a>
+            ）。
           </p>
         </Band>
         <Band tone="gray">
