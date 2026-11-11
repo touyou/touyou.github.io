@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { GitHubRepoCard } from "@/lib/github-card";
 
 // GitHub のリポジトリ OGP（1200×600）の配置を cqw で写したもの。
@@ -15,6 +15,10 @@ function barColor(repo: string): string {
 
 function Avatar({ owner }: { owner: string }) {
   const [failed, setFailed] = useState(false);
+  // hydration 前に失敗した分は onError が来ないので、マウント時に状態を見る
+  const checkAlreadyFailed = useCallback((img: HTMLImageElement | null) => {
+    if (img?.complete && img.naturalWidth === 0) setFailed(true);
+  }, []);
   const box = "w-[16cqw] h-[16cqw] rounded-[2cqw] shrink-0";
   if (failed) {
     return (
@@ -30,6 +34,7 @@ function Avatar({ owner }: { owner: string }) {
     // 外部のアバターで失敗時に差し替えたいので next/image は使わない
     // eslint-disable-next-line @next/next/no-img-element
     <img
+      ref={checkAlreadyFailed}
       src={`https://avatars.githubusercontent.com/${owner}?s=200`}
       alt=""
       className={`${box} object-cover bg-gray-100`}

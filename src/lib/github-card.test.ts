@@ -38,6 +38,13 @@ describe("githubRepoCard", () => {
         description: "Nice. Contribute to a/b development by creating an account on GitHub.",
       })?.description
     ).toBe("Nice");
+    expect(
+      githubRepoCard("https://github.com/a/b", {
+        title: "GitHub - a/b",
+        image: null,
+        description: "Contribute to a/b development by creating an account on GitHub.",
+      })?.description
+    ).toBeUndefined();
   });
 
   it("OGP が無くてもオーナーとリポジトリ名は出せる", () => {

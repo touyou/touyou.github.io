@@ -11,7 +11,7 @@ const GITHUB_REPO_URL = /^https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/?$/;
 // og:title は「GitHub - owner/repo: 説明」の形。説明は og:description より
 // こちらのほうが「Contribute to …」などの定型文が付かない。
 const GITHUB_TITLE = /^GitHub - [\w.-]+\/[\w.-]+(?::\s*(.+))?$/s;
-const BOILERPLATE = /(?:\.\s*Contribute to .+ by creating an account on GitHub\.|\s+-\s+[\w.-]+\/[\w.-]+)\s*$/;
+const BOILERPLATE = /(?:(?:^|\.\s*)Contribute to .+ by creating an account on GitHub\.|\s+-\s+[\w.-]+\/[\w.-]+)\s*$/;
 
 export function githubRepoCard(
   url: string,
