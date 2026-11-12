@@ -53,6 +53,24 @@ export const viewport: Viewport = {
 
 const GA_TRACKING_ID = "UA-136500666-1";
 
+// 同じサイト内のリンクに 200ms ほど指を置くと、次のページを裏で取りに行き、描ける環境では描いておく（対応していないブラウザは無視する）。
+// 書き込みや下書きの画面、画像の書き出し用のページは先読みしない。
+// 毎回サーバーで描くトップと、外部のフィードを取りに行く /bento も、指を置くたびに描き直すと無駄が大きいので外す
+const speculationTarget = {
+  and: [
+    { href_matches: "/*" },
+    { not: { href_matches: "/api/*" } },
+    { not: { href_matches: "/" } },
+    { not: { href_matches: "/bento{/*}?" } },
+    { not: { href_matches: "/preview/*" } },
+    { not: { href_matches: "/store/*" } },
+  ],
+};
+const speculationRules = {
+  prefetch: [{ where: speculationTarget, eagerness: "moderate" }],
+  prerender: [{ where: speculationTarget, eagerness: "moderate" }],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -62,6 +80,10 @@ export default function RootLayout({
     <html lang="ja" className="bg-background">
       <head>
         <link rel="me" href="https://fedibird.com/@touyou" />
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(speculationRules) }}
+        />
       </head>
       <body className="bg-background">{children}</body>
       <Script
