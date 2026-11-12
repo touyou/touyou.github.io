@@ -102,6 +102,13 @@
   border-radius: 3px;
 }
 
+/* ページを移るとき、前のページから次のページへ溶けるように切り替える（動きを減らす設定のときは切り替えない） */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 html,
 body {
   margin: 0;
