@@ -5,7 +5,8 @@ import type { Metadata } from "next";
  * 内容はアプリの実装（QuizLiT リポジトリ）だけを根拠にする。外部と通信するのは Google Mobile Ads SDK だけで、
  * アプリ自身は UserDefaults・ファイル・サーバーへの保存や送信をしていない。実装を変えたらここも直す。
  */
-const EFFECTIVE_DATE = "2026-11-15";
+const EFFECTIVE_DATE = "2026-10-08";
+const UPDATED_DATE = "2026-11-15";
 const CONTACT_EMAIL = "contact@touyou.dev";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function ProgrammingQuizPrivacyPage() {
   return (
     <>
       <h1>Programming Quiz プライバシーポリシー</h1>
-      <p>制定日：{EFFECTIVE_DATE}</p>
+      <p>制定日：{EFFECTIVE_DATE}／最終更新：{UPDATED_DATE}</p>
 
       <p>
         このポリシーは、touyou（以下「開発者」）が提供する iOS・iPadOS アプリ「Programming Quiz」（以下「本アプリ」）での情報の扱いを説明するものです。
