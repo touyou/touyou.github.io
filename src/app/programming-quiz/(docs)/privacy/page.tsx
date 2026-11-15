@@ -6,6 +6,7 @@ import type { Metadata } from "next";
  * アプリ自身は UserDefaults・ファイル・サーバーへの保存や送信をしていない。実装を変えたらここも直す。
  */
 const EFFECTIVE_DATE = "2026-10-08";
+const UPDATED_DATE = "2026-11-15";
 const CONTACT_EMAIL = "contact@touyou.dev";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function ProgrammingQuizPrivacyPage() {
   return (
     <>
       <h1>Programming Quiz プライバシーポリシー</h1>
-      <p>制定日：{EFFECTIVE_DATE}</p>
+      <p>制定日：{EFFECTIVE_DATE}／最終更新：{UPDATED_DATE}</p>
 
       <p>
         このポリシーは、touyou（以下「開発者」）が提供する iOS・iPadOS アプリ「Programming Quiz」（以下「本アプリ」）での情報の扱いを説明するものです。
@@ -41,6 +42,9 @@ export default function ProgrammingQuizPrivacyPage() {
       </ul>
       <p>
         選んだ内容は、iPhone・iPad の「設定」›「プライバシーとセキュリティ」›「トラッキング」でいつでも変えられます。広告の効果測定には、利用者を特定しない Apple の SKAdNetwork が使われることがあります。
+      </p>
+      <p>
+        欧州経済領域・英国など、広告の同意が必要な地域では、トラッキングの確認の前に、Google の仕組みで広告のための情報の利用への同意を求めます。同意の内容は、ホーム画面の下にある「広告のプライバシー設定」からいつでも変えられます。
       </p>
       <p>
         Google によるデータの扱いは、<a href="https://policies.google.com/privacy">Google のプライバシーポリシー</a>と

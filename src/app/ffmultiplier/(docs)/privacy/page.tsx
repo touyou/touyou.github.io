@@ -8,7 +8,7 @@ import type { Metadata } from "next";
  * Services/ScoreStore.swift と Model/ScoreEntry.swift（端末内の記録）、Views/*.swift の UserDefaults（名前など）。
  * アプリで扱うデータを変えたら、ここも直す。
  */
-const EFFECTIVE_DATE = "2026-11-05";
+const EFFECTIVE_DATE = "2026-11-15";
 const CONTACT_EMAIL = "contact@touyou.dev";
 
 export const metadata: Metadata = {
@@ -66,7 +66,7 @@ export default function FFMultiplierPrivacyPage() {
         iPhone 版では、初めて起動したとき、App Tracking Transparency の仕組みでトラッキングの許可を求めます。許可した場合は、広告識別子（IDFA）をもとに選ばれた広告が表示されることがあります。許可しなかった場合、広告識別子は使われません。どちらを選んでも、本アプリの機能はすべて使えます。あとから変えるときは、iPhone の「設定」›「プライバシーとセキュリティ」›「トラッキング」で切り替えてください。欧州経済領域・英国など、広告の同意が必要な地域では、本アプリの「settings」の「PRIVACY SETTINGS」から同意の内容を変えられます。
       </p>
       <p>
-        Android 版では、広告 ID をもとに選ばれた広告が表示されることがあります。広告 ID は、Android の「設定」から再設定・削除できます（項目の名前は端末によって異なります）。
+        Android 版では、広告 ID をもとに選ばれた広告が表示されることがあります。広告 ID は、Android の「設定」から再設定・削除できます（項目の名前は端末によって異なります）。欧州経済領域・英国など、広告の同意が必要な地域では、初めて起動したときに同意を求め、本アプリの「Settings」の「PRIVACY SETTINGS」から同意の内容を変えられます。
       </p>
       <p>
         広告の表示や効果の測定、不正の防止のため、Google AdMob は端末や通信に関する情報（IP アドレス、OS の種類など）と、広告の表示やタップの記録を取得することがあります。Google による情報の扱いは、
