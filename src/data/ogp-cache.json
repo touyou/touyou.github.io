@@ -243,6 +243,11 @@
     "image": "https://opengraph.githubassets.com/4511e012ce7cc53d3cb35c12a7e1a6e83e2f28f9989351818788768dc8baeab1/touyou/skills",
     "description": "touyou's personal collection of Claude Code skills (Agent Skills marketplace) - touyou/skills"
   },
+  "https://github.com/touyou/ToreScan": {
+    "title": "GitHub - touyou/ToreScan: Steady card scanning for iOS: settle, hold and de-duplicate what VisionKit's live text scanner reads.",
+    "image": "https://opengraph.githubassets.com/1/touyou/ToreScan",
+    "description": "Steady card scanning for iOS: settle, hold and de-duplicate what VisionKit's live text scanner reads. - touyou/ToreScan"
+  },
   "https://graphica.touyou.dev": {
     "title": "GRAPHICA — ことばから生まれるジェネラティブアート",
     "image": "https://graphica.touyou.dev/opengraph-image.png",
