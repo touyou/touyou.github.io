@@ -47,6 +47,8 @@ export type GShots = Record<
       | "duoClosedDetail"
       | "macGallery"
       | "macDetail"
+      | "macCreate"
+      | "macDetail2"
       | "visionGallery"
       | "visionDetail",
       string
@@ -179,15 +181,21 @@ export function Chips({ items, size, accent, color = G.acid }: { items: string[]
   );
 }
 
+/** Mac の英語は 4 枚（英語の作品で撮り直した版）。日本語はいまの 2 枚のまま */
+export function macCount(lang: Lang) {
+  return lang === "en" ? MAC_EN.count : FRAME.mac.count;
+}
+
 export function GraphicaStoreStrip({ device, lang, shots, bezels = {} }: { device: GDevice; lang: Lang; shots: GShots; bezels?: Bezels }) {
-  const { w, h, count } = FRAME[device];
+  const { w, h } = FRAME[device];
+  const count = device === "mac" ? macCount(lang) : FRAME[device].count;
   const t = COPY[lang];
   return (
     <div data-store-strip={`${w}x${h}x${count}`} lang={lang} className="relative overflow-hidden antialiased [&_*]:!animate-none [&_*]:!transition-none" style={{ width: w * count, height: h, background: G.void }}>
       <StoreStyle />
       {device === "iphone" && <IphoneScene t={t} shots={shots} />}
       {(device === "ipad" || device === "duoInner") && <LandscapeScene device={device} t={t} shots={shots} bezels={bezels} />}
-      {device === "mac" && <MacScene t={t} shots={shots} />}
+      {device === "mac" && (lang === "en" ? <MacSceneEn shots={shots} /> : <MacScene t={t} shots={shots} />)}
       {device === "vision" && <VisionScene t={t} shots={shots} />}
     </div>
   );
@@ -376,6 +384,84 @@ function MacScene({ t, shots }: { t: Copy; shots: GShots }) {
       </Place>
       <Place x={W + 290} y={200} z={10}>
         <MacWindow src={shots.macDetail!} width={860} crop={MAC_CROP.detail} aspect={MAC_ASPECT} />
+      </Place>
+    </>
+  );
+}
+
+/**
+ * Mac の英語の 4 枚。米国の Mac の検索から来る人向けに、英語の作品で撮り直した画面を使い、
+ * 一言は短い英語にする。構図は 1・2 枚目がいまの画像のまま、3・4 枚目は同じ文法で足した。
+ */
+const MAC_EN = {
+  count: 4,
+  lead: ["Type a sentence.", "Get a living shader."],
+  create: { eyebrow: "Create", title: ["Write one line.", "Press Generate."] },
+  mac: { eyebrow: "Made for Mac", title: ["Big screen.", "Real shortcuts."] },
+  shortcuts: [
+    ["New Work", "⌘N"],
+    ["Generate", "⌘↩"],
+    ["Publish", "⇧⌘↩"],
+    ["Search Gallery", "⌘F"],
+    ["Refresh", "⌘R"],
+  ],
+} as const;
+
+function ShortcutCard({ width, size }: { width: number; size: number }) {
+  return (
+    <div className="overflow-hidden rounded-[0.9em] border border-white/10 bg-[#0c0d12]/90 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)] backdrop-blur" style={{ width, fontSize: size }}>
+      <div className={`border-b border-white/10 px-[1em] py-[0.6em] text-white/45 ${MONO}`}>Keyboard</div>
+      <div className="px-[1em] py-[0.5em]">
+        {MAC_EN.shortcuts.map(([label, keys]) => (
+          <div key={label} className={`flex items-center justify-between py-[0.45em] ${BODY}`} style={{ color: G.paper }}>
+            <span>{label}</span>
+            <span className={`rounded-[0.35em] border border-white/15 px-[0.5em] py-[0.1em] ${MONO}`} style={{ color: G.acid }}>
+              {keys}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MacSceneEn({ shots }: { shots: GShots }) {
+  const W = FRAME.mac.w;
+  const c = MAC_EN;
+  return (
+    <>
+      <Bokeh width={W * c.count} height={900} lights={lightsFor(W, c.count, 2)} scale={1.6} density={0.55} seed={5} />
+
+      {/* 1. いまの画像の構図: ウィンドウが右上、ワードマークと一言が左下 */}
+      <Place x={514} y={89} z={10}>
+        <MacWindow src={shots.macGallery!} width={800} crop={MAC_CROP.gallery} aspect={MAC_ASPECT} />
+      </Place>
+      <Place x={81} y={680} z={30}>
+        <Wordmark size={46} />
+      </Place>
+      <Lead x={81} y={748} size={30} lines={[...c.lead]} />
+
+      {/* 2. いまの画像の構図: 一言が上の中央、作品の詳細（英語のプロンプト）が中央 */}
+      <Place x={W} y={132} w={W} z={30} className="flex justify-center">
+        <Kicker size={30}>Generative art, from words</Kicker>
+      </Place>
+      <Place x={W + 290} y={200} z={10}>
+        <MacWindow src={shots.macDetail!} width={860} crop={MAC_CROP.detail} aspect={MAC_ASPECT} />
+      </Place>
+
+      {/* 3. Create: 見出しが左、Create のウィンドウが右 */}
+      <SceneTitle x={2 * W + 80} y={300} w={460} eyebrow={c.create.eyebrow} title={[...c.create.title]} size={44} />
+      <Place x={2 * W + 520} y={150} rotate={2} z={10}>
+        <MacWindow src={shots.macCreate!} width={860} crop={{ w: 1, h: 1 }} aspect={1000 / 620} />
+      </Place>
+
+      {/* 4. Mac ならでは: 大きな画面の作品とキーボードショートカット */}
+      <SceneTitle x={3 * W + 80} y={96} w={560} eyebrow={c.mac.eyebrow} title={[...c.mac.title]} size={44} />
+      <Place x={3 * W + 470} y={150} rotate={-2} z={10}>
+        <MacWindow src={shots.macDetail2!} width={900} crop={MAC_CROP.detail} aspect={MAC_ASPECT} />
+      </Place>
+      <Place x={3 * W + 90} y={400} rotate={-2} z={20}>
+        <ShortcutCard width={430} size={22} />
       </Place>
     </>
   );
