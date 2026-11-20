@@ -30,6 +30,8 @@ const FILES: Record<keyof GShots, string> = {
   duoClosedDetail: "duo-closed/{lang}/02-detail.png",
   macGallery: "mac-window/{lang}/01-gallery.png",
   macDetail: "mac-window/{lang}/02-detail.png",
+  macCreate: "mac-window/{lang}/03-create.png",
+  macDetail2: "mac-window/{lang}/04-detail-second.png",
   visionGallery: "vision/{lang}/01-gallery.png",
   visionDetail: "vision/{lang}/03-space.png",
 };
@@ -56,7 +58,11 @@ export default async function GraphicaStorePage({ searchParams }: { searchParams
   const shots = Object.fromEntries(
     Object.entries(FILES).map(([key, file]) => [key, `/store-shots/graphica/${file.replace("{lang}", lang)}`]),
   ) as GShots;
-  const needed = Object.entries(shots).filter(([key]) => NEEDS[device].some((prefix) => key.startsWith(prefix)));
+  // Mac の 3・4 枚目（Create と 2 つ目の詳細）は英語の帯だけが使う
+  const macEnOnly = ["macCreate", "macDetail2"];
+  const needed = Object.entries(shots).filter(
+    ([key]) => NEEDS[device].some((prefix) => key.startsWith(prefix)) && !(lang === "ja" && macEnOnly.includes(key)),
+  );
   const missing = needed.map(([, src]) => src).filter((src) => !existsSync(path.join(process.cwd(), "public", src)));
   if (missing.length > 0) {
     return (
