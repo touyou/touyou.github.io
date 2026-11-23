@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
 import { FFIcon } from "@/components/ffmultiplier/FFIcon";
 import { GameDemo } from "@/components/ffmultiplier/GameDemo";
 import { FFCard, FFHeading, FFNav, FFPage, GOOGLE_PLAY_URL, HEADING_FONT, PRIVACY_URL, Section, StoreButton, SUPPORT_URL } from "@/components/ffmultiplier/lp";
@@ -15,6 +15,19 @@ import { cn } from "@/lib/utils";
  * 遊び方・点数・ランキングの説明は、アプリの実装（GameViewModel.swift / RankingService.swift / ScoreStore.swift など）に合わせる。
  * 「FF」は 16 進数の 0xFF のこと。ゲームの決まりを変えたら、ここと components/ffmultiplier/hex.ts も直す。
  */
+
+const faq: FaqItem[] = [
+  {
+    q: "どうやって遊びますか？",
+    a: "表示された 2 つの数を掛けた答えを、16 進数で入力して「DONE」を押します。制限時間は 60 秒。1 桁の答えの前に 0 は付けません（2 × 3 は「6」）。",
+  },
+  {
+    q: "点数はどう決まりますか？",
+    a: "正解で 10 点、間違えると 5 点減ります。5 問続けて正解するごとに 1 問の点が 5 点ずつ増え、いちばん多くて 1 問 25 点になります。",
+  },
+  { q: "広告を消せますか？", a: "広告の収益で無料にしているため、消す方法はありません。アプリ内課金もありません。" },
+  { q: "Android でも遊べますか？", a: "遊べます。Google Play で配信しています（Android 7.0 以降）。" },
+];
 
 export const metadata: Metadata = {
   title: "FFMultiplier — 16進数の掛け算ゲーム",
@@ -50,7 +63,7 @@ export default function FFMultiplierPage() {
         <StoreButton size="sm">入手</StoreButton>
       </FFNav>
 
-      <main className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー。App Store のスクリーンショットと同じ FFGreen の地にする */}
         <section className="bg-[#85BF5D] text-[#111111]">
           <div className="mx-auto grid w-full max-w-5xl items-center gap-14 px-6 pb-20 pt-14 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">
@@ -138,10 +151,21 @@ export default function FFMultiplierPage() {
           </div>
         </Section>
 
+        <Section>
+          <FFHeading title={["挑む前に、", "ルールの確認を。"]} />
+          <Faq items={faq} moreHref={SUPPORT_URL} />
+        </Section>
+
+        <Section>
+          <MakerNote contactHref={SUPPORT_URL}>
+            個人で作っているゲームです。ランキングの上のほうで待っています。もっと遊びやすくなる案があれば、気軽に送ってください。
+          </MakerNote>
+        </Section>
+
         <section className="flex flex-col items-center gap-6 bg-[#111111] px-6 py-24 text-center text-[#F9F8F5]">
           <FFIcon className="h-20 w-20" />
           <h2 className={cn("text-[clamp(28px,5vw,40px)] font-bold", HEADING_FONT)}>
-            <Phrases phrases={["FFMultiplier は", "無料です。"]} />
+            <Phrases phrases={["次のハイスコアは、", "あなたの番。"]} />
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
             <StoreButton variant="green">App Store で入手</StoreButton>
@@ -149,7 +173,7 @@ export default function FFMultiplierPage() {
               Google Play で入手
             </StoreButton>
           </div>
-          <span className="text-[13px] text-neutral-400">広告が表示されます・iOS 18 以降 / Android 7.0 以降</span>
+          <span className="text-[13px] text-neutral-400">無料・広告が表示されます・iOS 18 以降 / Android 7.0 以降</span>
         </section>
       </main>
 

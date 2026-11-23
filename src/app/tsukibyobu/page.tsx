@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SkipLink } from "@/components/app-lp";
 import { TsukibyobuIcon } from "@/components/tsukibyobu/TsukibyobuIcon";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +40,13 @@ export const metadata: Metadata = {
     images: ["https://www.touyou.dev/og/tsukibyobu.png"],
   },
 };
+
+const faq: FaqItem[] = [
+  { q: "iPhone Duo でなくても使えますか？", a: "使えます。ひらく角度を読めない iPhone では、画面の下のスライダーで月をひらきます。" },
+  { q: "どうして、閉じると暗くなるのですか？", a: "閉じた姿が朔（新月）にあたるからです。真っ暗にはならず、星がいちばん多い夜になり、月は地球照でうっすら輪郭だけが残ります。" },
+  { q: "月に触れると、何が出ますか？", a: "そのときの月相にちなんだ話がひとつ。角度を変えると、別の話に変わります。" },
+  { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。" },
+];
 
 const places = [
   { src: "/tsukibyobu/places/fuji-autumn.jpg", name: "富士と湖", note: "秋" },
@@ -137,6 +144,7 @@ function Painting({ src, alt, name, note }: { src: string; alt: string; name: st
 export default function TsukibyobuPage() {
   return (
     <div className="min-h-screen bg-[#0B0C18] font-['Hiragino_Mincho_ProN','Yu_Mincho','YuMincho','Noto_Serif_JP',serif] text-[#ECE9DF] antialiased [word-break:auto-phrase]">
+      <SkipLink />
       <header className="sticky top-0 z-20 border-b border-white/5 bg-[#0B0C18]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-12 w-full max-w-5xl items-center justify-between px-6">
           <a href="/tsukibyobu" className="flex items-center gap-2 text-[15px] tracking-[0.08em]">
@@ -155,7 +163,7 @@ export default function TsukibyobuPage() {
         </div>
       </header>
 
-      <main className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 px-6 pb-20 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -308,11 +316,30 @@ export default function TsukibyobuPage() {
           </a>
         </Section>
 
+        <GoldRule />
+
+        <Section>
+          <Heading title={["夜をひらく前に、", "すこしだけ。"]} />
+          <div className="font-sans">
+            <Faq items={faq} moreHref={SUPPORT_URL} dark accentClassName="text-[#C9A55A]" />
+          </div>
+        </Section>
+
+        <GoldRule />
+
+        <Section className="font-sans">
+          <MakerNote contactHref={SUPPORT_URL} dark accentClassName="text-[#C9A55A]">
+            ひとりで描いて、ひとりで作っています。お気に入りの夜が見つかったら、どの景色と季節だったか、ぜひ教えてください。
+          </MakerNote>
+        </Section>
+
         <section className="flex flex-col items-center gap-6 border-t border-white/5 px-6 py-24 text-center">
           <TsukibyobuIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(26px,4.6vw,38px)] font-semibold tracking-[0.06em]">月屏風は無料です。</h2>
+          <h2 className="text-[clamp(26px,4.6vw,38px)] font-semibold tracking-[0.06em]">
+            <Phrases phrases={["今夜の月を、", "てのひらに。"]} />
+          </h2>
           <StoreLink />
-          <span className="font-sans text-[13px] text-[#8E8BA0]">iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
+          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
         </section>
       </main>
 

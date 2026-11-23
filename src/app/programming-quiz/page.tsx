@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
 import { Card, IconBadge, QuizNav, QuizPage, Section, SectionHeading, StoreButton } from "@/components/programming-quiz/lp";
 import { QuizDemo } from "@/components/programming-quiz/QuizDemo";
 import { QuizIcon } from "@/components/programming-quiz/QuizIcon";
@@ -25,6 +25,19 @@ import { AiProgress, AiSection, IpadHome, ShortcutTiles } from "@/components/pro
  * 機能と文言はアプリの実装（Quiz/Models・Quiz/Views・Quiz/Intents）に合わせる。機能を変えたらここも直す。
  * 問題はオリジナルだが、ページに載せるのは体験版の 3 問だけにする。
  */
+
+const faq: FaqItem[] = [
+  {
+    q: "どんな問題が出ますか？",
+    a: "プログラミング知識編・iPhoneアプリ開発編・アルゴリズム編の 3 択クイズです。選んだジャンルの問題が、毎回順番を入れ替えて出題されます。",
+  },
+  {
+    q: "「AIにおまかせ出題」は、どの端末で使えますか？",
+    a: "Apple Intelligence に対応した端末で、Apple Intelligence をオンにすると使えます。AI の問題は自動で作るため、誤りを含むことがあります。",
+  },
+  { q: "料金はかかりますか？", a: "無料です。ホーム画面の下に広告が表示されます。アプリ内課金はありません。" },
+  { q: "成績は記録されますか？", a: "記録されません。結果はその場で表示するだけで、アプリを閉じると残りません。" },
+];
 
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id1089599534";
 const SUPPORT_URL = "/programming-quiz/support";
@@ -75,7 +88,7 @@ export default function ProgrammingQuizPage() {
         </StoreButton>
       </QuizNav>
 
-      <main className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー。右（スマートフォンでは下）の iPhone はその場で解ける体験版 */}
         <section className="mx-auto grid w-full max-w-5xl items-center gap-14 px-5 pb-16 pt-12 sm:pt-16 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:pb-24">
           <div className="flex flex-col items-center gap-7 text-center lg:items-start lg:text-left">
@@ -225,14 +238,25 @@ export default function ProgrammingQuizPage() {
           </a>
         </Section>
 
+        <Section>
+          <SectionHeading title={["解きはじめる前に", "よくある質問"]} />
+          <Faq items={faq} moreHref={SUPPORT_URL} accentClassName="font-semibold text-[#5856D6]" />
+        </Section>
+
+        <Section>
+          <MakerNote contactHref={SUPPORT_URL} accentClassName="font-semibold text-[#5856D6]">
+            個人で作っているアプリです。答えが怪しい問題や、出してほしいテーマがあれば、気軽に送ってください。
+          </MakerNote>
+        </Section>
+
         <section className="px-5 pb-20">
           <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-6 rounded-[32px] bg-white px-6 py-16 text-center">
             <QuizIcon className="h-20 w-20" />
             <h2 className="text-[clamp(22px,4.6vw,40px)] font-extrabold tracking-tight">
-              <Phrases phrases={["Programming Quiz は", "無料です"]} />
+              <Phrases phrases={["すきま時間に、", "一問ずつ"]} />
             </h2>
             <StoreButton href={APP_STORE_URL}>App Store で入手</StoreButton>
-            <span className="text-[13px] text-neutral-500">iOS 26・iPadOS 26 以降</span>
+            <span className="text-[13px] text-neutral-500">無料・iOS 26・iPadOS 26 以降</span>
           </div>
         </section>
       </main>
