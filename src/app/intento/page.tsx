@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AppNav, AppPage, Band, Heading, Phrases, PillLink } from "@/components/app-lp";
+import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { Surfaces } from "@/components/intento/Surfaces";
 import { VoiceDemo } from "@/components/intento/VoiceDemo";
@@ -16,6 +16,13 @@ import { VoiceDemo } from "@/components/intento/VoiceDemo";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/intento/id6788623037";
 const SUPPORT_URL = "/intento/support";
 const PRIVACY_URL = "/intento/privacy";
+
+const faq: FaqItem[] = [
+  { q: "Siri からどう使いますか？", a: "「Intento でやることを追加」「Intento で〇〇を完了」のように話しかけてください。〇〇にはやることの名前をそのまま入れられます。" },
+  { q: "ショートカットでも使えますか？", a: "使えます。ショートカット App で Intento を探すと、追加・完了・検索など 25 種類のアクションが並んでいます。" },
+  { q: "ほかのデバイスと同期されますか？", a: "同じ Apple Account でサインインした iPhone・iPad・Mac・Apple Watch・Apple Vision Pro の間で、iCloud を通して同期されます。" },
+  { q: "料金はかかりますか？", a: "Intento は無料です。アプリ内課金もありません。" },
+];
 
 export const metadata: Metadata = {
   title: "Intento — アプリを開かなくても使えるやることリスト",
@@ -54,7 +61,7 @@ export default function IntentoPage() {
         </PillLink>
       </AppNav>
 
-      <main className="flex flex-col">
+      <main id="main" className="flex flex-col">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -138,11 +145,24 @@ export default function IntentoPage() {
           </a>
         </Band>
 
+        <Band tone="gray">
+          <Heading title={["話しかける前に、", "少しだけ。"]} />
+          <Faq items={faq} moreHref={SUPPORT_URL} />
+        </Band>
+
+        <Band>
+          <MakerNote contactHref={SUPPORT_URL}>
+            個人で作っているアプリです。「こう話しかけたら通じなかった」という言い回しがあれば、ぜひ送ってください。通じるように直していきます。
+          </MakerNote>
+        </Band>
+
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <IntentoIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Intento は無料です。</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">
+            <Phrases phrases={["思いついたら、", "話しかけるだけ。"]} />
+          </h2>
           <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
-          <span className="text-[13px] text-neutral-500">iOS 27・iPadOS 27・macOS 27・watchOS 27・visionOS 27 以降</span>
+          <span className="text-[13px] text-neutral-500">無料・iOS 27・iPadOS 27・macOS 27・watchOS 27・visionOS 27 以降</span>
         </section>
       </main>
 

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -14,6 +16,7 @@ export const PAGE_GRAY = "#F5F5F7";
 export function AppPage({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-white font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [word-break:auto-phrase]">
+      <SkipLink />
       {children}
     </div>
   );
@@ -112,6 +115,70 @@ export function PillLink({ href, children, size = "lg" }: { href: string; childr
   );
 }
 
+/** キーボードで来た人が、貼り付いたナビを飛ばして本文へ移れるリンク。フォーカスが来たときだけ見える。行き先は各ページの <main id="main"> */
+export function SkipLink() {
+  return (
+    <a
+      href="#main"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-2 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[#1d1d1f] focus:shadow-lg"
+    >
+      本文へ移動
+    </a>
+  );
+}
+
+export type FaqItem = { q: string; a: ReactNode };
+
+/**
+ * 入れる前に気になりそうなことだけを数問。残りはサポートのページに任せ、同じ答えを 2 か所で育てない。
+ * 見出しは各ページの書体で付けるので、ここは問いと答えの並びだけ。
+ */
+export function Faq({ items, moreHref, dark = false, accentClassName }: { items: FaqItem[]; moreHref: string; dark?: boolean; accentClassName?: string }) {
+  return (
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
+      <div className={cn("border-t", dark ? "border-white/10" : "border-black/10")}>
+        {items.map((item) => (
+          <details key={item.q} className={cn("group border-b", dark ? "border-white/10" : "border-black/10")}>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-left text-[17px] font-semibold [&::-webkit-details-marker]:hidden">
+              {item.q}
+              <span aria-hidden="true" className={cn("shrink-0 text-xl font-light transition-transform group-open:rotate-45", dark ? "text-white/50" : "text-neutral-400")}>
+                +
+              </span>
+            </summary>
+            <div className={cn("pb-6 text-[15px] leading-[1.9]", dark ? "text-white/65" : "text-neutral-600")}>{item.a}</div>
+          </details>
+        ))}
+      </div>
+      <a href={moreHref} className={cn("self-center text-[15px] hover:underline", accentClassName ?? (dark ? "text-white" : "text-[#0066CC]"))}>
+        そのほかの質問はサポートへ ›
+      </a>
+    </div>
+  );
+}
+
+/** つくった人の小さな章。個人で作っていることと、声の届け先を置く */
+export function MakerNote({ children, contactHref, dark = false, accentClassName }: { children: ReactNode; contactHref: string; dark?: boolean; accentClassName?: string }) {
+  const link = cn("hover:underline", accentClassName ?? (dark ? "text-white" : "text-[#0066CC]"));
+  return (
+    <div className="mx-auto flex max-w-xl flex-col items-center gap-5 text-center">
+      <Image src="/avatar.jpg" alt="" width={72} height={72} className="h-[72px] w-[72px] rounded-full" />
+      <div className="flex flex-col gap-1">
+        <p className={cn("text-[13px] tracking-[0.1em]", dark ? "text-white/50" : "text-neutral-500")}>つくった人</p>
+        <p className="text-lg font-semibold">touyou</p>
+      </div>
+      <p className={cn("text-[15px] leading-[1.9]", dark ? "text-white/70" : "text-neutral-600")}>{children}</p>
+      <div className="flex gap-6 text-[15px]">
+        <a href={contactHref} className={link}>
+          感想・不具合を送る ›
+        </a>
+        <Link href="/" className={link}>
+          touyou.dev ›
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 /**
  * サポート・プライバシーポリシーのような文書ページの枠。
  * App Store の審査担当が確認する経路なので、装飾は見出しと本文の書体・色までに抑え、「見出し → 本文」が機械的に読める構造に保つ。
@@ -120,7 +187,7 @@ export function DocsShell({ nav, footer, children }: { nav: ReactNode; footer: R
   return (
     <AppPage>
       {nav}
-      <main className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-neutral-700 [&_a]:text-[#0066CC] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(32px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-[#1d1d1f] [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-[#1d1d1f] [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#1d1d1f] [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-[#1d1d1f] [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <main id="main" className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-neutral-700 [&_a]:text-[#0066CC] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(32px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-[#1d1d1f] [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-[#1d1d1f] [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#1d1d1f] [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-[#1d1d1f] [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
         {children}
       </main>
       <footer className="bg-[#F5F5F7]">

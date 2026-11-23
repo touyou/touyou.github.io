@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
 import { CheckitoutIcon } from "@/components/checkitout/CheckitoutIcon";
 import { CkBand, CkHeading, CkNav, CkPage, CkPillLink, CkTile, ColorBars } from "@/components/checkitout/lp";
 import { DarkScreen, MiniModeControls, MiniPad, MiniPadGrid, MiniRecordPanel, SoundRow } from "@/components/checkitout/mini-ui";
@@ -22,6 +22,13 @@ const APP_STORE_URL = "https://apps.apple.com/jp/app/id1209866956";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=dev.touyou.checkitoutandroid";
 const SUPPORT_URL = "/checkitout/support";
 const PRIVACY_URL = "/checkitout/privacy";
+
+const faq: FaqItem[] = [
+  { q: "録った音は、どこに保存されますか？", a: "お使いの端末の中にだけ保存されます。外へ送ることはありません。" },
+  { q: "最初から入っている音を消してしまいました", a: "アプリの中から戻す方法はありません。入れ直すと最初の状態に戻りますが、自分で録音した音もすべて消えます。" },
+  { q: "Android でも使えますか？", a: "使えます。Android 版を Google Play で公開しています。" },
+  { q: "料金はかかりますか？", a: "チェケラは無料です。アプリ内課金も広告もありません。" },
+];
 
 export const metadata: Metadata = {
   title: "チェケラ — すべての音が楽器になる音楽アプリ",
@@ -172,7 +179,7 @@ export default function CheckitoutPage() {
         </CkPillLink>
       </CkNav>
 
-      <main className="flex flex-col">
+      <main id="main" className="flex flex-col">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 overflow-hidden px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -298,10 +305,23 @@ export default function CheckitoutPage() {
           </Link>
         </CkBand>
 
+        <CkBand>
+          <CkHeading title={["鳴らす前に、", "ちょっとだけ。"]} />
+          <Faq items={faq} moreHref={SUPPORT_URL} dark accentClassName="text-[#4FC3F7]" />
+        </CkBand>
+
+        <CkBand tone="raised">
+          <MakerNote contactHref={SUPPORT_URL} dark accentClassName="text-[#4FC3F7]">
+            個人で作っているアプリです。おもしろい音がパッドに並んだら、どんな音を録ったのか、ぜひ聞かせてください。
+          </MakerNote>
+        </CkBand>
+
         <section id="get" className="flex scroll-mt-12 flex-col items-center gap-6 border-t border-white/[0.06] px-6 py-24 text-center">
           <CheckitoutIcon className="h-20 w-20 ring-1 ring-white/15" />
           <ColorBars />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">チェケラは無料です。</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">
+            <Phrases phrases={["いつもの音を、", "楽器に。"]} />
+          </h2>
           <div className="flex flex-wrap justify-center gap-3">
             <CkPillLink href={APP_STORE_URL} color="blue">
               App Store で入手
@@ -311,7 +331,7 @@ export default function CheckitoutPage() {
             </CkPillLink>
           </div>
           <span className="text-[13px] text-white/55">
-            <Phrases phrases={["iPhone・iPad", "（iOS 26・iPadOS 26 以降）", "/ Android"]} />
+            <Phrases phrases={["無料・", "iPhone・iPad", "（iOS 26・iPadOS 26 以降）", "/ Android"]} />
           </span>
         </section>
       </main>

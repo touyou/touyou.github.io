@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppNav, AppPage, Band, Heading, Phrases, PillLink, Tile } from "@/components/app-lp";
+import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, Tile } from "@/components/app-lp";
 import { dummyCards } from "@/components/toreta/dummy-cards";
 import { PhoneMockup } from "@/components/toreta/PhoneMockup";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
@@ -190,6 +190,21 @@ const privacyPoints = [
   ["公式サイトから直接読み込みます", "カードの情報と画像は、あなたの端末が読み込みます。開発者のサーバーは経由しません。"],
 ];
 
+const faq: FaqItem[] = [
+  {
+    q: "どのカードゲームで使えますか？",
+    a: "公式サイトにカードリストのページがあるゲームなら、その URL を貼ると一覧を読み取ります。サイトのつくりによっては取り込めないこともあります。",
+  },
+  {
+    q: "料金はかかりますか？",
+    a: "カードの記録・取り込み・カメラでの読み取りは無料です。Toreta Plus は買い切りで、定期的な支払いはありません。",
+  },
+  {
+    q: "カードの公式とは関係がありますか？",
+    a: "関係ありません。個人が開発しているアプリです。カードの情報と画像はアプリに含まれておらず、入力した公式サイトから、お使いの端末が読み込んで表示します。",
+  },
+];
+
 const plusFeatures = [
   ["好きな色を使う", "用意された色のほかに、自由な色をアクセントにできます。"],
   ["カードの絵から色を作る", "シリーズのカードの絵から、そのカードゲームに合う色を提案します。"],
@@ -212,7 +227,7 @@ export default function ToretaPage() {
         </PillLink>
       </AppNav>
 
-      <main className="flex flex-col">
+      <main id="main" className="flex flex-col">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 overflow-hidden px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -311,9 +326,22 @@ export default function ToretaPage() {
           </ul>
         </Band>
 
+        <Band tone="gray">
+          <Heading title={["集めはじめる前に、", "よく聞かれること。"]} />
+          <Faq items={faq} moreHref="/toreta/support" />
+        </Band>
+
+        <Band>
+          <MakerNote contactHref="/toreta/support">
+            個人で作っているアプリです。うまく取り込めないカードリストがあれば、その URL を送ってください。読み取れるように対応を検討します。
+          </MakerNote>
+        </Band>
+
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
           <ToretaIcon className="h-20 w-20" />
-          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Toreta は無料です。</h2>
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">
+            <Phrases phrases={["次の 1 パックを、", "もっと楽しみに。"]} />
+          </h2>
           <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
           <span className="text-[13px] text-neutral-500">無料（アプリ内課金あり）・iOS 27 以降</span>
         </section>

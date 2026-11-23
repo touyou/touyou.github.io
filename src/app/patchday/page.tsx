@@ -6,7 +6,10 @@ import {
   AppNav,
   AppPage,
   Band,
+  Faq,
+  type FaqItem,
   Heading,
+  MakerNote,
   Phrases,
   PillLink,
   Tile,
@@ -77,6 +80,26 @@ const features = [
   },
 ];
 
+const faq: FaqItem[] = [
+  {
+    q: "期限はどう決まりますか？",
+    a: "CISA KEV は CISA が示す期限を使います。JVN と NVD は公開日から深刻度ごとの日数（緊急 7 日・重要 14 日・警告 30 日・注意 90 日）で決めます。どちらも「設定」›「期限のルール」で社内のルールに合わせられます。",
+  },
+  {
+    q: "関係ない製品ばかりになりませんか？",
+    a: "詳細の「この製品の表示」から、その製品やベンダーをミュートできます。見たい製品をウォッチすれば、ウォッチしたものだけが並びます。",
+  },
+  {
+    q: "記録はほかの端末と同期されますか？",
+    a: "進み具合とメモは、同じ Apple アカウントでサインインした iPhone・iPad・Mac の間で iCloud を通して同期されます。ウォッチ・ミュートなどの表示の設定は端末ごとです。",
+  },
+  {
+    q: "Siri やショートカットから使えますか？",
+    a: "「Patchday で今週の期限」と話しかけると、期限が近い脆弱性を答えます。ショートカット App からは、進み具合の記録やメモの書き足しもできます。",
+  },
+];
+
+const SUPPORT_URL = "/patchday/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
 const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
 
@@ -98,7 +121,7 @@ export default function PatchdayPage() {
           入手
         </PillLink>
       </AppNav>
-      <main>
+      <main id="main">
         <Band className="items-center text-center">
           <PatchdayIcon className="h-28 w-28" />
           <h1 className="text-[clamp(36px,7vw,64px)] font-bold leading-[1.15] tracking-[-0.02em] [font-feature-settings:'palt']">
@@ -176,7 +199,42 @@ export default function PatchdayPage() {
             API but is not endorsed or certified by the NVD.
           </p>
         </Band>
+        <Band>
+          <Heading title={["導入の前に、", "よく聞かれること。"]} />
+          <Faq items={faq} moreHref={SUPPORT_URL} />
+        </Band>
+        <Band tone="gray">
+          <MakerNote contactHref={SUPPORT_URL}>
+            個人で作っているアプリです。チームの期限のルールや、追ってほしい製品があれば教えてください。
+          </MakerNote>
+        </Band>
+        <section className="flex flex-col items-center gap-6 px-6 py-24 text-center">
+          <PatchdayIcon className="h-20 w-20" />
+          <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">
+            <Phrases phrases={["次の期限を、", "落ち着いて。"]} />
+          </h2>
+          <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
+          <span className="text-[13px] text-neutral-500">iOS 27・iPadOS 27・macOS 27 以降</span>
+        </section>
       </main>
+      <footer className="bg-[#F5F5F7]">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 border-t border-black/10 px-6 py-8 text-xs leading-[1.8] text-neutral-500">
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link href={SUPPORT_URL} className="hover:text-neutral-900">
+              サポート
+            </Link>
+            <Link href="/patchday/privacy" className="hover:text-neutral-900">
+              プライバシーポリシー
+            </Link>
+            <Link href="/" className="hover:text-neutral-900">
+              touyou.dev
+            </Link>
+          </div>
+          <p>このページの画面は表示例です。表示される脆弱性は、情報源の更新によって変わります。</p>
+          <p>Apple、iPhone、iPad、Mac、Siri、iCloud、App Store は Apple Inc. の商標です。</p>
+          <p>© 2026 touyou</p>
+        </div>
+      </footer>
     </AppPage>
   );
 }

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Phrases } from "@/components/app-lp";
+import { Phrases, SkipLink } from "@/components/app-lp";
 import { cn } from "@/lib/utils";
 
 /**
@@ -21,6 +21,7 @@ export const PRIVACY_URL = "/ffmultiplier/privacy";
 export function FFPage({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#F9F8F5] font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#111111] antialiased [word-break:auto-phrase]">
+      <SkipLink />
       {children}
     </div>
   );

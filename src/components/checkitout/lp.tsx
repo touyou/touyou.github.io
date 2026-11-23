@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Phrases } from "@/components/app-lp";
+import { Phrases, SkipLink } from "@/components/app-lp";
 import { cn } from "@/lib/utils";
 
 import { APP_BACKGROUND, PAD_COLORS, type PadColor } from "./pads";
@@ -29,6 +29,7 @@ export function CkPage({ children }: { children: ReactNode }) {
       className="min-h-screen font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-white antialiased [word-break:auto-phrase]"
       style={{ backgroundColor: APP_BACKGROUND, backgroundImage: GRAIN }}
     >
+      <SkipLink />
       {children}
     </div>
   );
@@ -149,7 +150,7 @@ export function CkDocsShell({ nav, footer, children }: { nav: ReactNode; footer:
   return (
     <CkPage>
       {nav}
-      <main className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-white/75 [&_a]:text-[#4FC3F7] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(26px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-white [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-white [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <main id="main" className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-white/75 [&_a]:text-[#4FC3F7] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(26px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-white [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-white [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
         {children}
       </main>
       <footer className="border-t border-white/10 bg-black/40">

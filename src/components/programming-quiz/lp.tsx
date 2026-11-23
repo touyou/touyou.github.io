@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Phrases } from "@/components/app-lp";
+import { Phrases, SkipLink } from "@/components/app-lp";
 import { cn } from "@/lib/utils";
 
 import { QuizIcon } from "./QuizIcon";
@@ -18,6 +18,7 @@ export const GROUPED_BG = "#F2F2F7";
 export function QuizPage({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#F2F2F7] font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1C1C1E] antialiased [word-break:auto-phrase]">
+      <SkipLink />
       {children}
     </div>
   );
