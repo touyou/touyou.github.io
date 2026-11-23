@@ -11,14 +11,17 @@ import { cn } from "@/lib/utils";
 
 export { SafeAreaColor } from "./SafeAreaColor";
 
+/** 英語のページでは、共通の部品の決まり文句も英語にする */
+export type Lang = "ja" | "en";
+
 export const APP_BLUE = "#0071E3";
 export const PAGE_GRAY = "#F5F5F7";
 
 /** ページ全体。システムフォントにし、日本語を文節の切れ目で折り返す（auto-phrase 非対応のブラウザでは通常の折り返し） */
-export function AppPage({ children }: { children: ReactNode }) {
+export function AppPage({ children, lang = "ja" }: { children: ReactNode; lang?: Lang }) {
   return (
-    <div className="min-h-screen bg-white font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [word-break:auto-phrase]">
-      <SkipLink />
+    <div lang={lang} className="min-h-screen bg-white font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [word-break:auto-phrase]">
+      <SkipLink lang={lang} />
       {children}
     </div>
   );
@@ -123,6 +126,8 @@ export function PillLink({ href, children, size = "lg" }: { href: string; childr
  */
 const DEVICE_SHAPE = {
   iphone: { bezel: 2.6, screenRadius: 12.5 },
+  // 横向きの iPhone。枠の幅が縦向きの約 2.17 倍になるので、同じ見た目になるよう割合を縮める
+  "iphone-landscape": { bezel: 1.2, screenRadius: 5.75 },
   ipad: { bezel: 3.2, screenRadius: 2.4 },
 } as const;
 
@@ -145,14 +150,42 @@ export function DeviceFrame({ device, dark = false, className, children }: { dev
   );
 }
 
+export type Screen = { src: string; alt: string; caption: string; landscape?: boolean };
+
+/**
+ * 実機の画面を端末の枠に入れて横に並べる帯。幅に収まらないぶんは横にスクロールし、1 枚ずつ止まる。
+ * 帯そのものは画面の端まで使いたいので、Band の中ではなく section の間に置く。
+ */
+export function ScreenStrip({ screens, label, dark = false }: { screens: Screen[]; label: string; dark?: boolean }) {
+  return (
+    <div
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+      className="snap-x snap-mandatory overflow-x-auto outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0071E3] [&::-webkit-scrollbar]:hidden"
+    >
+      <ul className="mx-auto flex w-max items-end gap-5 px-6 pb-4 pt-2 sm:gap-7">
+        {screens.map((screen) => (
+          <li key={screen.src} className={cn("flex shrink-0 snap-center flex-col items-center gap-4", screen.landscape ? "w-[420px] sm:w-[460px]" : "w-[190px] sm:w-[212px]")}>
+            <DeviceFrame device={screen.landscape ? "iphone-landscape" : "iphone"} dark={dark} className="w-full">
+              <Image src={screen.src} alt={screen.alt} width={600} height={screen.landscape ? 276 : 1304} />
+            </DeviceFrame>
+            <span className={cn("text-[13px]", dark ? "text-white/55" : "text-neutral-500")}>{screen.caption}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /** キーボードで来た人が、貼り付いたナビを飛ばして本文へ移れるリンク。フォーカスが来たときだけ見える。行き先は各ページの <main id="main" tabIndex={-1} className="outline-none"> */
-export function SkipLink() {
+export function SkipLink({ lang = "ja" }: { lang?: Lang }) {
   return (
     <a
       href="#main"
       className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-2 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[#1d1d1f] focus:shadow-lg"
     >
-      本文へ移動
+      {lang === "en" ? "Skip to content" : "本文へ移動"}
     </a>
   );
 }
@@ -163,7 +196,19 @@ export type FaqItem = { q: string; a: ReactNode };
  * 入れる前に気になりそうなことだけを数問。残りはサポートのページに任せ、同じ答えを 2 か所で育てない。
  * 見出しは各ページの書体で付けるので、ここは問いと答えの並びだけ。
  */
-export function Faq({ items, moreHref, dark = false, accentClassName }: { items: FaqItem[]; moreHref: string; dark?: boolean; accentClassName?: string }) {
+export function Faq({
+  items,
+  moreHref,
+  dark = false,
+  accentClassName,
+  lang = "ja",
+}: {
+  items: FaqItem[];
+  moreHref: string;
+  dark?: boolean;
+  accentClassName?: string;
+  lang?: Lang;
+}) {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
       <div className={cn("border-t", dark ? "border-white/10" : "border-black/10")}>
@@ -180,26 +225,38 @@ export function Faq({ items, moreHref, dark = false, accentClassName }: { items:
         ))}
       </div>
       <a href={moreHref} className={cn("self-center text-[15px] hover:underline", accentClassName ?? (dark ? "text-white" : "text-[#0066CC]"))}>
-        そのほかの質問はサポートへ ›
+        {lang === "en" ? "More questions? Visit Support ›" : "そのほかの質問はサポートへ ›"}
       </a>
     </div>
   );
 }
 
 /** つくった人の小さな章。個人で作っていることと、声の届け先を置く */
-export function MakerNote({ children, contactHref, dark = false, accentClassName }: { children: ReactNode; contactHref: string; dark?: boolean; accentClassName?: string }) {
+export function MakerNote({
+  children,
+  contactHref,
+  dark = false,
+  accentClassName,
+  lang = "ja",
+}: {
+  children: ReactNode;
+  contactHref: string;
+  dark?: boolean;
+  accentClassName?: string;
+  lang?: Lang;
+}) {
   const link = cn("hover:underline", accentClassName ?? (dark ? "text-white" : "text-[#0066CC]"));
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center gap-5 text-center">
       <Image src="/avatar.jpg" alt="" width={72} height={72} className="h-[72px] w-[72px] rounded-full" />
       <div className="flex flex-col gap-1">
-        <p className={cn("text-[13px] tracking-[0.1em]", dark ? "text-white/50" : "text-neutral-500")}>つくった人</p>
+        <p className={cn("text-[13px] tracking-[0.1em]", dark ? "text-white/50" : "text-neutral-500")}>{lang === "en" ? "Made by" : "つくった人"}</p>
         <p className="text-lg font-semibold">touyou</p>
       </div>
       <p className={cn("text-[15px] leading-[1.9]", dark ? "text-white/70" : "text-neutral-600")}>{children}</p>
       <div className="flex gap-6 text-[15px]">
         <a href={contactHref} className={link}>
-          感想・不具合を送る ›
+          {lang === "en" ? "Send feedback ›" : "感想・不具合を送る ›"}
         </a>
         <Link href="/" className={link}>
           touyou.dev ›

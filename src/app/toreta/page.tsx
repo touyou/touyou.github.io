@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor, Tile } from "@/components/app-lp";
+import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor, type Screen, ScreenStrip, Tile } from "@/components/app-lp";
 import { dummyCards } from "@/components/toreta/dummy-cards";
 import { PhoneMockup } from "@/components/toreta/PhoneMockup";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
@@ -16,6 +16,14 @@ import { TradingCard } from "@/components/toreta/TradingCard";
 
 const SUPPORT_URL = "/toreta/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
+
+const screens: Screen[] = [
+  { src: "/toreta/screens/ja-01-series.webp", alt: "Toreta の画面：シリーズの一覧", caption: "シリーズ" },
+  { src: "/toreta/screens/ja-02-collection.webp", alt: "Toreta の画面：カードの一覧と集まり具合", caption: "コレクション" },
+  { src: "/toreta/screens/ja-03-card-detail.webp", alt: "Toreta の画面：カードの詳細と持っている枚数", caption: "カードの詳細" },
+  { src: "/toreta/screens/ja-04-trade.webp", alt: "Toreta の画面：トレードに出すカードの一覧", caption: "トレード" },
+  { src: "/toreta/screens/ja-05-deck.webp", alt: "Toreta の画面：デッキのカードと足りない枚数", caption: "デッキ" },
+];
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
@@ -270,6 +278,10 @@ export default function ToretaPage() {
             </div>
             <span className="text-xs text-neutral-400">カードを押すと、1 枚ずつ増えます</span>
           </div>
+        </section>
+
+        <section className="pb-24">
+          <ScreenStrip screens={screens} label="Toreta の画面" />
         </section>
 
         <Band tone="gray">

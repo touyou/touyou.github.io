@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor, type Screen, ScreenStrip } from "@/components/app-lp";
 import { Card, IconBadge, QuizNav, QuizPage, Section, SectionHeading, StoreButton } from "@/components/programming-quiz/lp";
 import { QuizDemo } from "@/components/programming-quiz/QuizDemo";
 import { QuizIcon } from "@/components/programming-quiz/QuizIcon";
@@ -42,6 +42,13 @@ const faq: FaqItem[] = [
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id1089599534";
 const SUPPORT_URL = "/programming-quiz/support";
 const PRIVACY_URL = "/programming-quiz/privacy";
+
+const screens: Screen[] = [
+  { src: "/programming-quiz/screens/ja-01-home.webp", alt: "Programming Quiz の画面：ジャンルを選ぶホーム", caption: "ジャンルを選ぶ" },
+  { src: "/programming-quiz/screens/ja-02-question.webp", alt: "Programming Quiz の画面：問題と選択肢", caption: "問題" },
+  { src: "/programming-quiz/screens/ja-03-answered.webp", alt: "Programming Quiz の画面：正解を選んだところ", caption: "答え合わせ" },
+  { src: "/programming-quiz/screens/ja-04-result.webp", alt: "Programming Quiz の画面：結果発表", caption: "結果" },
+];
 
 export const viewport: Viewport = { themeColor: "#F2F2F7" };
 
@@ -120,6 +127,10 @@ export default function ProgrammingQuizPage() {
             <QuizDemo />
             <span className="text-xs text-neutral-500">選択肢を押して、そのまま解けます</span>
           </div>
+        </section>
+
+        <section className="pb-8">
+          <ScreenStrip screens={screens} label="Programming Quiz の画面" />
         </section>
 
         <Section>
