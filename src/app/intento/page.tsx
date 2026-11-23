@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink } from "@/components/app-lp";
+import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { Surfaces } from "@/components/intento/Surfaces";
 import { VoiceDemo } from "@/components/intento/VoiceDemo";
@@ -23,6 +23,8 @@ const faq: FaqItem[] = [
   { q: "ほかのデバイスと同期されますか？", a: "同じ Apple Account でサインインした iPhone・iPad・Mac・Apple Watch・Apple Vision Pro の間で、iCloud を通して同期されます。" },
   { q: "料金はかかりますか？", a: "Intento は無料です。アプリ内課金もありません。" },
 ];
+
+export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export const metadata: Metadata = {
   title: "Intento — アプリを開かなくても使えるやることリスト",
@@ -49,6 +51,7 @@ export const metadata: Metadata = {
 export default function IntentoPage() {
   return (
     <AppPage>
+      <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
       <AppNav icon={<IntentoIcon className="h-6 w-6 shadow-none" />} name="Intento" home="/intento">
         <a href={SUPPORT_URL} className="hidden hover:text-neutral-900 sm:inline">
           サポート
@@ -116,13 +119,12 @@ export default function IntentoPage() {
             iPhone、iPad、Mac、Apple Watch、Apple Vision Pro に対応しています。iCloud で同期するので、どのデバイスにも同じリストがあります。
           </Heading>
           <div className="relative mx-auto w-full max-w-[440px]">
-            {/* 画面の角丸は実機に近い小さめの値にして、ステータスバーが欠けないようにする */}
-            <div className="rounded-[26px] bg-[#1d1d1f] p-3 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)]">
-              <Image src="/intento/ipad-list.jpg" alt="iPad の Intento の一覧画面" width={750} height={1000} className="w-full rounded-[12px]" />
-            </div>
-            <div className="absolute -bottom-6 -left-4 w-[38%] rounded-[28px] bg-[#1d1d1f] p-[6px] shadow-2xl sm:-left-20">
-              <Image src="/intento/iphone-list.jpg" alt="iPhone の Intento の一覧画面" width={460} height={1000} className="w-full rounded-[22px]" />
-            </div>
+            <DeviceFrame device="ipad">
+              <Image src="/intento/ipad-list.jpg" alt="iPad の Intento の一覧画面" width={750} height={1000} />
+            </DeviceFrame>
+            <DeviceFrame device="iphone" className="absolute -bottom-6 -left-2 w-[36%] sm:-left-20">
+              <Image src="/intento/iphone-list.jpg" alt="iPhone の Intento の一覧画面" width={460} height={1000} />
+            </DeviceFrame>
           </div>
         </Band>
 

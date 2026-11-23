@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Faq, type FaqItem, MakerNote, Phrases, SkipLink } from "@/components/app-lp";
+import { DeviceFrame, Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor, SkipLink } from "@/components/app-lp";
+import { DuoUnfold } from "@/components/tsukibyobu/DuoUnfold";
 import { TsukibyobuIcon } from "@/components/tsukibyobu/TsukibyobuIcon";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,8 @@ const SUPPORT_URL = "/tsukibyobu/support";
 const PRIVACY_URL = "/tsukibyobu/privacy";
 
 const GOLD = "#C9A55A";
+
+export const viewport: Viewport = { themeColor: "#0B0C18" };
 
 export const metadata: Metadata = {
   title: "月屏風 — 満ちては欠ける、てのひらの屏風",
@@ -145,6 +148,7 @@ export default function TsukibyobuPage() {
   return (
     <div className="min-h-screen bg-[#0B0C18] font-['Hiragino_Mincho_ProN','Yu_Mincho','YuMincho','Noto_Serif_JP',serif] text-[#ECE9DF] antialiased [word-break:auto-phrase]">
       <SkipLink />
+      <SafeAreaColor top="#0B0C18" />
       <header className="sticky top-0 z-20 border-b border-white/5 bg-[#0B0C18]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-12 w-full max-w-5xl items-center justify-between px-6">
           <a href="/tsukibyobu" className="flex items-center gap-2 text-[15px] tracking-[0.08em]">
@@ -200,30 +204,7 @@ export default function TsukibyobuPage() {
           <Heading title={["ひらく角度が、", "そのまま月に。"]}>
             折りたたみの iPhone では、ひらく角度がそのまま月の満ち欠けになります。少しひらけば三日月が、半ばで上弦が、まっすぐ広げれば望月がのぼります。閉じれば朔。星がいちばん多い夜になります。
           </Heading>
-          <div className="mx-auto grid w-full max-w-3xl grid-cols-[2fr_3fr] items-end gap-6 sm:gap-10">
-            <figure className="flex flex-col gap-3">
-              <Image
-                src="/tsukibyobu/duo-closed.webp"
-                alt="閉じた iPhone Duo。外の画面の月は地球照で輪郭だけが見える"
-                width={1200}
-                height={1672}
-                className="w-full"
-                sizes="(min-width: 640px) 290px, 40vw"
-              />
-              <figcaption className="text-center text-[13px] tracking-[0.1em] text-[#8E8BA0]">閉じれば、朔</figcaption>
-            </figure>
-            <figure className="flex flex-col gap-3">
-              <Image
-                src="/tsukibyobu/duo-open-full.webp"
-                alt="まっすぐひらいた iPhone Duo に、望月がのぼる"
-                width={2400}
-                height={1743}
-                className="w-full"
-                sizes="(min-width: 640px) 440px, 60vw"
-              />
-              <figcaption className="text-center text-[13px] tracking-[0.1em] text-[#8E8BA0]">ひらけば、望</figcaption>
-            </figure>
-          </div>
+          <DuoUnfold />
           <p className="mx-auto max-w-2xl text-center text-[15px] leading-[2] text-[#B9B6C8]">
             半分ひらいて机に立てれば、二枚の画面が二曲の屏風になります。折りたたみでない iPhone では、画面の下のスライダーで月をひらきます。
           </p>
@@ -237,17 +218,15 @@ export default function TsukibyobuPage() {
           </Heading>
           <div className="mx-auto grid w-full max-w-3xl grid-cols-[46fr_73fr] items-end gap-6 sm:gap-10">
             <figure className="flex flex-col gap-3">
-              {/* iPhone の端末枠の画像は無いので、角丸の縁だけを CSS で付ける */}
-              <div className="overflow-hidden rounded-[22px] border-[5px] border-[#26252c] bg-black sm:rounded-[34px] sm:border-[7px]">
+              <DeviceFrame device="iphone" dark>
                 <Image
                   src="/tsukibyobu/iphone-portrait-floor.webp"
                   alt="縦向きの iPhone。富士と湖の秋の屏風の下に黒漆の床がのび、絵が淡く映る"
                   width={1320}
                   height={2868}
-                  className="w-full"
                   sizes="(min-width: 640px) 270px, 38vw"
                 />
-              </div>
+              </DeviceFrame>
               <figcaption className="text-center text-[13px] tracking-[0.1em] text-[#8E8BA0]">縦の iPhone</figcaption>
             </figure>
             <figure className="flex flex-col gap-3">

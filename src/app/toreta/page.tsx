@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, Tile } from "@/components/app-lp";
+import { AppNav, AppPage, Band, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor, Tile } from "@/components/app-lp";
 import { dummyCards } from "@/components/toreta/dummy-cards";
 import { PhoneMockup } from "@/components/toreta/PhoneMockup";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
@@ -16,6 +16,9 @@ import { TradingCard } from "@/components/toreta/TradingCard";
 
 const SUPPORT_URL = "/toreta/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
+
+export const viewport: Viewport = { themeColor: "#ffffff" };
+
 export const metadata: Metadata = {
   title: "Toreta — 公式カードリストを、そのままコレクション帳に",
   description:
@@ -216,6 +219,7 @@ const plusFeatures = [
 export default function ToretaPage() {
   return (
     <AppPage>
+      <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
       <AppNav icon={<ToretaIcon className="h-6 w-6 shadow-none" />} name="Toreta" home="/toreta">
         <Link href="/toreta/support" className="hidden hover:text-neutral-900 sm:inline">
           サポート
