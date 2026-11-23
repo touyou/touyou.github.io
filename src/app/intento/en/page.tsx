@@ -66,7 +66,7 @@ export default function IntentoEnglishPage() {
   return (
     <AppPage lang="en">
       <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
-      <AppNav icon={<IntentoIcon className="h-6 w-6 shadow-none" />} name="Intento" home="/intento/en">
+      <AppNav icon={<IntentoIcon className="h-6 w-6 shadow-none" alt="Intento icon" />} name="Intento" home="/intento/en">
         <Link href="/intento" lang="ja" hrefLang="ja" className="hover:text-neutral-900">
           日本語
         </Link>
@@ -77,7 +77,7 @@ export default function IntentoEnglishPage() {
 
       <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         <section className="flex flex-col items-center gap-6 px-6 pb-16 pt-16 text-center sm:pt-24">
-          <IntentoIcon className="h-24 w-24 sm:h-28 sm:w-28" />
+          <IntentoIcon className="h-24 w-24 sm:h-28 sm:w-28" alt="Intento icon" />
           <p className="text-xl font-semibold text-neutral-500">Intento</p>
           <h1 className="max-w-3xl text-[clamp(34px,7vw,60px)] font-bold leading-[1.1] tracking-[-0.02em] [text-wrap:balance]">
             A todo list you don&apos;t have to open.
@@ -132,9 +132,7 @@ export default function IntentoEnglishPage() {
             <DeviceFrame device="ipad">
               <Image src="/intento/ipad-list-en.jpg" alt="Intento's todo list on iPad" width={750} height={1000} />
             </DeviceFrame>
-            <DeviceFrame device="iphone" className="absolute -bottom-6 -left-2 w-[36%] sm:-left-20">
-              <Image src="/intento/screens/en-01-list.webp" alt="Intento's todo list on iPhone" width={600} height={1304} />
-            </DeviceFrame>
+            <Image src="/intento/screens/en-01-list.webp" alt="Intento's todo list on iPhone" width={600} height={1224} className="absolute -bottom-6 -left-2 h-auto w-[38%] sm:-left-20" />
           </div>
         </Band>
 
@@ -169,7 +167,7 @@ export default function IntentoEnglishPage() {
         </Band>
 
         <section className="flex flex-col items-center gap-6 bg-[#F5F5F7] px-6 py-24 text-center">
-          <IntentoIcon className="h-20 w-20" />
+          <IntentoIcon className="h-20 w-20" alt="Intento icon" />
           <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Think of it. Say it.</h2>
           <PillLink href={APP_STORE_URL}>Download on the App Store</PillLink>
           <span className="text-[13px] text-neutral-500">Free · iOS 27, iPadOS 27, macOS 27, watchOS 27, visionOS 27 or later</span>

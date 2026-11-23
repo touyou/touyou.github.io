@@ -109,7 +109,7 @@ export default function PatchdayEnglishPage() {
   return (
     <AppPage lang="en">
       <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
-      <AppNav icon={<PatchdayIcon className="h-6 w-6 shadow-none" />} name="Patchday" home="/patchday/en">
+      <AppNav icon={<PatchdayIcon className="h-6 w-6 shadow-none" alt="Patchday icon" />} name="Patchday" home="/patchday/en">
         <Link href="/patchday" lang="ja" hrefLang="ja" className="hover:text-neutral-900">
           日本語
         </Link>
@@ -119,7 +119,7 @@ export default function PatchdayEnglishPage() {
       </AppNav>
       <main id="main" tabIndex={-1} className="outline-none">
         <Band className="items-center text-center">
-          <PatchdayIcon className="h-28 w-28" />
+          <PatchdayIcon className="h-28 w-28" alt="Patchday icon" />
           <h1 className="max-w-3xl text-[clamp(36px,7vw,64px)] font-bold leading-[1.1] tracking-[-0.02em] [text-wrap:balance]">
             Vulnerability deadlines, in your team&apos;s hands.
           </h1>
@@ -173,7 +173,7 @@ export default function PatchdayEnglishPage() {
           </MakerNote>
         </Band>
         <section className="flex flex-col items-center gap-6 px-6 py-24 text-center">
-          <PatchdayIcon className="h-20 w-20" />
+          <PatchdayIcon className="h-20 w-20" alt="Patchday icon" />
           <h2 className="text-[clamp(28px,5vw,40px)] font-bold tracking-tight">Meet the next deadline, calmly.</h2>
           <PillLink href={APP_STORE_URL}>Download on the App Store</PillLink>
           <span className="text-[13px] text-neutral-500">

@@ -129,7 +129,6 @@ export function PillLink({ href, children, size = "lg" }: { href: string; childr
 const DEVICE_SHAPE = {
   iphone: { bezel: 2.6, screenRadius: 12.5 },
   // 横向きの iPhone。枠の幅が縦向きの約 2.17 倍になるので、同じ見た目になるよう割合を縮める
-  "iphone-landscape": { bezel: 1.2, screenRadius: 5.75 },
   ipad: { bezel: 3.2, screenRadius: 2.4 },
 } as const;
 
@@ -169,9 +168,8 @@ export function ScreenStrip({ screens, label, dark = false }: { screens: Screen[
       <ul className="mx-auto flex w-max items-end gap-5 px-6 pb-4 pt-2 sm:gap-7">
         {screens.map((screen) => (
           <li key={screen.src} className={cn("flex shrink-0 snap-center flex-col items-center gap-4", screen.landscape ? "w-[420px] sm:w-[460px]" : "w-[190px] sm:w-[212px]")}>
-            <DeviceFrame device={screen.landscape ? "iphone-landscape" : "iphone"} dark={dark} className="w-full">
-              <Image src={screen.src} alt={screen.alt} width={screen.landscape ? 1400 : 600} height={screen.landscape ? 644 : 1304} />
-            </DeviceFrame>
+            {/* 本物の端末枠（Apple Design Resources）を焼き込んだ画像。画面の角は枠の穴で切ってあるので、角丸は実機と同じ曲線になる */}
+            <Image src={screen.src} alt={screen.alt} width={screen.landscape ? 1400 : 600} height={screen.landscape ? 686 : 1224} className="h-auto w-full" />
             <span className={cn("text-[13px]", dark ? "text-white/55" : "text-neutral-500")}>{screen.caption}</span>
           </li>
         ))}

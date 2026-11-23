@@ -286,7 +286,7 @@ function AppEntry({ app }: { app: PressApp }) {
             {app.screens.map(({ src, label }) => (
               <li key={src}>
                 <a href={src} download className="block transition hover:opacity-80">
-                  <Image src={src} alt={`${app.name} の画面：${label}`} width={46} height={100} className="h-[100px] w-[46px] rounded-md ring-1 ring-black/10" />
+                  <Image src={src} alt={`${app.name} の画面：${label}`} width={600} height={1224} className="h-[100px] w-auto" />
                 </a>
               </li>
             ))}
