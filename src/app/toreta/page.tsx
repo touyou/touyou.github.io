@@ -16,6 +16,7 @@ import { TradingCard } from "@/components/toreta/TradingCard";
 
 const SUPPORT_URL = "/toreta/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
+
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export const metadata: Metadata = {

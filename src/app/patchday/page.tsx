@@ -22,6 +22,8 @@ import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
  * Patchday（iOS / iPadOS / macOS アプリ）の紹介ページ。
  * 機能の説明はアプリの実装（Patchday リポジトリの docs/PLAN.md）に合わせる。機能を変えたらここも直す。
  */
+export const viewport: Viewport = { themeColor: "#ffffff" };
+
 export const metadata: Metadata = {
   title: "Patchday — 脆弱性の対応期限を、チームの手元に",
   description:
@@ -103,8 +105,6 @@ const faq: FaqItem[] = [
 
 const SUPPORT_URL = "/patchday/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
-
-export const viewport: Viewport = { themeColor: "#ffffff" };
 const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
 
 export default function PatchdayPage() {

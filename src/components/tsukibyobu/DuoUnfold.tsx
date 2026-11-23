@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * スクロールに合わせて iPhone Duo がひらき、月が満ちていく。
@@ -10,13 +10,6 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 const ANGLES = Array.from({ length: 17 }, (_, i) => 20 + i * 10);
 const MIN = ANGLES[0];
 const MAX = ANGLES[ANGLES.length - 1];
-
-const REDUCE = "(prefers-reduced-motion: reduce)";
-function subscribeMotion(onChange: () => void) {
-  const query = window.matchMedia(REDUCE);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
 
 function phaseName(angle: number) {
   if (angle < 60) return "三日月";
@@ -28,11 +21,9 @@ function phaseName(angle: number) {
 export function DuoUnfold() {
   const wrap = useRef<HTMLDivElement>(null);
   const [angle, setAngle] = useState(MAX);
-  // 動きを減らす設定と、サーバーで描くときは、ひらいた姿のまま止めておく
-  const animated = useSyncExternalStore(subscribeMotion, () => !window.matchMedia(REDUCE).matches, () => false);
-
   useEffect(() => {
-    if (!animated) return;
+    // 動きを減らす設定では、ひらいた姿のまま止めておく（高さと sticky も CSS の motion-safe で外れる）
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -54,7 +45,7 @@ export function DuoUnfold() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [animated]);
+  }, []);
 
   const shown = ANGLES.reduce((a, b) => (Math.abs(b - angle) < Math.abs(a - angle) ? b : a));
   const tilt = (180 - angle) / 2;
@@ -83,7 +74,6 @@ export function DuoUnfold() {
                     alt=""
                     fill
                     unoptimized
-                    sizes="320px"
                     className="object-cover"
                     style={{ opacity: a === shown ? 1 : 0 }}
                   />
@@ -102,14 +92,11 @@ export function DuoUnfold() {
   );
 
   return (
-    <div role="img" aria-label="iPhone Duo をひらいていくと、屏風の月が三日月から望月へ満ちていく" className="w-full">
-      {animated ? (
-        <div ref={wrap} className="relative h-[220vh]">
-          <div className="sticky top-12 flex h-[calc(100svh-3rem)] items-center justify-center">{device}</div>
-        </div>
-      ) : (
-        device
-      )}
+    // サーバーでも同じ高さで描き、読み込んだあとにページが伸びないようにする
+    <div role="img" aria-label="iPhone Duo をひらく角度に合わせて、屏風の月が三日月から望月へ満ちる" className="w-full">
+      <div ref={wrap} className="relative motion-safe:h-[220vh]">
+        <div className="flex items-center justify-center motion-safe:sticky motion-safe:top-12 motion-safe:h-[calc(100svh-3rem)]">{device}</div>
+      </div>
     </div>
   );
 }
