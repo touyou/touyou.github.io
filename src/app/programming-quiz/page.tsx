@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor } from "@/components/app-lp";
 import { Card, IconBadge, QuizNav, QuizPage, Section, SectionHeading, StoreButton } from "@/components/programming-quiz/lp";
 import { QuizDemo } from "@/components/programming-quiz/QuizDemo";
 import { QuizIcon } from "@/components/programming-quiz/QuizIcon";
@@ -43,6 +43,8 @@ const APP_STORE_URL = "https://apps.apple.com/jp/app/id1089599534";
 const SUPPORT_URL = "/programming-quiz/support";
 const PRIVACY_URL = "/programming-quiz/privacy";
 
+export const viewport: Viewport = { themeColor: "#F2F2F7" };
+
 export const metadata: Metadata = {
   title: "Programming Quiz — 3 択で試す、プログラミングの知識",
   description:
@@ -76,6 +78,7 @@ const SIRI_PHRASES = ["Programming Quizでクイズを始める", "Programming Q
 export default function ProgrammingQuizPage() {
   return (
     <QuizPage>
+      <SafeAreaColor top="#F2F2F7" />
       <QuizNav>
         <a href={SUPPORT_URL} className="hidden hover:text-neutral-900 sm:inline">
           サポート

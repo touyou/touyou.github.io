@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
  * どちらもネイティブの見た目を大事にしているアプリなので、Apple の製品ページに近い書体・余白・色にそろえる。
  */
 
+export { SafeAreaColor } from "./SafeAreaColor";
+
 export const APP_BLUE = "#0071E3";
 export const PAGE_GRAY = "#F5F5F7";
 
@@ -112,6 +114,34 @@ export function PillLink({ href, children, size = "lg" }: { href: string; childr
     >
       {children}
     </a>
+  );
+}
+
+/**
+ * 実機の画面写真を入れる端末の枠。太さと角丸を枠の幅に対する割合（cqw）で決め、どの大きさでも画面の角丸が枠と同心になるようにする。
+ * 画像は枠いっぱいに置く（画面の縦横比のまま）。
+ */
+const DEVICE_SHAPE = {
+  iphone: { bezel: 2.6, screenRadius: 12.5 },
+  ipad: { bezel: 3.2, screenRadius: 2.4 },
+} as const;
+
+export function DeviceFrame({ device, dark = false, className, children }: { device: keyof typeof DEVICE_SHAPE; dark?: boolean; className?: string; children: ReactNode }) {
+  const { bezel, screenRadius } = DEVICE_SHAPE[device];
+  return (
+    <div className={cn("[container-type:inline-size]", className)}>
+      <div
+        className={cn(
+          "bg-[#1d1d1f] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45),inset_0_0_0_1px_rgba(255,255,255,0.08)]",
+          dark && "ring-1 ring-white/15",
+        )}
+        style={{ padding: `${bezel}cqw`, borderRadius: `${bezel + screenRadius}cqw` }}
+      >
+        <div className="overflow-hidden bg-black [&_img]:block [&_img]:w-full" style={{ borderRadius: `${screenRadius}cqw` }}>
+          {children}
+        </div>
+      </div>
+    </div>
   );
 }
 

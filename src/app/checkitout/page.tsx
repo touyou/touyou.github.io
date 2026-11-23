@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor } from "@/components/app-lp";
 import { CheckitoutIcon } from "@/components/checkitout/CheckitoutIcon";
 import { CkBand, CkHeading, CkNav, CkPage, CkPillLink, CkTile, ColorBars } from "@/components/checkitout/lp";
 import { DarkScreen, MiniModeControls, MiniPad, MiniPadGrid, MiniRecordPanel, SoundRow } from "@/components/checkitout/mini-ui";
 import { PadDemo } from "@/components/checkitout/PadDemo";
-import type { PadColor } from "@/components/checkitout/pads";
+import { APP_BACKGROUND, type PadColor } from "@/components/checkitout/pads";
 import { cn } from "@/lib/utils";
 
 /**
@@ -29,6 +29,8 @@ const faq: FaqItem[] = [
   { q: "Android でも使えますか？", a: "使えます。Android 版を Google Play で公開しています。" },
   { q: "料金はかかりますか？", a: "チェケラは無料です。アプリ内課金も広告もありません。" },
 ];
+
+export const viewport: Viewport = { themeColor: APP_BACKGROUND };
 
 export const metadata: Metadata = {
   title: "チェケラ — すべての音が楽器になる音楽アプリ",
@@ -167,6 +169,7 @@ function DeviceFrame({ radius, bezel, children, className }: { radius: number; b
 export default function CheckitoutPage() {
   return (
     <CkPage>
+      <SafeAreaColor top={APP_BACKGROUND} bottom="#0f0f10" />
       <CkNav icon={<CheckitoutIcon className="h-6 w-6 shadow-none" />} name="チェケラ" home="/checkitout">
         <Link href={SUPPORT_URL} className="hidden sm:inline">
           サポート

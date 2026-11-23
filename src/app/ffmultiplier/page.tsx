@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Faq, type FaqItem, MakerNote, Phrases } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor } from "@/components/app-lp";
 import { FFIcon } from "@/components/ffmultiplier/FFIcon";
 import { GameDemo } from "@/components/ffmultiplier/GameDemo";
 import { FFCard, FFHeading, FFNav, FFPage, GOOGLE_PLAY_URL, HEADING_FONT, PRIVACY_URL, Section, StoreButton, SUPPORT_URL } from "@/components/ffmultiplier/lp";
@@ -29,6 +29,8 @@ const faq: FaqItem[] = [
   { q: "Android でも遊べますか？", a: "遊べます。Google Play で配信しています（Android 7.0 以降）。" },
 ];
 
+export const viewport: Viewport = { themeColor: "#F9F8F5" };
+
 export const metadata: Metadata = {
   title: "FFMultiplier — 16進数の掛け算ゲーム",
   description: "16 進数の掛け算に 60 秒で答えていくタイムアタックゲーム。16 進数での九九、覚えてみませんか？",
@@ -53,6 +55,7 @@ export const metadata: Metadata = {
 export default function FFMultiplierPage() {
   return (
     <FFPage>
+      <SafeAreaColor top="#F9F8F5" bottom="#111111" />
       <FFNav icon={<FFIcon className="h-6 w-6 shadow-none" />}>
         <a href={SUPPORT_URL} className="hidden hover:text-[#111111] sm:inline">
           サポート

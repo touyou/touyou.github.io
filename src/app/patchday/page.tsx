@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,12 +6,14 @@ import {
   AppNav,
   AppPage,
   Band,
+  DeviceFrame,
   Faq,
   type FaqItem,
   Heading,
   MakerNote,
   Phrases,
   PillLink,
+  SafeAreaColor,
   Tile,
 } from "@/components/app-lp";
 import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
@@ -101,11 +103,14 @@ const faq: FaqItem[] = [
 
 const SUPPORT_URL = "/patchday/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
+
+export const viewport: Viewport = { themeColor: "#ffffff" };
 const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
 
 export default function PatchdayPage() {
   return (
     <AppPage>
+      <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
       <AppNav
         icon={<PatchdayIcon className="h-6 w-6 shadow-none" />}
         name="Patchday"
@@ -173,15 +178,14 @@ export default function PatchdayPage() {
                 className="w-full"
               />
             </div>
-            <div className="absolute -bottom-8 -left-4 w-[28%] rounded-[28px] bg-[#1d1d1f] p-[6px] shadow-2xl sm:-left-16">
+            <DeviceFrame device="iphone" className="absolute -bottom-8 -left-2 w-[30%] sm:-left-16 sm:w-[28%]">
               <Image
                 src="/patchday/iphone-calendar.jpg"
                 alt="iPhone の Patchday のカレンダー"
                 width={920}
                 height={1998}
-                className="w-full rounded-[22px]"
               />
-            </div>
+            </DeviceFrame>
           </div>
         </Band>
         <Band tone="gray">
