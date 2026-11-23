@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor } from "@/components/app-lp";
+import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, Phrases, PillLink, SafeAreaColor, type Screen, ScreenStrip } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { Surfaces } from "@/components/intento/Surfaces";
 import { VoiceDemo } from "@/components/intento/VoiceDemo";
@@ -24,6 +24,14 @@ const faq: FaqItem[] = [
   { q: "料金はかかりますか？", a: "Intento は無料です。アプリ内課金もありません。" },
 ];
 
+const screens: Screen[] = [
+  { src: "/intento/screens/ja-01-list.webp", alt: "Intento の画面：やることの一覧", caption: "一覧" },
+  { src: "/intento/screens/ja-02-detail.webp", alt: "Intento の画面：やることの詳細", caption: "詳細" },
+  { src: "/intento/screens/ja-03-add.webp", alt: "Intento の画面：やることを追加する画面", caption: "追加" },
+  { src: "/intento/screens/ja-04-settings.webp", alt: "Intento の画面：設定", caption: "設定" },
+  { src: "/intento/screens/ja-05-lists.webp", alt: "Intento の画面：リストの一覧", caption: "リスト" },
+];
+
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export const metadata: Metadata = {
@@ -31,6 +39,7 @@ export const metadata: Metadata = {
   description:
     "やることの追加も、完了も、あと回しも、Siri に話しかければ終わります。ウィジェット、コントロールセンター、ロック画面、Apple Watch、Spotlight からも使えるやることリスト。",
   // 紹介画像は public/og/intento.png（ページの絵を 1200×630 で撮ったもの）
+  alternates: { languages: { ja: "https://www.touyou.dev/intento", en: "https://www.touyou.dev/intento/en" } },
   openGraph: {
     title: "Intento",
     description: "アプリを開かなくても使える、やることリスト。",
@@ -53,6 +62,9 @@ export default function IntentoPage() {
     <AppPage>
       <SafeAreaColor top="#ffffff" bottom="#F5F5F7" />
       <AppNav icon={<IntentoIcon className="h-6 w-6 shadow-none" />} name="Intento" home="/intento">
+        <Link href="/intento/en" lang="en" hrefLang="en" className="hover:text-neutral-900">
+          English
+        </Link>
         <a href={SUPPORT_URL} className="hidden hover:text-neutral-900 sm:inline">
           サポート
         </a>
@@ -86,6 +98,10 @@ export default function IntentoPage() {
             </div>
           </div>
           <VoiceDemo />
+        </section>
+
+        <section className="pb-24">
+          <ScreenStrip screens={screens} label="Intento の画面" />
         </section>
 
         <Band tone="gray">
@@ -177,6 +193,9 @@ export default function IntentoPage() {
             <a href={PRIVACY_URL} className="hover:text-neutral-900">
               プライバシーポリシー
             </a>
+            <Link href="/press" className="hover:text-neutral-900">
+              プレスキット
+            </Link>
             <Link href="/" className="hover:text-neutral-900">
               touyou.dev
             </Link>

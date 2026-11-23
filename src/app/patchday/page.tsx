@@ -14,6 +14,8 @@ import {
   Phrases,
   PillLink,
   SafeAreaColor,
+  type Screen,
+  ScreenStrip,
   Tile,
 } from "@/components/app-lp";
 import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
@@ -22,6 +24,14 @@ import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
  * Patchday（iOS / iPadOS / macOS アプリ）の紹介ページ。
  * 機能の説明はアプリの実装（Patchday リポジトリの docs/PLAN.md）に合わせる。機能を変えたらここも直す。
  */
+const screens: Screen[] = [
+  { src: "/patchday/screens/ja-01-calendar.webp", alt: "Patchday の画面：期限のカレンダー", caption: "カレンダー" },
+  { src: "/patchday/screens/ja-02-deadlines.webp", alt: "Patchday の画面：期限の一覧", caption: "期限" },
+  { src: "/patchday/screens/ja-03-detail.webp", alt: "Patchday の画面：脆弱性の詳細と進み具合", caption: "詳細" },
+  { src: "/patchday/screens/ja-04-new.webp", alt: "Patchday の画面：新着の一覧", caption: "新着" },
+  { src: "/patchday/screens/ja-05-settings.webp", alt: "Patchday の画面：表示と期限のルールの設定", caption: "設定" },
+];
+
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export const metadata: Metadata = {
@@ -29,6 +39,7 @@ export const metadata: Metadata = {
   description:
     "CISA KEV・JVN・NVD の脆弱性を対応期限のカレンダーで見て、アナウンスした・話し合えた、を記録できる iPhone・iPad・Mac アプリ。",
   // 紹介画像は public/og/patchday.png（/store/patchday-og の絵を 1200×630 で撮ったもの）
+  alternates: { languages: { ja: "https://www.touyou.dev/patchday", en: "https://www.touyou.dev/patchday/en" } },
   openGraph: {
     title: "Patchday",
     description: "脆弱性の対応期限を、チームの手元に。",
@@ -116,10 +127,13 @@ export default function PatchdayPage() {
         name="Patchday"
         home="/patchday"
       >
-        <Link href="/patchday/support" className="hover:text-neutral-900">
+        <Link href="/patchday/en" lang="en" hrefLang="en" className="hover:text-neutral-900">
+          English
+        </Link>
+        <Link href="/patchday/support" className="hidden hover:text-neutral-900 sm:inline">
           サポート
         </Link>
-        <Link href="/patchday/privacy" className="hover:text-neutral-900">
+        <Link href="/patchday/privacy" className="hidden hover:text-neutral-900 sm:inline">
           プライバシー
         </Link>
         <PillLink href={APP_STORE_URL} size="sm">
@@ -150,6 +164,9 @@ export default function PatchdayPage() {
             ）。
           </p>
         </Band>
+        <section className="pb-24">
+          <ScreenStrip screens={screens} label="Patchday の画面" />
+        </section>
         <Band tone="gray">
           <Heading title={["見るべきものを、", "期限の順に。"]} />
           <div className="grid gap-4 sm:grid-cols-2">
@@ -235,6 +252,9 @@ export default function PatchdayPage() {
             </Link>
             <Link href="/patchday/privacy" className="hover:text-neutral-900">
               プライバシーポリシー
+            </Link>
+            <Link href="/press" className="hover:text-neutral-900">
+              プレスキット
             </Link>
             <Link href="/" className="hover:text-neutral-900">
               touyou.dev
