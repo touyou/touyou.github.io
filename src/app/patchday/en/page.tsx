@@ -54,11 +54,11 @@ const features = [
   },
   {
     title: "Planned releases on the same calendar",
-    body: "Node.js security release pre-announcements, Patch Tuesday and Oracle Critical Patch Updates, marked separately from deadlines.",
+    body: "Node.js security release pre-announcements, Microsoft Patch Tuesday and Oracle Critical Patch Updates, marked separately from deadlines.",
   },
   {
     title: "Widgets and Shortcuts",
-    body: "This week's count on your Home Screen and Lock Screen. Ask Siri “What's due this week in Patchday”.",
+    body: "This week's count on your Home Screen and Lock Screen. Ask Siri “What's due this week in Patchday”, or record progress and add notes from Shortcuts.",
   },
 ];
 
@@ -77,7 +77,7 @@ const faq: FaqItem[] = [
   },
   {
     q: "Is it only for Japanese teams?",
-    a: "No. CISA KEV and the NVD are global, and the app is fully in English. JVN adds the advisories published in Japan.",
+    a: "No. CISA KEV and the NVD are global, and the app is available in English. JVN adds the advisories published in Japan.",
   },
 ];
 

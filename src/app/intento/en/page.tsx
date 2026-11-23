@@ -152,6 +152,9 @@ export default function IntentoEnglishPage() {
               </li>
             ))}
           </ul>
+          <a href={PRIVACY_URL} className="self-center text-[15px] text-[#0066CC] hover:underline">
+            Privacy Policy (Japanese) ›
+          </a>
         </Band>
 
         <Band tone="gray">

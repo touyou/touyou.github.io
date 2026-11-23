@@ -21,6 +21,8 @@ export const PAGE_GRAY = "#F5F5F7";
 export function AppPage({ children, lang = "ja" }: { children: ReactNode; lang?: Lang }) {
   return (
     <div lang={lang} className="min-h-screen bg-white font-[-apple-system,BlinkMacSystemFont,'Hiragino_Sans','Hiragino_Kaku_Gothic_ProN','Noto_Sans_JP',sans-serif] text-[#1d1d1f] antialiased [word-break:auto-phrase]">
+      {/* ルートの <html lang> は ja 固定なので、英語のページでは読み込んだ時点で書き換える */}
+      {lang !== "ja" && <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang=${JSON.stringify(lang)}` }} />}
       <SkipLink lang={lang} />
       {children}
     </div>
@@ -168,7 +170,7 @@ export function ScreenStrip({ screens, label, dark = false }: { screens: Screen[
         {screens.map((screen) => (
           <li key={screen.src} className={cn("flex shrink-0 snap-center flex-col items-center gap-4", screen.landscape ? "w-[420px] sm:w-[460px]" : "w-[190px] sm:w-[212px]")}>
             <DeviceFrame device={screen.landscape ? "iphone-landscape" : "iphone"} dark={dark} className="w-full">
-              <Image src={screen.src} alt={screen.alt} width={600} height={screen.landscape ? 276 : 1304} />
+              <Image src={screen.src} alt={screen.alt} width={screen.landscape ? 1400 : 600} height={screen.landscape ? 644 : 1304} />
             </DeviceFrame>
             <span className={cn("text-[13px]", dark ? "text-white/55" : "text-neutral-500")}>{screen.caption}</span>
           </li>

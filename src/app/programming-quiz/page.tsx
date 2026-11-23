@@ -284,6 +284,9 @@ export default function ProgrammingQuizPage() {
             <a href={PRIVACY_URL} className="hover:text-neutral-900">
               プライバシーポリシー
             </a>
+            <Link href="/press" className="hover:text-neutral-900">
+              プレスキット
+            </Link>
             <Link href="/" className="hover:text-neutral-900">
               touyou.dev
             </Link>

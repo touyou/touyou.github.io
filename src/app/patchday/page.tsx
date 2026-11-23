@@ -253,6 +253,9 @@ export default function PatchdayPage() {
             <Link href="/patchday/privacy" className="hover:text-neutral-900">
               プライバシーポリシー
             </Link>
+            <Link href="/press" className="hover:text-neutral-900">
+              プレスキット
+            </Link>
             <Link href="/" className="hover:text-neutral-900">
               touyou.dev
             </Link>

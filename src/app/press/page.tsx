@@ -30,12 +30,22 @@ type PressApp = {
   googlePlay?: string;
   keyVisual: { src: string; width: number; height: number };
   appIcon?: string;
-  screens?: string[];
+  screens?: { src: string; label: string }[];
 };
 
 const iconClass = "h-16 w-16";
+
+/** GRAPHICA の 2 つはここにアイコンの絵を置いていないので、公式のアイコンと取り違えない頭文字の印で代える */
+function InitialBadge({ letter }: { letter: string }) {
+  return (
+    <span aria-hidden="true" className="flex h-16 w-16 items-center justify-center rounded-[22%] bg-[#1d1d1f] text-2xl font-bold text-white">
+      {letter}
+    </span>
+  );
+}
 const og = (id: string) => ({ src: `/og/${id}.png`, width: 1200, height: 630 });
-const shots = (dir: string, files: string[]) => files.map((f) => `/${dir}/screens/${f}.webp`);
+/** files は [ファイル名, 画面の名前] の組。名前はダウンロードのリンクの読み上げに使う */
+const shots = (dir: string, files: [string, string][]) => files.map(([f, label]) => ({ src: `/${dir}/screens/${f}.webp`, label }));
 
 const apps: PressApp[] = [
   {
@@ -61,7 +71,14 @@ const apps: PressApp[] = [
     appStore: "https://apps.apple.com/jp/app/id6831397385",
     keyVisual: og("patchday"),
     appIcon: "/patchday/icon.png",
-    screens: shots("patchday", ["en-01-calendar", "en-02-deadlines", "en-03-detail", "ja-01-calendar", "ja-02-deadlines", "ja-03-detail"]),
+    screens: shots("patchday", [
+      ["en-01-calendar", "カレンダー（英語）"],
+      ["en-02-deadlines", "期限（英語）"],
+      ["en-03-detail", "詳細（英語）"],
+      ["ja-01-calendar", "カレンダー（日本語）"],
+      ["ja-02-deadlines", "期限（日本語）"],
+      ["ja-03-detail", "詳細（日本語）"],
+    ]),
   },
   {
     name: "Intento",
@@ -73,7 +90,14 @@ const apps: PressApp[] = [
     pageEn: "/intento/en",
     appStore: "https://apps.apple.com/jp/app/intento/id6788623037",
     keyVisual: og("intento"),
-    screens: shots("intento", ["en-01-list", "en-02-detail", "en-03-add", "ja-01-list", "ja-02-detail", "ja-03-add"]),
+    screens: shots("intento", [
+      ["en-01-list", "一覧（英語）"],
+      ["en-02-detail", "詳細（英語）"],
+      ["en-03-add", "追加（英語）"],
+      ["ja-01-list", "一覧（日本語）"],
+      ["ja-02-detail", "詳細（日本語）"],
+      ["ja-03-add", "追加（日本語）"],
+    ]),
   },
   {
     name: "Toreta",
@@ -84,11 +108,17 @@ const apps: PressApp[] = [
     page: "/toreta",
     appStore: "https://apps.apple.com/jp/app/id6820005190",
     keyVisual: og("toreta"),
-    screens: shots("toreta", ["ja-01-series", "ja-02-collection", "ja-03-card-detail", "ja-04-trade", "ja-05-deck"]),
+    screens: shots("toreta", [
+      ["ja-01-series", "シリーズ"],
+      ["ja-02-collection", "コレクション"],
+      ["ja-03-card-detail", "カードの詳細"],
+      ["ja-04-trade", "トレード"],
+      ["ja-05-deck", "デッキ"],
+    ]),
   },
   {
     name: "GRAPHICA",
-    icon: <Image src="/apps/graphica-art.jpg" alt="" width={64} height={64} className="h-16 w-16 rounded-[22%] object-cover" />,
+    icon: <InitialBadge letter="G" />,
     ja: "描きたい風景や質感を文章で書くと、AI がシェーダーにして作品になる、ジェネラティブアートの共有ギャラリー。",
     en: "A gallery of generative art made from words. Describe a scene or a texture, and AI turns it into a shader.",
     platforms: "Web・iPhone・iPad・Mac・Apple Vision Pro・Android",
@@ -97,7 +127,7 @@ const apps: PressApp[] = [
   },
   {
     name: "Graphica Playground",
-    icon: <Image src="/apps/playground-preview.jpg" alt="" width={64} height={64} className="h-16 w-16 rounded-[22%] object-cover" />,
+    icon: <InitialBadge letter="P" />,
     ja: "一文から Metal シェーダーを作り、その場で調整して、SwiftUI に貼れるコードとして持ち出せるアプリ。",
     en: "Describe it. Ship it. Make a Metal shader from a sentence, tune it, and take it out as code you can paste into SwiftUI.",
     platforms: "iPhone・iPad",
@@ -116,7 +146,11 @@ const apps: PressApp[] = [
     googlePlay: "https://play.google.com/store/apps/details?id=dev.touyou.checkitoutandroid",
     keyVisual: og("checkitout"),
     appIcon: "/checkitout/icon.png",
-    screens: shots("checkitout", ["ja-01-play", "ja-02-edit", "ja-03-record"]),
+    screens: shots("checkitout", [
+      ["ja-01-play", "演奏"],
+      ["ja-02-edit", "編集"],
+      ["ja-03-record", "録音"],
+    ]),
   },
   {
     name: "Programming Quiz",
@@ -127,7 +161,12 @@ const apps: PressApp[] = [
     page: "/programming-quiz",
     appStore: "https://apps.apple.com/jp/app/id1089599534",
     keyVisual: og("programming-quiz"),
-    screens: shots("programming-quiz", ["ja-01-home", "ja-02-question", "ja-03-answered", "ja-04-result"]),
+    screens: shots("programming-quiz", [
+      ["ja-01-home", "ジャンルを選ぶ"],
+      ["ja-02-question", "問題"],
+      ["ja-03-answered", "答え合わせ"],
+      ["ja-04-result", "結果"],
+    ]),
   },
   {
     name: "FFMultiplier",
@@ -147,6 +186,14 @@ export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export const metadata: Metadata = {
   title: "プレスキット / Press kit — touyou.dev",
+  openGraph: {
+    title: "プレスキット / Press kit — touyou.dev",
+    description: "touyou が個人で作っているアプリの紹介文・画像・リンク。",
+    url: "https://www.touyou.dev/press",
+    siteName: "touyou.dev",
+    locale: "ja_JP",
+    type: "website",
+  },
   description: "touyou が個人で作っているアプリの紹介文・画像・リンクをまとめたページです。Descriptions, images and links for apps made by touyou.",
 };
 
@@ -167,9 +214,13 @@ function AppEntry({ app }: { app: PressApp }) {
       <div className="flex items-start gap-5">
         <div className="shrink-0">{app.icon}</div>
         <div className="flex min-w-0 flex-col gap-1">
-          <h2 className="text-2xl font-bold tracking-tight">
+          <h2 className="flex flex-wrap items-baseline gap-x-2 text-2xl font-bold tracking-tight">
             {app.name}
-            {app.nameEn && <span lang="en" className="ml-2 text-base font-medium text-neutral-500">{app.nameEn}</span>}
+            {app.nameEn && (
+              <span lang="en" className="text-base font-medium text-neutral-500">
+                {app.nameEn}
+              </span>
+            )}
           </h2>
           <p className="text-[13px] text-neutral-500">{app.platforms}</p>
         </div>
@@ -232,10 +283,10 @@ function AppEntry({ app }: { app: PressApp }) {
         </div>
         {app.screens && (
           <ul className="flex flex-wrap gap-2" aria-label={`${app.name} の画面`}>
-            {app.screens.map((src) => (
+            {app.screens.map(({ src, label }) => (
               <li key={src}>
                 <a href={src} download className="block transition hover:opacity-80">
-                  <Image src={src} alt={`${app.name} の画面`} width={46} height={100} className="h-[100px] w-[46px] rounded-md ring-1 ring-black/10" />
+                  <Image src={src} alt={`${app.name} の画面：${label}`} width={46} height={100} className="h-[100px] w-[46px] rounded-md ring-1 ring-black/10" />
                 </a>
               </li>
             ))}
@@ -300,6 +351,9 @@ export default function PressPage() {
             </li>
             <li>
               Apple、iPhone、iPad、Mac、Apple Watch、Apple Vision Pro、App Store は Apple Inc. の商標です。Google Play と Android は Google LLC の商標です。
+              <En>
+                Apple, iPhone, iPad, Mac, Apple Watch, Apple Vision Pro and App Store are trademarks of Apple Inc. Google Play and Android are trademarks of Google LLC.
+              </En>
             </li>
           </ul>
         </section>
