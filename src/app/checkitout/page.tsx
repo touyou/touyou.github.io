@@ -25,7 +25,7 @@ const PRIVACY_URL = "/checkitout/privacy";
 
 const faq: FaqItem[] = [
   { q: "録った音は、どこに保存されますか？", a: "お使いの端末の中にだけ保存されます。外へ送ることはありません。" },
-  { q: "最初から入っている音を消してしまいました", a: "アプリの中から戻す方法はありません。入れ直すと最初の状態に戻りますが、自分で録音した音もすべて消えます。" },
+  { q: "最初から入っている音を消してしまいました", a: "アプリの中から戻す方法はありません。アプリを削除して入れ直すと最初の状態に戻りますが、自分で録音した音もすべて消えます。" },
   { q: "Android でも使えますか？", a: "使えます。Android 版を Google Play で公開しています。" },
   { q: "料金はかかりますか？", a: "チェケラは無料です。アプリ内課金も広告もありません。" },
 ];
@@ -179,7 +179,7 @@ export default function CheckitoutPage() {
         </CkPillLink>
       </CkNav>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 overflow-hidden px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">

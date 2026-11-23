@@ -88,7 +88,7 @@ export default function ProgrammingQuizPage() {
         </StoreButton>
       </QuizNav>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー。右（スマートフォンでは下）の iPhone はその場で解ける体験版 */}
         <section className="mx-auto grid w-full max-w-5xl items-center gap-14 px-5 pb-16 pt-12 sm:pt-16 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:pb-24">
           <div className="flex flex-col items-center gap-7 text-center lg:items-start lg:text-left">

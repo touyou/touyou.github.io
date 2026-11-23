@@ -150,7 +150,7 @@ export function CkDocsShell({ nav, footer, children }: { nav: ReactNode; footer:
   return (
     <CkPage>
       {nav}
-      <main id="main" className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-white/75 [&_a]:text-[#4FC3F7] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(26px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-white [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-white [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <main id="main" tabIndex={-1} className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-white/75 [&_a]:text-[#4FC3F7] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(26px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-white [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-white [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-white [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 outline-none">
         {children}
       </main>
       <footer className="border-t border-white/10 bg-black/40">

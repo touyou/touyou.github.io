@@ -121,7 +121,7 @@ export default function PatchdayPage() {
           入手
         </PillLink>
       </AppNav>
-      <main id="main">
+      <main id="main" tabIndex={-1} className="outline-none">
         <Band className="items-center text-center">
           <PatchdayIcon className="h-28 w-28" />
           <h1 className="text-[clamp(36px,7vw,64px)] font-bold leading-[1.15] tracking-[-0.02em] [font-feature-settings:'palt']">
@@ -214,7 +214,13 @@ export default function PatchdayPage() {
             <Phrases phrases={["次の期限を、", "落ち着いて。"]} />
           </h2>
           <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
-          <span className="text-[13px] text-neutral-500">iOS 27・iPadOS 27・macOS 27 以降</span>
+          <span className="text-[13px] text-neutral-500">
+            iOS 27・iPadOS 27・macOS 27 以降（
+            <a href={MAC_APP_STORE_URL} className="text-[#0066CC] underline-offset-4 hover:underline">
+              Mac App Store で見る
+            </a>
+            ）
+          </span>
         </section>
       </main>
       <footer className="bg-[#F5F5F7]">

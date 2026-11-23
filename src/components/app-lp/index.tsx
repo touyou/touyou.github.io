@@ -115,7 +115,7 @@ export function PillLink({ href, children, size = "lg" }: { href: string; childr
   );
 }
 
-/** キーボードで来た人が、貼り付いたナビを飛ばして本文へ移れるリンク。フォーカスが来たときだけ見える。行き先は各ページの <main id="main"> */
+/** キーボードで来た人が、貼り付いたナビを飛ばして本文へ移れるリンク。フォーカスが来たときだけ見える。行き先は各ページの <main id="main" tabIndex={-1} className="outline-none"> */
 export function SkipLink() {
   return (
     <a
@@ -187,7 +187,7 @@ export function DocsShell({ nav, footer, children }: { nav: ReactNode; footer: R
   return (
     <AppPage>
       {nav}
-      <main id="main" className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-neutral-700 [&_a]:text-[#0066CC] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(32px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-[#1d1d1f] [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-[#1d1d1f] [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#1d1d1f] [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-[#1d1d1f] [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <main id="main" tabIndex={-1} className="mx-auto w-full max-w-3xl px-6 py-16 text-[17px] leading-[1.9] text-neutral-700 [&_a]:text-[#0066CC] [&_a]:underline-offset-4 hover:[&_a]:underline [&_h1]:mb-3 [&_h1]:text-[clamp(32px,6vw,44px)] [&_h1]:font-bold [&_h1]:leading-tight [&_h1]:tracking-tight [&_h1]:text-[#1d1d1f] [&_h2]:mb-3 [&_h2]:mt-14 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-[#1d1d1f] [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#1d1d1f] [&_li]:mb-1.5 [&_p]:mb-4 [&_strong]:text-[#1d1d1f] [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 outline-none">
         {children}
       </main>
       <footer className="bg-[#F5F5F7]">

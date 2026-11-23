@@ -42,9 +42,9 @@ export const metadata: Metadata = {
 };
 
 const faq: FaqItem[] = [
-  { q: "iPhone Duo でなくても使えますか？", a: "使えます。折りたたみでない iPhone では、画面の下のスライダーで月をひらきます。" },
-  { q: "閉じると、暗くなるのですか？", a: "閉じた姿が朔（新月）にあたるからです。真っ暗にはならず、星がいちばん多い夜になり、月は地球照でうっすら輪郭だけが残ります。" },
-  { q: "月に触れると、何が出ますか？", a: "その夜の月相にちなんだ話がひとつ。角度を変えると、別の話に変わります。" },
+  { q: "iPhone Duo でなくても使えますか？", a: "使えます。ひらく角度を読めない iPhone では、画面の下のスライダーで月をひらきます。" },
+  { q: "どうして、閉じると暗くなるのですか？", a: "閉じた姿が朔（新月）にあたるからです。真っ暗にはならず、星がいちばん多い夜になり、月は地球照でうっすら輪郭だけが残ります。" },
+  { q: "月に触れると、何が出ますか？", a: "そのときの月相にちなんだ話がひとつ。角度を変えると、別の話に変わります。" },
   { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。" },
 ];
 
@@ -163,7 +163,7 @@ export default function TsukibyobuPage() {
         </div>
       </header>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 px-6 pb-20 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -339,7 +339,7 @@ export default function TsukibyobuPage() {
             <Phrases phrases={["今夜の月を、", "てのひらに。"]} />
           </h2>
           <StoreLink />
-          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り。iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
+          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
         </section>
       </main>
 

@@ -63,7 +63,7 @@ export default function FFMultiplierPage() {
         <StoreButton size="sm">入手</StoreButton>
       </FFNav>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー。App Store のスクリーンショットと同じ FFGreen の地にする */}
         <section className="bg-[#85BF5D] text-[#111111]">
           <div className="mx-auto grid w-full max-w-5xl items-center gap-14 px-6 pb-20 pt-14 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-16">

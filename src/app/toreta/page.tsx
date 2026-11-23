@@ -14,6 +14,7 @@ import { TradingCard } from "@/components/toreta/TradingCard";
  * 機能の説明はアプリの実装（Toreta リポジトリ）に合わせる。機能を変えたらここも直す。
  */
 
+const SUPPORT_URL = "/toreta/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
 export const metadata: Metadata = {
   title: "Toreta — 公式カードリストを、そのままコレクション帳に",
@@ -227,7 +228,7 @@ export default function ToretaPage() {
         </PillLink>
       </AppNav>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 overflow-hidden px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
@@ -328,11 +329,11 @@ export default function ToretaPage() {
 
         <Band tone="gray">
           <Heading title={["集めはじめる前に、", "よく聞かれること。"]} />
-          <Faq items={faq} moreHref="/toreta/support" />
+          <Faq items={faq} moreHref={SUPPORT_URL} />
         </Band>
 
         <Band>
-          <MakerNote contactHref="/toreta/support">
+          <MakerNote contactHref={SUPPORT_URL}>
             個人で作っているアプリです。うまく取り込めないカードリストがあれば、その URL を送ってください。読み取れるように対応を検討します。
           </MakerNote>
         </Band>

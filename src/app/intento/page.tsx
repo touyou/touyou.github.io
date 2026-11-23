@@ -61,7 +61,7 @@ export default function IntentoPage() {
         </PillLink>
       </AppNav>
 
-      <main id="main" className="flex flex-col">
+      <main id="main" tabIndex={-1} className="flex flex-col outline-none">
         {/* ヒーロー */}
         <section className="flex flex-col items-center gap-14 px-6 pb-24 pt-16 text-center sm:pt-24">
           <div className="flex flex-col items-center gap-6">
