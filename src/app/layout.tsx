@@ -1,7 +1,6 @@
 import "./globals.css";
 
 import { Metadata, Viewport } from "next";
-import Script from "next/script";
 
 const siteName = "touyou.dev";
 const description = "touyou (Fujii Yosuke) / Japanese Software Engineer";
@@ -51,8 +50,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const GA_TRACKING_ID = "UA-136500666-1";
-
 // 同じサイト内のリンクに 200ms ほど指を置くと、次のページを裏で取りに行き、描ける環境では描いておく（対応していないブラウザは無視する）。
 // 書き込みや下書きの画面、画像の書き出し用のページは先読みしない。
 // 毎回サーバーで描くトップと、外部のフィードを取りに行く /bento も、指を置くたびに描き直すと無駄が大きいので外す
@@ -86,21 +83,6 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background">{children}</body>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-      />
-      <Script
-        id="gtag-init"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-            `,
-        }}
-      />
     </html>
   );
 }
