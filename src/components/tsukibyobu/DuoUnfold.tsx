@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from "react";
 const ANGLES = Array.from({ length: 17 }, (_, i) => 20 + i * 10);
 const MIN = ANGLES[0];
 const MAX = ANGLES[ANGLES.length - 1];
+/** 厚みの板の枚数。8 枚 × 0.75cqw で半面の幅の 6%（実機の厚みの比に近い） */
+const LAYERS = Array.from({ length: 8 }, (_, i) => i);
 
 function phaseName(angle: number) {
   if (angle < 60) return "三日月";
@@ -56,16 +58,37 @@ export function DuoUnfold() {
   const device = (
     <div className="flex w-full flex-col items-center gap-6">
       <div className="w-full max-w-[min(600px,calc((100svh-12rem)*1.37))] [perspective:1400px]">
-        <div className="flex justify-center [transform-style:preserve-3d] [transform:rotateX(8deg)]">
+        <div className="relative flex justify-center [transform-style:preserve-3d] [transform:rotateX(8deg)]">
+          {/* 床に落ちる影。ひらくほど横に広がる。浮いて見えないように足元へ置く */}
+          <div
+            aria-hidden
+            className="absolute -bottom-[3%] left-1/2 h-[5%] -translate-x-1/2 rounded-[50%] bg-black blur-2xl"
+            style={{ width: `${Math.cos((tilt * Math.PI) / 180) * 92}%` }}
+          />
           {(["a", "b"] as const).map((side) => (
             <div
               key={side}
-              className="relative aspect-[640/930] w-1/2 [transform-style:preserve-3d]"
+              className="relative aspect-[640/930] w-1/2 [container-type:inline-size] [transform-style:preserve-3d]"
               style={{
                 transformOrigin: side === "a" ? "right center" : "left center",
                 transform: `rotateY(${side === "a" ? tilt : -tilt}deg)`,
               }}
             >
+              {/* 厚み。枠の輪郭（絵の不透明な所）で切った板を奥へ重ね、角丸に沿った側面にする。板の間隔は半面の幅に対する割合（cqw） */}
+              {LAYERS.map((i) => (
+                <div
+                  key={i}
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    background: i === LAYERS.length - 1 ? "#0e0f12" : "#2a2b31",
+                    filter: `brightness(${0.5 + 0.5 * Math.sin((tilt * Math.PI) / 180)})`,
+                    transform: `translateZ(${-(i + 1) * 0.75}cqw)`,
+                    WebkitMask: `url(/tsukibyobu/unfold/duo-180-${side}.webp) center / contain no-repeat`,
+                    mask: `url(/tsukibyobu/unfold/duo-180-${side}.webp) center / contain no-repeat`,
+                  }}
+                />
+              ))}
               <div className="absolute inset-0" style={{ filter: `brightness(${1 - shade})` }}>
                 {ANGLES.map((a) => (
                   <Image
