@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor, type Screen, ScreenStrip } from "@/components/app-lp";
+import { Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor } from "@/components/app-lp";
 import { CheckitoutIcon } from "@/components/checkitout/CheckitoutIcon";
 import { CkBand, CkHeading, CkNav, CkPage, CkPillLink, CkTile, ColorBars } from "@/components/checkitout/lp";
 import { DarkScreen, MiniModeControls, MiniPad, MiniPadGrid, MiniRecordPanel, SoundRow } from "@/components/checkitout/mini-ui";
@@ -30,12 +30,6 @@ const faq: FaqItem[] = [
   { q: "料金はかかりますか？", a: "チェケラは無料です。アプリ内課金も広告もありません。" },
 ];
 
-const screens: Screen[] = [
-  { src: "/checkitout/screens/ja-01-play.webp", alt: "チェケラの画面：パッドを押して鳴らす画面", caption: "演奏" },
-  { src: "/checkitout/screens/ja-02-edit.webp", alt: "チェケラの画面：パッドに音を割り当てる画面", caption: "編集" },
-  { src: "/checkitout/screens/ja-03-record.webp", alt: "チェケラの画面：録音の画面", caption: "録音" },
-  { src: "/checkitout/screens/ja-04-landscape.webp", alt: "チェケラの画面：横向きのパッドの画面", caption: "横向き", landscape: true },
-];
 
 export const viewport: Viewport = { themeColor: APP_BACKGROUND };
 
@@ -219,10 +213,6 @@ export default function CheckitoutPage() {
             </div>
           </div>
           <PadDemo />
-        </section>
-
-        <section className="pb-24">
-          <ScreenStrip screens={screens} label="チェケラの画面" dark />
         </section>
 
         <CkBand tone="raised">

@@ -28,11 +28,9 @@ const APP_STORE_URL = "https://apps.apple.com/us/app/id6831397385";
 const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
 
 const screens: Screen[] = [
-  { src: "/patchday/screens/en-01-calendar.webp", alt: "Patchday screen: the deadline calendar", caption: "Calendar" },
-  { src: "/patchday/screens/en-02-deadlines.webp", alt: "Patchday screen: deadlines", caption: "Deadlines" },
-  { src: "/patchday/screens/en-03-detail.webp", alt: "Patchday screen: a vulnerability with its CSIRT progress", caption: "Detail" },
-  { src: "/patchday/screens/en-04-new.webp", alt: "Patchday screen: new vulnerabilities", caption: "New" },
-  { src: "/patchday/screens/en-05-settings.webp", alt: "Patchday screen: display and deadline rules", caption: "Settings" },
+  { src: "/patchday/screens/en-02-deadlines.webp", alt: "Patchday screen: deadlines", caption: "Soonest deadline first" },
+  { src: "/patchday/screens/en-03-detail.webp", alt: "Patchday screen: a vulnerability with its CSIRT progress", caption: "Your team's progress" },
+  { src: "/patchday/screens/en-04-new.webp", alt: "Patchday screen: new vulnerabilities", caption: "New for your products" },
 ];
 
 const features = [

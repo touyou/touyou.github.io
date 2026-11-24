@@ -24,12 +24,11 @@ import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
  * Patchday（iOS / iPadOS / macOS アプリ）の紹介ページ。
  * 機能の説明はアプリの実装（Patchday リポジトリの docs/PLAN.md）に合わせる。機能を変えたらここも直す。
  */
+// 冒頭の図の代わり。期限の順・チームの進み具合・関係ある新着の 3 つを見せ、カレンダーは下の節に任せる
 const screens: Screen[] = [
-  { src: "/patchday/screens/ja-01-calendar.webp", alt: "Patchday の画面：期限のカレンダー", caption: "カレンダー" },
-  { src: "/patchday/screens/ja-02-deadlines.webp", alt: "Patchday の画面：期限の一覧", caption: "期限" },
-  { src: "/patchday/screens/ja-03-detail.webp", alt: "Patchday の画面：脆弱性の詳細と進み具合", caption: "詳細" },
-  { src: "/patchday/screens/ja-04-new.webp", alt: "Patchday の画面：新着の一覧", caption: "新着" },
-  { src: "/patchday/screens/ja-05-settings.webp", alt: "Patchday の画面：表示と期限のルールの設定", caption: "設定" },
+  { src: "/patchday/screens/ja-02-deadlines.webp", alt: "Patchday の画面：期限の一覧", caption: "期限の近い順に" },
+  { src: "/patchday/screens/ja-03-detail.webp", alt: "Patchday の画面：脆弱性の詳細と進み具合", caption: "チームの進み具合を記録" },
+  { src: "/patchday/screens/ja-04-new.webp", alt: "Patchday の画面：新着の一覧", caption: "関係ある製品の新着" },
 ];
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
