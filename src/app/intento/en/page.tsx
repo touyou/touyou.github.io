@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, PillLink, SafeAreaColor, type Screen, ScreenStrip } from "@/components/app-lp";
+import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, PillLink, SafeAreaColor } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 
 /**
@@ -14,13 +14,6 @@ const APP_STORE_URL = "https://apps.apple.com/us/app/intento/id6788623037";
 const SUPPORT_URL = "/intento/support";
 const PRIVACY_URL = "/intento/privacy";
 
-const screens: Screen[] = [
-  { src: "/intento/screens/en-01-list.webp", alt: "Intento screen: the todo list", caption: "Todos" },
-  { src: "/intento/screens/en-02-detail.webp", alt: "Intento screen: a todo's details", caption: "Details" },
-  { src: "/intento/screens/en-03-add.webp", alt: "Intento screen: adding a todo", caption: "New Todo" },
-  { src: "/intento/screens/en-04-settings.webp", alt: "Intento screen: settings", caption: "Settings" },
-  { src: "/intento/screens/en-05-lists.webp", alt: "Intento screen: lists", caption: "Lists" },
-];
 
 const surfaces = [
   ["Widgets", "Every size, with a checkbox on each row."],
@@ -89,10 +82,6 @@ export default function IntentoEnglishPage() {
             <PillLink href={APP_STORE_URL}>Download on the App Store</PillLink>
             <span className="text-[13px] text-neutral-500">Free · No in-app purchases</span>
           </div>
-        </section>
-
-        <section className="pb-24">
-          <ScreenStrip screens={screens} label="Intento screens" />
         </section>
 
         <Band tone="gray">

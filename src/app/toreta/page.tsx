@@ -17,12 +17,11 @@ import { TradingCard } from "@/components/toreta/TradingCard";
 const SUPPORT_URL = "/toreta/support";
 const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
 
+// 機能の説明の裏づけになる画面だけ。並びは上の機能の順（記録 → デッキ → そろい具合）
 const screens: Screen[] = [
-  { src: "/toreta/screens/ja-01-series.webp", alt: "Toreta の画面：シリーズの一覧", caption: "シリーズ" },
-  { src: "/toreta/screens/ja-02-collection.webp", alt: "Toreta の画面：カードの一覧と集まり具合", caption: "コレクション" },
-  { src: "/toreta/screens/ja-03-card-detail.webp", alt: "Toreta の画面：カードの詳細と持っている枚数", caption: "カードの詳細" },
-  { src: "/toreta/screens/ja-04-trade.webp", alt: "Toreta の画面：トレードに出すカードの一覧", caption: "トレード" },
-  { src: "/toreta/screens/ja-05-deck.webp", alt: "Toreta の画面：デッキのカードと足りない枚数", caption: "デッキ" },
+  { src: "/toreta/screens/ja-03-card-detail.webp", alt: "Toreta の画面：カードの詳細と持っている枚数", caption: "持っている枚数を数える" },
+  { src: "/toreta/screens/ja-05-deck.webp", alt: "Toreta の画面：デッキのカードと足りない枚数", caption: "デッキに足りない枚数" },
+  { src: "/toreta/screens/ja-02-collection.webp", alt: "Toreta の画面：カードの一覧と集まり具合", caption: "シリーズのそろい具合" },
 ];
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
@@ -280,10 +279,6 @@ export default function ToretaPage() {
           </div>
         </section>
 
-        <section className="pb-24">
-          <ScreenStrip screens={screens} label="Toreta の画面" />
-        </section>
-
         <Band tone="gray">
           <Heading title={["URL を貼るだけ。", "一覧は Toreta が", "作ります。"]}>
             作品ごとの専用アプリではありません。公式サイトのカードリストを読み取って、そのたびに一覧を作ります。
@@ -314,6 +309,7 @@ export default function ToretaPage() {
               </Tile>
             ))}
           </div>
+          <ScreenStrip screens={screens} label="Toreta の画面" />
         </Band>
 
         <Band tone="gray">
