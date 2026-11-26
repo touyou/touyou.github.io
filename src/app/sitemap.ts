@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const top: MetadataRoute.Sitemap = [
     { url: `${base}/`, priority: 1 },
     { url: `${base}/press`, priority: 0.5 },
+    { url: `${base}/legal`, priority: 0.3 },
   ];
   const lps = apps.flatMap((app) => {
     const ja = `${base}/${app}`;
