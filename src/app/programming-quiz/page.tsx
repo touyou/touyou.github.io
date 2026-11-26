@@ -18,6 +18,7 @@ import {
   Sparkles,
 } from "@/components/programming-quiz/quiz-ui";
 import { AiProgress, AiSection, IpadHome, ShortcutTiles } from "@/components/programming-quiz/Screens";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Programming Quiz（QuizLiT リポジトリの iOS / iPadOS アプリ）の紹介ページ。
@@ -39,7 +40,7 @@ const faq: FaqItem[] = [
   { q: "成績は記録されますか？", a: "記録されません。結果はその場で表示するだけで、アプリを閉じると残りません。" },
 ];
 
-const APP_STORE_URL = "https://apps.apple.com/jp/app/id1089599534";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/id1089599534", "lp-programming-quiz");
 const SUPPORT_URL = "/programming-quiz/support";
 const PRIVACY_URL = "/programming-quiz/privacy";
 

@@ -19,6 +19,7 @@ import {
   Tile,
 } from "@/components/app-lp";
 import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Patchday（iOS / iPadOS / macOS アプリ）の紹介ページ。
@@ -114,8 +115,9 @@ const faq: FaqItem[] = [
 ];
 
 const SUPPORT_URL = "/patchday/support";
-const APP_STORE_URL = "https://apps.apple.com/jp/app/id6831397385";
-const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
+const APP_STORE_BASE = "https://apps.apple.com/jp/app/id6831397385";
+const APP_STORE_URL = appStoreLink(APP_STORE_BASE, "lp-patchday");
+const MAC_APP_STORE_URL = appStoreLink(APP_STORE_BASE, "lp-patchday-mac", { platform: "mac" });
 
 export default function PatchdayPage() {
   return (

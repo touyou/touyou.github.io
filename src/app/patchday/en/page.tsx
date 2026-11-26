@@ -17,6 +17,7 @@ import {
   Tile,
 } from "@/components/app-lp";
 import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Patchday の英語の紹介ページ。文言は App Store の英語の説明文（Patchday リポジトリの docs/app-store/listing.md の English）に合わせる。
@@ -24,8 +25,9 @@ import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
  */
 
 const SUPPORT_URL = "/patchday/support";
-const APP_STORE_URL = "https://apps.apple.com/us/app/id6831397385";
-const MAC_APP_STORE_URL = `${APP_STORE_URL}?platform=mac`;
+const APP_STORE_BASE = "https://apps.apple.com/us/app/id6831397385";
+const APP_STORE_URL = appStoreLink(APP_STORE_BASE, "lp-patchday-en");
+const MAC_APP_STORE_URL = appStoreLink(APP_STORE_BASE, "lp-patchday-en-mac", { platform: "mac" });
 
 const screens: Screen[] = [
   { src: "/patchday/screens/en-02-deadlines.webp", alt: "Patchday screen: deadlines", caption: "Soonest deadline first" },

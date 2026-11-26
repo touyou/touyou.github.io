@@ -9,6 +9,7 @@ import { DarkScreen, MiniModeControls, MiniPad, MiniPadGrid, MiniRecordPanel, So
 import { PadDemo } from "@/components/checkitout/PadDemo";
 import { APP_BACKGROUND, type PadColor } from "@/components/checkitout/pads";
 import { cn } from "@/lib/utils";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * チェケラ（CheckItOut リポジトリの iOS / iPadOS アプリ。Android 版もある）の紹介ページ。
@@ -18,7 +19,7 @@ import { cn } from "@/lib/utils";
  * 権利の都合で、アプリに入っている声のサンプルとロゴの書体・ロゴ画像は使わない。画面はすべて HTML で描き直す。
  */
 
-const APP_STORE_URL = "https://apps.apple.com/jp/app/id1209866956";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/id1209866956", "lp-checkitout");
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=dev.touyou.checkitoutandroid";
 const SUPPORT_URL = "/checkitout/support";
 const PRIVACY_URL = "/checkitout/privacy";

@@ -11,6 +11,7 @@ import { PatchdayIcon } from "@/components/patchday/PatchdayIcon";
 import { QuizIcon } from "@/components/programming-quiz/QuizIcon";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
 import { TsukibyobuIcon } from "@/components/tsukibyobu/TsukibyobuIcon";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * 紹介記事や登壇で使える素材をまとめたページ。日本語と英語を並べ、どちらの読み手もこの 1 枚で済むようにする。
@@ -56,7 +57,7 @@ const apps: PressApp[] = [
     en: "A folding-screen painting for iPhone. The angle you open an iPhone Duo to becomes the phase of the moon.",
     platforms: "iPhone（iOS 27 以降）",
     page: "/tsukibyobu",
-    appStore: "https://apps.apple.com/jp/app/id6826440511",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id6826440511", "press"),
     keyVisual: og("tsukibyobu"),
     appIcon: "/tsukibyobu/icon.png",
   },
@@ -68,7 +69,7 @@ const apps: PressApp[] = [
     platforms: "iPhone・iPad・Mac（iOS / iPadOS / macOS 27 以降）",
     page: "/patchday",
     pageEn: "/patchday/en",
-    appStore: "https://apps.apple.com/jp/app/id6831397385",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id6831397385", "press"),
     keyVisual: og("patchday"),
     appIcon: "/patchday/icon.png",
     screens: shots("patchday", [
@@ -88,7 +89,7 @@ const apps: PressApp[] = [
     platforms: "iPhone・iPad・Mac・Apple Watch・Apple Vision Pro（27 以降）",
     page: "/intento",
     pageEn: "/intento/en",
-    appStore: "https://apps.apple.com/jp/app/intento/id6788623037",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/intento/id6788623037", "press"),
     keyVisual: og("intento"),
     screens: shots("intento", [
       ["en-01-list", "一覧（英語）"],
@@ -106,7 +107,7 @@ const apps: PressApp[] = [
     en: "Paste the URL of an official trading card game card list, and keep track of the cards you have and the ones you want. The app is in Japanese.",
     platforms: "iPhone（iOS 27 以降）",
     page: "/toreta",
-    appStore: "https://apps.apple.com/jp/app/id6820005190",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id6820005190", "press"),
     keyVisual: og("toreta"),
     screens: shots("toreta", [
       ["ja-01-series", "シリーズ"],
@@ -142,7 +143,7 @@ const apps: PressApp[] = [
     en: "Record your voice or any sound around you, and play it on 16 pads.",
     platforms: "iPhone・iPad・Android",
     page: "/checkitout",
-    appStore: "https://apps.apple.com/jp/app/id1209866956",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id1209866956", "press"),
     googlePlay: "https://play.google.com/store/apps/details?id=dev.touyou.checkitoutandroid",
     keyVisual: og("checkitout"),
     appIcon: "/checkitout/icon.png",
@@ -159,7 +160,7 @@ const apps: PressApp[] = [
     en: "Three-choice quizzes on where programming languages got their names, iPhone app development and algorithms, plus questions made by on-device AI.",
     platforms: "iPhone・iPad（iOS / iPadOS 26 以降）",
     page: "/programming-quiz",
-    appStore: "https://apps.apple.com/jp/app/id1089599534",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id1089599534", "press"),
     keyVisual: og("programming-quiz"),
     screens: shots("programming-quiz", [
       ["ja-01-home", "ジャンルを選ぶ"],
@@ -175,7 +176,7 @@ const apps: PressApp[] = [
     en: "A 60-second time attack of hexadecimal multiplication.",
     platforms: "iPhone（iOS 18 以降）・Android（7.0 以降）",
     page: "/ffmultiplier",
-    appStore: "https://apps.apple.com/jp/app/id1151801381",
+    appStore: appStoreLink("https://apps.apple.com/jp/app/id1151801381", "press"),
     googlePlay: "https://play.google.com/store/apps/details?id=com.dev.touyou.ffmultiplier",
     keyVisual: og("ffmultiplier"),
     appIcon: "/ffmultiplier/icon.png",

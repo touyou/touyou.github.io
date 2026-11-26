@@ -6,6 +6,7 @@ import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNo
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
 import { Surfaces } from "@/components/intento/Surfaces";
 import { VoiceDemo } from "@/components/intento/VoiceDemo";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Intento（IntentTodo リポジトリの iOS / iPadOS / macOS / watchOS / visionOS アプリ）の紹介ページ。
@@ -13,7 +14,7 @@ import { VoiceDemo } from "@/components/intento/VoiceDemo";
  * 見出しも説明文の小見出し（声で操作する・開かずに済ませる など）をそのまま使う。
  */
 
-const APP_STORE_URL = "https://apps.apple.com/jp/app/intento/id6788623037";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/intento/id6788623037", "lp-intento");
 const SUPPORT_URL = "/intento/support";
 const PRIVACY_URL = "/intento/privacy";
 
