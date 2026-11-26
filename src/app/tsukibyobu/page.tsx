@@ -49,7 +49,7 @@ const faq: FaqItem[] = [
   { q: "iPhone Duo でなくても使えますか？", a: "使えます。ひらく角度を読めない iPhone では、画面の下のスライダーで月をひらきます。" },
   { q: "どうして、閉じると暗くなるのですか？", a: "閉じた姿が朔（新月）にあたるからです。真っ暗にはならず、星がいちばん多い夜になり、月は地球照でうっすら輪郭だけが残ります。" },
   { q: "月に触れると、何が出ますか？", a: "そのときの月相にちなんだ話がひとつ。角度を変えると、別の話に変わります。" },
-  { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。" },
+  { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。同じく買い切りの「屏風の棚」を開けると、武蔵野と宇治の屏風が加わります。" },
 ];
 
 const places = [
@@ -57,6 +57,8 @@ const places = [
   { src: "/tsukibyobu/places/higashiyama-spring.jpg", name: "東山", note: "春" },
   { src: "/tsukibyobu/places/matsubara-winter.jpg", name: "松原", note: "冬" },
   { src: "/tsukibyobu/seasons/yamazato-autumn.jpg", name: "山里", note: "秋" },
+  { src: "/tsukibyobu/places/musashino-autumn.jpg", name: "武蔵野", note: "秋・屏風の棚" },
+  { src: "/tsukibyobu/places/uji-winter.jpg", name: "宇治", note: "冬・屏風の棚" },
 ];
 
 const seasons = [
@@ -185,7 +187,7 @@ export default function TsukibyobuPage() {
             <MoonPhases />
             <div className="flex flex-col items-center gap-3">
               <StoreLink />
-              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り</span>
+              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」と「屏風の棚」は買い切り</span>
             </div>
           </div>
           <Image
@@ -251,7 +253,7 @@ export default function TsukibyobuPage() {
 
         <Section>
           <Heading title={["金の霞に、", "銀の月。"]}>
-            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。
+            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。買い切りの「屏風の棚」を開ければ、薄の野の武蔵野と、橋と水車の宇治が加わります。
           </Heading>
           <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
             {places.map((p) => (
@@ -319,7 +321,7 @@ export default function TsukibyobuPage() {
             <Phrases phrases={["今夜の月を、", "てのひらに。"]} />
           </h2>
           <StoreLink />
-          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
+          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」と「屏風の棚」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
         </section>
       </main>
 
