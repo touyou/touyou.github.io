@@ -4,13 +4,14 @@ import Link from "next/link";
 
 import { AppNav, AppPage, Band, DeviceFrame, Faq, type FaqItem, Heading, MakerNote, PillLink, SafeAreaColor } from "@/components/app-lp";
 import { IntentoIcon } from "@/components/intento/IntentoIcon";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Intento の英語の紹介ページ。文言は App Store の英語の説明文（IntentTodo/metadata/ios/version/<バージョン>/en-US.json）に合わせる。
  * 日本語のページにある声のデモやウィジェットの見本は日本語の文言を持つ部品なので、ここでは実機の画面だけで見せる。
  */
 
-const APP_STORE_URL = "https://apps.apple.com/us/app/intento/id6788623037";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/us/app/intento/id6788623037", "lp-intento-en");
 const SUPPORT_URL = "/intento/support";
 const PRIVACY_URL = "/intento/privacy";
 

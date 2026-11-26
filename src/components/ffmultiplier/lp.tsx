@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { Phrases, SkipLink } from "@/components/app-lp";
 import { cn } from "@/lib/utils";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * FFMultiplier の紹介ページの部品。アプリの見た目（FFGreen・ゲーム画面の黒・白い地・Futura の見出し・7 セグメントの数字）に寄せる。
@@ -12,7 +13,7 @@ import { cn } from "@/lib/utils";
 /** 見出し用の書体。Futura が無い環境では幾何学的なサンセリフに寄せる */
 export const HEADING_FONT = "font-[Futura,'Century_Gothic','Avenir_Next','Hiragino_Sans','Noto_Sans_JP',sans-serif]";
 
-export const APP_STORE_URL = "https://apps.apple.com/jp/app/id1151801381";
+export const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/id1151801381", "lp-ffmultiplier");
 export const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.dev.touyou.ffmultiplier";
 export const SUPPORT_URL = "/ffmultiplier/support";
 export const PRIVACY_URL = "/ffmultiplier/privacy";

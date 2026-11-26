@@ -7,6 +7,7 @@ import { dummyCards } from "@/components/toreta/dummy-cards";
 import { PhoneMockup } from "@/components/toreta/PhoneMockup";
 import { ToretaIcon } from "@/components/toreta/ToretaIcon";
 import { TradingCard } from "@/components/toreta/TradingCard";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * Toreta（iOS アプリ）の紹介ページ。
@@ -15,7 +16,7 @@ import { TradingCard } from "@/components/toreta/TradingCard";
  */
 
 const SUPPORT_URL = "/toreta/support";
-const APP_STORE_URL = "https://apps.apple.com/jp/app/id6820005190";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/id6820005190", "lp-toreta");
 
 // 機能の説明の裏づけになる画面だけ。並びは上の機能の順（記録 → デッキ → そろい具合）
 const screens: Screen[] = [

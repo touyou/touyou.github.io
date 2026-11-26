@@ -7,6 +7,7 @@ import { DeviceFrame, Faq, type FaqItem, MakerNote, Phrases, SafeAreaColor, Skip
 import { DuoUnfold } from "@/components/tsukibyobu/DuoUnfold";
 import { TsukibyobuIcon } from "@/components/tsukibyobu/TsukibyobuIcon";
 import { cn } from "@/lib/utils";
+import { appStoreLink } from "@/lib/app-store";
 
 /**
  * 月屏風（Tsukibyobu リポジトリの iPhone アプリ）の紹介ページ。
@@ -14,7 +15,7 @@ import { cn } from "@/lib/utils";
  * 文言は App Store の説明文（Tsukibyobu/metadata/ios/version/<バージョン>/ja.json）に合わせ、絵はすべて byobu-render で書き出したアプリと同じ画素を使う。
  */
 
-const APP_STORE_URL = "https://apps.apple.com/jp/app/id6826440511";
+const APP_STORE_URL = appStoreLink("https://apps.apple.com/jp/app/id6826440511", "lp-tsukibyobu");
 const SUPPORT_URL = "/tsukibyobu/support";
 const PRIVACY_URL = "/tsukibyobu/privacy";
 
