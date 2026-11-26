@@ -29,7 +29,7 @@ const faq: FaqItem[] = [
   { q: "How do I use it with Siri?", a: "Say “Add a todo in Intento” or “Complete XXX in Intento”. The todo's name goes straight into the phrase." },
   { q: "Does it work with Shortcuts?", a: "Yes. Search for Intento in the Shortcuts app to find 25 actions, including add, complete and search." },
   { q: "Does it sync between my devices?", a: "Your todos sync through iCloud across the iPhone, iPad, Mac, Apple Watch and Apple Vision Pro signed in to the same Apple Account." },
-  { q: "How much does it cost?", a: "Intento is free, with no in-app purchases." },
+  { q: "How much does it cost?", a: "Intento is free, and every feature is free. If you like it, you can leave an optional tip from About." },
 ];
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
@@ -81,7 +81,7 @@ export default function IntentoEnglishPage() {
           </p>
           <div className="flex flex-col items-center gap-3">
             <PillLink href={APP_STORE_URL}>Download on the App Store</PillLink>
-            <span className="text-[13px] text-neutral-500">Free · No in-app purchases</span>
+            <span className="text-[13px] text-neutral-500">Free · Optional tips</span>
           </div>
         </section>
 
