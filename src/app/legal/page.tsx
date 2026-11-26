@@ -25,7 +25,7 @@ const apps: App[] = [
     id: "toreta",
     name: "Toreta",
     products: [{ name: "Toreta Plus", price: "480 円", kind: "買い切り" }],
-    environment: "iPhone / iPad",
+    environment: "iOS / iPadOS 27 以降の iPhone / iPad",
   },
   {
     id: "tsukibyobu",
@@ -34,7 +34,7 @@ const apps: App[] = [
       { name: "音の箱", price: "300 円", kind: "買い切り" },
       { name: "屏風の棚", price: "300 円", kind: "買い切り" },
     ],
-    environment: "iPhone（iPhone Duo を含む）/ iPad",
+    environment: "iOS / iPadOS 27 以降の iPhone（iPhone Duo を含む）/ iPad",
   },
   {
     id: "playground",
@@ -44,7 +44,7 @@ const apps: App[] = [
       { name: "Pro（年額）", price: "3,000 円 / 年", kind: "自動更新サブスクリプション（1 年ごと）" },
       { name: "Pro（買い切り）", price: "4,800 円", kind: "買い切り" },
     ],
-    environment: "iPhone / iPad",
+    environment: "iOS / iPadOS 26 以降の iPhone / iPad",
     detail: (
       <>
         無料トライアルの条件やアプリ内からの解約の手順など、サブスクリプションについての詳しい表記は
@@ -57,25 +57,25 @@ const apps: App[] = [
     id: "graphica",
     name: "Graphica",
     products: tips(["コーヒー一杯", "ケーキも添えて", "お昼ごはん"]),
-    environment: "iPhone / iPad / Mac / Apple Vision Pro",
+    environment: "iOS / iPadOS / macOS / visionOS 26 以降の iPhone / iPad / Mac / Apple Vision Pro",
   },
   {
     id: "intento",
     name: "Intento",
     products: tips(["コーヒー一杯", "ケーキも添えて", "お昼ごはん"]),
-    environment: "iPhone / iPad / Mac / Apple Vision Pro",
+    environment: "iOS / iPadOS / macOS / visionOS 27 以降の iPhone / iPad / Mac / Apple Vision Pro",
   },
   {
     id: "patchday",
     name: "Patchday",
     products: tips(["支援（コーヒー一杯分）", "支援（ケーキ付き）", "支援（ランチ一回分）"]),
-    environment: "iPhone / iPad / Mac",
+    environment: "iOS / iPadOS / macOS 27 以降の iPhone / iPad / Mac",
   },
   {
     id: "checkitout",
     name: "チェケラ",
     products: tips(["コーヒー一杯", "ケーキも添えて", "お昼ごはん"]),
-    environment: "iPhone / iPad",
+    environment: "iOS / iPadOS 26 以降の iPhone / iPad",
   },
 ];
 
@@ -127,7 +127,7 @@ export default function LegalPage() {
       </ul>
 
       <h2>引渡し時期</h2>
-      <p>購入の手続きが終わると、すぐに使えるようになります。</p>
+      <p>購入の手続きが終わると、すぐに使えるようになります。チップは、購入の手続きが終わった時点で完了します。</p>
 
       <h2>契約期間と解約方法（自動更新サブスクリプション）</h2>
       <ul>
@@ -150,7 +150,7 @@ export default function LegalPage() {
       </p>
 
       <h2>動作環境</h2>
-      <p>アプリごとの対応端末は下のとおりです。対応する OS のバージョンは、App Store の各アプリのページに記載しています。</p>
+      <p>アプリごとの対応 OS と端末は下のとおりです。App Store の各アプリのページにも記載しています。</p>
 
       <h2>アプリごとの販売内容</h2>
       {apps.map((app) => (
