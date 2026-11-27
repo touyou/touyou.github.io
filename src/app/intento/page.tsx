@@ -22,7 +22,7 @@ const faq: FaqItem[] = [
   { q: "Siri からどう使いますか？", a: "「Intento でやることを追加」「Intento で〇〇を完了」のように話しかけてください。〇〇にはやることの名前をそのまま入れられます。" },
   { q: "ショートカットでも使えますか？", a: "使えます。ショートカット App で Intento を探すと、追加・完了・検索など 25 種類のアクションが並んでいます。" },
   { q: "ほかのデバイスと同期されますか？", a: "同じ Apple Account でサインインした iPhone・iPad・Mac・Apple Watch・Apple Vision Pro の間で、iCloud を通して同期されます。" },
-  { q: "料金はかかりますか？", a: "Intento は無料です。アプリ内課金もありません。" },
+  { q: "料金はかかりますか？", a: "Intento は無料で、すべての機能を使えます。気に入ってもらえたら、情報画面から任意でチップを送れます。" },
 ];
 
 
@@ -88,7 +88,7 @@ export default function IntentoPage() {
             </div>
             <div className="flex flex-col items-center gap-3">
               <PillLink href={APP_STORE_URL}>App Store で入手</PillLink>
-              <span className="text-[13px] text-neutral-500">無料・アプリ内課金なし</span>
+              <span className="text-[13px] text-neutral-500">無料・任意のチップあり</span>
             </div>
           </div>
           <VoiceDemo />
