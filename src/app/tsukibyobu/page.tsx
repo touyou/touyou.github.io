@@ -49,7 +49,7 @@ const faq: FaqItem[] = [
   { q: "iPhone Duo でなくても使えますか？", a: "使えます。ひらく角度を読めない iPhone では、画面の下のスライダーで月をひらきます。" },
   { q: "どうして、閉じると暗くなるのですか？", a: "閉じた姿が朔（新月）にあたるからです。真っ暗にはならず、星がいちばん多い夜になり、月は地球照でうっすら輪郭だけが残ります。" },
   { q: "月に触れると、何が出ますか？", a: "そのときの月相にちなんだ話がひとつ。角度を変えると、別の話に変わります。" },
-  { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。" },
+  { q: "料金はかかりますか？", a: "月屏風は無料です。買い切りの「音の箱」を開けると、湖の水音や東山の鐘といった場所の音と、笙・尺八の音色、絵と別の季節の曲も選べます。同じく買い切りの「屏風の棚」を開けると、武蔵野と宇治の屏風が加わります。" },
 ];
 
 const places = [
@@ -57,6 +57,8 @@ const places = [
   { src: "/tsukibyobu/places/higashiyama-spring.jpg", name: "東山", note: "春" },
   { src: "/tsukibyobu/places/matsubara-winter.jpg", name: "松原", note: "冬" },
   { src: "/tsukibyobu/seasons/yamazato-autumn.jpg", name: "山里", note: "秋" },
+  { src: "/tsukibyobu/places/musashino-autumn.jpg", name: "武蔵野", note: "屏風の棚・秋の一枚" },
+  { src: "/tsukibyobu/places/uji-winter.jpg", name: "宇治", note: "屏風の棚・冬の一枚" },
 ];
 
 const seasons = [
@@ -136,13 +138,33 @@ function StoreLink({ size = "lg" }: { size?: "sm" | "lg" }) {
 function Painting({ src, alt, name, note }: { src: string; alt: string; name: string; note: string }) {
   return (
     <figure className="flex flex-col gap-3">
-      <Image src={src} alt={alt} width={1200} height={844} className="w-full" sizes="(min-width: 640px) 480px, 100vw" />
+      <Image src={src} alt={alt} width={1200} height={844} className="w-full" sizes="(min-width: 640px) 480px, 85vw" />
       <figcaption className="flex items-baseline gap-3 px-1">
         <span className="text-lg tracking-[0.08em]">{name}</span>
         <span className="text-[13px] text-[#8E8BA0]">{note}</span>
       </figcaption>
     </figure>
   );
+}
+
+/** 縦に積むとページが長くなるので、横にめくる。次の一枚の端をのぞかせて、めくれることを伝える */
+function Gallery({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <ul
+        aria-label={label}
+        tabIndex={0}
+        className="-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:gap-8 [&::-webkit-scrollbar]:hidden"
+      >
+        {children}
+      </ul>
+      <p className="text-center font-sans text-[12px] tracking-[0.08em] text-[#8E8BA0]">横にめくると、つぎの一枚</p>
+    </div>
+  );
+}
+
+function GalleryItem({ children }: { children: ReactNode }) {
+  return <li className="w-[85%] shrink-0 snap-start sm:w-[calc(50%-1rem)]">{children}</li>;
 }
 
 export default function TsukibyobuPage() {
@@ -185,7 +207,7 @@ export default function TsukibyobuPage() {
             <MoonPhases />
             <div className="flex flex-col items-center gap-3">
               <StoreLink />
-              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り</span>
+              <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」と「屏風の棚」は買い切り</span>
             </div>
           </div>
           <Image
@@ -251,13 +273,15 @@ export default function TsukibyobuPage() {
 
         <Section>
           <Heading title={["金の霞に、", "銀の月。"]}>
-            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。
+            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。買い切りの「屏風の棚」を開ければ、薄の野の武蔵野と、橋と水車の宇治が加わります。ここに置いたのは一枚ずつ。ほかの季節は、棚を開けてからのおたのしみに。
           </Heading>
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
+          <Gallery label="景色">
             {places.map((p) => (
-              <Painting key={p.src} src={p.src} alt={`${p.name}の屏風絵（${p.note}）`} name={p.name} note={p.note} />
+              <GalleryItem key={p.src}>
+                <Painting src={p.src} alt={`${p.name}の屏風絵（${p.note}）`} name={p.name} note={p.note} />
+              </GalleryItem>
             ))}
-          </div>
+          </Gallery>
         </Section>
 
         <GoldRule />
@@ -266,11 +290,13 @@ export default function TsukibyobuPage() {
           <Heading title={["梅に燕子花、", "すすきに雪の笹。"]}>
             季節ごとに、手前に描かれる草木が変わります。はじめは今の季節が選ばれています。
           </Heading>
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
+          <Gallery label="季節">
             {seasons.map((s) => (
-              <Painting key={s.src} src={s.src} alt={`山里の${s.name}。手前に${s.note}`} name={s.name} note={s.note} />
+              <GalleryItem key={s.src}>
+                <Painting src={s.src} alt={`山里の${s.name}。手前に${s.note}`} name={s.name} note={s.note} />
+              </GalleryItem>
             ))}
-          </div>
+          </Gallery>
         </Section>
 
         <GoldRule />
@@ -319,7 +345,7 @@ export default function TsukibyobuPage() {
             <Phrases phrases={["今夜の月を、", "てのひらに。"]} />
           </h2>
           <StoreLink />
-          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
+          <span className="font-sans text-[13px] text-[#8E8BA0]">無料・「音の箱」と「屏風の棚」は買い切り・iOS 27 以降の iPhone。ひらく角度を読むのは iOS 27.1 以降の iPhone Duo です。</span>
         </section>
       </main>
 

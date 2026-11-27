@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 /**
  * 月屏風のプライバシーポリシー。
- * 根拠: アプリが自分で通信するのは「音の箱」の購入と復元を StoreKit 経由で App Store に問い合わせる時だけで、保存するのは表示と音の設定だけという実装。
+ * 根拠: アプリが自分で通信するのは「音の箱」と「屏風の棚」の購入と復元を StoreKit 経由で App Store に問い合わせる時だけで、保存するのは表示と音の設定だけという実装。
  * アプリで扱うデータを変えたら、ここも直す。App Store Connect の App Privacy の回答とも食い違わせない。
  */
 const EFFECTIVE_DATE = "2026-10-29";
@@ -36,7 +36,7 @@ export default function TsukibyobuPrivacyPage() {
 
       <h2>アプリ内課金</h2>
       <p>
-        「音の箱」の購入と復元は、Apple の App Store が行います。お支払いの情報は Apple が扱い、開発者には届きません。購入済みかどうかは、本アプリが App Store に問い合わせて確かめます。
+        「音の箱」と「屏風の棚」の購入と復元は、Apple の App Store が行います。お支払いの情報は Apple が扱い、開発者には届きません。購入済みかどうかは、本アプリが App Store に問い合わせて確かめます。
       </p>
 
       <h2>お問い合わせでお送りいただく情報</h2>
