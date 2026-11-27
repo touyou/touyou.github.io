@@ -57,8 +57,8 @@ const places = [
   { src: "/tsukibyobu/places/higashiyama-spring.jpg", name: "東山", note: "春" },
   { src: "/tsukibyobu/places/matsubara-winter.jpg", name: "松原", note: "冬" },
   { src: "/tsukibyobu/seasons/yamazato-autumn.jpg", name: "山里", note: "秋" },
-  { src: "/tsukibyobu/places/musashino-autumn.jpg", name: "武蔵野", note: "秋・屏風の棚" },
-  { src: "/tsukibyobu/places/uji-winter.jpg", name: "宇治", note: "冬・屏風の棚" },
+  { src: "/tsukibyobu/places/musashino-autumn.jpg", name: "武蔵野", note: "屏風の棚・秋の一枚" },
+  { src: "/tsukibyobu/places/uji-winter.jpg", name: "宇治", note: "屏風の棚・冬の一枚" },
 ];
 
 const seasons = [
@@ -253,7 +253,7 @@ export default function TsukibyobuPage() {
 
         <Section>
           <Heading title={["金の霞に、", "銀の月。"]}>
-            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。買い切りの「屏風の棚」を開ければ、薄の野の武蔵野と、橋と水車の宇治が加わります。
+            絵は琳派の屏風に倣いました。くすんだ金箔の霞、群青と緑青の山、銀箔の月、夜空に散らした金砂子。景色は四つから選べます。買い切りの「屏風の棚」を開ければ、薄の野の武蔵野と、橋と水車の宇治が加わります。ここに置いたのは一枚ずつ。ほかの季節は、棚を開けてからのおたのしみに。
           </Heading>
           <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
             {places.map((p) => (
