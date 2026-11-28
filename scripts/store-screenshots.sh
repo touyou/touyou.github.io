@@ -67,6 +67,7 @@ for lang in $LANGS; do
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=iphone" \
     --frame 440x956 --count "$COUNT" --scale 3 --out "StoreImages/$APP/iphone/$lang"
   if [ "$IPAD" = 1 ]; then
+    check_page "$lang" ipad
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
       --frame "${IPAD_FRAME:-1032x1376}" --count "$COUNT" --scale 2 --out "StoreImages/$APP/ipad/$lang"
   fi
