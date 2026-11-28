@@ -74,11 +74,11 @@ export const COPY: Record<Lang, Copy> = {
       { eyebrow: "Your way", title: ["生成のしかたは、", "選べる。"] },
       { eyebrow: "Open source art", title: ["どの作品も、", "コードまで読める。"] },
       { eyebrow: "Native", title: ["一枚の作品が、", "どの端末でも動く。"] },
-      { eyebrow: "Free", title: ["今夜の空を、", "ことばにしてみる。"] },
+      { eyebrow: "Tonight", title: ["今夜の空を、", "ことばにしてみる。"] },
     ],
-    ways: ["オンデバイス", "共有の無料枠", "自分の API キー", "AI エージェント"],
+    ways: ["オンデバイス", "共有枠", "自分の API キー", "AI エージェント"],
     devices: "iPhone · iPad · Mac · Apple Vision Pro",
-    free: "無料 · 広告なし · 閲覧はサインイン不要",
+    free: "広告なし · 閲覧はサインイン不要",
   },
   en: {
     lead: ["No code. Just put down words.", "A gallery where AI turns your one sentence into WebGL", "generative art you can share."],
@@ -87,11 +87,11 @@ export const COPY: Record<Lang, Copy> = {
       { eyebrow: "Your way", title: ["Generate", "the way you like."] },
       { eyebrow: "Open source art", title: ["Every work comes", "with its code."] },
       { eyebrow: "Native", title: ["One work, alive on", "every device."] },
-      { eyebrow: "Free", title: ["Put tonight's sky", "into words."] },
+      { eyebrow: "Tonight", title: ["Put tonight's sky", "into words."] },
     ],
-    ways: ["On-device", "Free shared quota", "Your own API key", "AI agents"],
+    ways: ["On-device", "Shared quota", "Your own API key", "AI agents"],
     devices: "iPhone · iPad · Mac · Apple Vision Pro",
-    free: "Free · No ads · Browse without signing in",
+    free: "No ads · Browse without signing in",
   },
 };
 
@@ -258,7 +258,7 @@ function IphoneScene({ t, shots }: { t: Copy; shots: GShots }) {
         <Phone src={shots.iphoneGallery} width={220} />
       </Place>
 
-      {/* 6. 締め: ワードマークと無料の一言、作品の詳細 */}
+      {/* 6. 締め: ワードマークとひとこと、作品の詳細 */}
       <SceneTitle x={5 * W + 30} y={70} w={W - 60} eyebrow={s[3].eyebrow} title={s[3].title} size={32} />
       <Place x={5 * W + 30} y={232} z={30}>
         <span className={`text-[13px] text-white/65 ${BODY}`}>{t.free}</span>

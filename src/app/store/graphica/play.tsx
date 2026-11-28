@@ -15,8 +15,8 @@ export const PLAY_FRAME = { w: 360, h: 640, count: 4 } as const;
 
 export type PlayShots = { gallery: string; detail: string; create: string; detail2: string };
 
-// Android の生成方法は共有の無料枠と BYOK の 2 つ（docs/process/platform-feature-parity.md）
-const WAYS: Record<Lang, string[]> = { ja: ["共有の無料枠", "自分の API キー"], en: ["Free shared quota", "Your own API key"] };
+// Android の生成方法は共有枠と BYOK の 2 つ（docs/process/platform-feature-parity.md）
+const WAYS: Record<Lang, string[]> = { ja: ["共有枠", "自分の API キー"], en: ["Shared quota", "Your own API key"] };
 
 const SHADOW = "0 0 0 1px rgba(255,255,255,0.12), 0 50px 80px -30px rgba(0,0,0,0.85), 0 18px 36px -18px rgba(0,0,0,0.6)";
 
@@ -78,7 +78,7 @@ export function GraphicaPlayStrip({ lang, shots }: { lang: Lang; shots: PlayShot
         <Phone src={shots.create} width={200} />
       </Place>
 
-      {/* 4. 締め: 無料の一言と作品の詳細 */}
+      {/* 4. 締め: ひとことと作品の詳細 */}
       <SceneTitle x={3 * W + 28} y={56} w={W - 56} eyebrow={s[3].eyebrow} title={s[3].title} size={title} />
       <Place x={3 * W + 28} y={190} z={30}>
         <span className={`text-[11px] text-white/65 ${BODY}`}>{t.free}</span>
