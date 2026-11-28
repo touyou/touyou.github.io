@@ -21,6 +21,8 @@ BASE_URL="${BASE_URL:-http://localhost:3000}"
 # アプリごとの既定: 実機のスクショの場所、帯の枚数（ページの FRAMES と合わせる）、iPad を撮るか
 case "$APP" in
   tsukibyobu) DEFAULT_SHOTS=../Tsukibyobu/docs/app-store/screenshots/raw COUNT=4 IPAD=0 ;;
+  # GRAPHICA の iPad の帯は横向き（2752x2064）
+  graphica) DEFAULT_SHOTS=../_store-screenshots/Graphica COUNT=6 IPAD=1 IPAD_FRAME=1376x1032 ;;
   *) DEFAULT_SHOTS=../IntentTodo/Screenshots COUNT=6 IPAD=1 ;;
 esac
 SHOTS="${SHOTS:-$DEFAULT_SHOTS}"
@@ -65,8 +67,9 @@ for lang in $LANGS; do
   python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=iphone" \
     --frame 440x956 --count "$COUNT" --scale 3 --out "StoreImages/$APP/iphone/$lang"
   if [ "$IPAD" = 1 ]; then
+    check_page "$lang" ipad
     python3 "$CAPTURE" "$BASE_URL/store/$APP?lang=$lang&device=ipad" \
-      --frame 1032x1376 --count "$COUNT" --scale 2 --out "StoreImages/$APP/ipad/$lang"
+      --frame "${IPAD_FRAME:-1032x1376}" --count "$COUNT" --scale 2 --out "StoreImages/$APP/ipad/$lang"
   fi
   # iPhone Duo は開いた横向き 1467x1032 を 1.94477 倍で 2853x2007 の 1 組だけ。
   # Intento は帯の中に閉じた形も出るので、開いた形と閉じた形のスクショ（duo-open / duo-closed）が揃ったときだけ撮る。
